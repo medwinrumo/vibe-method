@@ -1,5 +1,3 @@
-# Règles de sécurité
-
 Règles de sécurité à appliquer dans tout projet web.
 
 Sources : podcast Radio Vibe Code #6 ou #7 + connaissances Claude (OWASP, bonnes pratiques générales).
@@ -153,62 +151,130 @@ Avec des IDs séquentiels (1, 2, 3...), l'attaquant peut facilement tester tous 
     - Si tu as l'expertise et le temps pour bien le sécuriser
     - Si tu acceptes le risque et la charge de travail supplémentaire
     
+    <aside>
+    
     **Conseil Vibe Coding :** commence par un hébergeur managé (Vercel, etc.). Si vraiment tu as besoin d'un VPS plus tard, tu migreras. Mais 99% des projets n'en ont pas besoin.
+    
+    </aside>
     
 - HTTPS obligatoire — géré automatiquement par les hébergeurs modernes
 
 ### 1.4 Choix de l'authentification
 
-> À enrichir lors d'une session dédiée.
-
 - Ne jamais coder son propre système d'authentification — utiliser un service existant (Supabase Auth, Firebase Auth, Clerk, Auth0, etc.)
 - Ces services gèrent pour toi : le hachage des mots de passe, les tokens, la récupération de compte, la protection contre le brute-force
 - Coder l'auth soi-même, c'est réinventer la roue avec un risque élevé de faille
+- **Décider dès la conception** quelle(s) méthode(s) d'authentification utiliser :
+    - Email / mot de passe (le classique — mais le plus exposé au brute-force)
+    - OAuth (Google, GitHub, Apple…) — réduit les frictions et délègue la sécurité au provider
+    - Magic link (lien envoyé par email) — plus simple, pas de mot de passe à gérer
+    - MFA (Multi-Factor Authentication) — à envisager pour les apps sensibles (finance, santé, admin)
+- Le choix impacte l'UX, le schéma de BDD et les flux de récupération de compte — difficile à changer après coup
+- L'IA ne propose pas de MFA par défaut — toujours le demander explicitement si nécessaire
 
-### 1.5 Définition des rôles
-
-> À enrichir lors d'une session dédiée.
+### 1.5 Définition des rôles et permissions
 
 - Si l'app a plusieurs types d'utilisateurs (admin, utilisateur, viewer...), définir les rôles dès la conception
 - Ça impacte toute la structure : les tables, les règles de filtrage, les routes, les écrans
 - Ajouter les rôles après coup est toujours plus coûteux et risqué que de les prévoir dès le départ
+- **Principe du moindre privilège** : chaque rôle ne doit avoir accès qu'à ce dont il a strictement besoin
+- Un utilisateur ne doit **jamais** pouvoir s'auto-promouvoir admin (vérification côté serveur obligatoire)
+- Si l'app est **multi-tenant** (plusieurs organisations/clients dans la même app) :
+    - Prévoir la séparation des données dès le schéma de base (ex: colonne `organization_id` sur chaque table)
+    - Les règles RLS doivent inclure le filtre par organisation en plus du filtre par utilisateur
+    - Tester que les données d'une organisation ne fuitent jamais vers une autre
+- L'IA génère souvent un seul rôle "utilisateur" — penser à lui demander la gestion des rôles dès le début
 
 ### 1.6 Données sensibles
 
 > À enrichir lors d'une session dédiée.
-
+> 
 - Identifier dès le départ quelles données sont sensibles (données personnelles, moyens de paiement, mots de passe, données de santé, etc.)
 - Décider comment les stocker : chiffrement au repos, chiffrement en transit, accès restreint
 - Ne jamais stocker en clair ce qui peut être chiffré ou haché
 
 ### 1.7 RGPD
 
-> À enrichir lors d'une session dédiée.
-
 - Clientèle PME/TPE en France — la conformité RGPD se pense dès la conception, pas après le lancement
+- **Principe de minimisation** : ne collecter que les données strictement nécessaires au fonctionnement
+    - Exemple : si tu n'as pas besoin de la date de naissance, ne la demande pas
+    - Chaque champ de formulaire doit avoir une justification
 - Décisions à prendre avant de coder :
-    - Quelles données personnelles sont collectées et pourquoi (principe de minimisation)
-    - Combien de temps elles sont conservées (durée de rétention)
-    - Comment recueillir le consentement de l'utilisateur
+    - Quelles données personnelles sont collectées et pourquoi
+    - Combien de temps elles sont conservées (durée de rétention) — prévoir une suppression automatique
+    - Comment recueillir le consentement de l'utilisateur (bannière cookies, checkbox inscription…)
     - Comment permettre à l'utilisateur de supprimer ses données (droit à l'effacement)
+    - Comment permettre l'export des données (droit à la portabilité)
+    - Comment permettre la rectification des données (droit de rectification)
+- **Impact sur le schéma de BDD** : prévoir dès le départ les fonctions de suppression/export/anonymisation — c'est beaucoup plus facile à coder dès le début qu'à ajouter après
 - L'IA ne pense pas au RGPD quand elle génère du code — toujours lui demander explicitement
+- En cas de doute, consulter le site de la CNIL ([cnil.fr](http://cnil.fr)) pour les obligations spécifiques
 
 ### 1.8 Stratégie de backup
 
 > À enrichir lors d'une session dédiée.
-
+> 
 - Décider dès le départ comment et à quelle fréquence les données sont sauvegardées
 - Vérifier ce que le service choisi (Supabase, Firebase, etc.) propose nativement comme backups
 - Tester la restauration — un backup qui n'a jamais été testé ne vaut rien
 
 ### 1.9 Politique de mots de passe
 
-> À enrichir lors d'une session dédiée.
-
 - Déléguer au maximum au service d'authentification choisi (cf. 1.4)
 - A minima : longueur minimale de 8 caractères, idéalement 12+
 - Ne jamais stocker les mots de passe en clair — le service d'auth gère le hachage automatiquement
 - Envisager l'authentification sans mot de passe (magic link, OAuth) pour simplifier et sécuriser
+- Interdire les mots de passe trop courants ("password", "123456", etc.) — la plupart des services d'auth le gèrent
+- Ne jamais envoyer de mot de passe en clair par email — utiliser des liens de réinitialisation avec token temporaire
+
+### 1.10 Politique de sessions et tokens
+
+- Définir dès la conception la durée de vie des sessions / tokens JWT
+    - Token d'accès : durée courte (15 min à 1h) — limite l'impact en cas de vol
+    - Refresh token : durée plus longue (7 à 30 jours) — permet de renouveler le token d'accès sans re-login
+- Prévoir l'**invalidation des sessions** côté serveur à la déconnexion — pas juste supprimer le cookie côté client
+    - Sans invalidation serveur, un token volé reste utilisable jusqu'à son expiration
+- Si l'app gère des données sensibles : prévoir le "logout everywhere" (invalider toutes les sessions actives)
+- L'IA génère souvent des tokens sans expiration ou avec des durées trop longues — toujours vérifier
+
+### 1.11 Politique CORS
+
+- **CORS** (Cross-Origin Resource Sharing) définit quels domaines ont le droit d'appeler ton API
+- Décider dès la conception quels domaines sont autorisés (ton front-end, ton app mobile, etc.)
+- **Règle d'or** : jamais `Access-Control-Allow-Origin: *` en production
+    - Le `*` signifie "tout le monde peut appeler mon API" — n'importe quel site malveillant peut envoyer des requêtes
+    - Acceptable uniquement en développement local
+- L'IA met très souvent `*` pour que ça "marche" rapidement — toujours vérifier et restreindre avant le déploiement
+- Exemple de configuration correcte : n'autoriser que `https://monsite.com` et `https://app.monsite.com`
+
+### 1.12 Logging et traçabilité
+
+- Décider dès la conception ce qu'on logge et où vont les logs
+- **Ce qu'il faut logger** :
+    - Tentatives de connexion (réussies et échouées)
+    - Accès refusés (403, 401)
+    - Modifications de données sensibles (changement d'email, de rôle, suppression de compte)
+    - Erreurs serveur (500)
+- **Ce qu'il ne faut JAMAIS logger** :
+    - Mots de passe (même hachés)
+    - Tokens d'authentification
+    - Données personnelles complètes (numéros de carte, etc.)
+- **Où stocker les logs** : utiliser un service managé (Vercel logs, LogTail, Datadog, etc.) plutôt que des `console.log` en production
+- Les logs permettent de détecter les attaques en cours et de comprendre les incidents après coup
+- L'IA n'ajoute pas de logging de sécurité par défaut — le demander explicitement
+
+### 1.13 Gestion des erreurs
+
+- Les messages d'erreur ne doivent **jamais** exposer de détails techniques aux utilisateurs
+    - ❌ "Error: relation "users" does not exist at line 42 of /app/src/api/users.ts"
+    - ✅ "Une erreur est survenue. Veuillez réessayer."
+- **Deux niveaux de messages** :
+    - **Utilisateur** : message générique et rassurant, sans détail interne
+    - **Log interne** : message détaillé avec stack trace, nom de table, timestamp, user ID (cf. 1.12)
+- Cas spécifique de l'authentification : ne jamais dire si c'est l'email ou le mot de passe qui est incorrect
+    - ❌ "Mot de passe incorrect" (confirme que l'email existe)
+    - ✅ "Identifiants incorrects" (ne révèle rien)
+- L'IA génère souvent des messages d'erreur trop détaillés — relire et remplacer avant la mise en production
 
 ---
 
@@ -292,3 +358,10 @@ Avec des IDs séquentiels (1, 2, 3...), l'attaquant peut facilement tester tous 
 - Toujours demander explicitement : "ajoute le RLS", "valide les entrées", "n'expose pas cette clé"
 - Relire le code généré avec cet angle de lecture avant d'exécuter
 - En cas de doute sur une règle RLS générée : la faire vérifier par un second modèle
+
+<aside>
+📌
+
+Source GitHub : `https://github.com/medwinrumo/vibe-method/blob/main/securite.md`
+
+</aside>

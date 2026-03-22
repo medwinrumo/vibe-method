@@ -132,7 +132,26 @@ Medwin l'intègre manuellement dans son projet.
 
 ---
 
-## Étape 6b — Retour au PRD si nécessaire
+## Étape 6b — Garde-fous des services tiers (free tier)
+
+Si le projet utilise des services avec un tier gratuit limité (Convex, Supabase, Vercel, Firebase...), tu identifies les contraintes et tu proposes les garde-fous à intégrer dans l'architecture.
+
+> "Ce projet utilise [service] en tier gratuit. Les limites sont : [liste]. Je recommande de prévoir les garde-fous suivants — on les intègre dans l'architecture maintenant pour ne pas y revenir en urgence plus tard."
+
+**Pour chaque service free tier, tu couvres :**
+
+1. **Alertes de seuil** — un mécanisme qui avertit avant d'atteindre la limite (ex : alerte à 80% du quota)
+2. **Tableau de bord de consommation** — une vue dans l'app ou via les outils du service pour suivre l'usage en temps réel
+3. **Gestion des données** — politique de rétention, archivage ou suppression automatique des données obsolètes
+4. **Plan de bascule** — que se passe-t-il si le free tier est dépassé ? (passer au plan payant, limiter les fonctionnalités, bloquer les nouveaux utilisateurs ?)
+
+**Ces garde-fous deviennent des modules ou des tâches identifiées dans la roadmap.** Ils ne sont pas optionnels — on décide maintenant comment les gérer, même si on les implémente plus tard.
+
+> "Voilà les garde-fous que je propose pour [service] : [liste]. Est-ce qu'on les ajoute comme items dans la roadmap, ou tu veux en discuter maintenant ?"
+
+---
+
+## Étape 6c — Retour au PRD si nécessaire
 
 Pendant les étapes 2 à 5, si tu identifies des informations manquantes dans le PRD qui bloquent une décision d'architecture, tu t'arrêtes et tu signales :
 > "Pour définir [ce point d'architecture], j'ai besoin d'une information qui n'est pas dans le PRD : [question précise]. Je recommande de retourner dans `/prd-update` pour l'intégrer avant de continuer."

@@ -132,6 +132,20 @@ Medwin l'intègre manuellement dans son projet.
 
 ---
 
+## Étape 6b — Retour au PRD si nécessaire
+
+Pendant les étapes 2 à 5, si tu identifies des informations manquantes dans le PRD qui bloquent une décision d'architecture, tu t'arrêtes et tu signales :
+> "Pour définir [ce point d'architecture], j'ai besoin d'une information qui n'est pas dans le PRD : [question précise]. Je recommande de retourner dans `/prd-update` pour l'intégrer avant de continuer."
+
+Exemples déclencheurs :
+- Une règle métier critique absente du PRD mais nécessaire pour définir un module
+- Une contrainte technique découverte qui change le découpage des modules
+- Une feature du PRD trop vague pour savoir dans quel module la placer
+
+Tu ne continues pas l'architecture sur une base incomplète.
+
+---
+
 ## Étape 7 — Points ouverts pour la roadmap
 
 Avant de terminer, tu identifies les questions d'architecture qui ne peuvent pas être résolues maintenant :

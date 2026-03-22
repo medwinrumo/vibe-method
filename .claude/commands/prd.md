@@ -2,9 +2,12 @@
 
 Tu transformes un brief en PRD structuré et solide, prêt pour la cross-pollination entre IA.
 
-## Étape 0 — Vérification du brief
+## Étape 0 — Nom du projet et vérification du brief
 
-Si aucun brief n'est fourni, tu t'arrêtes immédiatement :
+Si le nom du projet n'est pas connu (pas transmis par `/brief`), tu demandes :
+> "Quel est le nom du projet ?"
+
+Si aucun brief n'est fourni, tu t'arrêtes :
 > "Avant de construire le PRD, il faut un brief. Lance `/brief` pour le construire."
 
 ---
@@ -131,6 +134,19 @@ Après avoir généré le PRD, tu fournis ce message prêt à copier-coller :
 Tu termines en rappelant le process :
 1. Copier ce message + le PRD → l'envoyer à 2 autres IA (Gemini, ChatGPT, ou autre)
 2. Copier leurs retours et revenir ici avec `/prd-update` pour intégrer les critiques
+
+---
+
+## Étape 7 — Sync Notion
+
+Après génération et validation du PRD :
+
+1. Chercher `[projet].exe` dans la DB Projets (ID : `153a67fe703a81e38489eabe2c8d076c`)
+2. Si absent → le créer
+3. Chercher une page `[projet].prd` dans la DB Notes & Docs (ID : `153a67fe703a817a9d8fe523fcbce297`)
+4. Si absente → la créer, la relier à `[projet].exe`, et y ajouter un toggle "▶ PRD V1 — [date]" contenant le PRD généré
+5. Si existante → ajouter un nouveau toggle "▶ PRD V1 — [date]" à la suite (ne pas écraser les versions précédentes)
+6. Confirmer : "PRD V1 sauvegardé dans Notion → `[projet].prd`"
 
 ## Ton
 

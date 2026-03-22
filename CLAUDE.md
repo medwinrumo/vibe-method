@@ -59,14 +59,32 @@ Choix défini au moment du `/archi`.
 
 ---
 
+## Problème non résolu — à traiter en priorité prochaine session
+
+**Organisation des skills : deux emplacements, un problème de cohérence.**
+
+Situation actuelle :
+- `~/.claude/commands/` — skills globaux, exécutés par Claude Code dans tous les projets
+- `vibe-method/.claude/commands/` — copie versionnée dans git, accessible par Claude Web via GitHub
+
+Le problème : quand un skill est modifié dans l'un, l'autre n'est pas automatiquement mis à jour.
+
+Questions à régler :
+1. Faut-il garder les deux emplacements ? Ou choisir une source unique ?
+2. Si deux emplacements : quel mécanisme de sync ?
+3. Les .md (produit.md, architecture.md...) sont-ils redondants avec les skills ? Les simplifier ?
+
+---
+
 ## Ce qui reste à construire
 
 - [ ] Boilerplate — projet template prêt à cloner (point 2.2 workflow2)
 - [ ] Skills vs MCP — point 2.3 workflow2
-- [ ] Mettre à jour `architecture.md` avec les deux stacks
+- [ ] Mettre à jour `architecture.md` avec les deux stacks (Convex / Supabase)
+- [ ] Résoudre le problème d'organisation skills (voir ci-dessus)
 
 ## Prochain projet à démarrer
 
 **Minou** — app chat multi-LLM. Démarrer depuis `/brief`.
 Stack : Convex (real-time natif pour le chat).
-Migrer depuis Firebase V1 vers Convex V2.
+Garder Firebase V1 en ligne pendant la construction de V2 sur Convex.

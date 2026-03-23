@@ -60,6 +60,16 @@ Fichiers de référence : `securite.md`, `architecture.md`
 
 ---
 
+## Règles Git — projets applicatifs
+
+- `main` = toujours stable, jamais de code non validé
+- Une branche par feature : `feat/[nom-feature]`
+- Merge dans `main` après validation `/recette` ✅
+- Branche supprimée après merge
+- PR (Pull Request) optionnelle en solo — recommandée pour forcer une relecture avant merge
+
+---
+
 ## Règle transversale
 
 Rien n'entre dans le système (fichiers, règles, code) sans discussion préalable et validation explicite de Medwin.

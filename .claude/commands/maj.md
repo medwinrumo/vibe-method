@@ -15,15 +15,9 @@ Détermine le nom du projet à partir du répertoire de travail courant (ex : `m
 2. Si des modifications non commitées existent, demander confirmation avant de commiter
 3. Pousser la branche courante (`git push`)
 
-### Fichier `[projet].run.md`
-
-Suivre les étapes de `/majrun` pour mettre à jour ce fichier et son miroir Notion.
-
 ### Fichier `CLAUDE.md`
 
 Mettre à jour si la session a produit des décisions d'architecture, des changements d'implémentation, des corrections de spec, ou tout élément qui modifie la compréhension du projet. C'est une source de vérité — elle doit refléter la réalité du code, pas une version périmée.
-
-Note : `[projet].run.md` et `CLAUDE.md` sont des fichiers Git. Ils sont commités et poussés comme tout autre fichier.
 
 ## Étape 3 — Notion
 

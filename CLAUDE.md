@@ -78,11 +78,25 @@ Questions à régler :
 
 ## Ce qui reste à construire
 
-- [ ] Boilerplate + skill `/init` — template de démarrage par stack (Convex / Supabase) + skill qui crée le repo GitHub via `gh`, scaffold la structure, crée le CLAUDE.md projet, crée les pages Notion, premier commit et push
-- [ ] Skills vs MCP — point 2.3 workflow2
+### Chaîne de skills
+- [ ] Skill `/securite` — checklist sécurité à intégrer dans la chaîne, en complément de `/archi`. Doctrine : `securite.md`
+- [ ] Skill `/init` — point d'entrée de toute la méthode. Crée tout d'un coup :
+  - Git : repo GitHub via `gh`, structure dossiers selon stack, CLAUDE.md projet, [projet].todo.md, premier commit + push
+  - Notion : page racine `[projet].run` + toutes les sous-pages ([projet].brief, .prd, .archi, .Rmap, .spec, .todo, .log, .peda, .doc)
+  - Usage : `/init minou` → tout est prêt
+
+### Documentation
 - [ ] Mettre à jour `architecture.md` avec les deux stacks (Convex / Supabase)
-- [ ] Résoudre le problème d'organisation skills (voir ci-dessus)
-- [ ] Construire le skill `/securite` — checklist sécurité à intégrer dans la chaîne, en complément de `/archi`
+
+### Infrastructure
+- [ ] Skills vs MCP — comprendre la différence, décider quand utiliser l'un ou l'autre (point 2.3 workflow2)
+- [ ] Corriger `/maj` — supprimer références à `[projet].run.md` et `/majrun` (inexistants), remplacer par `[projet].run` page Notion gérée par `/init`
+
+### Organisation skills (résolu en session 2026-03-23)
+- [x] Source unique dans Git (vibe-method)
+- [x] Symlinks `~/.claude/commands/` → vibe-method
+- [x] `CLAUDE.global.md` versionné dans vibe-method
+- [x] `setup.sh` pour nouvelle machine
 
 ## Prochain projet à démarrer
 

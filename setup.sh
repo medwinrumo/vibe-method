@@ -13,4 +13,8 @@ for f in $VIBE/*.md; do
   echo "$filename → symlink créé"
 done
 
+# Symlink CLAUDE.md global
+ln -sf ~/dev/vibe-method/CLAUDE.global.md ~/dev/CLAUDE.md
+echo "CLAUDE.md global → symlink créé"
+
 echo "Setup terminé — $(ls $TARGET | wc -l | tr -d ' ') skills liés."

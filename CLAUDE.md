@@ -78,10 +78,11 @@ Questions à régler :
 
 ## Ce qui reste à construire
 
-- [ ] Boilerplate — projet template prêt à cloner (point 2.2 workflow2)
+- [ ] Boilerplate + skill `/init` — template de démarrage par stack (Convex / Supabase) + skill qui crée le repo GitHub via `gh`, scaffold la structure, crée le CLAUDE.md projet, crée les pages Notion, premier commit et push
 - [ ] Skills vs MCP — point 2.3 workflow2
 - [ ] Mettre à jour `architecture.md` avec les deux stacks (Convex / Supabase)
 - [ ] Résoudre le problème d'organisation skills (voir ci-dessus)
+- [ ] Construire le skill `/securite` — checklist sécurité à intégrer dans la chaîne, en complément de `/archi`
 
 ## Prochain projet à démarrer
 

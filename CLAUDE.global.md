@@ -66,6 +66,7 @@ Il définit les process de travail, les préférences et l'écosystème communs 
 | Commande | Action |
 |---|---|
 | `/maj` | Clôture de session complète (GitHub + toutes les pages Notion du projet) |
+| `/checkpoint` | Documentation intermédiaire — Notion uniquement, sans clôture Git, on continue |
 | `/todo` | Lecture de l'état du projet en début de session |
 | `/majtodo` | Met à jour `[projet].todo.md` dans Git et la page `[projet].todo` dans Notion |
 | `/majpeda` | Met à jour uniquement la page `[projet].peda` dans Notion |
@@ -74,6 +75,8 @@ Il définit les process de travail, les préférences et l'écosystème communs 
 | `/majspec` | Met à jour uniquement la page `[projet].spec` dans Notion |
 
 Les pages Notion ciblées sont celles du **projet en cours de travail**.
+
+**Règle de non-duplication :** avant toute écriture dans Notion, lire le contenu existant de la page et n'écrire que ce qui ne l'est pas encore. Si `/checkpoint` a été utilisé en cours de session, `/maj` ne documente que l'incrément restant.
 
 ---
 

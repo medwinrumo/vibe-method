@@ -23,6 +23,9 @@ Mettre à jour si la session a produit des décisions d'architecture, des change
 
 Ces pages vivent uniquement dans Notion, indépendamment de Git. Créer toute page manquante avant d'y écrire.
 
+**Règle de non-duplication — s'applique à toutes les pages ci-dessous :**
+Avant d'écrire quoi que ce soit, lire le contenu existant de la page. Identifier ce qui est déjà documenté. N'écrire que ce qui ne l'est pas encore. Si la session a déjà été partiellement documentée via `/checkpoint`, ne reprendre que l'incrément restant — jamais réécrire ce qui existe.
+
 ### Page `[projet].peda`
 
 Journal d'apprentissage à vocation pédagogique. Rédigé avec une intention professorale — comme si on expliquait à Medwin ce qui s'est passé, pourquoi les choses ont été faites ainsi, ce qu'il faut avoir compris. Les difficultés, erreurs et doutes méritent autant d'attention que les succès.

@@ -71,7 +71,7 @@ Il définit les process de travail, les préférences et l'écosystème communs 
 | `/majtodo` | Met à jour `[projet].todo.md` dans Git et la page `[projet].todo` dans Notion |
 | `/majpeda` | Met à jour uniquement la page `[projet].peda` dans Notion |
 | `/majlog` | Met à jour uniquement la page `[projet].log` dans Notion |
-| `/majdoc` | Met à jour uniquement la page `[projet].userdoc` dans Notion |
+| `/majdoc` | Met à jour uniquement la page `[projet].doc` dans Notion |
 | `/majspec` | Met à jour uniquement la page `[projet].spec` dans Notion |
 
 Les pages Notion ciblées sont celles du **projet en cours de travail**.
@@ -101,7 +101,7 @@ Les pages Notion ciblées sont celles du **projet en cours de travail**.
 | `[projet].spec` | Specs et user stories | `/majspec` |
 | `[projet].peda` | Journal pédagogique | `/majpeda` |
 | `[projet].log` | Journal de bord | `/majlog` |
-| `[projet].userdoc` | Documentation utilisateur | `/majdoc` |
+| `[projet].doc` | Documentation utilisateur | `/majdoc` |
 
 **Règle :** chaque skill crée ou met à jour automatiquement sa page Notion à la fin de son exécution.
 **Règle :** le skill demande le nom du projet en début d'exécution si non fourni, afin de cibler les bonnes pages.
@@ -121,6 +121,8 @@ Claude Web enrichit ces fichiers depuis GitHub. En début de session, faire `git
 | `methode.md` | Phases de travail, roadmap, planning, tests |
 | `architecture.md` | Patterns d'architecture |
 | `securite.md` | Règles de sécurité à appliquer |
+| `tests.md` | Doctrine de test (niveaux, Gherkin, Playwright, anti-auto-validation) |
+| `stack.md` | Doctrine de reconnaissance technique (spike, investigation stack, free tier, gotchas) |
 
 **Règle absolue :** rien n'entre dans ces fichiers sans discussion et validation explicite de Medwin.
 
@@ -143,7 +145,7 @@ Claude Web enrichit ces fichiers depuis GitHub. En début de session, faire `git
 |---|---|---|
 | Journal pédagogique | `[nom_système].peda` | Documenter ce qu'on a fait, pourquoi, comment, les difficultés |
 | Journal de bord | `[nom_système].log` | Entrées courtes et datées, factuelles |
-| Documentation utilisateur | `[nom_système].userdoc` | Doc destinée à l'utilisateur final, construite au fil du dev |
+| Documentation utilisateur | `[nom_système].doc` | Doc destinée à l'utilisateur final, construite au fil du dev |
 
 **Structure des pages `.peda` et `.log` :** menus dépliants imbriqués par jour puis par session.
 ```
@@ -165,7 +167,7 @@ Règle absolue : chaque session dans **son propre menu dépliant**, jamais dans 
 - Entrées courtes et factuelles, datées
 - Pas de détails techniques (ceux-ci sont dans `.peda`)
 
-**Page `.userdoc` :** ne suit pas une logique chronologique — organisation pensée du point de vue utilisateur, structure à définir lors d'une session dédiée.
+**Page `.doc` :** ne suit pas une logique chronologique — organisation pensée du point de vue utilisateur, structure à définir lors d'une session dédiée.
 
 #### Checklist de clôture
 
@@ -173,4 +175,4 @@ Règle absolue : chaque session dans **son propre menu dépliant**, jamais dans 
 - [ ] Fichier `[projet].todo.md` mis à jour
 - [ ] Page `.peda` complétée
 - [ ] Page `.log` complétée
-- [ ] Page `.userdoc` mise à jour si nécessaire
+- [ ] Page `.doc` mise à jour si nécessaire

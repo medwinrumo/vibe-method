@@ -14,6 +14,7 @@ vibe-method/
 ├── architecture.md     → Patterns d'architecture (modulaire + silos)
 ├── securite.md         → Règles de sécurité à appliquer
 ├── tests.md            → Doctrine de test (niveaux, Gherkin, Playwright, anti-auto-validation)
+├── stack.md            → Doctrine de reconnaissance technique (spike, investigation stack, free tier, gotchas)
 └── .claude/
     └── commands/       → Skills Claude Code (voir liste ci-dessous)
 ```
@@ -23,7 +24,7 @@ vibe-method/
 ## Chaîne de skills — workflow complet
 
 ```
-/brief → /prd → /prd-update → /archi → /roadmap → /specs → [code] → /tests → /recette ↔ /debug
+/brief → /prd → /prd-update → /archi → /stack → /roadmap → /specs → [code] → /tests → /recette ↔ /debug
 ```
 
 | Skill | Rôle | Output |
@@ -32,6 +33,7 @@ vibe-method/
 | `/prd` | Du brief au PRD V1 (dialogue) | `[projet].prd.md` |
 | `/prd-update` | Intégration retours cross-pollination → PRD V2 | `[projet].prd.md` |
 | `/archi` | Architecture modulaire + silos + garde-fous | `[projet].archi.md` + `CLAUDE.md` projet |
+| `/stack` | Spike technique — investigation stack, free tier, gotchas | `[projet].stack.md` |
 | `/roadmap` | Roadmap + planning global | `[projet].Rmap.md` |
 | `/specs` | User story format A4 | `[projet].spec.md` |
 | `/tests` | Tests unitaires + intégration + Playwright | `[projet].tests.md` |

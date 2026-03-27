@@ -13,6 +13,7 @@ vibe-method/
 ├── methode.md          → Phases de travail, roadmap, planning, tests
 ├── architecture.md     → Patterns d'architecture (modulaire + silos)
 ├── securite.md         → Règles de sécurité à appliquer
+├── tests.md            → Doctrine de test (niveaux, Gherkin, Playwright, anti-auto-validation)
 └── .claude/
     └── commands/       → Skills Claude Code (voir liste ci-dessous)
 ```
@@ -22,19 +23,22 @@ vibe-method/
 ## Chaîne de skills — workflow complet
 
 ```
-/brief → /prd → /prd-update → /archi → /roadmap → /specs → /tests → /recette
+/brief → /prd → /prd-update → /archi → /roadmap → /specs → [code] → /tests → /recette ↔ /debug
 ```
 
-| Skill | Rôle | Sortie Notion |
+| Skill | Rôle | Output |
 |---|---|---|
-| `/brief` | De l'intention au brief structuré | `[projet].brief` |
-| `/prd` | Du brief au PRD V1 (dialogue) | `[projet].prd` toggle V1 |
-| `/prd-update` | Intégration retours cross-pollination → PRD V2 | `[projet].prd` toggle V2 |
-| `/archi` | Architecture modulaire + silos + garde-fous | `[projet].archi` + CLAUDE.md projet |
-| `/roadmap` | Roadmap + planning global | `[projet].Rmap` |
-| `/specs` | User story format A4 + critères Gherkin | `[projet].spec` |
-| `/tests` | Unit + integration tests depuis specs | local |
-| `/recette` | Checklist E2E manuelle + suivi ✅/❌ | `[projet].recette` |
+| `/brief` | De l'intention au brief structuré | `[projet].brief.md` |
+| `/prd` | Du brief au PRD V1 (dialogue) | `[projet].prd.md` |
+| `/prd-update` | Intégration retours cross-pollination → PRD V2 | `[projet].prd.md` |
+| `/archi` | Architecture modulaire + silos + garde-fous | `[projet].archi.md` + `CLAUDE.md` projet |
+| `/roadmap` | Roadmap + planning global | `[projet].Rmap.md` |
+| `/specs` | User story format A4 | `[projet].spec.md` |
+| `/tests` | Tests unitaires + intégration + Playwright | `[projet].tests.md` |
+| `/recette` | Génère Gherkin depuis User Stories + validation manuelle | `[projet].recette.md` |
+| `/debug` | Diagnostic et résolution de bug (déclenché par `/recette`) | — |
+
+**Règle de stockage :** tous les outputs sont des fichiers `.md` dans le repo du projet — pas dans Notion. Notion est une copie pour la lecture, mise à jour en fin de session via `/maj`.
 
 ---
 
@@ -43,7 +47,16 @@ vibe-method/
 - **Rien n'entre dans les .md sans discussion et validation de Medwin.**
 - Les skills sont dans `.claude/commands/` — un fichier par skill.
 - Toujours commiter et pusher après chaque modification de skill.
-- Les skills sont accessibles globalement par Claude Web (via GitHub) et par Claude Code (via `.claude/commands/`).
+- Les skills sont accessibles globalement par Claude Code via les symlinks `~/.claude/commands/` → vibe-method.
+
+---
+
+## Infrastructure Git — actée
+
+- Source unique : `vibe-method/.claude/commands/` pour tous les skills
+- `~/.claude/commands/` = symlinks vers vibe-method
+- `CLAUDE.global.md` versionné dans vibe-method (symlink depuis `~/dev/CLAUDE.md`)
+- `setup.sh` dans vibe-method — recrée tous les symlinks sur nouvelle machine
 
 ---
 
@@ -59,44 +72,25 @@ Choix défini au moment du `/archi`.
 
 ---
 
-## Problème non résolu — à traiter en priorité prochaine session
-
-**Organisation des skills : deux emplacements, un problème de cohérence.**
-
-Situation actuelle :
-- `~/.claude/commands/` — skills globaux, exécutés par Claude Code dans tous les projets
-- `vibe-method/.claude/commands/` — copie versionnée dans git, accessible par Claude Web via GitHub
-
-Le problème : quand un skill est modifié dans l'un, l'autre n'est pas automatiquement mis à jour.
-
-Questions à régler :
-1. Faut-il garder les deux emplacements ? Ou choisir une source unique ?
-2. Si deux emplacements : quel mécanisme de sync ?
-3. Les .md (produit.md, architecture.md...) sont-ils redondants avec les skills ? Les simplifier ?
-
----
-
 ## Ce qui reste à construire
 
-### Chaîne de skills
-- [ ] Skill `/securite` — checklist sécurité à intégrer dans la chaîne, en complément de `/archi`. Doctrine : `securite.md`
+### Priorité haute
 - [ ] Skill `/init` — point d'entrée de toute la méthode. Crée tout d'un coup :
   - Git : repo GitHub via `gh`, structure dossiers selon stack, CLAUDE.md projet, [projet].todo.md, premier commit + push
-  - Notion : page racine `[projet].run` + toutes les sous-pages ([projet].brief, .prd, .archi, .Rmap, .spec, .todo, .log, .peda, .doc)
+  - Notion : page racine `[projet].run` + toutes les sous-pages
   - Usage : `/init minou` → tout est prêt
+- [ ] Migration outputs skills → `.md` dans repo projet — `/brief`, `/prd`, `/archi`, `/roadmap` écrivent encore dans Notion en primaire. À migrer.
 
-### Documentation
-- [ ] Mettre à jour `architecture.md` avec les deux stacks (Convex / Supabase)
+### Priorité moyenne
+- [ ] Skill `/securite` — checklist sécurité à intégrer dans la chaîne, en complément de `/archi`. Doctrine : `securite.md`
+- [ ] `methode.md` — mettre à jour la Phase 5 Vérification avec le nouveau flow (tests unitaires → non-régression → Playwright → recette manuelle)
 
-### Infrastructure
-- [ ] Skills vs MCP — comprendre la différence, décider quand utiliser l'un ou l'autre (point 2.3 workflow2)
-- [ ] Corriger `/maj` — supprimer références à `[projet].run.md` et `/majrun` (inexistants), remplacer par `[projet].run` page Notion gérée par `/init`
+### Priorité basse
+- [ ] `architecture.md` — mettre à jour avec les deux stacks (Convex / Supabase)
+- [ ] Skills vs MCP — comprendre la différence, décider quand utiliser l'un ou l'autre
+- [ ] Corriger `/maj` — supprimer références à `[projet].run.md` et `/majrun` (inexistants)
 
-### Organisation skills (résolu en session 2026-03-23)
-- [x] Source unique dans Git (vibe-method)
-- [x] Symlinks `~/.claude/commands/` → vibe-method
-- [x] `CLAUDE.global.md` versionné dans vibe-method
-- [x] `setup.sh` pour nouvelle machine
+---
 
 ## Prochain projet à démarrer
 

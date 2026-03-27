@@ -89,6 +89,19 @@ Les étapes 2, 3 et 5 filtrent les bugs avant que l'humain intervienne. Medwin a
 
 Fichier de référence : `tests.md`
 
+### GitHub Actions — automatisation optionnelle
+
+À évaluer au démarrage du projet : superflu pour un V1 solo, utile dès qu'on veut un filet de sécurité automatique.
+
+Usages typiques :
+- Lancer la batterie Playwright à chaque push sur `main`
+- Bloquer un merge si des tests échouent
+- Lancer les tests la nuit sur la branche de dev
+
+Règle : projet solo et petit → pas de GitHub Actions, Vercel suffit. Plusieurs contributeurs ou app critique → mettre en place dès le départ.
+
+La question se pose lors du `/stack` ou du `/archi`.
+
 ---
 
 ## Règles Git — projets applicatifs

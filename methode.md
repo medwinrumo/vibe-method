@@ -19,7 +19,24 @@ Fichiers de référence : `produit.md`, `securite.md`
 
 ---
 
-### Phase 2 — Architecture
+### Phase 2 — Design
+> Traduire les features en interface visuelle avant de toucher au code.
+
+1. Export des features depuis le PRD — liste structurée :
+   - Nom de la feature
+   - Composant UI associé (bouton, liste déroulante, onglet, champ texte...)
+   - Comportement de base si nécessaire (ex : "clic → déroule un panneau")
+2. Medwin travaille dans Stitch (génération maquette) puis Figma (affinage)
+3. Medwin livre l'export Figma (CSS + captures) — Claude reprend
+
+**Règle :** étape manuelle. Claude produit l'export features, Medwin fait la maquette.
+Claude ne reprend qu'à la réception de l'export Figma.
+
+Fichier de référence : `design.md`
+
+---
+
+### Phase 3 — Architecture
 > Décider comment le code est organisé.
 
 - Choisir le pattern d'architecture (ex : modulaire)
@@ -30,7 +47,7 @@ Fichier de référence : `architecture.md`
 
 ---
 
-### Phase 3 — Stack
+### Phase 4 — Stack
 > Investiguer les outils avant de construire.
 
 - Spike technique sur chaque outil de la stack
@@ -42,16 +59,16 @@ Fichier de référence : `stack.md`
 
 ---
 
-### Phase 4 — Planification
+### Phase 5 — Planification
 > Construire la roadmap d'exécution.
 
-- Donner le PRD et l'architecture pour générer la roadmap en markdown
+- Donner le PRD, le design et l'architecture pour générer la roadmap en markdown
 - Découper en features parallélisables
 - Chaque bloc = la plus petite feature possible
 
 ---
 
-### Phase 5 — Code
+### Phase 6 — Code
 > Coder feature par feature, en respectant les règles établies.
 
 - Une feature à la fois, validée contre ses critères d'acceptation
@@ -67,7 +84,7 @@ Fichiers de référence : `securite.md`, `architecture.md`
 
 ---
 
-### Phase 6 — Vérification
+### Phase 7 — Vérification
 > S'assurer que ce qui est construit est correct — techniquement et fonctionnellement.
 
 Ordre d'exécution pour chaque feature :

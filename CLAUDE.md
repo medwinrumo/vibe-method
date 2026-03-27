@@ -11,6 +11,7 @@ Il n'est pas une app — c'est un ensemble de documents et de skills.
 vibe-method/
 ├── produit.md          → Brief → PRD → Backlog → User Story → Specs
 ├── methode.md          → Phases de travail, roadmap, planning, tests
+├── design.md           → Workflow Stitch → Figma → export CSS → intégration Tailwind/shadcn
 ├── architecture.md     → Patterns d'architecture (modulaire + silos)
 ├── securite.md         → Règles de sécurité à appliquer
 ├── tests.md            → Doctrine de test (niveaux, Gherkin, Playwright, anti-auto-validation)
@@ -24,8 +25,10 @@ vibe-method/
 ## Chaîne de skills — workflow complet
 
 ```
-/brief → /prd → /prd-update → /archi → /stack → /roadmap → /specs → [code] → /tests → /recette ↔ /debug
+/brief → /prd → /prd-update → [design] → /archi → /stack → /roadmap → /specs → [code] → /tests → /recette ↔ /debug
 ```
+
+**[design] = étape manuelle** : Claude exporte la liste de features avec composants UI → Medwin travaille dans Stitch + Figma → livre l'export CSS à Claude.
 
 | Skill | Rôle | Output |
 |---|---|---|
@@ -85,7 +88,7 @@ Choix défini au moment du `/archi`.
 
 ### Priorité moyenne
 - [ ] Skill `/securite` — checklist sécurité à intégrer dans la chaîne, en complément de `/archi`. Doctrine : `securite.md`
-- [ ] `methode.md` — mettre à jour la Phase 5 Vérification avec le nouveau flow (tests unitaires → non-régression → Playwright → recette manuelle)
+- [ ] Skill `/design` — exporter la liste de features structurée (feature + composant UI + comportement) depuis le PRD, pour alimenter Stitch
 
 ### Priorité basse
 - [ ] `architecture.md` — mettre à jour avec les deux stacks (Convex / Supabase)

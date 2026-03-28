@@ -26,6 +26,8 @@
 - 6 — Corriger `/maj` — supprimer références à `[projet].run.md` et `/majrun` (inexistants). **Priorité basse.**
 - 7 — ExplorePéda#7 niveau 3 — agent manager (3.1), OpenClaw + mémoire partagée (3.2) — pour plus tard.
 - 8 — Tester Lovable comme outil de génération UI — à évaluer comme alternative/complément à Stitch + Figma. Décision d'intégration dans la stack design après test.
+- 9 — Audit et enrichissement des skills existants — à faire après avoir fini de lire tous les documents doctrine en cours. Les skills peuvent contenir : exemples de code, URLs de doc, scripts de validation, chemins de fichiers précis, versions de librairies. Traiter en dernier, une fois toute la doctrine verrouillée. **Priorité haute — à ne pas lancer avant.**
+- 10 — Skill `/prp` — agrège tous les outputs existants (PRD + archi + CLAUDE.md + roadmap + specs) en un document unique, précis, optimisé pour le LLM comme contexte de démarrage. À créer après l'audit des skills (tâche 9) car sa qualité dépend de celle des outputs qu'il agrège. **Priorité haute — à ne pas lancer avant tâche 9.**
 
 ### Réalisées
 

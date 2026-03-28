@@ -327,6 +327,109 @@ Avec des IDs séquentiels (1, 2, 3...), l'attaquant peut facilement tester tous 
 
 ---
 
+## 2bis — Gestion des ressources
+
+La gestion des ressources, c'est s'assurer que ton application ne consomme pas plus que ce qu'elle ne devrait — ni en mémoire, ni en connexions, ni en appels à des services externes. Une app mal gérée ralentit, plante ou génère des coûts imprévus, même avec peu d'utilisateurs.
+
+Ces règles s'appliquent dès la conception (`/archi`, `/stack`) et se vérifient à chaque feature codée.
+
+---
+
+### 2bis.1 — Penser en connexions simultanées, pas en nombre d'utilisateurs
+
+**Le problème :** quand on parle de charge, l'instinct est de raisonner en nombre d'utilisateurs. C'est la mauvaise métrique. Ce qui compte, c'est combien d'utilisateurs sont actifs **en même temps** — et combien de connexions chacun génère.
+
+**Pourquoi ce n'est pas la même chose :**
+
+Une connexion n'est pas toujours égale à un utilisateur. Selon ce que fait l'app :
+- Un utilisateur qui charge une page peut ouvrir **plusieurs connexions simultanément** (données initiales + écoute temps réel + rafraîchissement périodique)
+- Une app avec du temps réel (chat, notifications) peut générer 3 à 5 connexions par utilisateur actif
+- 100 utilisateurs inscrits qui se connectent tous en même temps ≠ 10 000 utilisateurs qui se connectent une fois par mois
+
+**Question à poser lors du `/archi` :** "Décris ce qu'un utilisateur typique fait sur l'app : combien de temps reste-t-il, est-ce que l'app se met à jour automatiquement, y a-t-il du temps réel ?" Cette réponse permet d'estimer la charge réelle.
+
+**Contre-mesure concrète :** choisir le bon plan dès le départ. Exemple : Supabase free tier autorise 60 connexions simultanées. Si chaque utilisateur actif en génère 3, l'app tient 20 utilisateurs simultanés — pas 60. Cette limite se vérifie dans `/stack` pour chaque service utilisé.
+
+---
+
+### 2bis.2 — Connaître la limite mémoire de chaque service et ce qui se passe quand elle est atteinte
+
+**Le problème :** quand trop de requêtes arrivent en même temps, elles s'accumulent dans une file d'attente. Cette file consomme de la mémoire. Quand la limite est atteinte, deux scénarios :
+- **Dégradation douce** : les nouvelles requêtes sont refusées proprement, les données restent intactes
+- **Crash dur** : le serveur s'éteint brutalement — risque de perte de données en cours d'écriture
+
+Sur Supabase et Xano : si tu remplis la mémoire, ça shut down (crash dur).
+
+**Ce qu'il faut faire dans `/stack` :**
+1. Identifier la limite mémoire du plan choisi pour chaque service
+2. Identifier le comportement à saturation (dégradation douce ou crash dur)
+
+**Contre-mesures selon le résultat :**
+- Si **crash dur** → prévoir une page d'erreur explicite côté front, et si la charge est prévisible (événement, campagne), mettre en place une salle d'attente qui régule les connexions entrantes
+- Si **dégradation douce** → vérifier que les requêtes sont bien rejetées sans perte de données en cours
+- Dans tous les cas : configurer des **alertes** pour être prévenu avant d'atteindre la limite — pas après
+
+---
+
+### 2bis.3 — Ne pas compter sur le scaling de la base de données comme solution de secours
+
+**Le problème :** quand une app rame, l'instinct est de vouloir "ajouter de la puissance". Pour le front-end et le serveur, c'est souvent faisable. Pour la base de données, c'est une autre affaire.
+
+Les bases de données SQL sont mal faites pour le scaling horizontal (multiplier les instances). Rajouter des serveurs DB en parallèle crée des risques de désynchronisation des données — un utilisateur peut écrire sur une instance et lire une donnée périmée sur une autre.
+
+**Ce qu'on en déduit :** le vrai levier est de **réduire la pression sur la DB dès la conception**, pas d'augmenter sa puissance après coup. Ça signifie : bonne modélisation des données, requêtes légères (cf. 2bis.5), et cache (cf. 2bis.4). C'est une décision d'architecture, à poser dans `/archi` — pas une optimisation tardive.
+
+---
+
+### 2bis.4 — Prévoir le cache à l'architecture, pas quand le site rame
+
+**Le problème :** si beaucoup d'utilisateurs font les mêmes requêtes (lire la liste des produits, afficher un tableau de bord), chaque requête tape directement dans la base de données. Sous charge, ça épuise rapidement le quota de connexions disponibles.
+
+**La solution : le cache.** Plutôt que de demander à la DB à chaque fois, on stocke temporairement le résultat en mémoire. Les utilisateurs lisent depuis le cache. Le cache met à jour la DB au fil de l'eau.
+
+**Ce n'est pas une optimisation avancée.** C'est une décision d'architecture à prendre lors du `/archi` si le projet anticipe de la charge concurrente.
+
+**Pour chaque nouvelle stack, vérifier :**
+- Est-ce que la stack intègre un cache nativement ? (Convex : oui, cache intégré. Supabase : non par défaut)
+- Si non : prévoir une couche de cache explicite (Redis ou équivalent)
+- L'IA ne propose pas de cache par défaut — le demander explicitement si nécessaire
+
+---
+
+### 2bis.5 — Écrire des requêtes légères dès le départ (frugalité)
+
+**Le problème :** une requête qui fetche trop de données (toutes les colonnes, toutes les lignes, sans filtre) est une requête qui consomme plus de mémoire, plus de connexions, et prend plus de temps — pour chaque utilisateur, à chaque chargement de page.
+
+**Exemple réel :** une startup a cru que PostgreSQL ne tenait pas au-delà d'un million d'enregistrements. En réalité, leurs requêtes étaient mal écrites. Des crédits cloud massifs masquaient le problème. Quand les crédits ont disparu, tout est devenu lent.
+
+**La règle :** chaque requête écrite doit répondre à la question — "est-ce que je fetche uniquement ce dont j'ai besoin ici ?" :
+- Ne sélectionner que les colonnes utilisées (pas de `SELECT *` systématique)
+- Toujours filtrer (ne pas récupérer 10 000 lignes pour n'en afficher que 10)
+- Paginer les listes longues
+
+**Dans `/specs` :** documenter ce que chaque requête doit retourner exactement. Pas "les messages", mais "les 20 derniers messages du canal, avec auteur et timestamp uniquement".
+
+**L'IA génère souvent des `SELECT *` ou des requêtes sans filtre** pour aller vite — relire systématiquement.
+
+---
+
+### 2bis.6 — Identifier le goulot d'étranglement de chaque stack
+
+**Le principe :** dans une architecture web, plusieurs couches peuvent lâcher sous charge. Ce n'est pas toujours la même selon la stack. Il faut savoir laquelle lâche en premier — et à quel seuil — pour savoir où concentrer les efforts.
+
+**Ce que `/stack` doit produire pour chaque projet :**
+
+| Couche | Résistance à la charge | Goulot potentiel |
+|---|---|---|
+| Front-end (Netlify, Vercel) | Très bonne (CDN) | Rarement le problème |
+| Back-end serveur | Dépend du plan | À vérifier |
+| Base de données | Le point faible habituel | Connexions simultanées, mémoire |
+| API externes (OpenAI, etc.) | Rate limiting strict | À surveiller par clé API |
+
+**Contre-mesure :** une fois le goulot identifié, toutes les décisions d'architecture qui suivent (cache, modélisation, choix de plan) se concentrent sur ce point. On ne renforce pas ce qui est déjà solide.
+
+---
+
 ## 3 — Phase 3 : Vérification
 
 ### 3.1 Ce que Claude vérifie à chaque fin de feature

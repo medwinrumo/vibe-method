@@ -100,6 +100,7 @@ Les pages Notion ciblées sont celles du **projet en cours de travail**.
 | `[projet].Rmap` | Roadmap + planning | `/roadmap`, `/planning` |
 | `[projet].spec` | Specs et user stories | `/majspec` |
 | `[projet].peda` | Journal pédagogique | `/majpeda` |
+| `[projet].voca` | Glossaire — définitions courtes des termes et acronymes | `/majpeda` |
 | `[projet].log` | Journal de bord | `/majlog` |
 | `[projet].doc` | Documentation utilisateur | `/majdoc` |
 

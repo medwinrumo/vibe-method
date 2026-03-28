@@ -58,3 +58,4 @@ Créé lors du skill `/archi`. Document vivant — mis à jour à chaque nouvell
 - **`/shared` = utilitaires génériques uniquement** — jamais de logique métier. Si tout finit dans /shared, le silo s'effondre.
 - **Un module peut appeler un autre, jamais modifier son code**
 - **Contexte minimal** — donner à l'IA : CLAUDE.md + module ciblé + specs de la feature. Pas tout le projet.
+- **Niveau d'abstraction maximal** — toujours choisir l'outil ou le service qui abstrait le plus de complexité technique, tant qu'il couvre le besoin. Vercel plutôt qu'un VPS, Supabase plutôt qu'une base auto-hébergée, un service managé plutôt que Docker. Ne descendre d'un niveau d'abstraction que si le niveau supérieur ne couvre pas le besoin — jamais par défaut, jamais par curiosité.

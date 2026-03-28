@@ -25,6 +25,7 @@
 - 5 — Migration outputs skills vers `.md` dans repo projet — `/brief`, `/prd`, `/archi`, `/roadmap` écrivent encore dans Notion en primaire. **Priorité haute.**
 - 6 — Corriger `/maj` — supprimer références à `[projet].run.md` et `/majrun` (inexistants). **Priorité basse.**
 - 7 — ExplorePéda#7 niveau 3 — agent manager (3.1), OpenClaw + mémoire partagée (3.2) — pour plus tard.
+- 8 — Tester Lovable comme outil de génération UI — à évaluer comme alternative/complément à Stitch + Figma. Décision d'intégration dans la stack design après test.
 
 ### Réalisées
 

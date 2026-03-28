@@ -48,12 +48,20 @@ Fichier de référence : `architecture.md`
 ---
 
 ### Phase 4 — Stack
-> Investiguer les outils avant de construire.
+> Investiguer les outils avant de construire — deux niveaux : la stack applicative et la stack de dev.
 
-- Spike technique sur chaque outil de la stack
+**Stack applicative** — les outils qui font tourner l'app :
+- Spike technique sur chaque outil (Convex, Supabase, Vercel, APIs externes...)
 - Cartographier les limites du free tier
 - Identifier les gotchas et les contraintes critiques
 - Documenter les patterns recommandés pour l'IA
+
+**Stack de dev** — les outils avec lesquels on code :
+- Évaluer la complexité du projet pour choisir le bon couple outil + modèle
+- Un projet CRUD simple n'a pas besoin du même outil qu'une app temps réel multi-modules
+- Ne pas payer une stack overkill : choisir la stack nécessaire, pas la meilleure
+- Possibilités : Claude Code + Opus, Claude Code + Sonnet, Kilo Code + Kimi K2.5 via OpenRouter, Cursor + modèle, etc.
+- Décision documentée dans `[projet].stack.md`
 
 Fichier de référence : `stack.md`
 

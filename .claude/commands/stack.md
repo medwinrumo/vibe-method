@@ -19,6 +19,54 @@ Obligatoire si :
 
 ---
 
+## Étape 0bis — Stack de dev : quel outil + modèle pour ce projet ?
+
+**Avant d'investiguer la stack applicative**, évaluer la stack de dev nécessaire.
+
+Principe : ne pas choisir la meilleure stack, choisir la stack nécessaire. Payer Opus pour une app CRUD simple est du gaspillage. Utiliser Kimi K2.5 sur un projet complexe multi-modules peut être insuffisant.
+
+### Les couples à évaluer
+
+| Couple | Profil adapté | Coût approximatif |
+|---|---|---|
+| Claude Code + Haiku | Tâches simples, scripts, corrections ponctuelles | Très faible |
+| Claude Code + Sonnet | La majorité des projets — bon équilibre qualité/coût | Moyen |
+| Claude Code + Opus | Projets complexes, architecture difficile, raisonnement profond requis | Élevé |
+| Kilo Code + Kimi K2.5 (OpenRouter) | Projets standards, budget serré, CRUD, UI | Faible |
+| Kilo Code + modèle OpenRouter au choix | Flexibilité maximale, multi-modèles | Variable |
+| Cursor / Windsurf + modèle | Environnement IDE avec autocomplétion, équipe ou préférence visuelle | Moyen à élevé |
+
+### Questions à poser pour évaluer
+
+1. **Complexité du projet** — CRUD simple, app standard, app temps réel, architecture multi-modules complexe ?
+2. **Budget disponible** — contrainte forte ou pas ?
+3. **Profil du développeur** — débutant qui a besoin d'être guidé, ou développeur qui pilote ?
+4. **Portabilité** — besoin de changer d'outil en cours de projet ? (Si oui : méthode dans des fichiers, pas dans l'outil)
+
+### Format de recommandation
+
+Après web search sur les performances et tarifs actuels :
+
+> "Pour ce projet, je recommande : **[couple outil + modèle]**
+>
+> **Pourquoi :**
+> - [argument 1 — complexité du projet vs capacité du modèle]
+> - [argument 2 — coût vs bénéfice]
+>
+> **Alternatives :**
+> - [Option A] — si [condition] : avantage [X], inconvénient [Y]
+> - [Option B] — si [condition] : avantage [X], inconvénient [Y]
+>
+> **Ce que cette stack ne permet pas :**
+> - [limite 1]
+> - [limite 2]
+>
+> Décision finale : à toi."
+
+**Règle :** toujours faire une web search avant de formuler cette recommandation — les prix et benchmarks changent vite.
+
+---
+
 ## Étape 0 — Vérification des inputs
 
 Tu as besoin de :

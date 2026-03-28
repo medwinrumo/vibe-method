@@ -99,14 +99,15 @@ Ordre d'exécution pour chaque feature :
 
 ```
 1. Feature développée
-2. /tests    → tests unitaires + intégration (Vitest)
-3. /tests    → non-régression (batterie Playwright sur les features existantes)
-4. /recette  → génération du cahier de recettes (Gherkin depuis User Stories)
-5. /tests    → Playwright sur la nouvelle feature → corrections
-6. /recette  → validation manuelle finale
+2. /tests         → tests unitaires + intégration (Vitest)
+3. /tests         → non-régression (batterie Playwright sur les features existantes)
+4. /recette       → génération du cahier de recettes (Gherkin depuis User Stories)
+5. /tests         → Playwright sur la nouvelle feature → corrections
+6. /securite check → vérification sécurité de la feature → bloquant si point en échec
+7. /recette       → validation manuelle finale
 ```
 
-Les étapes 2, 3 et 5 filtrent les bugs avant que l'humain intervienne. Medwin arrive en dernier pour réexécuter l'intégralité du cahier de recettes manuellement — les mêmes vérifications que l'automatisation, du point de vue humain : fonctionnement, fluidité, cohérence visuelle, expérience utilisateur.
+Les étapes 2, 3 et 5 filtrent les bugs avant que l'humain intervienne. L'étape 6 filtre les failles de sécurité — bloquante, pas de merge tant qu'un point est en échec. Medwin arrive en dernier pour réexécuter l'intégralité du cahier de recettes manuellement — les mêmes vérifications que l'automatisation, du point de vue humain : fonctionnement, fluidité, cohérence visuelle, expérience utilisateur.
 
 - Bug détecté en recette → `/debug` déclenché automatiquement
 - Bug non résolu = bloquant — recette suspendue jusqu'à résolution

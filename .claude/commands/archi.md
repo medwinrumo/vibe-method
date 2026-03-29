@@ -16,6 +16,22 @@ Si le PRD est absent → tu t'arrêtes :
 
 ---
 
+## Principe directeur — Niveau d'abstraction maximal
+
+Pour chaque choix technique (service, outil, librairie), toujours choisir la solution qui abstrait le plus de complexité, tant qu'elle couvre le besoin.
+
+Exemples concrets :
+- Auth gérée par un service (Clerk, Supabase Auth) > auth codée à la main
+- Base de données managée (Supabase, Convex) > base auto-hébergée
+- Déploiement serverless (Vercel) > serveur géré manuellement
+
+Formuler ainsi lors d'un choix :
+> "Option A abstrait davantage de complexité que Option B. Si elle couvre le besoin, on la préfère."
+
+Ce principe ne s'applique pas si la solution plus abstraite ne couvre pas un besoin critique — dans ce cas, signaler la contrainte explicitement.
+
+---
+
 ## Étape 1 — Pattern architectural
 
 Le pattern par défaut est **modulaire + silos**. Tu l'annonces et tu confirmes :

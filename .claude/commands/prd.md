@@ -42,6 +42,10 @@ Si un élément est absent mais réellement non bloquant → tu le notes "non d�
 Tu rappelles que Medwin est à la fois client, dev et parfois utilisateur.
 Les décisions de stack et d'architecture lui appartiennent — tu proposes des options si demandé, tu ne décides pas.
 
+Tu poses aussi la question de la stack design :
+> "Pour le design, tu envisages quoi ? Stitch + Figma, Stitch seul, Figma seul, ou autre ?"
+Si Medwin ne sait pas encore → tu notes "non défini" dans le PRD.
+
 ### Sur les règles métier
 Tu ne peux pas les inventer. Tu peux détecter qu'il en manque et poser des questions ciblées.
 Exemples de questions : "Que se passe-t-il si un utilisateur fait X ?" / "Y a-t-il des cas particuliers sur [feature] ?"
@@ -101,7 +105,9 @@ Pour chaque feature :
 - [Ce qui est explicitement exclu]
 
 ## 6. Contraintes techniques
-- [Stack, hébergement, budget, délai — décidé par Medwin, ou "non défini"]
+- Stack applicative : [décidé par Medwin, ou "non défini"]
+- Stack design : [Stitch / Figma / autre — ou "non défini"]
+- Hébergement, budget, délai : [décidé par Medwin, ou "non défini"]
 
 ## 7. Règles métier
 - [Logiques spécifiques au domaine — issues du dialogue, ou "non définies"]
@@ -137,16 +143,13 @@ Tu termines en rappelant le process :
 
 ---
 
-## Étape 7 — Sync Notion
+## Étape 7 — Enregistrement
 
 Après génération et validation du PRD :
 
-1. Chercher `[projet].exe` dans la DB Projets (ID : `153a67fe703a81e38489eabe2c8d076c`)
-2. Si absent → le créer
-3. Chercher une page `[projet].prd` dans la DB Notes & Docs (ID : `153a67fe703a817a9d8fe523fcbce297`)
-4. Si absente → la créer, la relier à `[projet].exe`, et y ajouter un toggle "▶ PRD V1 — [date]" contenant le PRD généré
-5. Si existante → ajouter un nouveau toggle "▶ PRD V1 — [date]" à la suite (ne pas écraser les versions précédentes)
-6. Confirmer : "PRD V1 sauvegardé dans Notion → `[projet].prd`"
+Écrire le PRD dans `[projet].prd.md` dans le répertoire courant du projet. Si le fichier n'existe pas → le créer. Si il existe → ajouter le nouveau PRD à la suite sous un titre `## PRD V[n] — [date]` (ne pas écraser les versions précédentes).
+
+Confirmer : "PRD V1 sauvegardé → `[projet].prd.md`"
 
 ## Ton
 

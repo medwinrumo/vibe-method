@@ -93,13 +93,10 @@ Après avoir généré le brief, tu demandes : "Est-ce que ce brief reflète bie
 
 ---
 
-## Sync Notion — après validation du brief
+## Enregistrement — après validation du brief
 
 Une fois le brief validé par Medwin :
 
-1. Chercher `[projet].exe` dans la DB Projets (ID : `153a67fe703a81e38489eabe2c8d076c`)
-2. Si absent → le créer dans la DB Projets avec le nom `[projet].exe`
-3. Chercher une page `[projet].brief` dans la DB Notes & Docs (ID : `153a67fe703a817a9d8fe523fcbce297`)
-4. Si absente → la créer et la relier à `[projet].exe`
-5. Si existante → mettre à jour son contenu avec le brief généré
-6. Confirmer : "Brief sauvegardé dans Notion → `[projet].brief`"
+Écrire le brief dans `[projet].brief.md` dans le répertoire courant du projet. Si le fichier n'existe pas → le créer. Si il existe → le remplacer.
+
+Confirmer : "Brief sauvegardé → `[projet].brief.md`"

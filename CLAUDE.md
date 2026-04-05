@@ -28,13 +28,12 @@ vibe-method/
 /brief → /prd → /prd-update → [design] → /archi → /stack → /roadmap → /specs → [code] → /tests → /recette ↔ /debug
 ```
 
-**[design] = étape manuelle** : Claude exporte la liste de features avec composants UI → Medwin travaille dans Stitch + Figma → livre l'export CSS à Claude.
-
 | Skill | Rôle | Output |
 |---|---|---|
 | `/brief` | De l'intention au brief structuré | `[projet].brief.md` |
 | `/prd` | Du brief au PRD V1 (dialogue) | `[projet].prd.md` |
 | `/prd-update` | Intégration retours cross-pollination → PRD V2 | `[projet].prd.md` |
+| `/design` | Mode A : spike stack design + interview + liste features pour Stitch/Figma. Mode B : intégration export CSS → Tailwind + shadcn | `[projet].design.md` |
 | `/archi` | Architecture modulaire + silos + garde-fous | `[projet].archi.md` + `CLAUDE.md` projet |
 | `/stack` | Spike technique — investigation stack, free tier, gotchas | `[projet].stack.md` |
 | `/roadmap` | Roadmap + planning global | `[projet].Rmap.md` |

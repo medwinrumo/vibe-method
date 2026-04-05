@@ -171,13 +171,11 @@ Ces points sont notés dans `[projet].archi` sous "Points ouverts".
 
 ---
 
-## Étape 8 — Sync Notion
+## Étape 8 — Enregistrement
 
-1. Chercher `[projet].exe` dans la DB Projets (ID : `153a67fe703a81e38489eabe2c8d076c`)
-2. Chercher `[projet].archi` dans Notes & Docs (ID : `153a67fe703a817a9d8fe523fcbce297`)
-3. Si absente → créer et relier à `[projet].exe`
-4. Si existante → mettre à jour
-5. Confirmer : "Architecture sauvegardée dans Notion → `[projet].archi`"
+Écrire le document d'architecture dans `[projet].archi.md` dans le répertoire courant du projet. Si le fichier n'existe pas → le créer. Si il existe → le remplacer.
+
+Confirmer : "Architecture sauvegardée → `[projet].archi.md`"
 
 ---
 

@@ -4,7 +4,16 @@
 
 ---
 
-## Dernière session — 2026-04-05
+## Dernière session — 2026-04-08
+
+### Ce qui a été fait
+- Radio Vibe Code #6 — lecture + chapitrage complet de la transcription, extraction des enseignements pertinents pour la vibe-method
+- Tâche 11 — Positionnement Xano/Supabase/Convex/Firebase/Vercel clarifié : Xano exclu (pas maîtrisé), Supabase et Convex viables dans la méthode. Discussion archivée dans `vibe-coding.péda` (2026-04-08)
+- Nouvelle règle actée (en attente d'intégration dans `architecture.md`) : modélisation BDD dans Notion avant tout code, via BDD Modélisation > Schéma Mermaid > tables indépendantes
+
+---
+
+## Session précédente — 2026-04-05
 
 ### Ce qui a été fait
 - Tâche 5 — Migration outputs → `.md` : `/brief`, `/prd`, `/archi`, `/roadmap` écrivent maintenant dans le repo projet au lieu de Notion. 4 symlinks manquants créés (checkpoint, debug, securite, stack)
@@ -21,8 +30,18 @@
 - 4 — `templates/` dans vibe-method — à créer lors du lancement de Minou (Convex d'abord, Supabase ensuite). **Priorité moyenne.**
 - 6 — Corriger `/maj` — supprimer références à `[projet].run.md` et `/majrun` (inexistants). **Priorité basse.**
 - 8 — Tester Lovable comme outil de génération UI — à évaluer comme alternative/complément à Stitch + Figma. Décision d'intégration dans la stack design après test.
+- 12 — Stack front recommandée — documenter React + Vite + TypeScript comme combo de référence dans `methode.md` et/ou `architecture.md`, sans rigidité (autres outils possibles si justifiés). *Source : Radio Vibe Code #6.*
+- 13 — Mise en prod — comprendre et documenter les enjeux : hébergement, variables d'environnement, migrations BDD, domaine, monitoring. Décider si un skill `/deploy` est pertinent dans la chaîne. **Nécessite une session de discussion avant toute écriture.**
+- 14 — MCP — comprendre et établir une doctrine : qu'est-ce qu'un MCP, quand en utiliser dans nos projets, lesquels, comment éviter de surcharger le contexte. **Nécessite une session de discussion avant toute écriture.**
+- 15 — Agents IA — comprendre et établir une doctrine : qu'est-ce qu'un agent, ce que ça implique, dans quel type de projet, comment ça se construit, comment l'intégrer dans la vibe-method. **Nécessite une session de discussion avant toute écriture.**
 - 9 — Audit et enrichissement des skills existants — les skills peuvent contenir : exemples de code, URLs de doc, scripts de validation, chemins de fichiers précis, versions de librairies. **Priorité haute — à ne pas lancer avant que toute la doctrine soit verrouillée.**
 - 10 — Skill `/prp` — agrège tous les outputs existants (PRD + archi + CLAUDE.md + roadmap + specs) en un document unique, précis, optimisé pour le LLM comme contexte de démarrage. **Priorité haute — à ne pas lancer avant tâche 9.**
+- 11 — Finir l'étude Radio Vibe Code #6 — intégrer les enseignements dans la vibe-method :
+  - ✅ 1. Stack — Supabase remis en cause. Xano s'impose comme back-end recommandé. À intégrer dans `architecture.md` et la stack B.
+  - ✅ 2. Règle back-end — La vibe-method permet à l'IA de piloter le back-end précisément parce qu'elle pose les garde-fous absents ailleurs : /archi (schéma validé par Medwin) + /securite + /recette. Position actée et différenciante.
+  - ✅ 3. Modélisation — Schéma BDD dans Notion (BDD Modélisation > Schéma Mermaid > tables indépendantes) avant tout code. Règle actée. À intégrer dans `architecture.md` et skill `/archi`.
+  - ✅ 4. Lovable — Déjà documenté en tâche 8 (tests à faire). Clos ici.
+  - ✅ 5. Méthodo — Analyse faite. Trous identifiés → tâches 12, 13, 14, 15 ci-dessous.
 
 ### Réalisées
 

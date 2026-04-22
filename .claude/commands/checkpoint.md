@@ -26,6 +26,8 @@ Avant d'écrire quoi que ce soit :
 3. Identifier ce qui est déjà documenté — repérer la dernière entrée de session
 4. Ne documenter que l'incrément depuis cette dernière entrée
 
+**Convention couleur :** tout contenu ajouté dans une page existante doit être coloré en bleu (`{color="blue"}`).
+
 Si les pages n'existent pas → les créer, reliées à `[projet].exe` dans la DB Projets.
 
 ---

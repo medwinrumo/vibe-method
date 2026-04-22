@@ -47,6 +47,10 @@ Un même changement peut justifier une mise à jour dans plusieurs sous-pages.
 - Réorganiser si la structure actuelle ne correspond plus au contenu réel
 - Ne pas recopier ce qui est dans `.log` — le `.doc` n'est pas un journal, c'est un état stable
 
+## Convention couleur
+
+Tout contenu ajouté dans une page existante doit être coloré en bleu (`{color="blue"}`).
+
 ## Feedback
 
 Ne rien signaler pour les modifications mineures (reformulation, ajout d'un paramètre, correction).

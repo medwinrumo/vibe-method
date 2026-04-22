@@ -29,6 +29,10 @@ Ajouter les entrées de la session courante, imbriquées dans le menu du jour :
 
 Chaque session dans son propre menu dépliant. Jamais dans le menu d'une session précédente.
 
+## Convention couleur
+
+Tout contenu ajouté dans la page existante doit être coloré en bleu (`{color="blue"}`).
+
 ## Calibrage des entrées
 
 - Bonne entrée : `Implémenté streaming SSE sur POST /api/chat`

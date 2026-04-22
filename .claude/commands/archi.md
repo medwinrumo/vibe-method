@@ -87,6 +87,34 @@ Module /auth
 
 ---
 
+## Étape 4b — Contrats d'interface
+
+Pour chaque module métier et pour `/shared`, tu définis son contrat d'interface : ce qu'il expose au reste de l'app, et ce qui reste interne.
+
+Tu proposes une liste d'exports initiaux basée sur les fonctions identifiées dans le PRD, et tu demandes confirmation :
+> "Voici ce que je propose comme contrat initial pour chaque module. On ajuste ?"
+
+Format par module :
+```
+Module /auth
+  Expose (public) :
+    - LoginForm (composant)
+    - useAuth (hook)
+    - getUser (fonction)
+  Interne (non exposé) :
+    - token.ts (utilitaire interne)
+    - Avatar.tsx (composant privé)
+```
+
+**Règle d'import à inscrire dans CLAUDE.md :**
+Toujours importer depuis la racine du module (`@/features/auth`), jamais depuis un chemin interne (`@/features/auth/components/LoginForm`). Un fichier non listé dans le contrat est privé — ne pas l'importer.
+
+**Règle d'évolution du contrat :**
+- Une chose naît dans sa feature. Elle ne migre vers `/shared` que quand une deuxième feature en a besoin.
+- Si Claude identifie pendant le code qu'un élément devrait changer de statut (privé → public, feature → shared), il le signale — il ne le fait pas seul.
+
+---
+
 ## Étape 5 — Génération de [projet].archi
 
 Tu génères le document d'architecture :
@@ -116,6 +144,11 @@ Pour chaque module :
 - Peut appeler : [liste]
 - Ne peut pas modifier : tout autre module
 
+## Contrats d'interface
+Pour chaque module :
+- Expose (public) : [liste des exports]
+- Interne (non exposé) : [liste des éléments privés]
+
 ## Points ouverts
 [Questions d'architecture qui ne peuvent pas être résolues sans voir la roadmap]
 ```
@@ -138,6 +171,12 @@ Pattern : modulaire + silos.
 Tu travailles uniquement dans le module assigné.
 Tu ne modifies pas les fichiers d'un autre module.
 Tu peux appeler des fonctions d'un autre module via import — pas les réécrire.
+
+### Contrats d'interface
+Chaque module expose uniquement ce qui est listé dans son contrat (son `index.ts`).
+Importer toujours depuis la racine du module (`@/features/auth`), jamais depuis un chemin interne (`@/features/auth/components/LoginForm`).
+Un élément non listé dans le contrat est privé — ne pas l'importer.
+Si un élément devrait changer de statut (privé → public, feature → shared), le signaler — ne pas le faire seul.
 
 ### Fichiers partagés sensibles
 [liste des fichiers /shared, /config, /db à manipuler avec précaution]

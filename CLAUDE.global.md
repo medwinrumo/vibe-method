@@ -14,6 +14,15 @@ Il définit les process de travail, les préférences et l'écosystème communs 
 - Ne pas acquiescer par défaut : dire clairement si une idée est bonne, incorrecte, ou si une meilleure existe
 - Rôle : penser et chercher ensemble, pas valider
 
+## Exigence de rigueur professionnelle
+
+Medwin s'appuie sur Claude comme un développeur senior expérimenté. Il ne peut pas toujours détecter ce qui manque — Claude doit donc le faire à sa place.
+
+- Pour tout choix technique structurant : présenter toutes les options viables, sans en écarter aucune silencieusement. Si une option est écartée, expliquer pourquoi explicitement.
+- Ne jamais aller au plus simple, au plus rapide ou au plus évident sans le justifier.
+- La qualité prime sur la rapidité — peu importe le temps que ça prend.
+- Si Claude simplifie, il le dit. Si Claude ne connaît pas toutes les options, il le dit aussi.
+
 ---
 
 ## Écosystème de projets
@@ -42,7 +51,8 @@ Il définit les process de travail, les préférences et l'écosystème communs 
 **Notes & Docs**
 - URL : https://www.notion.so/153a67fe703a817a9d8fe523fcbce297?v=153a67fe703a8132a5b8000c1559359b
 - Destination par défaut pour toute création de note
-- Propriété `projet` : relation vers la DB Projets (obligatoire à chaque création)
+- Propriété `projet client` : relation vers la DB Projets (obligatoire à chaque création)
+- Propriété `étiquette` (select, pas une relation) : valeur `.exe`
 - Si Medwin oublie de donner le projet → lui rappeler avant de créer
 
 **Projets**
@@ -55,9 +65,10 @@ Il définit les process de travail, les préférences et l'écosystème communs 
 - On peut relier une tâche à une note, une note à une tâche, ou rechercher toutes les tâches d'une note/projet
 
 ### Règles opérationnelles Notion
-- Toute nouvelle note → DB Notes & Docs + propriété `projet` renseignée
+- Toute nouvelle note → DB Notes & Docs + propriété `projet client` renseignée + étiquette `.exe`
 - Si le projet n'est pas donné → demander avant de créer
 - Relations notes↔tâches : bidirectionnelles, à maintenir dans les deux sens
+- **Convention couleur** : tout contenu ajouté par Claude dans une page Notion existante doit être coloré en bleu (`{color="blue"}`). Permet à Medwin de distinguer visuellement ce qui est nouveau de ce qui existait déjà. S'applique aux mises à jour (`update_content`), pas aux créations de pages entières.
 
 ---
 
@@ -69,10 +80,10 @@ Il définit les process de travail, les préférences et l'écosystème communs 
 | `/checkpoint` | Documentation intermédiaire — Notion uniquement, sans clôture Git, on continue |
 | `/todo` | Lecture de l'état du projet en début de session |
 | `/majtodo` | Met à jour `[projet].todo.md` dans Git et la page `[projet].todo` dans Notion |
-| `/majpeda` | Met à jour uniquement la page `[projet].peda` dans Notion |
-| `/majlog` | Met à jour uniquement la page `[projet].log` dans Notion |
-| `/majdoc` | Met à jour uniquement la page `[projet].doc` dans Notion |
-| `/majspec` | Met à jour uniquement la page `[projet].spec` dans Notion |
+| `/peda` | Met à jour les pages `[projet].peda` et `[projet].gloss` dans Notion |
+| `/log` | Met à jour uniquement la page `[projet].log` dans Notion |
+| `/doc` | Met à jour uniquement la page `[projet].doc` dans Notion |
+| `/spec` | Met à jour uniquement la page `[projet].spec` dans Notion |
 
 Les pages Notion ciblées sont celles du **projet en cours de travail**.
 
@@ -82,15 +93,13 @@ Les pages Notion ciblées sont celles du **projet en cours de travail**.
 
 ## Règles de création de pages Notion
 
-### Créer une page `.spec`
-1. Créer dans **Notes & Docs** une page nommée `[projet].spec`
-2. Relier à la propriété `projet` → chercher `[projet].exe` dans la DB Projets
-3. Si `[projet].exe` n'existe pas → le créer dans la DB Projets avec ce nom
+### Créer une page dans Notes & Docs
+1. Créer dans **Notes & Docs** la page nommée `[projet].[type]`
+2. Propriété `projet client` (relation) → chercher le projet dans la DB Projets
+3. Propriété `étiquette` (select) → valeur `.exe`
+4. Si le projet n'existe pas dans la DB Projets → le créer avant de relier
 
-### Nomenclature des projets dans Notion
-- Chaque projet est référencé dans la DB Projets sous le nom **`[projet].exe`**
-
-### Pages standard par projet (dans Notes & Docs, reliées à `[projet].exe`)
+### Pages standard par projet (dans Notes & Docs)
 
 | Page Notion | Rôle | Skill associé |
 |---|---|---|
@@ -98,11 +107,11 @@ Les pages Notion ciblées sont celles du **projet en cours de travail**.
 | `[projet].prd` | Toutes les versions PRD en toggles (V1, V2...) | `/prd`, `/prd-update` |
 | `[projet].archi` | Décisions d'architecture | `/archi` |
 | `[projet].Rmap` | Roadmap + planning | `/roadmap`, `/planning` |
-| `[projet].spec` | Specs et user stories | `/majspec` |
-| `[projet].peda` | Journal pédagogique | `/majpeda` |
-| `[projet].voca` | Glossaire — définitions courtes des termes et acronymes | `/majpeda` |
-| `[projet].log` | Journal de bord | `/majlog` |
-| `[projet].doc` | Documentation utilisateur | `/majdoc` |
+| `[projet].spec` | Specs et user stories | `/spec` |
+| `[projet].peda` | Journal pédagogique | `/peda` |
+| `[projet].gloss` | Glossaire — définitions courtes des termes et acronymes | `/peda` |
+| `[projet].log` | Journal de bord | `/log` |
+| `[projet].doc` | Documentation utilisateur | `/doc` |
 
 **Règle :** chaque skill crée ou met à jour automatiquement sa page Notion à la fin de son exécution.
 **Règle :** le skill demande le nom du projet en début d'exécution si non fourni, afin de cibler les bonnes pages.

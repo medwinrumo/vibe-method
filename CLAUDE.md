@@ -79,20 +79,16 @@ Choix défini au moment du `/archi`.
 ## Ce qui reste à construire
 
 ### Priorité haute
-- [ ] Skill `/init` — point d'entrée de toute la méthode. Crée tout d'un coup :
-  - Git : repo GitHub via `gh`, structure dossiers selon stack, CLAUDE.md projet, [projet].todo.md, premier commit + push
-  - Notion : page racine `[projet].run` + toutes les sous-pages
-  - Usage : `/init minou` → tout est prêt
-- [ ] Migration outputs skills → `.md` dans repo projet — `/brief`, `/prd`, `/archi`, `/roadmap` écrivent encore dans Notion en primaire. À migrer.
+- [ ] Skill `/init` — point d'entrée de toute la méthode. Usage : `/init [projet] [page_projet_id]`
+  - Git : repo GitHub via `gh`, CLAUDE.md projet, [projet].todo.md, [projet].log.md, premier commit + push
+  - Notion : page `[projet].run` (template `34aa67fe703a80a89161cafb5c431272`) + 9 sous-pages enfants (template `34aa67fe703a80669b09c38e718d20c3`)
 
 ### Priorité moyenne
-- [ ] Skill `/securite` — checklist sécurité à intégrer dans la chaîne, en complément de `/archi`. Doctrine : `securite.md`
-- [ ] Skill `/design` — exporter la liste de features structurée (feature + composant UI + comportement) depuis le PRD, pour alimenter Stitch
+- [ ] `architecture.md` — mettre à jour avec les deux stacks (Convex / Supabase)
 
 ### Priorité basse
-- [ ] `architecture.md` — mettre à jour avec les deux stacks (Convex / Supabase)
 - [ ] Skills vs MCP — comprendre la différence, décider quand utiliser l'un ou l'autre
-- [ ] Corriger `/maj` — supprimer références à `[projet].run.md` et `/majrun` (inexistants)
+- [ ] Corriger `/maj` — supprimer références obsolètes
 
 ---
 

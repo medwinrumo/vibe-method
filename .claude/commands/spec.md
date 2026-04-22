@@ -46,3 +46,7 @@ Frontières à respecter :
 4. Si une décision est abandonnée, la déplacer dans "Décisions abandonnées" plutôt que de la supprimer
 
 Ne pas toucher si la session n'a produit aucun changement de spec.
+
+## Convention couleur
+
+Tout contenu ajouté dans une page existante doit être coloré en bleu (`{color="blue"}`).

@@ -140,6 +140,23 @@ Pairings : Georgia / Calibri — Arial Black / Arial — Trebuchet MS / Calibri.
 
 Définir UN motif répété sur toutes les slides (ex : coins arrondis, icônes en cercles colorés, bordure épaisse sur un côté).
 
+### Images — règles obligatoires
+
+**1. Toujours respecter le ratio source.**
+Récupérer les dimensions réelles de l'image avant de l'insérer (`sips -g pixelWidth -g pixelHeight`), puis calculer `h` à partir de `w` (ou inversement) :
+```
+h = w * (pixelHeight / pixelWidth)
+```
+Ne jamais fixer `w` et `h` indépendamment — cela déforme l'image.
+
+**2. Aligner l'image sur le bloc texte adjacent.**
+Quand image et texte coexistent sur la même slide (layout 2 colonnes ou similaire), l'image doit s'aligner sur l'un de ces trois axes — jamais flotter librement :
+- `y_image = y_premier_élément_texte` → alignement haut
+- `y_image = y_centre_bloc_texte - h_image/2` → alignement centre
+- `y_image + h_image = y_dernier_élément_texte + h_dernier_élément` → alignement bas
+
+L'alignement haut est le défaut. Utiliser le centre si l'image est nettement plus petite que le bloc texte. L'alignement bas est rare (réservé aux slides avec callout en pied de colonne).
+
 ---
 
 ## Interdictions (anti-patterns IA)

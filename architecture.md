@@ -116,6 +116,58 @@ Le niveau est décidé au `/archi` selon la nature de l'app et ses utilisateurs.
 
 ---
 
+## Dépendances externes — Model Context Protocol (MCP)
+
+Les MCP permettent à l'IA de se connecter à des systèmes externes (GitHub, Notion, bases de données, APIs) sans custom code. C'est un standard ouvert avec trois primitives : tools (actions), resources (données), prompts (directives).
+
+**Principe : traiter MCP comme un **spectre**, pas un choix binaire.**
+
+### Quand identifier les MCP ?
+
+Au moment du `/archi`, lors de l'identification des dépendances externes.
+
+Question clé : "Quels systèmes externes auront besoin d'être lus/écrits de manière **conversationnelle** ?"
+
+### Règle de décision : MCP vs CLI vs API directe
+
+Trois approches selon la nature du workflow :
+
+| Approche | Quand l'utiliser | Avantage | Inconvénient |
+|---|---|---|---|
+| **MCP** | Workflow conversationnel, exploratoire, haute flexibilité requise | Zéro custom code, découverte autonome, interface déclarée | ~2-3s de latence, ~2000 tokens par appel |
+| **CLI** (ex: `gh`) | Workflow déterministe, connu d'avance, appelé fréquemment | ~100ms, pas d'overhead token, déterministe | Besoin de connaître la commande exacte |
+| **API directe** | Haute-fréquence, performances critiques, workflow connu | Contrôle total, performances | Besoin de custom code à chaque fois |
+
+**Cas mixte (conversationnel + déterministe)** : Si un système a les deux, MCP est mieux. La flexibilité conversationnelle justifie l'overhead.
+
+Exemples :
+- **GitHub** : 100% déterministe (créer PR, merger) → rester en CLI (`gh`)
+- **Notion** : conversationnel (écrire `.peda`, documenter) + déterministe (ajouter entrée `.log`) → rester en MCP
+
+### Activation : global vs par-projet vs on-demand
+
+| Mode | Quand | Exemple |
+|---|---|---|
+| **Global** | Utilisé par >50% des projets vibe-method | Notion MCP (tous les projets en ont besoin), Gmail |
+| **Par-projet** | Spécifique à un projet ou une catégorie | Linear MCP pour un projet client, Slack pour un projet de comms |
+| **On-demand** | Rare, exploratoire, ou haute-fréquence mais pas par défaut | GitHub MCP quand exploration nécessaire (normalement on utilise `gh` CLI) |
+
+Une fois décidé au `/archi`, l'activation est documentée dans `[projet].archi.md`.
+
+### Découverte des MCP disponibles
+
+- Taper `@` dans le prompt → voir ressources des MCP connectés
+- Commande : `claude mcp list` → lister tous les serveurs enregistrés
+- Catalogues : [awesome-mcp-servers](https://github.com), [Glama Directory](https://glama.ai), [Claude Code Marketplaces](https://claudemarketplaces.com/mcp)
+
+### Créer un MCP custom
+
+Si un besoin est identifié et qu'aucun MCP standard ne le couvre : créer un MCP est possible **si une API existe** + besoin conversationnel documenté.
+
+Avant de créer : chercher dans les catalogues. L'écosystème MCP grandit rapidement.
+
+---
+
 ## Règles actées
 
 - **Modulaire + silos = règle par défaut** sur tous les projets, sans exception
@@ -123,3 +175,4 @@ Le niveau est décidé au `/archi` selon la nature de l'app et ses utilisateurs.
 - **Un module peut appeler un autre, jamais modifier son code**
 - **Contexte minimal** — donner à l'IA : CLAUDE.md + module ciblé + specs de la feature. Pas tout le projet.
 - **Niveau d'abstraction maximal** — toujours choisir l'outil ou le service qui abstrait le plus de complexité technique, tant qu'il couvre le besoin. Vercel plutôt qu'un VPS, Supabase plutôt qu'une base auto-hébergée, un service managé plutôt que Docker. Ne descendre d'un niveau d'abstraction que si le niveau supérieur ne couvre pas le besoin — jamais par défaut, jamais par curiosité.
+- **MCP = spectre, pas binaire** — traiter comme un choix conversationnel vs déterministe. Commencer en MCP, migrer les workflows éprouvés vers CLI/API si perf critiques.

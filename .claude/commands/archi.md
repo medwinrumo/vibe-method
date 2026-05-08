@@ -70,6 +70,31 @@ Medwin valide ou ajuste la liste.
 
 ---
 
+## Étape 3b — Dépendances externes et choix MCP
+
+Tu identifies les systèmes externes avec lesquels le projet doit interagir.
+
+Pour chacun, tu poses la question :
+> "Ce système sera utilisé de manière **conversationnelle** (on explore, on ne sait pas d'avance) ou **déterministe** (workflow connu, appelé régulièrement) ?"
+
+Basé sur la réponse et sur `architecture.md` — Dépendances externes, tu proposes :
+
+| Système | Type | Méthode |
+|---|---|---|
+| GitHub | Déterministe | CLI `gh` |
+| Notion | Conversationnel + déterministe | MCP |
+| [Autre] | [Conversationnel/Déterministe] | [MCP/CLI/API] |
+
+Tu proposes aussi le mode d'**activation** (global / par-projet / on-demand) en fonction de la fréquence d'utilisation.
+
+> "Pour [système], je propose [méthode] en mode [activation]. Ça te convient ?"
+
+Medwin valide.
+
+**Règle :** référer à `architecture.md` section "Dépendances externes — MCP" pour expliquer les choix.
+
+---
+
 ## Étape 4 — Règles silo du projet
 
 Pour chaque module, tu définis avec Medwin :
@@ -148,6 +173,14 @@ Pour chaque module :
 Pour chaque module :
 - Expose (public) : [liste des exports]
 - Interne (non exposé) : [liste des éléments privés]
+
+## Dépendances externes
+| Système | Type | Méthode | Activation |
+|---|---|---|---|
+| [GitHub] | Déterministe | CLI `gh` | Global |
+| [Notion] | Conversationnel + déterministe | MCP | Global |
+
+Voir `architecture.md` section "Dépendances externes — MCP" pour la doctrine.
 
 ## Points ouverts
 [Questions d'architecture qui ne peuvent pas être résolues sans voir la roadmap]

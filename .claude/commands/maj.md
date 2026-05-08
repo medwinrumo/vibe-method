@@ -5,6 +5,16 @@ allowed-tools: Bash(git *), Bash(cat *), mcp__claude_ai_Notion__notion-search, m
 
 Effectue la clôture complète de session pour le projet en cours.
 
+## Étape 0 — Vérification MCP Notion
+
+**Avant de continuer, assurez-vous que le MCP Notion est activé dans Claude Web.**
+
+🔗 [Cliquez ici pour accéder aux paramètres d'intégration MCP](https://claude.ai/settings/integrations)
+
+Recherchez « Notion » dans la liste et vérifiez que le connecteur est **actif** (symbole ✓ ou indicateur vert visible).
+
+⏱️ **Attente : 30 secondes** pour que vous ayez le temps d'activer si nécessaire. Une fois activé, tapez simplement `Continuer` ou attendez la fin du compte à rebours pour que `/maj` procède à l'étape suivante.
+
 ## Étape 1 — Identification du projet
 
 Détermine le nom du projet à partir du répertoire de travail courant (ex : `minou` depuis `/Users/medwinrumo/dev/minou`).
@@ -93,3 +103,11 @@ Pour chaque paire concernée :
 - [ ] `[projet].log` complétée dans Notion
 - [ ] `[projet].spec` mise à jour si nécessaire
 - [ ] `[projet].doc` mise à jour si nécessaire
+
+## Étape 5 — Nettoyage post-exécution
+
+Une fois que tout est publié dans Notion (étape 4 complétée), **désactivez le MCP Notion** pour économiser les tokens à votre prochaine session.
+
+🔗 [Cliquez ici pour accéder aux paramètres d'intégration MCP](https://claude.ai/settings/integrations)
+
+Trouvez « Notion » et **cliquez sur le bouton de désactivation** (le symbole ✓ ou l'indicateur de statut doit disparaître).

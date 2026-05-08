@@ -1,0 +1,8 @@
+# Backups temporaires
+*-backup
+*_backup
+*backup*
+.DS_Store
+.DS_Store?
+*.swp
+*.swo

@@ -42,6 +42,7 @@
 
 - 4 — `templates/` dans vibe-method — à créer lors du lancement de RAMrezo ou Minou. **Priorité moyenne.**
 - 8 — Tester Lovable comme outil de génération UI — à évaluer comme alternative/complément à Stitch + Figma. Décision d'intégration dans la stack design après test.
+- 17 — Backups de projets — stratégie, outils, automatisation, documentation. Ressource : #8 vibe method - backup (local). **Priorité moyenne.**
 - 12 — Stack front recommandée — documenter React + Vite + TypeScript comme combo de référence dans `methode.md` et/ou `architecture.md`, sans rigidité (autres outils possibles si justifiés). *Source : Radio Vibe Code #6.*
 - 13 — Mise en prod — comprendre et documenter les enjeux : hébergement, variables d'environnement, migrations BDD, domaine, monitoring. Décider si un skill `/deploy` est pertinent dans la chaîne. **Nécessite une session de discussion avant toute écriture.**
 - 15 — Agents IA — comprendre et établir une doctrine : qu'est-ce qu'un agent, ce que ça implique, dans quel type de projet, comment ça se construit, comment l'intégrer dans la vibe-method. **Nécessite une session de discussion avant toute écriture.**

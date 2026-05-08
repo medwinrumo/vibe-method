@@ -4,7 +4,15 @@
 
 ---
 
-## Dernière session — 2026-04-22
+## Dernière session — 2026-05-08
+
+### Ce qui a été fait
+- Tâche 14 — Doctrine MCP complétée : chapitre "Dépendances externes — MCP" dans `architecture.md`. Investigation large sur MCP (définition, architecture, cas d'usage). Règle de décision (conversationnel vs déterministe vs mixte). Activation (global / par-projet / on-demand). Intégration étape 3b dans skill `/archi`.
+- Configuration voice : langue mise en français, mode switch de "hold" à "tap" (appuyer pour démarrer/arrêter la dictation).
+
+---
+
+## Session précédente — 2026-04-22
 
 ### Ce qui a été fait
 - Tâche 2 — Skill `/init` créé : Git + Notion (page `.run` + 9 sous-pages). Workflow projet documenté (page projet manuelle → `/init` → `.run`). Symlink créé.
@@ -36,7 +44,6 @@
 - 8 — Tester Lovable comme outil de génération UI — à évaluer comme alternative/complément à Stitch + Figma. Décision d'intégration dans la stack design après test.
 - 12 — Stack front recommandée — documenter React + Vite + TypeScript comme combo de référence dans `methode.md` et/ou `architecture.md`, sans rigidité (autres outils possibles si justifiés). *Source : Radio Vibe Code #6.*
 - 13 — Mise en prod — comprendre et documenter les enjeux : hébergement, variables d'environnement, migrations BDD, domaine, monitoring. Décider si un skill `/deploy` est pertinent dans la chaîne. **Nécessite une session de discussion avant toute écriture.**
-- 14 — MCP — comprendre et établir une doctrine : qu'est-ce qu'un MCP, quand en utiliser dans nos projets, lesquels, comment éviter de surcharger le contexte. **Nécessite une session de discussion avant toute écriture.**
 - 15 — Agents IA — comprendre et établir une doctrine : qu'est-ce qu'un agent, ce que ça implique, dans quel type de projet, comment ça se construit, comment l'intégrer dans la vibe-method. **Nécessite une session de discussion avant toute écriture.**
 - 16 — BMAD vs vibe-method — étude comparative. BMAD (Breakthrough Method for Agile AI-Driven Development) est un framework open source qui orchestre des agents IA spécialisés (PM, archi, dev, QA) comme une feature team. Approche spec-driven + "Agent as Code" (agents définis en Markdown). Questions à traiter : (1) est-ce qu'on réinvente la roue ou on fait mieux/différemment ? (2) quelle est la vraie différence entre un skill et un agent ? (3) qu'est-ce qu'il vaut la peine de récupérer de BMAD ? **Inclure dans la session de la tâche 15 ou session dédiée.**
 - 9 — Audit et enrichissement des skills existants — les skills peuvent contenir : exemples de code, URLs de doc, scripts de validation, chemins de fichiers précis, versions de librairies. **Priorité haute — à ne pas lancer avant que toute la doctrine soit verrouillée.**
@@ -54,6 +61,7 @@
 - ✅ 6 — Corriger `/maj` — déjà propre, clos (2026-04-22)
 - ✅ 12 — Stack front React + Vite + TS documentée dans `architecture.md` (2026-04-22)
 - ✅ 13 — Mise en prod — doctrine `architecture.md` + skill `/deploy` (2026-04-22)
+- ✅ 14 — Doctrine MCP — complète. Chapitre "Dépendances externes — MCP" dans `architecture.md` + étape 3b dans skill `/archi` (2026-05-08)
 - ✅ Skill `/brief` — complet
 - ✅ Skill `/prd` — complet + question stack design ajoutée (2026-04-05)
 - ✅ Skill `/prd-update` — complet

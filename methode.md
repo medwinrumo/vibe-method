@@ -5,6 +5,27 @@ Le process de travail — dans quel ordre construire, comment passer d'une étap
 
 ---
 
+## Greenfield ou Brownfield ?
+
+Première question à poser au démarrage de tout projet. La réponse change le workflow.
+
+**Greenfield** — projet qui part de zéro. Aucune codebase existante.
+Workflow standard : `/brief → /prd → /archi → /stack → /roadmap → /specs → code → /tests → /recette`
+
+**Brownfield** — reprise d'un projet existant (migration, refonte, ajout de features sur une base existante).
+Exemples : Minou V2 (Firebase → Convex), fork d'une app existante, reprise d'un projet abandonné.
+
+### Workflow Brownfield — étapes obligatoires avant tout changement
+
+1. **Inventaire de la codebase** — lire et documenter ce qui existe : modules, dépendances, patterns utilisés, dette technique visible. Ne rien supposer.
+2. **Couverture de régression** — écrire les tests sur le comportement existant AVANT de toucher au code. C'est le filet de sécurité. Si les tests n'existaient pas, ils se créent maintenant.
+3. **Architecture adaptateur** — définir comment le nouveau système s'interface avec l'existant. Pas de remplacement brutal : on branche le nouveau sur l'ancien, on migre progressivement, on coupe l'ancien quand le nouveau est stable.
+4. **Seulement ensuite** : `/archi → /roadmap → /specs → code`
+
+**Règle absolue brownfield :** aucune modification du code existant sans couverture de régression préalable. Un bug introduit sur l'existant est invisible sans filet — et coûteux à trouver.
+
+---
+
 ## Les phases
 
 ### Phase 1 — Produit
@@ -101,17 +122,31 @@ Ordre d'exécution pour chaque feature :
 1. Feature développée
 2. /tests         → tests unitaires + intégration (Vitest)
 3. /tests         → non-régression (batterie Playwright sur les features existantes)
-4. /recette       → génération du cahier de recettes (Gherkin depuis User Stories)
-5. /tests         → Playwright sur la nouvelle feature → corrections
-6. /securite check → vérification sécurité de la feature → bloquant si point en échec
-7. /recette       → validation manuelle finale
+4. /code-review   → revue structurelle + sécurité → bloquant si point critique
+5. /recette       → génération du cahier de recettes (Gherkin depuis User Stories)
+6. /tests         → Playwright sur la nouvelle feature → corrections
+7. /securite check → vérification sécurité de la feature → bloquant si point en échec
+8. /recette       → validation manuelle finale
 ```
 
-Les étapes 2, 3 et 5 filtrent les bugs avant que l'humain intervienne. L'étape 6 filtre les failles de sécurité — bloquante, pas de merge tant qu'un point est en échec. Medwin arrive en dernier pour réexécuter l'intégralité du cahier de recettes manuellement — les mêmes vérifications que l'automatisation, du point de vue humain : fonctionnement, fluidité, cohérence visuelle, expérience utilisateur.
+Les étapes 2 et 3 filtrent les bugs automatiquement (Vitest + non-régression Playwright). L'étape 4 filtre les problèmes de structure et de sécurité dans le code — bloquante si point critique. L'étape 6 valide la nouvelle feature avec Playwright. L'étape 7 filtre les failles de sécurité — bloquante, pas de merge tant qu'un point est en échec. Medwin arrive en dernier (étape 8) pour réexécuter l'intégralité du cahier de recettes manuellement — fonctionnement, fluidité, cohérence visuelle, expérience utilisateur.
 
 - Bug détecté en recette → `/debug` déclenché automatiquement
 - Bug non résolu = bloquant — recette suspendue jusqu'à résolution
-- Feature "Done" uniquement quand Medwin a validé la recette manuelle
+- Feature "Done" uniquement quand tous les critères de la Definition of Done sont satisfaits
+
+### Definition of Done
+
+Une feature n'est "Done" que si toutes ces cases sont cochées. Aucune exception.
+
+- [ ] Tests unitaires et intégration passants (Vitest)
+- [ ] Non-régression Playwright verte sur les features existantes
+- [ ] `/securite` check validé sur la feature (bloquant)
+- [ ] Recette manuelle validée par Medwin
+- [ ] Aucune valeur hardcodée (tokens, clés API, URLs, credentials)
+- [ ] Code sur branche `feat/[feature]`, prêt à merger
+
+Si un critère n'est pas atteint → la feature reste "In Progress". Pas de merge.
 
 Fichier de référence : `tests.md`
 
@@ -137,6 +172,53 @@ La question se pose lors du `/stack` ou du `/archi`.
 - Merge dans `main` après validation `/recette` ✅
 - Branche supprimée après merge
 - PR (Pull Request) optionnelle en solo — recommandée pour forcer une relecture avant merge
+
+---
+
+## Doctrine — Agents IA
+
+### Skill ou agent ?
+
+Un skill suffit quand on peut écrire les étapes avant de commencer.
+Un agent se justifie quand l'exécution elle-même révèle les étapes — boucles, dépendances aux résultats intermédiaires, itérations longues.
+
+### Cas d'usage dans le dev d'une appli
+
+Dans la construction d'une appli, un agent se justifie surtout pour des tâches transverses, volumineuses et répétitives — pas pour construire les features une par une.
+
+Cas typiques :
+- Migration de codebase
+- Audit (sécurité, code mort, incohérences)
+- Génération de documentation
+- Génération de tests en masse
+
+### Point de décision dans la chaîne
+
+La décision se prend au moment du `/specs`. C'est là qu'on sait exactement ce qu'on doit produire. Si une tâche correspond aux critères ci-dessus, on le note dans la spec : "cette tâche sera traitée par un agent".
+
+Question systématique en fin de `/specs` : est-ce que l'une de ces tâches justifie un agent ?
+
+Si oui :
+- Le documenter dans la spec
+- Définir la checklist de vérification avant de lancer l'agent
+
+### Règles opérationnelles
+
+- Un agent co-construit avec Medwin doit avoir une checklist de vérification définie avant lancement
+- Claude vérifie le résultat de chaque agent avant de valider
+- Pour les sous-agents spawned par Claude : modèle choisi selon la complexité (Haiku / Sonnet / Opus), retour en Sonnet après la sous-tâche
+
+---
+
+## Skills transversaux
+
+Ces skills peuvent être invoqués à tout moment dans le workflow, quelle que soit la phase :
+
+| Skill | Quand l'utiliser |
+|---|---|
+| `/party` | Sur toute décision structurante où une seule perspective risque d'être incomplète (choix archi, priorisation, découpage V1/V2) |
+| `/securite` | Analyse sécurité du PRD ou vérification sécurité d'une feature |
+| `/debug` | Dès qu'un bug bloque la progression |
 
 ---
 

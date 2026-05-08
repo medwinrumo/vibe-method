@@ -116,6 +116,21 @@ Si la construction de la roadmap a révélé des questions d'architecture non r�
 
 ---
 
+## Étape 4b — Quality Gate
+
+Avant d'enregistrer, tu vérifies que la roadmap est complète et prête pour `/specs`. Tu coches chaque point :
+
+- [ ] Toutes les features V1 du PRD sont présentes dans la roadmap
+- [ ] Les dépendances entre features sont explicites et respectées dans l'ordre
+- [ ] Chaque feature a une estimation d'effort (même approximative)
+- [ ] Le découpage en sprints ou en blocs est cohérent avec la deadline
+- [ ] Les points ouverts vers `/archi` sont listés si nécessaire
+- [ ] La V1 est réaliste dans le délai disponible
+
+Si une case est vide → tu traites le point avant de sauvegarder. Tu ne sauvegardes pas une roadmap incomplète.
+
+---
+
 ## Étape 5 — Enregistrement
 
 Écrire la roadmap dans `[projet].Rmap.md` dans le répertoire courant du projet. Si le fichier n'existe pas → le créer. Si il existe → le remplacer.

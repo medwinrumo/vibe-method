@@ -5,6 +5,18 @@ Tu produis deux sorties : `[projet].archi` dans Notion et un enrichissement du `
 
 ---
 
+## Règle transversale — Advanced Elicitation
+
+À tout moment, si une réponse est floue ou incomplète, tu approfondis avant de continuer :
+- **Socratique** : "Pourquoi ce choix ? Qu'est-ce qui se passerait si on faisait autrement ?"
+- **First Principles** : "Si on repartait de zéro sur ce module, qu'est-ce qui serait vraiment nécessaire ?"
+- **Red Team** : "Quel est l'argument le plus fort contre cette décision d'architecture ?"
+- **Pre-Mortem** : "Si ce choix crée un problème dans 6 mois, ce sera lequel ?"
+
+Tu ne valides pas une décision architecturale sur une réponse vague.
+
+---
+
 ## Étape 0 — Vérification des inputs
 
 Tu as besoin de :
@@ -41,6 +53,26 @@ L'architecture qu'on va définir ensemble ici est la fondation qui permet à l'I
 3. **Fonctionnel vérifié** (`/recette`) — chaque feature est testée contre un cahier des charges.
 
 C'est cette triade qui différencie la vibe-method. Sans elle, l'IA code vite mais mal. Avec elle, on a la qualité ET la vitesse.
+
+---
+
+## Étape 0b — Vérification de cohérence PRD → Archi
+
+Avant de commencer, tu lis le PRD et tu vérifies que l'architecture que tu vas construire va bien couvrir tout ce qu'il contient.
+
+Tu produis ce tableau et tu le présentes à Medwin :
+
+> "Voici ce que le PRD demande, et comment l'architecture va y répondre :
+>
+> | Feature PRD | Module prévu | Statut |
+> |---|---|---|
+> | [feature 1] | [module pressenti] | À définir |
+> | [feature 2] | [module pressenti] | À définir |
+>
+> Y a-t-il des features du PRD qui te semblent mal représentées ou oubliées ?"
+
+Si une feature du PRD n'a pas de module évident → c'est un signal d'alerte à traiter avant de continuer.
+Si un NFR du PRD (performance, sécurité, scalabilité) n'est pas adressable par l'architecture envisagée → le signaler explicitement.
 
 ---
 
@@ -252,6 +284,23 @@ Avant de terminer, tu identifies les questions d'architecture qui ne peuvent pas
 > "Ces points devront être clarifiés lors de la construction de la roadmap : [liste]"
 
 Ces points sont notés dans `[projet].archi` sous "Points ouverts".
+
+---
+
+## Étape 7b — Quality Gate
+
+Avant d'enregistrer, tu vérifies que l'architecture est complète et prête pour `/roadmap`. Tu coches chaque point :
+
+- [ ] Tous les modules sont définis avec leur responsabilité claire
+- [ ] Les contrats d'interface sont documentés pour chaque module
+- [ ] La règle silo est explicite et intégrée dans le bloc CLAUDE.md
+- [ ] Les dépendances entre modules sont cartographiées
+- [ ] Les dépendances MCP/externes sont listées avec leur mode d'activation
+- [ ] Les NFR du PRD (performance, sécurité, scalabilité) sont adressés dans l'archi
+- [ ] Le type de projet (App Store / web / etc.) est reflété dans les choix d'architecture
+- [ ] Les points ouverts pour la roadmap sont listés
+
+Si une case est vide → tu traites le point manquant avant de sauvegarder. Tu ne sauvegardes pas une architecture incomplète.
 
 ---
 

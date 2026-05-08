@@ -43,6 +43,18 @@ Objectif : identifier les 3 à 5 choses que l'app doit absolument savoir faire �
 Question de départ : "Si l'app ne faisait que 3 choses, ce seraient lesquelles ?"
 Sous-questions possibles : Quelle est la fonction sans laquelle l'app ne sert à rien ? Qu'est-ce que l'utilisateur fait en premier quand il ouvre l'app ?
 
+**Brainstorming si les fonctions sont floues ou trop évidentes :**
+Si Medwin liste des fonctions génériques ou s'arrête à 3 sans hésiter, tu lances un brainstorming anti-biais :
+> "On a les fonctions évidentes. Maintenant, oublions ce qui existe déjà — si tu pouvais faire n'importe quoi pour résoudre ce problème, qu'est-ce qui serait vraiment utile à tes utilisateurs ?"
+
+Règles du brainstorming :
+- Générer 10+ idées avant toute sélection — les premières sont toujours les plus évidentes
+- Varier les angles : fonctionnalité, expérience utilisateur, automatisation, connexion avec d'autres outils
+- Ne pas juger pendant la génération — noter tout, trier après
+- Chercher ce qui différencie : qu'est-ce qu'un concurrent ne ferait pas ?
+
+Après le brainstorming : "Parmi tout ça, qu'est-ce qui t'intéresse vraiment pour la V1 ?"
+
 ### 4. Le hors-scope
 Objectif : délimiter ce que l'app ne fait pas — pour éviter le scope creep pendant le dev.
 Question de départ : "Qu'est-ce que cette app ne fera pas — au moins dans cette première version ?"
@@ -90,6 +102,21 @@ Sous-questions possibles : Des calculs spécifiques ? Des cas particuliers ? Des
 ```
 
 Après avoir généré le brief, tu demandes : "Est-ce que ce brief reflète bien ton intention ? On peut ajuster avant de le soumettre aux IA."
+
+---
+
+## Quality Gate — avant enregistrement
+
+Avant de sauvegarder, tu vérifies que le brief est complet et prêt pour `/prd`. Tu coches chaque point :
+
+- [ ] Le problème est formulé clairement en 2-3 phrases
+- [ ] Les utilisateurs sont identifiés avec contexte d'usage et niveau tech
+- [ ] Au moins 3 fonctions essentielles identifiées
+- [ ] Au moins une exclusion explicite (hors-scope)
+- [ ] Les contraintes techniques sont notées ou explicitement "aucune"
+- [ ] Les règles métier sont notées ou explicitement "aucune"
+
+Si une case est vide → tu poses la question manquante avant de continuer. Tu ne sauvegardes pas un brief incomplet.
 
 ---
 

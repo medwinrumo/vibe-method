@@ -1,9 +1,21 @@
 # /specs — Rédiger les specs d'une feature
 
 Tu guides Medwin dans la rédaction des specs d'une feature : user story au format A4.
-Tu produis le document `[projet].spec.md` dans le repo du projet.
+Tu produis un fichier `[projet].spec.[feature].md` dans le repo du projet — un fichier par feature, jamais un fichier monolithique.
 
 Les scénarios Gherkin ne font pas partie des specs — ils sont générés par `/recette` à partir des User Stories.
+
+---
+
+## Règle transversale — Advanced Elicitation
+
+À tout moment, si une réponse est floue ou incomplète, tu approfondis avant de continuer :
+- **Socratique** : "Pourquoi c'est important ? Que se passerait-il si ce n'était pas là ?"
+- **First Principles** : "Si tu repartais de zéro, qu'est-ce qui serait vraiment indispensable ?"
+- **Pre-Mortem** : "Imaginons que cette feature a échoué. Quelle en est la cause ?"
+- **Red Team** : "Quel est l'argument le plus fort contre cette approche ?"
+
+Tu ne continues pas avec une réponse vague.
 
 ---
 
@@ -12,7 +24,7 @@ Les scénarios Gherkin ne font pas partie des specs — ils sont générés par 
 Tu as besoin de :
 1. **Le nom du projet**
 2. **La feature à specer** — une feature identifiée dans la roadmap (pas une idée vague)
-3. **Les documents du projet** : `[projet].prd`, `[projet].archi`, `[projet].Rmap` dans Notion
+3. **Les documents du projet** : `[projet].prd.md`, `[projet].archi.md`, `[projet].Rmap.md` en local
 
 Si un document manque → tu t'arrêtes :
 > "Pour specer cette feature, j'ai besoin de `[document manquant]`. Lance `/[skill]` d'abord."
@@ -21,14 +33,21 @@ Si un document manque → tu t'arrêtes :
 
 ## Étape 1 — Cadrage depuis les documents
 
-Tu lis `[projet].archi`, `[projet].prd` et `[projet].Rmap`. Tu proposes les réponses suivantes et tu demandes confirmation :
+Tu lis `[projet].archi.md`, `[projet].prd.md` et `[projet].Rmap.md`. Tu proposes les réponses suivantes et tu demandes confirmation :
 
 > "Depuis les documents du projet, voici ce que je vois pour cette feature :
 > - Module concerné : [module]
 > - Dépendances : [features ou modules qui doivent exister avant]
 > - La feature touche : [un seul module / plusieurs modules]
+> - Contrainte de sécurité applicable : [depuis securite.md, ou "aucune spécifique"]
+> - Contrainte de plateforme applicable : [App Store / Android / web / aucune]
 >
 > C'est correct ?"
+
+**Vérification de cohérence** — tu contrôles explicitement :
+- La feature est-elle dans le PRD ? Si elle n'y est pas → signaler avant de continuer.
+- La feature contredit-elle une règle de l'archi ? (ex : touche plusieurs modules sans interface définie, contourne un contrat d'interface)
+- Les NFR du PRD applicables à cette feature sont-ils reflétés dans la spec ?
 
 **Si aucun module ne correspond à la feature** → tu t'arrêtes :
 > "Cette feature n'a pas de module défini dans l'architecture. Il faut retourner dans `/archi` avant de continuer."
@@ -100,16 +119,36 @@ Avant de finaliser, tu vérifies trois points :
 
 ---
 
+## Étape 4b — Décision agent
+
+Tu poses systématiquement la question suivante avant de finaliser :
+
+> "Cette feature nécessite-t-elle un agent plutôt qu'un développement standard ? Un agent se justifie si la tâche est transverse, volumineuse et répétitive (migration, audit, génération de doc ou de tests en masse), ou si les étapes ne peuvent pas être définies à l'avance."
+
+Si oui :
+- Ajouter dans la spec : "**Mode d'exécution : agent**"
+- Définir avec Medwin la checklist de vérification avant lancement de l'agent
+
+---
+
 ## Étape 5 — Génération du document
 
-Tu génères le document final et tu l'ajoutes à `[projet].spec.md` dans le repo du projet. Si le fichier n'existe pas → tu le crées.
+Tu génères le document final dans un fichier **`[projet].spec.[nom-feature].md`** dans le repo du projet.
+Un fichier par feature — ne jamais tout mettre dans un fichier monolithique.
+Si le fichier existe déjà → tu demandes confirmation avant d'écraser.
 
 ```markdown
-# Specs — [Nom du projet]
-_[Feature] — [date]_
+# Spec — [Nom du projet] / [Nom de la feature]
+_[date]_
 
-## Module
-[module concerné]
+## Contexte d'implémentation
+
+- **Module** : [module concerné dans l'architecture]
+- **Dépendances** : [features ou modules qui doivent exister avant]
+- **Imports autorisés** : [depuis le contrat d'interface défini dans /archi, ou "standard"]
+- **Contrainte de sécurité** : [règle applicable depuis securite.md, ou "aucune spécifique"]
+- **Contrainte de plateforme** : [App Store / Android / web / aucune — avec référence à appstore.md si applicable]
+- **Mode d'exécution** : [Standard / Agent]
 
 ## User Story — [Titre]
 
@@ -127,10 +166,19 @@ En tant que [acteur], je souhaite [objectif] afin de [bénéfice].
 **Cas d'échec**
 - [cas d'échec 1]
 - [cas d'échec 2]
+
+## Definition of Done
+
+- [ ] Tests unitaires et intégration passants (Vitest)
+- [ ] Non-régression Playwright verte
+- [ ] /securite check validé
+- [ ] Recette manuelle validée par Medwin
+- [ ] Aucune valeur hardcodée
+- [ ] Code sur branche feat/[feature], prêt à merger
 ```
 
 Tu confirmes :
-> "User Story ajoutée à `[projet].spec.md`. Les scénarios Gherkin correspondants seront générés par `/recette`."
+> "Spec sauvegardée → `[projet].spec.[nom-feature].md`. Les scénarios Gherkin seront générés par `/recette`."
 
 ---
 

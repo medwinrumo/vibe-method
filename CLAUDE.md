@@ -25,22 +25,26 @@ vibe-method/
 ## Chaîne de skills — workflow complet
 
 ```
-/brief → /prd → /prd-update → [design] → /archi → /stack → /roadmap → /specs → [code] → /tests → /recette ↔ /debug
+/brief → /prd → /prd-update → [design] → /archi → /stack → /roadmap → /specs → [code] → /code-review → /tests → /recette ↔ /debug
 ```
+
+Skills transversaux (invocables à tout moment) : `/party`, `/securite`
 
 | Skill | Rôle | Output |
 |---|---|---|
 | `/brief` | De l'intention au brief structuré | `[projet].brief.md` |
 | `/prd` | Du brief au PRD V1 (dialogue) | `[projet].prd.md` |
 | `/prd-update` | Intégration retours cross-pollination → PRD V2 | `[projet].prd.md` |
-| `/design` | Mode A : spike stack design + interview + liste features pour Stitch/Figma. Mode B : intégration export CSS → Tailwind + shadcn | `[projet].design.md` |
+| `/design` | Mode 0 : Design Thinking (Empathize→Define→Ideate→Prototype→Test). Mode A : spike stack design + interview + liste features pour Stitch/Figma. Mode B : intégration export CSS → Tailwind + shadcn | `[projet].design.md` |
 | `/archi` | Architecture modulaire + silos + garde-fous | `[projet].archi.md` + `CLAUDE.md` projet |
 | `/stack` | Spike technique — investigation stack, free tier, gotchas | `[projet].stack.md` |
 | `/roadmap` | Roadmap + planning global | `[projet].Rmap.md` |
-| `/specs` | User story format A4 | `[projet].spec.md` |
+| `/specs` | User story auto-contenue — un fichier par feature | `[projet].spec.[feature].md` |
+| `/code-review` | Revue structurelle + sécurité avant merge | — |
 | `/tests` | Tests unitaires + intégration + Playwright | `[projet].tests.md` |
 | `/recette` | Génère Gherkin depuis User Stories + validation manuelle | `[projet].recette.md` |
 | `/debug` | Diagnostic et résolution de bug (déclenché par `/recette`) | — |
+| `/party` | Multi-perspectives sur une décision (sous-agents parallèles) | — |
 
 **Règle de stockage :** tous les outputs sont des fichiers `.md` dans le repo du projet — pas dans Notion. Notion est une copie pour la lecture, mise à jour en fin de session via `/maj`.
 

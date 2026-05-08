@@ -32,6 +32,18 @@ Ce principe ne s'applique pas si la solution plus abstraite ne couvre pas un bes
 
 ---
 
+## Rappel — La règle du back-end piloté par l'IA
+
+L'architecture qu'on va définir ensemble ici est la fondation qui permet à l'IA de coder le back-end en sécurité. Trois garde-fous :
+
+1. **Schéma défini et validé** (toi) — l'IA n'improvise pas, elle exécute.
+2. **Sécurité auditée** (`/securite`) — accès, auth, données, tout est explicite.
+3. **Fonctionnel vérifié** (`/recette`) — chaque feature est testée contre un cahier des charges.
+
+C'est cette triade qui différencie la vibe-method. Sans elle, l'IA code vite mais mal. Avec elle, on a la qualité ET la vitesse.
+
+---
+
 ## Étape 1 — Pattern architectural
 
 Le pattern par défaut est **modulaire + silos**. Tu l'annonces et tu confirmes :

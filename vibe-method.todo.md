@@ -49,12 +49,12 @@
 - 16 — BMAD vs vibe-method — étude comparative. BMAD (Breakthrough Method for Agile AI-Driven Development) est un framework open source qui orchestre des agents IA spécialisés (PM, archi, dev, QA) comme une feature team. Approche spec-driven + "Agent as Code" (agents définis en Markdown). Questions à traiter : (1) est-ce qu'on réinvente la roue ou on fait mieux/différemment ? (2) quelle est la vraie différence entre un skill et un agent ? (3) qu'est-ce qu'il vaut la peine de récupérer de BMAD ? **Inclure dans la session de la tâche 15 ou session dédiée.**
 - 9 — Audit et enrichissement des skills existants — les skills peuvent contenir : exemples de code, URLs de doc, scripts de validation, chemins de fichiers précis, versions de librairies. **Priorité haute — à ne pas lancer avant que toute la doctrine soit verrouillée.**
 - 10 — Skill `/prp` — agrège tous les outputs existants (PRD + archi + CLAUDE.md + roadmap + specs) en un document unique, précis, optimisé pour le LLM comme contexte de démarrage. **Priorité haute — à ne pas lancer avant tâche 9.**
-- 11 — Finir l'étude Radio Vibe Code #6 — intégrer les enseignements dans la vibe-method :
-  - ✅ 1. Stack — Supabase remis en cause. Xano s'impose comme back-end recommandé. À intégrer dans `architecture.md` et la stack B.
-  - ✅ 2. Règle back-end — La vibe-method permet à l'IA de piloter le back-end précisément parce qu'elle pose les garde-fous absents ailleurs : /archi (schéma validé par Medwin) + /securite + /recette. Position actée et différenciante.
-  - ✅ 3. Modélisation — Schéma BDD dans Notion (BDD Modélisation > Schéma Mermaid > tables indépendantes) avant tout code. Règle actée. À intégrer dans `architecture.md` et skill `/archi`.
-  - ✅ 4. Lovable — Déjà documenté en tâche 8 (tests à faire). Clos ici.
-  - ✅ 5. Méthodo — Analyse faite. Trous identifiés → tâches 12, 13, 14, 15 ci-dessous.
+- ✅ 11 — Finir l'étude Radio Vibe Code #6 — intégrer les enseignements dans la vibe-method (2026-05-08) :
+  - ✅ 1. Stack — Supabase vs Xano évalués au cas par cas lors du `/archi`. Pas de décision figée.
+  - ✅ 2. Règle back-end — Documentée dans `architecture.md` + intégrée dans skill `/archi`. Trois garde-fous : schéma validé + sécurité + recette.
+  - ✅ 3. Modélisation — Approche : discuter ensemble → définir dans `/archi` → générer Mermaid visuel si besoin.
+  - ✅ 4. Lovable — Remplacé par Code Design (nouveau, à intégrer dans la méthode).
+  - ✅ 5. Méthodo — Analyse faite. Trous → tâches 12-14 réalisées, tâche 15 en cours.
 
 ### Réalisées
 

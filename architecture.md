@@ -13,6 +13,18 @@ Toutes les décisions d'architecture découlent de ce principe : modules isolés
 
 ---
 
+## Règle du back-end piloté par l'IA
+
+**La vibe-method permet à l'IA de piloter le back-end en toute sécurité grâce à trois garde-fous :**
+
+1. **Schéma validé par vous** (`/archi`) — l'architecture est définie et validée avant toute implémentation. L'IA ne décide pas, elle exécute.
+2. **Sécurité contrôlée** (`/securite`) — chaque décision d'accès, d'authentification, de gestion des données est examinée explicitement avant le code.
+3. **Recette fonctionnelle** (`/recette`) — chaque feature est testée en langage métier (Gherkin) avant validation. L'IA n'interprète pas, elle valide contre un cahier des charges.
+
+C'est cette combinaison (archi + sécurité + recette) qui différencie la vibe-method. D'autres approches laissent l'IA coder sans ces garde-fous — d'où les bugs, les failles, les incompréhensions. Ici, chaque étape est cadenassée.
+
+---
+
 ## Concepts actés
 
 ### Architecture modulaire

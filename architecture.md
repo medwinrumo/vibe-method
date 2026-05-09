@@ -128,6 +128,125 @@ Le niveau est décidé au `/archi` selon la nature de l'app et ses utilisateurs.
 
 ---
 
+## Backup & conformité RGPD — doctrine
+
+### Périmètre
+
+Le backup s'applique uniquement aux **données en production**. Le code est versionné sur GitHub — ce n'est pas un backup au sens strict, mais suffisant pour le code. La base de données est le seul vrai risque.
+
+---
+
+### Criticité des données — 3 niveaux
+
+À trancher au `/archi` pour chaque projet.
+
+| Niveau | Critère | Exemples |
+|---|---|---|
+| **1 — Faible** | Données récréables, aucune donnée personnelle | App perso, prototype |
+| **2 — Standard** | Données personnelles non sensibles (nom, email, rôle) | App associative, club |
+| **3 — Élevé** | Données financières, médicales, légales | Paiements, santé, B2B |
+
+---
+
+### Stratégie de backup par niveau
+
+**Niveau 1** — aucun backup obligatoire. Git suffit.
+
+**Niveau 2** :
+- Dump quotidien automatisé (GitHub Actions)
+- Stockage : GitHub privé + GitLab privé, dumps chiffrés GPG
+- Monitoring : UptimeRobot (URL de l'API)
+- Test de restauration : 1 fois par an minimum
+
+**Niveau 3** :
+- Tout le niveau 2
+- Backup natif Supabase Pro (région EU, rétention 7 jours native)
+- Dump secondaire chiffré sur OVH ou Scaleway Object Storage (souveraineté EU)
+- Test de restauration : 2 fois par an
+
+---
+
+### Contenu obligatoire d'un dump
+
+Pour toute base relationnelle (Supabase ou Convex) :
+- Schéma de la base (structure des tables, types, contraintes)
+- Données complètes
+- IDs et clés étrangères — indispensables pour reconstruire les relations entre tables
+
+---
+
+### Politique de rétention — formule par défaut
+
+À adapter par projet au `/archi`.
+
+| Fréquence | Conservation |
+|---|---|
+| Dumps quotidiens | 30 jours glissants |
+| Dumps mensuels | 12 mois glissants |
+| Dumps annuels | Indéfini (archivage) |
+
+Rotation automatisée via script GitHub Actions. Certains projets ont une logique saisonnière (ex : données d'adhésion) — la politique de rétention s'adapte en conséquence.
+
+**Archivage** : si le projet nécessite une conservation historique longue, définir au `/archi` : quelles données archiver, à quel moment les basculer, pour quelle durée.
+
+---
+
+### RGPD — règles par outil
+
+**Supabase** :
+- Sélectionner la région **Frankfurt (eu-central-1)** à la création du projet — disponible sur tous les plans, y compris gratuit
+- Signer le DPA sur `supabase.com/legal/dpa` avant toute mise en production avec données personnelles EU
+- Chiffrement au repos AES-256 et en transit TLS inclus — clés gérées par Supabase (pas le client)
+- Référence pour tout projet niveau 2 ou 3
+
+**Convex** :
+- DPA disponible sur `convex.dev/legal/dpa` — GDPR Verified, SOC 2 Type II
+- Pas de région EU confirmée — préférer Supabase pour les projets avec données personnelles EU
+- Acceptable pour projets niveau 1 ou sans données personnelles EU
+
+**GitHub / GitLab** (stockage des dumps) :
+- Plateformes américaines soumises au Cloud Act
+- Les dumps **doivent être chiffrés GPG** avant tout push — les fichiers stockés sont illisibles sans la clé
+- Clé GPG stockée dans 1Password — jamais dans le repo
+
+**Nota** : la synchronisation (Google Drive, Dropbox) n'est pas un backup. Elle propage les corruptions et suppressions.
+
+---
+
+### Architecture backup standard (niveaux 2 et 3)
+
+```
+Code             → GitHub (primary) + GitLab (miroir automatique)
+Dump quotidien   → chiffré GPG → GitHub privé + GitLab privé
+Monitoring       → UptimeRobot (URL de l'API)
+Clé GPG          → 1Password
+DPA              → signé (Supabase et/ou Convex selon le projet)
+```
+
+---
+
+### Implémentation — skill /backup
+
+Le skill `/backup` prend le relais après `/archi` pour l'exécution :
+- Configuration GitHub Actions (dump automatique + rotation)
+- Miroir automatique GitHub → GitLab
+- Setup GPG + stockage clé dans 1Password
+- Signature DPA (Supabase et/ou Convex)
+- Configuration UptimeRobot
+- Test de restauration initial
+
+---
+
+### Règles actées
+
+- **Backup obligatoire dès le niveau 2** — aucune donnée personnelle sans backup
+- **Chiffrement GPG systématique** sur GitHub et GitLab pour tous les dumps
+- **Tester la restauration** au moins une fois par an — vérifier que le dump est restaurable, pas seulement qu'il existe
+- **DPA signé avant mise en production** — pas après
+- **Supabase + région Frankfurt** = référence pour tout projet avec données personnelles EU
+
+---
+
 ## Dépendances externes — Model Context Protocol (MCP)
 
 Les MCP permettent à l'IA de se connecter à des systèmes externes (GitHub, Notion, bases de données, APIs) sans custom code. C'est un standard ouvert avec trois primitives : tools (actions), resources (données), prompts (directives).

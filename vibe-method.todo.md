@@ -40,23 +40,22 @@
 
 ### À faire
 
-- 4 — `templates/` dans vibe-method — à créer lors du lancement de RAMrezo ou Minou. **Priorité moyenne.**
-- 8 — Tester Lovable comme outil de génération UI — à évaluer comme alternative/complément à Stitch + Figma. Décision d'intégration dans la stack design après test.
-- 17 — Backups de projets — stratégie, outils, automatisation, documentation. Ressource : #8 vibe method - backup (local). **Priorité moyenne.**
-- ✅ 15 — Agents IA — doctrine complète. Ajoutée dans `methode.md` + étape 4b dans skill `/specs` (2026-05-08)
-- ✅ 16 — BMAD vs vibe-method — étude comparative complète. Intégrations : /prd (NFR, User Journeys, Advanced Elicitation, Quality Gate), /specs (auto-contenues, fichier par feature, DoD), /brief (brainstorming anti-biais, Quality Gate), /archi (cohérence PRD, Advanced Elicitation, Quality Gate), /roadmap (Quality Gate), /design (Mode 0 Design Thinking), methode.md (DoD, Greenfield/Brownfield, /code-review), nouveaux skills /party et /code-review (2026-05-08)
-- 9 — Audit et enrichissement des skills existants — les skills peuvent contenir : exemples de code, URLs de doc, scripts de validation, chemins de fichiers précis, versions de librairies. **Priorité haute — à ne pas lancer avant que toute la doctrine soit verrouillée.**
-- 10 — Skill `/prp` — agrège tous les outputs existants (PRD + archi + CLAUDE.md + roadmap + specs) en un document unique, précis, optimisé pour le LLM comme contexte de démarrage. **Priorité haute — à ne pas lancer avant tâche 9.**
-- ✅ 11 — Finir l'étude Radio Vibe Code #6 — intégrer les enseignements dans la vibe-method (2026-05-08) :
-  - ✅ 1. Stack — Supabase vs Xano évalués au cas par cas lors du `/archi`. Pas de décision figée.
-  - ✅ 2. Règle back-end — Documentée dans `architecture.md` + intégrée dans skill `/archi`. Trois garde-fous : schéma validé + sécurité + recette.
-  - ✅ 3. Modélisation — Approche : discuter ensemble → définir dans `/archi` → générer Mermaid visuel si besoin.
-  - ✅ 4. Lovable — Remplacé par Code Design (nouveau, à intégrer dans la méthode).
-  - ✅ 5. Méthodo — Analyse faite. Trous → tâches 12-14 réalisées, tâche 15 en cours.
+- ✅ 1 — Backups de projets — doctrine complète rédigée dans `architecture.md` (2026-05-09)
+- 2 — Tester Code Design comme outil de génération UI — à évaluer comme alternative/complément à Stitch + Figma. Décision d'intégration dans la stack design après test. **Priorité moyenne.**
+- 3 — Audit et enrichissement des skills existants — les skills peuvent contenir : exemples de code, URLs de doc, scripts de validation, chemins de fichiers précis, versions de librairies. Points spécifiques à traiter dans `/archi` : (a) vérification des versions de technologie par WebSearch au moment où une décision est documentée — complémentaire au `/stack` qui couvre l'investigation en amont ; (b) vérification des implications en cascade — après chaque décision majeure, identifier explicitement quelles autres décisions elle déclenche ou modifie. **Priorité haute.**
+- 4 — Skill `/prp` — agrège tous les outputs existants (PRD + archi + CLAUDE.md + roadmap + specs) en un document unique, précis, optimisé pour le LLM comme contexte de démarrage. **Priorité haute.**
+- 5 — `templates/` dans vibe-method — coquille vide avec tous les fichiers `.md` du projet déjà nommés. **Priorité moyenne — à faire après tâches 3 et 4.**
+- ✅ 6 — Skill `/backup` — créé et symlinké (2026-05-09) : DPA, GPG, GitHub Actions dump quotidien + rotation, miroir GitLab, UptimeRobot, test de restauration
+- ✅ 7 — Étape backup dans skill `/archi` — étape 4c ajoutée + template document mis à jour + Quality Gate complété (2026-05-09)
+- 8 — Doctrine RGPD complète — politique de confidentialité, gestion du consentement, minimisation des données, droits des utilisateurs, registre des traitements. **Priorité haute — chantier structurant.**
+- 9 — Audit de cohérence interne vibe-method — vérifier que tous les fichiers `.md` de doctrine (`architecture.md`, `methode.md`, `securite.md`, `tests.md`, `stack.md`, `design.md`) et tous les skills sont alignés : pas de contradiction entre eux, pas de référence à un skill ou fichier inexistant, pas de règle dans un skill qui contredit un autre. Définir une stratégie d'audit reproductible pour les sessions futures. **Priorité haute.**
+- 10 — Évaluation comparative vibe-method vs BMAD — avec BMAD installé localement dans `~/dev/bmad-method/`, comparer point par point chaque phase et skill de vibe-method contre l'équivalent BMAD. Identifier : (a) ce que BMAD couvre mieux, (b) ce que vibe-method couvre mieux, (c) les lacunes dans vibe-method à combler. Produire un rapport de décision pour chaque point. **Priorité moyenne — après tâche 9.**
 
 ### Réalisées
 
+- ✅ 11 — Finir l'étude Radio Vibe Code #6 — intégrer les enseignements dans la vibe-method (2026-05-08)
 - ✅ 15 — Agents IA — doctrine complète (`methode.md` + étape 4b `/specs`) (2026-05-08)
+- ✅ 16 — BMAD vs vibe-method — étude comparative complète. Intégrations : /prd, /specs, /brief, /archi, /roadmap, /design, methode.md, nouveaux skills /party et /code-review (2026-05-08)
 
 - ✅ 2 — Skill `/init` — complet (Git + Notion, workflow projet documenté) (2026-04-22)
 - ✅ 6 — Corriger `/maj` — déjà propre, clos (2026-04-22)

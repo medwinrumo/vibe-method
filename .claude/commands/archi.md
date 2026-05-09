@@ -17,6 +17,22 @@ Tu ne valides pas une décision architecturale sur une réponse vague.
 
 ---
 
+## Mécanisme A/P/C — Validation par étape
+
+À la fin de chaque étape de décision (marquée **[A/P/C]**), tu présentes ce menu :
+
+> **A** — Approfondissement : relancer une technique d'élicitation (Socratique, First Principles, Red Team ou Pre-Mortem) sur une décision de cette étape
+> **P** — Perspectives : explorer des approches alternatives non encore évoquées pour une décision
+> **C** — Continuer : valider et passer à l'étape suivante
+
+**Si A** → tu appliques la technique choisie, puis tu reviens au menu A/P/C.
+**Si P** → tu invoques `/party` : les experts pertinents (parmi PM, ARCHI, DEV, UX, SEC) sont spawnés comme sous-agents réels en parallèle, chacun analyse la décision depuis sa perspective indépendante. Tu présentes leurs réponses, puis tu proposes une synthèse des points d'accord et de divergence avec leur impact sur la décision architecturale en cours. Medwin valide la synthèse, tu l'appliques à la décision, puis tu reviens au menu A/P/C.
+**Si C** → tu passes à l'étape suivante.
+
+Tu ne passes jamais à l'étape suivante sans que Medwin ait explicitement choisi C.
+
+---
+
 ## Étape 0 — Vérification des inputs
 
 Tu as besoin de :
@@ -83,6 +99,8 @@ Le pattern par défaut est **modulaire + silos**. Tu l'annonces et tu confirmes 
 
 Si Medwin veut discuter d'alternatives → tu expliques les options, tu ne décides pas seul.
 
+**[A/P/C]** Tu présentes le menu avant de passer à l'identification des modules.
+
 ---
 
 ## Étape 2 — Identification des modules métier
@@ -94,6 +112,8 @@ Tu lis le PRD et tu proposes les modules métier — un module par grande foncti
 Règle : chaque module doit avoir une responsabilité claire et unique.
 Si deux modules font la même chose → les fusionner.
 Si un module fait trop de choses → le découper.
+
+**[A/P/C]** Tu présentes le menu avant de passer aux modules techniques.
 
 ---
 
@@ -136,6 +156,8 @@ Tu proposes aussi le mode d'**activation** (global / par-projet / on-demand) en 
 Medwin valide.
 
 **Règle :** référer à `architecture.md` section "Dépendances externes — MCP" pour expliquer les choix.
+
+**[A/P/C]** Tu présentes le menu avant de passer aux règles silo.
 
 ---
 
@@ -182,6 +204,49 @@ Toujours importer depuis la racine du module (`@/features/auth`), jamais depuis 
 - Une chose naît dans sa feature. Elle ne migre vers `/shared` que quand une deuxième feature en a besoin.
 - Si Claude identifie pendant le code qu'un élément devrait changer de statut (privé → public, feature → shared), il le signale — il ne le fait pas seul.
 
+**[A/P/C]** Tu présentes le menu avant de passer aux décisions backup.
+
+---
+
+## Étape 4c — Stratégie backup & conformité RGPD
+
+Tu poses les questions de décision backup. Les règles complètes sont dans `architecture.md` section "Backup & conformité RGPD".
+
+**Question 1 — Criticité des données :**
+> "Quelles données l'app va-t-elle stocker ? Y a-t-il des données personnelles (nom, email, téléphone) ? Des données financières ou médicales ?"
+
+Tu proposes le niveau de criticité :
+
+| Niveau | Critère |
+|---|---|
+| **1 — Faible** | Aucune donnée personnelle, données récréables |
+| **2 — Standard** | Données personnelles non sensibles |
+| **3 — Élevé** | Données financières, médicales ou légales |
+
+> "D'après ce que tu m'as dit, je propose un niveau [X]. Ça te semble juste ?"
+
+**Question 2 — Politique de rétention** *(niveaux 2 et 3 uniquement)* :
+> "Y a-t-il une logique saisonnière ou réglementaire pour la conservation des données ?"
+
+Par défaut : 30 jours quotidiens / 12 mois mensuels / annuel indéfini.
+Si logique saisonnière → adapter (ex : conserver N saisons complètes).
+
+**Question 3 — RGPD** *(niveaux 2 et 3 uniquement)* :
+> "Les utilisateurs sont-ils dans l'UE ?"
+
+Si données personnelles EU :
+- **Supabase** → confirmer la région **Frankfurt (eu-central-1)** à la création du projet + rappeler de signer le DPA sur `supabase.com/legal/dpa`
+- **Convex** → pas de région EU confirmée → signaler le risque, proposer Supabase si conformité RGPD est critique
+
+**Question 4 — Monitoring :**
+> "L'app a-t-elle une URL d'API accessible ? On configurera UptimeRobot dessus après déploiement."
+
+Noter l'URL cible (ou "à définir après déploiement").
+
+Tu documentes toutes ces décisions pour les intégrer dans `[projet].archi.md` à l'étape suivante.
+
+**[A/P/C]** Tu présentes le menu avant de générer le document d'architecture.
+
 ---
 
 ## Étape 5 — Génération de [projet].archi
@@ -225,6 +290,14 @@ Pour chaque module :
 | [Notion] | Conversationnel + déterministe | MCP | Global |
 
 Voir `architecture.md` section "Dépendances externes — MCP" pour la doctrine.
+
+## Backup & RGPD
+- Criticité : Niveau [1 / 2 / 3]
+- Politique de rétention : [formule choisie]
+- Outil back-end : [Supabase Frankfurt / Convex]
+- DPA : [à signer / non requis]
+- Monitoring : UptimeRobot — [URL ou "à définir après déploiement"]
+- Prochaine étape : lancer `/backup` après déploiement
 
 ## Points ouverts
 [Questions d'architecture qui ne peuvent pas être résolues sans voir la roadmap]
@@ -298,6 +371,10 @@ Avant d'enregistrer, tu vérifies que l'architecture est complète et prête pou
 - [ ] Les dépendances MCP/externes sont listées avec leur mode d'activation
 - [ ] Les NFR du PRD (performance, sécurité, scalabilité) sont adressés dans l'archi
 - [ ] Le type de projet (App Store / web / etc.) est reflété dans les choix d'architecture
+- [ ] Criticité des données définie (niveau 1, 2 ou 3)
+- [ ] Politique de rétention documentée (si niveau 2 ou 3)
+- [ ] Choix RGPD documenté (région EU, DPA) si données personnelles EU
+- [ ] URL de monitoring notée pour UptimeRobot
 - [ ] Les points ouverts pour la roadmap sont listés
 
 Si une case est vide → tu traites le point manquant avant de sauvegarder. Tu ne sauvegardes pas une architecture incomplète.

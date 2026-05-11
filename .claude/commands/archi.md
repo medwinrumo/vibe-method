@@ -37,10 +37,13 @@ Tu ne passes jamais à l'étape suivante sans que Medwin ait explicitement chois
 
 Tu as besoin de :
 1. **Le nom du projet**
-2. **Le PRD finalisé** (`[projet].prd` dans Notion ou copié ici)
+2. **Le PRD finalisé** (`[projet].prd.md`)
 
 Si le PRD est absent → tu t'arrêtes :
 > "Avant de définir l'architecture, il faut un PRD finalisé. Lance `/prd` d'abord."
+
+Tu cherches également `[projet].context.md` :
+- **Si le fichier existe** → tu le lis. Les contraintes d'écosystème (apps existantes, coexistence avec d'autres services, contraintes de nommage ou d'App Store) et les contraintes client (délais, niveau de déploiement) doivent informer les décisions architecturales. Ne pas décider d'une architecture sans tenir compte du contexte dans lequel elle sera déployée.
 
 ---
 
@@ -98,6 +101,51 @@ Le pattern par défaut est **modulaire + silos**. Tu l'annonces et tu confirmes 
 > "On part sur une architecture modulaire avec règle silo — chaque module est indépendant, un module ne modifie pas le code d'un autre. C'est notre règle par défaut. On continue avec ça ?"
 
 Si Medwin veut discuter d'alternatives → tu expliques les options, tu ne décides pas seul.
+
+**[A/P/C]** Tu présentes le menu avant de passer à l'identification des modules.
+
+---
+
+## Étape 1b — Périmètre de distribution et stack
+
+Avant d'identifier les modules, tu confirmes le périmètre de distribution tel que défini dans le brief. C'est la décision qui détermine la stack et la structure du repo — elle précède tout le reste.
+
+Tu poses la question :
+> "Ton brief indique [web / app native / PWA / les deux]. Je veux confirmer ce périmètre avant de définir les modules, parce que ça change tout : stack, structure du repo, déploiement. C'est toujours ça ?"
+
+### Cas 1 — Web uniquement
+
+Stack : React + Vite + TypeScript. Un seul repo, un seul déploiement.
+
+Si site vitrine : même repo, routes publiques (`/`, `/tarifs`) + routes authentifiées (`/app`, `/admin`). Recommandation par défaut — pas de repo séparé sauf besoin spécifique.
+
+### Cas 2 — App native sur les stores (iOS / Android)
+
+Stack : **React Native / Expo** pour l'app mobile. Si le projet a aussi une interface web admin ou un site vitrine → deuxième codebase React + Vite.
+
+Deux codebases = deux repos ou un monorepo. À décider selon la taille du projet :
+- Projet standard → **deux repos séparés** (plus simple à gérer pour un développeur solo)
+- Projet avec beaucoup de logique partagée → monorepo (Turborepo ou Nx)
+
+**Règle absolue :** l'app native est le plan A. On développe en React Native / Expo d'emblée — pas de détour par la PWA. La PWA n'est un repli que si les stores refusent définitivement l'app après corrections, et uniquement si les fonctionnalités de l'app ne requièrent pas de capacités hardware natives (NFC, Bluetooth, capteurs).
+
+**Trigger obligatoire pour `/stack` :** si app native → lire et documenter les guidelines Apple App Store et Google Play avant de commencer le code mobile. Ces guidelines sont la source primaire — aucune guideline ne doit être une "surprise" lors de la review.
+
+**Processus de soumission :** le délai de review Apple est de 1 à 7 jours. Google Play est plus rapide (quelques heures à 3 jours). Intégrer ce délai dans la roadmap — ne pas planifier un lancement le jour de la soumission.
+
+### Cas 3 — PWA
+
+Stack : React + Vite + TypeScript, avec configuration service worker et manifest. Un seul repo. Installable depuis le navigateur, pas soumise sur les stores officiels.
+
+Limites à documenter : notifications push limitées sur iOS (Safari), accès hardware restreint (NFC, Bluetooth non accessibles), découvrabilité réduite (pas dans les stores).
+
+### Ce que tu documentes à l'issue de cette étape
+
+> "Périmètre de distribution confirmé :
+> - Plateforme(s) : [web / iOS natif / Android natif / PWA]
+> - Site vitrine : [oui — même repo / oui — repo séparé / non]
+> - Structure : [un repo / deux repos / monorepo]
+> - Stack(s) : [React + Vite / React Native + Expo / les deux]"
 
 **[A/P/C]** Tu présentes le menu avant de passer à l'identification des modules.
 
@@ -232,11 +280,26 @@ Par défaut : 30 jours quotidiens / 12 mois mensuels / annuel indéfini.
 Si logique saisonnière → adapter (ex : conserver N saisons complètes).
 
 **Question 3 — RGPD** *(niveaux 2 et 3 uniquement)* :
+
+La doctrine complète est dans `rgpd.md`. À cette étape, tu traites les décisions structurantes qui impactent l'architecture — pas la politique de confidentialité ou la bannière cookies (ça c'est au `/deploy`).
+
 > "Les utilisateurs sont-ils dans l'UE ?"
 
 Si données personnelles EU :
 - **Supabase** → confirmer la région **Frankfurt (eu-central-1)** à la création du projet + rappeler de signer le DPA sur `supabase.com/legal/dpa`
 - **Convex** → pas de région EU confirmée → signaler le risque, proposer Supabase si conformité RGPD est critique
+
+> "Pour chaque donnée que l'app collecte, quelle est la justification fonctionnelle ?"
+
+Appliquer le principe de minimisation (cf. `rgpd.md` section 2) : chaque champ doit avoir une fonctionnalité précise qui le justifie. Documenter les données retenues et leur base légale.
+
+> "Quel modèle de responsabilité RGPD s'applique à ce projet ?"
+- **B2C (app en direct avec les utilisateurs finaux)** → tu es responsable de traitement
+- **SaaS B2B (app vendue à des organisations)** → tu es sous-traitant, le client est responsable de traitement → DPA à inclure dans les CGU
+
+Initialiser le **registre des traitements** (cf. `rgpd.md` section 3) : lister dès maintenant les traitements identifiés, leur base légale, leur durée de conservation.
+
+Identifier les **droits utilisateurs à implémenter** (cf. `rgpd.md` section 4) : effacement, export, rectification — noter les modules impactés et les fonctions à prévoir dans le schéma BDD.
 
 **Question 4 — Monitoring :**
 > "L'app a-t-elle une URL d'API accessible ? On configurera UptimeRobot dessus après déploiement."
@@ -260,6 +323,13 @@ _Définie le [date]_
 ## Pattern
 Modulaire + silos. Chaque module est indépendant.
 Un module peut appeler un autre mais ne peut pas modifier son code.
+
+## Distribution
+- Plateforme(s) : [web / iOS natif / Android natif / PWA]
+- Site vitrine : [oui — même repo / oui — repo séparé / non]
+- Structure : [un repo / deux repos / monorepo]
+- Stack(s) : [React + Vite / React Native + Expo / les deux]
+- Guidelines stores : [lues et documentées dans [projet].stack.md / non applicable]
 
 ## Modules métier
 | Module | Responsabilité |
@@ -370,9 +440,22 @@ Avant d'enregistrer, tu vérifies que l'architecture est complète et prête pou
 - [ ] Les dépendances entre modules sont cartographiées
 - [ ] Les dépendances MCP/externes sont listées avec leur mode d'activation
 - [ ] Les NFR du PRD (performance, sécurité, scalabilité) sont adressés dans l'archi
-- [ ] Le type de projet (App Store / web / etc.) est reflété dans les choix d'architecture
+
+**Distribution**
+- [ ] Périmètre de distribution défini (web / app native / PWA)
+- [ ] Si app native : stack React Native / Expo actée, structure du repo définie (un repo / deux repos / monorepo)
+- [ ] Si app native : trigger /stack pour lire les guidelines Apple/Google noté
+- [ ] Si site vitrine : décision même repo vs repo séparé actée
+- [ ] Délai de review stores intégré dans les points ouverts pour la roadmap (si app native)
+
+**Backup & RGPD**
 - [ ] Criticité des données définie (niveau 1, 2 ou 3)
 - [ ] Politique de rétention documentée (si niveau 2 ou 3)
+- [ ] Modèle de responsabilité RGPD acté (B2C responsable de traitement / SaaS B2B sous-traitant)
+- [ ] Minimisation des données vérifiée champ par champ
+- [ ] Base légale documentée pour chaque traitement
+- [ ] Registre des traitements initialisé
+- [ ] Droits utilisateurs à implémenter identifiés (effacement, export, rectification) et modules impactés notés
 - [ ] Choix RGPD documenté (région EU, DPA) si données personnelles EU
 - [ ] URL de monitoring notée pour UptimeRobot
 - [ ] Les points ouverts pour la roadmap sont listés

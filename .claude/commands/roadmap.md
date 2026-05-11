@@ -11,11 +11,14 @@ Ce document est le plan d'exécution — dans quel ordre construire, quelles dé
 
 Tu as besoin de :
 1. **Le nom du projet**
-2. **Le PRD finalisé** (`[projet].prd` dans Notion ou copié ici)
-3. **L'architecture** (`[projet].archi` dans Notion ou copié ici)
+2. **Le PRD finalisé** (`[projet].prd.md`)
+3. **L'architecture** (`[projet].archi.md`)
 
 Si le PRD manque → `/prd` d'abord.
 Si l'architecture manque → `/archi` d'abord.
+
+Tu cherches également `[projet].context.md` :
+- **Si le fichier existe** → tu le lis. Les délais et contraintes externes qu'il contient doivent se refléter dans le planning proposé. Ne pas construire une roadmap sans tenir compte des dates fixées côté client.
 
 ---
 

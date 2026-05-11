@@ -10,7 +10,7 @@ Le process de travail — dans quel ordre construire, comment passer d'une étap
 Première question à poser au démarrage de tout projet. La réponse change le workflow.
 
 **Greenfield** — projet qui part de zéro. Aucune codebase existante.
-Workflow standard : `/brief → /prd → /archi → /stack → /roadmap → /specs → code → /tests → /recette`
+Workflow standard : `/brief → /prd → /archi → /stack → /roadmap → /specs → [/tests TDD si module métier/sécurité] → code → /tests → /recette`
 
 **Brownfield** — reprise d'un projet existant (migration, refonte, ajout de features sur une base existante).
 Exemples : Minou V2 (Firebase → Convex), fork d'une app existante, reprise d'un projet abandonné.
@@ -104,12 +104,14 @@ Fichier de référence : `stack.md`
 - Appliquer les règles de sécurité et d'architecture en continu
 - Rien n'est ajouté silencieusement sans validation de Medwin
 
+**TDD obligatoire pour les modules métier et sécurité :** avant d'écrire le code, `/tests` est lancé depuis le spec pour générer les tests. Le code doit satisfaire ces tests. Voir `tests.md` — section TDD.
+
 Règle de contexte :
 - Planification (PRD, archi, roadmap) : contexte large, tous les documents du projet
 - Exécution (code) : contexte minimal — CLAUDE.md + module ciblé + specs de la feature
 Ces deux modes ne se mélangent pas dans la même session.
 
-Fichiers de référence : `securite.md`, `architecture.md`
+Fichiers de référence : `securite.md`, `architecture.md`, `tests.md`
 
 ---
 
@@ -118,18 +120,31 @@ Fichiers de référence : `securite.md`, `architecture.md`
 
 Ordre d'exécution pour chaque feature :
 
+**Modules métier et sécurité (TDD) :**
 ```
-1. Feature développée
-2. /tests         → tests unitaires + intégration (Vitest)
-3. /tests         → non-régression (batterie Playwright sur les features existantes)
+1. /tests         → tests depuis le spec (Red — avant le code)
+2. Code           → feature implémentée pour satisfaire les tests (Green)
+3. /tests         → refactor + non-régression Playwright
 4. /code-review   → revue structurelle + sécurité → bloquant si point critique
-5. /recette       → génération du cahier de recettes (Gherkin depuis User Stories)
+5. /recette       → génération du cahier de recettes (Gherkin)
 6. /tests         → Playwright sur la nouvelle feature → corrections
-7. /securite check → vérification sécurité de la feature → bloquant si point en échec
+7. /securite check → vérification sécurité → bloquant si point en échec
 8. /recette       → validation manuelle finale
 ```
 
-Les étapes 2 et 3 filtrent les bugs automatiquement (Vitest + non-régression Playwright). L'étape 4 filtre les problèmes de structure et de sécurité dans le code — bloquante si point critique. L'étape 6 valide la nouvelle feature avec Playwright. L'étape 7 filtre les failles de sécurité — bloquante, pas de merge tant qu'un point est en échec. Medwin arrive en dernier (étape 8) pour réexécuter l'intégralité du cahier de recettes manuellement — fonctionnement, fluidité, cohérence visuelle, expérience utilisateur.
+**Modules UI et techniques (Standard) :**
+```
+1. Code           → feature implémentée
+2. /tests         → tests unitaires + intégration (Vitest)
+3. /tests         → non-régression (batterie Playwright sur les features existantes)
+4. /code-review   → revue structurelle + sécurité → bloquant si point critique
+5. /recette       → génération du cahier de recettes (Gherkin)
+6. /tests         → Playwright sur la nouvelle feature → corrections
+7. /securite check → vérification sécurité → bloquant si point en échec
+8. /recette       → validation manuelle finale
+```
+
+L'étape /code-review filtre les problèmes de structure et de sécurité — bloquante si point critique. L'étape /securite check filtre les failles — bloquante, pas de merge tant qu'un point est en échec. Medwin arrive en dernier pour réexécuter l'intégralité du cahier de recettes manuellement.
 
 - Bug détecté en recette → `/debug` déclenché automatiquement
 - Bug non résolu = bloquant — recette suspendue jusqu'à résolution

@@ -195,20 +195,11 @@ Avec des IDs séquentiels (1, 2, 3...), l'attaquant peut facilement tester tous 
 
 ### 1.7 RGPD
 
-- Clientèle PME/TPE en France — la conformité RGPD se pense dès la conception, pas après le lancement
-- **Principe de minimisation** : ne collecter que les données strictement nécessaires au fonctionnement
-    - Exemple : si tu n'as pas besoin de la date de naissance, ne la demande pas
-    - Chaque champ de formulaire doit avoir une justification
-- Décisions à prendre avant de coder :
-    - Quelles données personnelles sont collectées et pourquoi
-    - Combien de temps elles sont conservées (durée de rétention) — prévoir une suppression automatique
-    - Comment recueillir le consentement de l'utilisateur (bannière cookies, checkbox inscription…)
-    - Comment permettre à l'utilisateur de supprimer ses données (droit à l'effacement)
-    - Comment permettre l'export des données (droit à la portabilité)
-    - Comment permettre la rectification des données (droit de rectification)
-- **Impact sur le schéma de BDD** : prévoir dès le départ les fonctions de suppression/export/anonymisation — c'est beaucoup plus facile à coder dès le début qu'à ajouter après
-- L'IA ne pense pas au RGPD quand elle génère du code — toujours lui demander explicitement
-- En cas de doute, consulter le site de la CNIL ([cnil.fr](http://cnil.fr)) pour les obligations spécifiques
+La conformité RGPD se conçoit dès la phase `/archi`, pas après le lancement.
+
+La doctrine complète est dans `rgpd.md` — bases légales, minimisation des données, registre des traitements, droits des utilisateurs, consentement, politique de confidentialité, sous-traitants, transferts hors UE, violation de données, DPIA, DPO, checklist avant prod.
+
+**Règle absolue :** l'IA ne pense pas au RGPD quand elle génère du code — toujours le demander explicitement. La checklist de conformité de `rgpd.md` est obligatoire avant toute mise en production.
 
 ### 1.8 Stratégie de backup
 

@@ -64,20 +64,54 @@ Créé lors du skill `/archi`. Document vivant — mis à jour à chaque nouvell
 
 ---
 
-## Stack front de référence
+## Stacks de référence
 
-React + Vite + TypeScript — combo de référence pour tous les projets front.
+### Distribution — trois options
 
-- **React** — composants, gestion d'état, écosystème mature
-- **Vite** — build rapide, configuration minimale
-- **TypeScript** — typage statique, erreurs détectées avant l'exécution
+La plateforme de distribution est décidée au `/archi` selon le contexte du projet. Trois options, sans hiérarchie entre elles :
 
-Alternatives viables selon le contexte :
-- **PWA** (Progressive Web App) — app web installable, offline, notifications push. Reste sur React + Vite + TS. Adaptée si les besoins ne nécessitent pas les APIs natives avancées du téléphone.
-- **React Native** — app mobile native, soumission App Store + Google Play. À choisir si l'accès aux APIs natives est requis ou si l'expérience native est critique.
-- D'autres options existent — à évaluer au cas par cas lors du `/archi`.
+**Web (app ou site vitrine)**
+React + Vite + TypeScript + Vercel. Option par défaut pour les apps accessibles via navigateur, les sites vitrines et les interfaces d'administration.
 
-Règle : toute déviation par rapport à la stack de référence doit être justifiée explicitement dans le `/archi` du projet.
+**PWA (Progressive Web App)**
+React + Vite + TypeScript + Vercel + Service Worker. App web installable sur l'écran d'accueil, utilisable offline, avec notifications push. Pas d'accès aux APIs natives avancées du téléphone.
+
+**App native**
+React Native + Expo + TypeScript + NativeWind. Soumission App Store + Google Play. Accès aux APIs natives, expérience utilisateur native iOS/Android. Requiert le respect des guidelines Apple HIG et Material Design 3.
+
+Règle : le choix est justifié explicitement dans `[projet].archi.md` lors du `/archi`.
+
+---
+
+### Back-end — deux stacks
+
+**Stack A — Convex** : real-time natif. Adapté aux projets avec synchronisation temps réel forte (chat, collaboration, présence).
+
+**Stack B — Supabase** : relationnel + auth + storage. Adapté aux projets standards.
+
+Le choix est tranché au `/archi`. Les détails d'investigation (free tier, gotchas, compatibilité) sont dans `[projet].stack.md`, produit par `/stack`.
+
+---
+
+### Site vitrine + app — deux surfaces
+
+Certains projets combinent un site vitrine (landing, conversion, contenu public) et une app (usage quotidien, authentifié). Ce sont deux surfaces distinctes :
+
+- Même charte graphique — couleurs, typographie, style visuel identiques
+- Composants différents — les composants de conversion (hero, pricing, témoignages) ne sont pas les mêmes que les composants d'usage (dashboard, formulaires, listes)
+- Design system à couvrir pour les deux — `/design` Mode A traite les deux surfaces séparément
+
+La décision "site vitrine séparé ou dans le même repo" est prise au `/archi`.
+
+---
+
+### Design system — workflow
+
+La charte graphique (couleurs, typographie, logo, ambiance) est définie avec `/charte` → produit `[projet].charte.md`.
+
+Le design system complet est produit avec `/design` Mode A, en aller-retour itératif avec `/archi` → produit `[projet].design.md`, qui sert d'input direct à Claude Design pour la génération des maquettes.
+
+Après génération par Claude Design, `/design` Mode B intègre le code produit dans Tailwind (web/PWA) ou NativeWind (native).
 
 ---
 

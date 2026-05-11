@@ -178,7 +178,8 @@ En tant que [acteur], je souhaite [objectif] afin de [bénéfice].
 ```
 
 Tu confirmes :
-> "Spec sauvegardée → `[projet].spec.[nom-feature].md`. Les scénarios Gherkin seront générés par `/recette`."
+> "Spec sauvegardée → `[projet].spec.[nom-feature].md`. Les scénarios Gherkin seront générés par `/recette`.
+> Quand toutes les specs de la V1 sont rédigées → `/setup` pour bootstrapper le projet, puis `/prp` avant le premier code."
 
 ---
 

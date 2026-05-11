@@ -14,6 +14,7 @@ vibe-method/
 ├── design.md           → Workflow Stitch → Figma → export CSS → intégration Tailwind/shadcn
 ├── architecture.md     → Patterns d'architecture (modulaire + silos)
 ├── securite.md         → Règles de sécurité à appliquer
+├── rgpd.md             → Doctrine RGPD complète (bases légales, droits, registre, consentement, checklist)
 ├── tests.md            → Doctrine de test (niveaux, Gherkin, Playwright, anti-auto-validation)
 ├── stack.md            → Doctrine de reconnaissance technique (spike, investigation stack, free tier, gotchas)
 └── .claude/
@@ -25,21 +26,28 @@ vibe-method/
 ## Chaîne de skills — workflow complet
 
 ```
-/brief → /prd → /prd-update → [design] → /archi → /stack → /roadmap → /specs → [code] → /code-review → /tests → /recette ↔ /debug
+/context → /brief → /charte → /prd → /prd-update → [/design Mode A ↔ /archi itératif] → /stack → [/design Mode B] → /roadmap → /specs → /setup → /prp → [code] → /code-review → /tests → /recette ↔ /debug
 ```
 
 Skills transversaux (invocables à tout moment) : `/party`, `/securite`
 
+**Note sur la phase itérative /design ↔ /archi :**
+Mode A de /design et /archi se construisent en aller-retour. Les écrans révèlent des modules manquants dans l'archi ; l'archi précise les états des composants. La phase se termine quand les deux sont cohérents. Output : `[projet].design.md` complet → donné à Claude Design pour exécution. Mode B intègre le code produit par Claude Design dans Tailwind (web) ou NativeWind (native).
+
 | Skill | Rôle | Output |
 |---|---|---|
+| `/context` | Contexte projet — écosystème, client, contraintes, notes de réunions | `[projet].context.md` |
 | `/brief` | De l'intention au brief structuré | `[projet].brief.md` |
+| `/charte` | Charte graphique — couleurs, typo, logo, ambiance | `[projet].charte.md` |
 | `/prd` | Du brief au PRD V1 (dialogue) | `[projet].prd.md` |
 | `/prd-update` | Intégration retours cross-pollination → PRD V2 | `[projet].prd.md` |
-| `/design` | Mode 0 : Design Thinking (Empathize→Define→Ideate→Prototype→Test). Mode A : spike stack design + interview + liste features pour Stitch/Figma. Mode B : intégration export CSS → Tailwind + shadcn | `[projet].design.md` |
+| `/design` | Mode A : design system complet (input Claude Design). Mode B : intégration code Claude Design → Tailwind ou NativeWind | `[projet].design.md` |
 | `/archi` | Architecture modulaire + silos + garde-fous | `[projet].archi.md` + `CLAUDE.md` projet |
 | `/stack` | Spike technique — investigation stack, free tier, gotchas | `[projet].stack.md` |
 | `/roadmap` | Roadmap + planning global | `[projet].Rmap.md` |
 | `/specs` | User story auto-contenue — un fichier par feature | `[projet].spec.[feature].md` |
+| `/setup` | Bootstrap technique — prérequis, dépendances, tooling, structure de dossiers, .env, premier lancement | — |
+| `/prp` | Agrège tous les outputs en un document condensé optimisé pour le LLM — contexte de démarrage de session de code | `[projet].prp.md` |
 | `/code-review` | Revue structurelle + sécurité avant merge | — |
 | `/tests` | Tests unitaires + intégration + Playwright | `[projet].tests.md` |
 | `/recette` | Génère Gherkin depuis User Stories + validation manuelle | `[projet].recette.md` |
@@ -81,14 +89,6 @@ Choix défini au moment du `/archi`.
 ---
 
 ## Ce qui reste à construire
-
-### Priorité haute
-- [ ] Skill `/init` — point d'entrée de toute la méthode. Usage : `/init [projet] [page_projet_id]`
-  - Git : repo GitHub via `gh`, CLAUDE.md projet, [projet].todo.md, [projet].log.md, premier commit + push
-  - Notion : page `[projet].run` (template `34aa67fe703a80a89161cafb5c431272`) + 9 sous-pages enfants (template `34aa67fe703a80669b09c38e718d20c3`)
-
-### Priorité moyenne
-- [ ] `architecture.md` — mettre à jour avec les deux stacks (Convex / Supabase)
 
 ### Priorité basse
 - [ ] Skills vs MCP — comprendre la différence, décider quand utiliser l'un ou l'autre

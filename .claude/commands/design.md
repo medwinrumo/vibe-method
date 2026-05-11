@@ -1,367 +1,303 @@
-# /design — Du PRD à la liste features UI + intégration export design
+# /design — Design system et intégration
 
-Tu guides Medwin dans trois modes :
-- **Mode 0** — Design Thinking : comprendre le problème utilisateur en profondeur avant de concevoir (optionnel mais recommandé sur tout nouveau produit)
-- **Mode A** — Valider la stack design, interviewer, produire la liste features pour Stitch/Figma
-- **Mode B** — Recevoir l'export CSS et configurer Tailwind + shadcn/ui
+Tu guides Medwin dans la production du design system du projet, en deux modes distincts qui interviennent à des moments différents de la chaîne.
 
-Tu détectes automatiquement le mode selon le contexte :
-- Si Medwin arrive avec un export CSS → Mode B
-- Si la question "à qui s'adresse vraiment ce produit et quel est son vrai problème" n'est pas clairement répondue dans le PRD → proposer Mode 0 avant Mode A
-- Sinon → Mode A directement
+- **Mode A** — Produire `[projet].design.md` : le design system complet, qui servira d'input direct à Claude Design
+- **Mode B** — Intégrer le code produit par Claude Design dans la stack technique (Tailwind ou NativeWind)
 
 ---
 
-## MODE 0 — Design Thinking
+## Positionnement dans la chaîne
 
-### Quand le proposer
-
-Avant de dessiner quoi que ce soit, si l'une de ces conditions est vraie :
-- Le PRD décrit des fonctionnalités mais pas ce que ressent l'utilisateur
-- Le produit ressemble à un existant (risque de copier sans différencier)
-- Medwin n'a pas encore parlé directement aux futurs utilisateurs
-- Il y a un doute sur "est-ce qu'on résout le bon problème ?"
-
-Tu proposes :
-> "Avant de passer à la maquette, il peut être utile de faire un Design Thinking rapide pour s'assurer qu'on conçoit la bonne interface pour le bon problème. Ça prend 20-30 minutes et peut changer la façon dont on découpe les features. Tu veux le faire ?"
-
----
-
-### Phase 1 — Empathize : comprendre l'utilisateur
-
-Objectif : sortir de tes propres hypothèses. Comprendre ce que vit vraiment l'utilisateur.
-
-Tu poses ces questions une par une :
-> "Décris-moi un utilisateur type. Qui est-il ? Qu'est-ce qu'il fait dans sa journée ?"
-> "Quel problème essaie-t-il de résoudre quand il ouvre cette app ?"
-> "Qu'est-ce qui le frustre avec ce qu'il utilise aujourd'hui (app concurrente, processus manuel, etc.) ?"
-> "Dans quel contexte utilise-t-il l'app ? (transport, bureau, réunion, à la maison...)"
-> "Qu'est-ce qui lui ferait dire 'cette app est vraiment utile pour moi' ?"
-
-Tu prends note de tout — notamment les émotions et les frustrations, pas juste les fonctionnalités.
-
----
-
-### Phase 2 — Define : formuler le vrai problème
-
-Objectif : transformer ce qu'on a appris en une phrase-problème précise et actionnée.
-
-Tu proposes une formulation :
-> "[Utilisateur type] a besoin de [besoin réel] parce que [insight clé tiré de l'empathie]."
-
-Exemple : "Un membre du RAM a besoin de retrouver facilement les contacts rencontrés lors d'un événement parce qu'il oublie les visages et les noms 3 jours après."
-
-Tu demandes :
-> "Est-ce que cette phrase capture bien le problème central ? On peut la reformuler."
-
-Si la phrase est validée → elle devient l'ancre de toutes les décisions de design qui suivent.
-
----
-
-### Phase 3 — Ideate : générer des solutions
-
-Objectif : explorer le champ des possibles avant de choisir.
-
-Règles anti-biais :
-- Générer 10+ idées minimum avant toute sélection
-- Varier les angles : fonctionnalité, expérience, automatisation, gamification, social, contenu
-- Ne pas juger pendant la génération
-- Chercher ce qu'un concurrent ne ferait pas
-
-Tu génères une première liste et tu demandes :
-> "Voilà 10+ idées pour répondre à ce problème. Lesquelles t'intéressent le plus ? Veux-tu en explorer d'autres ?"
-
-Après sélection :
-> "Parmi ces idées, lesquelles sont réalistes pour la V1 ? Lesquelles ont le plus d'impact sur le problème qu'on a défini ?"
-
----
-
-### Phase 4 — Prototype : ce qu'on va tester
-
-Objectif : identifier ce qui doit être maquetté pour valider l'hypothèse centrale.
-
-Tu poses :
-> "Quelle est l'hypothèse la plus risquée de notre design ? Qu'est-ce qu'on veut valider en priorité avec la maquette ?"
-> "Qu'est-ce que Medwin (ou un utilisateur) devrait être capable de faire en voyant la maquette pour qu'on sache qu'on est sur la bonne voie ?"
-
-Ce sont les critères de réussite de la maquette — ils guideront le travail dans Stitch/Figma.
-
----
-
-### Phase 5 — Synthèse Design Thinking
-
-Tu produis un résumé court :
-
-```markdown
-## Synthèse Design Thinking — [projet]
-
-**Utilisateur cible :** [profil]
-**Problème central :** [phrase-problème validée]
-**Idées retenues pour V1 :** [liste]
-**Hypothèse à valider avec la maquette :** [formulation]
-**Critères de réussite de la maquette :** [liste]
+```
+/charte (charte graphique)
+  ↓
+Mode A /design  ←→  /archi  (phase itérative)
+  ↓
+Claude Design (outil externe — Medwin donne [projet].design.md)
+  ↓
+Mode B /design (intégration du code dans Tailwind ou NativeWind)
 ```
 
-Tu demandes :
-> "Cette synthèse est bonne ? On continue vers Mode A avec ça comme boussole ?"
+**Mode A** commence avant `/archi` et se construit en aller-retour avec lui. Les features révèlent les composants, l'archi précise les états. À la sortie de la phase itérative : `[projet].design.md` complet.
+
+**Mode B** intervient après que Claude Design a produit le code — après `/stack`, avant le code métier.
 
 ---
 
-## MODE A — Liste features pour Stitch/Figma
+## MODE A — Production du design system
 
 ### Étape 0 — Vérification des inputs
 
 Tu as besoin de :
 1. **Le nom du projet**
-2. **`[projet].prd.md`** dans le repo du projet — pour lire les features V1 et la stack design envisagée
-3. **`[projet].brief.md`** si disponible — pour les contraintes responsive, contexte d'usage
+2. **`[projet].charte.md`** — la charte graphique définie avec `/charte`
+3. **`[projet].prd.md`** — pour connaître les features V1 et les parcours clés
+4. **`[projet].archi.md`** si disponible — pour connaître le périmètre de distribution (web / native / PWA)
+
+Si la charte est absente → tu t'arrêtes :
+> "La charte graphique n'est pas définie. Lance `/charte` d'abord."
 
 Si le PRD est absent → tu t'arrêtes :
-> "Avant de travailler le design, il faut un PRD finalisé. Lance `/prd` d'abord."
+> "Le PRD est nécessaire pour lister les features. Lance `/prd` d'abord."
 
 ---
 
-### Étape 1 — Identification de la stack design
+### Étape 1 — Périmètre de distribution et implications design
 
-Tu lis le PRD et tu extrais la stack design envisagée (Stitch, Figma, autre).
+Tu lis `[projet].archi.md` et confirmes le périmètre :
 
-Si aucune stack design n'est mentionnée dans le PRD → tu demandes :
-> "Quelle stack design tu envisages ? Stitch + Figma, Stitch seul, Figma seul, autre ?"
+**Si app native (React Native / Expo) :**
+- Les maquettes sont produites dans Claude Design — agnostique de la technologie, donc OK
+- Le code produit par Claude Design sera du CSS web → Mode B le traduira en NativeWind
+- Les guidelines de design sont contraignantes :
+  - **iOS** : Human Interface Guidelines — zones tactiles min 44×44pt, navigation TabBar ou NavigationStack, safe areas, dark mode obligatoire, Dynamic Type
+  - **Android** : Material Design 3 — zones tactiles min 48×48dp, navigation NavigationBar ou drawer, couleurs dynamiques Material You
+- Décision à poser : **design cross-platform unique** (recommandé — respecte les contraintes des deux plateformes) ou **design adapté par plateforme** (plus natif, deux fois plus de travail)
 
-Tu retiens la réponse pour le spike.
+**Si web / PWA :**
+- Stack standard : Tailwind CSS + shadcn/ui
+- Responsive à préciser : mobile-first, desktop-first, ou deux layouts distincts
+
+**Si site vitrine présent :**
+- Deux surfaces à couvrir dans le design system : vitrine (landing, conversion) + app (usage quotidien)
+- Même charte graphique, composants différents
+- Traiter les deux séparément dans le Mode A : vitrine d'abord (plus simple), app ensuite
 
 ---
 
-### Étape 2 — Spike sur la stack design
+### Étape 2 — Design Thinking (si pertinent)
 
-**Lance une web search** pour chaque outil de la stack design identifiée.
+Si l'une de ces conditions est vraie, proposer un Design Thinking rapide (20 min) avant de lister les features :
+- Le PRD décrit des fonctionnalités mais pas ce que ressent l'utilisateur
+- Le produit ressemble à un existant (risque de copier sans différencier)
+- Il y a un doute sur "est-ce qu'on résout le bon problème ?"
 
-Points à investiguer pour chaque outil :
+> "Avant de lister les composants, il peut être utile de faire un Design Thinking rapide pour s'assurer qu'on conçoit la bonne interface. Tu veux le faire ?"
 
-**Stitch (si utilisé)**
-- Ce qu'il accepte en entrée : format de la liste features, niveau de détail attendu, captures d'écran de référence
-- Ce qu'il exporte : format exact (CSS, HTML, image, autre), exploitabilité directe
-- Compatibilité de l'export avec Tailwind CSS et shadcn/ui
-- Limites et gotchas connus
+Si oui → 5 phases : Empathize (qui est l'utilisateur, quelles frustrations), Define (phrase-problème), Ideate (10+ idées), Prototype (hypothèse à valider), Synthèse.
+Si non → continuer directement à l'étape 3.
 
-**Figma (si utilisé)**
-- Format d'export CSS via Inspect : ce qu'il couvre (palette, typo, border-radius, shadows)
-- Plugins utiles pour l'export (ex : Figma to Code, CSSGen)
-- Compatibilité avec Tailwind CSS et shadcn/ui
-- Limites et gotchas connus
+---
 
-Après le spike, tu présentes un verdict :
-> "Stack design envisagée : [stack]
+### Étape 3 — Écrans principaux et parcours clés
+
+Tu lis le PRD et identifies les écrans principaux de la V1 :
+
+> "Depuis le PRD, je vois ces parcours clés :
+> 1. [Parcours 1 — ex : inscription → onboarding → tableau de bord]
+> 2. [Parcours 2 — ex : recherche d'un membre → consultation du profil → prise de contact]
 >
-> Ce que j'ai trouvé :
-> - [finding 1 — impact sur le workflow]
-> - [finding 2 — impact sur le workflow]
->
-> Verdict : cette stack est / n'est pas adaptée au projet parce que [raison]."
+> Est-ce que ça couvre les parcours essentiels ? Il y en a d'autres à ajouter ?"
+
+Pour chaque parcours, liste les écrans :
+- Écran d'entrée
+- Écrans intermédiaires
+- Écran de sortie (confirmation, erreur, état vide)
 
 ---
 
-### Étape 3 — Décision sur la stack design
+### Étape 4 — Inventaire des composants
 
-**Si la stack est validée** → on continue vers l'interview.
+À partir des écrans listés, tu identifies tous les composants UI nécessaires :
 
-**Si la stack n'est pas adaptée** → tu proposes :
-> "Je recommande [alternative] parce que [raison].
->
-> Deux options :
-> - Changer la stack design → on repart avec [alternative]
-> - Maintenir le choix et adapter le workflow → [implication concrète]
->
-> Si ce changement impacte les contraintes du PRD → il faudra passer par `/prd-update` avant de continuer."
-
-Tu ne continues pas sans décision explicite de Medwin.
-
----
-
-### Étape 4 — Interview design
-
-Tu poses les questions une par une, dans l'ordre. Tu n'attends pas toutes les réponses en même temps.
-
-**Contexte d'usage** (si pas déjà dans le brief)
-- L'app est utilisée sur mobile, desktop, ou les deux ?
-- Si les deux : le layout s'adapte (responsive) ou deux interfaces distinctes ?
-
-**Mode d'affichage**
-- Clair uniquement / sombre uniquement / les deux (clair + sombre + système) ?
-
-**Ambiance visuelle**
-- Comment tu décrirais l'ambiance que tu veux : moderne, minimaliste, chaleureuse, sérieuse, ludique, technique ?
-- Des apps ou sites dont tu aimes le design ? (références visuelles pour Stitch)
-
-**Typographie**
-- Style souhaité : sans-serif (neutre, lisible), serif (classique, formel), script/manuscrit, monospace (technique) ?
-- Casse : mixte standard, tout en majuscules, tout en minuscules ?
-- Ton : compact et dense, ou aéré et généreux ?
-
-**Couleurs**
-- Ambiance : chaude, froide, neutre, très contrastée ?
-- Restrictions : couleurs à éviter, couleur de marque imposée ?
-
-**Densité d'information**
-- Interface aérée (peu d'éléments visibles) ou dense (maximum d'infos en même temps) ?
-
-**Animations**
-- Aucune / subtiles (micro-interactions) / marquées (transitions visibles) ?
-
-**États des composants**
-- Y a-t-il des comportements spécifiques à ce projet ? (ex : bouton Envoyer désactivé si champ vide, indicateur de chargement pendant appel API)
-- Ces états doivent-ils être visibles dans la maquette ou gérés uniquement en code ?
-
-Tu résumes les réponses et demandes confirmation avant de passer à l'étape suivante.
-
----
-
-### Étape 5 — Génération de la liste features
-
-Tu lis les features V1 du PRD et tu produis la liste structurée, en tenant compte des réponses de l'interview.
+> "Voici les composants que je vois nécessaires pour couvrir ces écrans :"
 
 Format :
-
 ```
-- [Nom de la feature]
-  - Composant UI : [bouton / champ texte / liste déroulante / onglet / panneau / carte / ...]
-  - Comportement : [description courte — seulement si non évident]
-  - États : [états spécifiques à cette feature — si identifiés]
-```
-
-Exemple :
-```
-- Saisie du message
-  - Composant UI : champ texte multi-ligne + bouton Envoyer
-  - Comportement : Entrée envoie, Shift+Entrée saute une ligne
-  - États : bouton Envoyer désactivé si champ vide, spinner pendant envoi
-
-- Sélection du modèle LLM
-  - Composant UI : liste déroulante
-  - Comportement : sélection immédiate, pas de confirmation
+- [Nom du composant]
+  - Usage : [dans quel(s) écran(s)]
+  - Variantes : [taille, style, contexte]
+  - États : [normal, hover, focus, disabled, loading, error, empty, success]
 ```
 
-Tu présentes la liste complète et demandes validation avant d'écrire le fichier.
+**Règle sur les états :** les états fonctionnels (loading, error) dépendent de l'architecture — ils se précisent pendant la phase itérative avec `/archi`. Les états de base (normal, hover, disabled) se définissent ici.
+
+Tu présentes l'inventaire complet et demandes validation.
 
 ---
 
-### Étape 6 — Enregistrement Mode A
+### Étape 5 — Phase itérative avec /archi
 
-Tu écris `[projet].design.md` dans le répertoire courant du projet avec :
-1. La stack design validée + findings du spike
-2. Les réponses de l'interview (ambiance, typo, couleurs, dark mode, etc.)
-3. La liste features structurée
+Cette étape est explicitement itérative — elle n'a pas de fin fixe. Elle se déroule en parallèle de `/archi`.
+
+**Ce que /design apporte à /archi :**
+- Les écrans révèlent des modules manquants dans l'architecture
+- Les composants précisent les données nécessaires → impact sur le schéma BDD
+- Les parcours révèlent des cas limites non couverts dans le PRD
+
+**Ce que /archi apporte à /design :**
+- Les modules précisent quels appels sont asynchrones → quels composants ont un état loading
+- Le schéma BDD précise quelles données sont disponibles → quels états "vide" sont possibles
+- Les règles silo précisent quels composants appartiennent à quel module
+
+**Comment gérer l'aller-retour :**
+À chaque échange avec `/archi`, noter dans `[projet].design.md` ce qui a changé :
+> "Suite à décision archi [X] : le composant [Y] ajoute un état [Z]."
+
+La phase se termine quand archi et design sont cohérents — pas avant.
+
+---
+
+### Étape 6 — Design system complet
+
+À la sortie de la phase itérative, tu produis la version finale du design system dans `[projet].design.md`.
+
+**Ce que le fichier doit contenir pour être un input exploitable par Claude Design :**
+
+1. **Charte graphique appliquée** — copie des tokens de `[projet].charte.md` traduits en valeurs concrètes (hex, px, rem)
+2. **Typographie** — niveaux de hiérarchie avec taille, poids, interligne pour chaque niveau
+3. **Espacements** — grille d'espacements (4px, 8px, 16px, 24px, 32px, 48px, 64px)
+4. **Composants** — pour chaque composant : description, variantes, tous les états avec description visuelle
+5. **Écrans** — pour chaque écran : layout, composants utilisés, données affichées, états possibles de l'écran (vide, chargement, erreur, nominal)
+6. **Navigation** — comment on passe d'un écran à l'autre, quel composant déclenche quelle transition
+7. **Accessibilité** — contrastes minimum respectés (WCAG AA), tailles de zones tactiles, labels aria
+8. **Si app native** : notes sur les guidelines Apple HIG et Material Design à respecter, décision cross-platform ou adapté par plateforme
+
+> **Règle de complétude :** ce fichier doit être suffisamment complet pour que Claude Design l'exécute sans question supplémentaire. L'instruction sera : "Voici le design system en markdown — construis-le." Plus le fichier est précis, moins Claude Design improvise.
+
+---
+
+### Étape 7 — Enregistrement Mode A
+
+Tu écris `[projet].design.md` dans le répertoire courant du projet.
 
 ```markdown
-# Design — [Nom du projet]
+# Design system — [Nom du projet]
 _Mode A complété le [date]_
 
-## Stack design
-[Outil(s) validé(s)] — [raison du choix]
+## Périmètre
+- Plateformes : [web / iOS natif / Android natif / PWA]
+- Site vitrine : [oui / non]
+- Outil CSS : [Tailwind / NativeWind / les deux]
 
-### Findings du spike
-- [finding 1]
-- [finding 2]
+## Charte graphique appliquée
 
-## Références visuelles
-[Apps / sites cités par Medwin]
+### Couleurs
+- Principale : [hex]
+- Secondaire : [hex]
+- Neutres : [liste hex]
+- Succès : [hex] — Erreur : [hex] — Avertissement : [hex] — Info : [hex]
+- Dark mode : [palette dark si applicable]
 
-## Paramètres de design
-- **Responsive** : [mobile / desktop / les deux — avec précision si les deux]
-- **Mode** : [clair / sombre / système]
-- **Ambiance** : [description]
-- **Typographie** : [style, casse, densité]
-- **Couleurs** : [ambiance, restrictions]
-- **Animations** : [aucune / subtiles / marquées]
+### Typographie
+| Niveau | Police | Taille | Poids | Interligne |
+|---|---|---|---|---|
+| Display | | | | |
+| Titre H1 | | | | |
+| Titre H2 | | | | |
+| Corps | | | | |
+| Caption | | | | |
 
-## Liste features — pour Stitch
-[liste générée à l'étape 5]
+### Espacements
+4 / 8 / 12 / 16 / 24 / 32 / 48 / 64px
+
+### Style visuel
+- Border-radius : [valeur]
+- Ombres : [description]
+- Animations : [aucune / subtiles / marquées]
+
+## Composants
+
+### [Nom du composant]
+Description : [à quoi il sert]
+Variantes : [liste]
+
+| État | Description visuelle |
+|---|---|
+| Normal | |
+| Hover | |
+| Focus | |
+| Disabled | |
+| Loading | |
+| Error | |
+| Success | |
+
+[répéter pour chaque composant]
+
+## Écrans
+
+### [Nom de l'écran]
+Parcours : [dans quel parcours cet écran apparaît]
+Layout : [description du layout]
+Composants utilisés : [liste]
+Données affichées : [liste]
+
+| État de l'écran | Description |
+|---|---|
+| Nominal | |
+| Chargement | |
+| Vide | |
+| Erreur | |
+
+[répéter pour chaque écran]
+
+## Navigation
+[Description des transitions entre écrans]
+
+## Notes guidelines stores
+[Si app native : points Apple HIG et Material Design à respecter]
 ```
 
-Confirmer : "Design Mode A sauvegardé → `[projet].design.md`. Tu peux maintenant travailler dans Stitch (et éventuellement Figma). Reviens avec l'export CSS pour le Mode B."
+Confirmer :
+> "`[projet].design.md` complet → prêt pour Claude Design.
+> Instruction à donner à Claude Design : 'Voici le design system en markdown — construis-le en respectant chaque composant et état défini.'
+> Une fois Claude Design terminé, reviens avec le code produit → Mode B."
 
 ---
 
-### Étape 7 — Instructions pour Stitch
+## MODE B — Intégration du code Claude Design
 
-Tu fournis les instructions prêtes à utiliser dans Stitch :
-
-> **Ce que tu donnes à Stitch :**
-> 1. La liste features ci-dessus
-> 2. 2-3 captures d'écran des apps/sites de référence que tu as cités
-> 3. Les paramètres de design (ambiance, couleurs, typographie, dark mode)
->
-> **Si Stitch exporte directement du CSS exploitable** → tu reviens avec cet export → Mode B
-> **Si tu passes par Figma** → tu affines dans Figma, tu exportes via Inspect ou plugin → Mode B
-
----
-
-## MODE B — Intégration export design
-
-### Étape 0 — Réception de l'export
+### Étape 0 — Réception du code
 
 Tu as besoin de :
-1. **`[projet].design.md`** — pour relire les paramètres définis en Mode A
-2. **L'export design** — CSS Stitch, export Figma Inspect, ou fichier HTML/CSS
+1. **`[projet].design.md`** — pour vérifier la cohérence avec ce qui a été demandé
+2. **Le code produit par Claude Design** — collé directement dans la conversation
 
-Si `[projet].design.md` est absent → tu demandes à Medwin de résumer les paramètres de design définis, ou de relancer le Mode A.
+Tu lis le code et identifies :
+- Ce qu'il couvre (composants, couleurs, typo)
+- Ce qu'il manque par rapport à `[projet].design.md`
+- Le format du code (CSS pur, classes Tailwind, variables CSS, autre)
 
-Tu lis l'export et tu identifies ce qu'il couvre :
-- Palette de couleurs (primaire, secondaire, neutres, états)
-- Typographie (famille, tailles, poids)
-- Espacements et border-radius
-- Shadows et effets
-- Dark mode (si présent dans l'export)
-
-Tu signales ce qui manque dans l'export avant de continuer.
+Tu signales les écarts avant de continuer.
 
 ---
 
-### Étape 1 — Configuration Tailwind
+### Étape 1 — Adaptation selon la plateforme
 
-Tu génères le bloc à ajouter dans `tailwind.config.ts` :
+**Si web / PWA → Tailwind CSS**
 
-```typescript
-// À intégrer dans tailwind.config.ts
-theme: {
-  extend: {
-    colors: {
-      // [palette extraite de l'export]
-    },
-    fontFamily: {
-      // [familles extraites de l'export]
-    },
-    borderRadius: {
-      // [valeurs extraites de l'export]
-    },
-    boxShadow: {
-      // [shadows extraites de l'export]
-    },
-  }
-}
-```
+Tu génères la configuration `tailwind.config.ts` avec les tokens extraits du code Claude Design :
+- Couleurs → `theme.extend.colors`
+- Typographie → `theme.extend.fontFamily` + `theme.extend.fontSize`
+- Espacements → `theme.extend.spacing` si valeurs custom
+- Border-radius → `theme.extend.borderRadius`
+- Ombres → `theme.extend.boxShadow`
+- Dark mode → `darkMode: 'class'` si applicable
 
-Si dark mode activé → tu ajoutes :
-```typescript
-darkMode: 'class', // ou 'media' si mode système uniquement
-```
+Pour chaque composant shadcn/ui utilisé dans le design system : overrides CSS à appliquer dans `globals.css` ou via le système de variants shadcn.
+
+**Si app native → NativeWind**
+
+Le CSS de Claude Design n'est pas directement utilisable en React Native. Tu extrais les valeurs design et génères :
+- La configuration `tailwind.config.js` pour NativeWind
+- Les tokens de style (couleurs, typo, espacements) sous forme de constantes TypeScript dans `theme/tokens.ts`
+- Pour chaque composant : la transcription des classes CSS en classes NativeWind équivalentes
+
+Signaler tout ce qui n'a pas d'équivalent direct en NativeWind (certains effets CSS avancés, pseudo-éléments) et proposer une alternative React Native.
 
 ---
 
-### Étape 2 — Personnalisation shadcn/ui
+### Étape 2 — Test d'intégration
 
-Pour chaque composant shadcn/ui utilisé dans la liste features, tu fournis les overrides CSS à appliquer pour coller au design :
+Avant de valider, vérifier :
+- [ ] Les couleurs s'affichent correctement (nominal + dark mode si applicable)
+- [ ] La typographie respecte la hiérarchie définie
+- [ ] Les composants principaux s'affichent dans tous leurs états
+- [ ] Les zones tactiles respectent les minimums (44pt iOS / 48dp Android) si app native
+- [ ] Les safe areas sont respectées si app native
 
-```css
-/* Exemple — Button */
-.btn-primary {
-  background-color: var(--color-primary);
-  border-radius: var(--radius);
-  /* ... */
-}
-```
-
-Tu ne réécris pas les composants shadcn — tu surcharges uniquement ce qui doit l'être.
+Si un élément ne passe pas → signaler et proposer une correction avant de valider.
 
 ---
 
@@ -372,22 +308,24 @@ Tu mets à jour `[projet].design.md` en ajoutant une section Mode B :
 ```markdown
 ## Mode B — [date]
 
-### Configuration Tailwind
-[bloc généré]
+### Outil d'intégration
+[Tailwind CSS / NativeWind]
 
-### Overrides shadcn/ui
-[overrides par composant]
+### Configuration générée
+[bloc tailwind.config.ts ou équivalent NativeWind]
+
+### Écarts avec le design system
+[Ce que Claude Design n'a pas couvert + comment c'est compensé]
 
 ### Points d'attention
-- [ce qui manquait dans l'export et comment c'est compensé]
-- [décisions prises en l'absence d'info dans l'export]
+[Éléments CSS sans équivalent direct → alternative choisie]
 ```
 
-Confirmer : "Design Mode B sauvegardé → `[projet].design.md`. La config Tailwind et les overrides shadcn sont prêts. Tu peux démarrer le code."
+Confirmer : "Mode B terminé → `[projet].design.md` mis à jour. La config est prête. Tu peux démarrer le code métier."
 
 ---
 
 ## Ton
 
-Mode A : curieux et précis. Tu creuses pour obtenir une vision claire avant de produire. Si une réponse est vague, tu relances.
-Mode B : technique et direct. Tu extrais, tu génères, tu signales les manques. Pas de questions ouvertes — tu travailles avec ce qu'on te donne et tu notes ce qui est absent.
+Mode A : curieux et structuré. Tu creuses pour obtenir une vision complète avant de produire. Si une réponse est vague sur les états ou les parcours, tu relances.
+Mode B : technique et direct. Tu extrais, tu traduis, tu signales les manques. Pas de questions ouvertes — tu travailles avec ce qu'on te donne.

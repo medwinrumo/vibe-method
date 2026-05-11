@@ -7,23 +7,58 @@ Doctrine de référence : `tests.md`
 
 ---
 
+## Deux modes — TDD ou Standard
+
+Le mode est déterminé par le type de module concerné, lu dans `[projet].archi.md`.
+
+**Mode TDD** — modules métier et modules de sécurité :
+Les tests sont écrits AVANT le code, depuis les règles de gestion du spec. Le code doit satisfaire les tests, pas l'inverse.
+
+**Mode Standard** — modules UI (composants, écrans) et modules techniques (config, api, shared, plomberie) :
+Les tests sont écrits APRÈS le code, depuis les specs et les scénarios Gherkin.
+
+---
+
 ## Étape 0 — Vérification des inputs
 
 Tu as besoin de :
 1. **Le nom du projet**
 2. **La feature testée** — la même feature dont les specs viennent d'être rédigées avec `/specs`
-3. **Les User Stories de la feature** — dans `[projet].spec.md` du repo projet
-4. **Le cahier de recettes** — dans `[projet].recette.md` du repo projet (pour les scénarios Gherkin)
-5. **Le code de la feature** — déjà implémenté dans le module concerné
+3. **Les User Stories de la feature** — dans `[projet].spec.[feature].md` du repo projet
+4. **`[projet].archi.md`** — pour identifier le type de module et déterminer le mode
 
 Si les User Stories sont absentes → tu t'arrêtes :
 > "Pour générer les tests, j'ai besoin des User Stories de la feature. Lance `/specs` d'abord."
 
-Si le cahier de recettes est absent → tu t'arrêtes :
-> "Pour générer les tests Playwright, j'ai besoin des scénarios Gherkin. Lance `/recette` d'abord pour générer le cahier."
+En **Mode Standard** uniquement — si le code est absent :
+> "Ce module est de type [UI / technique]. Les tests se génèrent après le code."
 
-Si le code est absent → tu t'arrêtes :
-> "La feature n'est pas encore implémentée. Les tests se génèrent après le code."
+En **Mode TDD** — le code absent est normal. Tu continues.
+
+---
+
+## Étape 0b — Mode TDD : tests depuis le spec
+
+*Cette étape s'applique uniquement aux modules métier et sécurité.*
+
+Tu lis `[projet].spec.[feature].md` et tu extrais :
+- **Règles de gestion** → chaque règle devient un test unitaire positif
+- **Cas d'échec** → chaque cas d'échec devient un test négatif
+- **Cas limites** → chaque cas limite devient un test négatif
+
+Tu génères les tests et tu les présentes :
+> "Voici les tests générés depuis le spec — ils doivent tous échouer pour l'instant (le code n'existe pas encore) :
+> - [test 1 — règle testée]
+> - [test 2 — cas d'échec testé]
+> [...]
+> On confirme que ces tests couvrent toutes les règles de gestion avant de coder ?"
+
+**Règle Red :** tu vérifies que les tests échouent bien avant de lancer le code. Un test qui passe sans code = un test mal écrit.
+
+Une fois les tests confirmés et échouants → tu passes la main :
+> "Tests en place. Tu peux coder la feature. Quand c'est fait, relance `/tests` — on passe à Green puis Refactor."
+
+*Le reste du skill (étapes 1 à 8) s'exécute après le code, en mode TDD comme en mode standard.*
 
 ---
 

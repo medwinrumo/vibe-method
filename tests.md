@@ -12,6 +12,41 @@ Il y a deux dimensions à vérifier : que ça **fonctionne** techniquement, et q
 
 ---
 
+## TDD — Test-Driven Development
+
+### Principe
+
+Écrire le test avant le code. Le test définit le comportement attendu — le code doit le satisfaire, pas l'inverse.
+
+Cycle **Red → Green → Refactor** :
+- **Red** : le test est écrit, il échoue (le code n'existe pas encore). Un test qui passe sans code est un test inutile.
+- **Green** : on écrit le minimum de code pour que le test passe. Rien de plus.
+- **Refactor** : on nettoie le code sans casser le Green. Les tests restent verts.
+
+### Quand appliquer TDD
+
+**Obligatoire pour :**
+- Tous les modules métier — la logique est connue avant le code, elle vient du `/specs`
+- Tous les modules de sécurité — permissions, auth, validation des droits
+
+**Ne pas appliquer pour :**
+- Modules UI (composants, écrans) — le comportement visuel se découvre en codant
+- Modules techniques (config, api, shared, plomberie) — pas de logique métier à spécifier
+
+### Connexion avec /specs
+
+Les règles de gestion et les cas d'échec définis dans `/specs` sont exactement les contrats dont TDD a besoin. La chaîne directe :
+
+```
+Règle de gestion dans le spec → test unitaire (TDD)
+Cas d'échec dans le spec      → test négatif (TDD)
+Cas limite dans le spec       → test négatif (TDD)
+```
+
+Les tests ne sont pas écrits après la feature — ils en sont la traduction directe avant que le code n'existe.
+
+---
+
 ## Les trois niveaux de tests
 
 ### Niveau 1 — Tests unitaires et d'intégration
@@ -50,16 +85,29 @@ Exécutée via `/recette`.
 
 ## Ordre d'exécution dans un projet
 
+**Mode TDD** (modules métier et sécurité) :
 ```
-1. Feature développée
-2. /tests        → tests unitaires + intégration
-3. /tests        → non-régression (batterie Playwright sur les features existantes)
-4. /recette      → génération du cahier de recettes (Gherkin depuis User Stories)
-5. /tests        → Playwright sur la nouvelle feature → exécution auto → corrections
-6. /recette      → validation manuelle finale (cahier complet présenté)
+1. /specs        → règles de gestion + cas d'échec définis
+2. /tests        → tests écrits depuis le spec (Red — échouent)
+3. Code          → feature implémentée pour satisfaire les tests
+4. /tests        → tests passants (Green) + refactor
+5. /tests        → non-régression (batterie Playwright sur features existantes)
+6. /recette      → génération du cahier de recettes (Gherkin)
+7. /tests        → Playwright sur la nouvelle feature
+8. /recette      → validation manuelle finale
 ```
 
-Les étapes 2, 3 et 5 filtrent les bugs avant que l'humain intervienne. L'humain arrive en dernier, avec le meilleur contexte possible, pour valider ce que l'automatisation ne peut pas juger.
+**Mode Standard** (modules UI et techniques) :
+```
+1. Code          → feature implémentée
+2. /tests        → tests unitaires + intégration
+3. /tests        → non-régression (batterie Playwright sur features existantes)
+4. /recette      → génération du cahier de recettes (Gherkin)
+5. /tests        → Playwright sur la nouvelle feature
+6. /recette      → validation manuelle finale
+```
+
+Dans les deux modes, l'humain arrive en dernier pour valider ce que l'automatisation ne peut pas juger.
 
 ---
 

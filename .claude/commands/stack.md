@@ -92,6 +92,25 @@ Tu annonces ce que tu vas investiguer et dans quel ordre :
 >
 > Durée estimée : [2-4h selon la stack]. On commence ?"
 
+### Si le projet inclut une app native (iOS / Android)
+
+**Avant d'investiguer la stack mobile**, lire les guidelines officielles des stores. Ce n'est pas optionnel — une guideline découverte pendant la review peut bloquer le lancement plusieurs semaines.
+
+Sources primaires à lire via WebFetch :
+- **Apple** : `developer.apple.com/app-store/review/guidelines/`
+- **Google Play** : `play.google.com/about/developer-content-policy/`
+
+Pour chaque guideline, identifier les points qui s'appliquent au projet en cours :
+- Exigences de contenu (section 4 Apple — Minimum Functionality, Design)
+- Paiements in-app (section 3.1 Apple — si l'app gère des abonnements ou des achats, Apple exige son système à 30% de commission)
+- Confidentialité et données personnelles (section 5 Apple, RGPD Google)
+- Permissions hardware requises (caméra, localisation, NFC — chacune doit être justifiée)
+- Exigences de design propres à chaque OS (Human Interface Guidelines Apple, Material Design Google)
+
+Documenter les points critiques dans `[projet].stack.md` sous une section "Guidelines stores".
+
+**Règle :** aucune guideline ne doit être une surprise lors de la review. Si un point est ambigu → chercher des exemples de refus sur les forums développeurs avant de coder.
+
 ---
 
 ## Étape 2 — Investigation outillée
@@ -210,6 +229,22 @@ _Investigué le [date]_
 
 ## [Nom de l'outil 2]
 [même structure]
+
+---
+
+## Guidelines stores *(si app native)*
+_Lu le [date]_
+
+### Apple App Store
+- Points critiques applicables au projet : [liste]
+- Paiements in-app : [applicable / non applicable — raison]
+- Permissions hardware requises : [liste + justification]
+- Points ambigus à surveiller : [liste]
+
+### Google Play
+- Points critiques applicables au projet : [liste]
+- Permissions hardware requises : [liste + justification]
+- Points ambigus à surveiller : [liste]
 
 ---
 

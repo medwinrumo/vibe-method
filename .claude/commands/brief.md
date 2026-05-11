@@ -2,13 +2,17 @@
 
 Tu accompagnes Medwin dans la transformation d'une intention d'application en un brief structuré, prêt à être utilisé pour construire un PRD en cross-pollination entre IA.
 
-## Étape 0 — Nom du projet
+## Étape 0 — Nom du projet et lecture du contexte
 
 La première question est toujours :
 > "Quel est le nom de ce projet ?"
 
 Ce nom sera utilisé pour nommer toutes les pages Notion associées (`[projet].brief`, `[projet].prd`, etc.).
 Tu le retiens pour toute la session.
+
+Tu cherches ensuite `[projet].context.md` dans le répertoire du projet :
+- **Si le fichier existe** → tu le lis avant de démarrer. Tu en extrais les éléments qui informent le brief (écosystème, contraintes, client) et tu les intègres dans les questions — inutile de redemander ce qui est déjà documenté.
+- **Si le fichier est absent** → tu continues normalement.
 
 ---
 
@@ -61,9 +65,21 @@ Question de départ : "Qu'est-ce que cette app ne fera pas — au moins dans cet
 Sous-questions possibles : Il y a des features auxquelles tu as pensé mais que tu as mises de côté ? Pourquoi ?
 
 ### 5. Les contraintes techniques
-Objectif : identifier ce qui est imposé ou déjà décidé sur la stack, le budget, le délai.
+Objectif : identifier ce qui est imposé ou déjà décidé sur la stack, le budget, le délai, et le périmètre de distribution.
 Question de départ : "Est-ce qu'il y a des contraintes techniques déjà décidées — stack, hébergement, budget, délai ?"
 Sous-questions possibles : Tu as déjà une stack de référence ? C'est un projet solo ou avec d'autres ? Il y a une deadline ?
+
+**Périmètre de distribution — à poser systématiquement :**
+- L'app est web uniquement, mobile uniquement, ou les deux ?
+- Si mobile : app native sur les stores (Google Play / App Store) ou PWA installable depuis le navigateur ?
+  - App native → implique React Native / Expo en plus ou à la place du web — décision structurante pour toute la stack
+  - PWA → reste dans une stack web classique, mais avec des limitations (pas sur les stores officiels)
+- Si les deux (web + mobile natif) : deux projets distincts à piloter en parallèle
+
+**Site vitrine — à poser si l'app a des utilisateurs externes (pas une app perso) :**
+- Est-ce que l'app a besoin d'un site public séparé de l'espace connecté ? (présentation du produit, tarifs, contact, inscription)
+- Si oui : même stack que l'app (routes publiques dans le même repo) ou site séparé ?
+  - Recommandation par défaut : même stack, même repo, routes séparées — plus simple à maintenir
 
 ### 6. Les règles métier
 Objectif : capturer la logique spécifique au domaine — ce qui ne va pas de soi pour quelqu'un qui ne connaît pas le secteur.
@@ -94,6 +110,11 @@ Sous-questions possibles : Des calculs spécifiques ? Des cas particuliers ? Des
 ## Hors scope (v1)
 - [Ce qui est explicitement exclu]
 
+## Distribution
+- Plateformes : [Web / App native iOS / App native Android / PWA / combinaison]
+- Stores : [Google Play / App Store / aucun]
+- Site vitrine : [Oui — même stack que l'app / Oui — site séparé / Non]
+
 ## Contraintes techniques
 - [Stack, hébergement, budget, délai — ou "aucune contrainte imposée"]
 
@@ -113,6 +134,9 @@ Avant de sauvegarder, tu vérifies que le brief est complet et prêt pour `/prd`
 - [ ] Les utilisateurs sont identifiés avec contexte d'usage et niveau tech
 - [ ] Au moins 3 fonctions essentielles identifiées
 - [ ] Au moins une exclusion explicite (hors-scope)
+- [ ] Le périmètre de distribution est défini : web / mobile natif / PWA / combinaison
+- [ ] La question des stores est tranchée : oui (Google Play / App Store) ou non
+- [ ] La question du site vitrine est tranchée : oui ou non
 - [ ] Les contraintes techniques sont notées ou explicitement "aucune"
 - [ ] Les règles métier sont notées ou explicitement "aucune"
 

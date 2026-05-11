@@ -4,7 +4,22 @@
 
 ---
 
-## Dernière session — 2026-05-08
+## Dernière session — 2026-05-11
+
+### Ce qui a été fait
+- Tâches 1 & 2 — Recherche Claude Design + Apple HIG : `claude-design.md` créé (Claude Design vs frontend-design plugin, format input, Mode B) ; `apple-hig-react-native.md` créé (Safe Areas, NativeWind v5 limitations, checklist pre-submission).
+- Décision RAMrezo → natif (React Native + Expo) : friction PWA iOS documentée (6 étapes manuelles, pas de push notification iOS PWA). Apple Developer Program, certificats, EAS Build expliqués.
+- Skill `/setup` créé et symlinké : gap bootstrap technique identifié et comblé. Place dans la chaîne : après `/stack`, avant `/prp`.
+- Skill `/todo` corrigé : suppression appel MCP Notion pendant les sessions (lecture locale uniquement).
+- `audit-doctrine-strategie.md` créé : grille d'évaluation 4 axes, stratégie d'audit, lacunes préliminaires.
+- `prp-doctrine-enrichissement.md` créé : règles critiques securite.md + tests.md à intégrer dans `/prp`.
+- TDD intégré dans la vibe-method : `tests.md` (Red-Green-Refactor, quand appliquer), `methode.md` (deux ordres d'exécution Phase 6/7), skill `/tests` (étape 0b), skill `/specs` (rappel /setup → /prp).
+- `cybersecurite-recherche.md` créé (879 lignes) : 16 failles OWASP analysées vs securite.md, 7 manques identifiés, 15 priorités en 3 niveaux.
+- `CLAUDE.md` mis à jour : chaîne complète /context + /setup, table skills enrichie, tâches obsolètes supprimées.
+
+---
+
+## Session précédente — 2026-05-08
 
 ### Ce qui a été fait
 - Tâche 14 — Doctrine MCP complétée : chapitre "Dépendances externes — MCP" dans `architecture.md`. Investigation large sur MCP (définition, architecture, cas d'usage). Règle de décision (conversationnel vs déterministe vs mixte). Activation (global / par-projet / on-demand). Intégration étape 3b dans skill `/archi`.
@@ -40,8 +55,6 @@
 
 ### À faire
 
-- 1 — Recherche Claude Design + skill `frontend-design` — comprendre le fonctionnement réel de chaque outil : inputs attendus, outputs, limites, différences entre les deux. À faire avant d'utiliser l'un ou l'autre sur un vrai projet. **Priorité haute — avant premier projet avec design system.**
-- 2 — Recherche documentation Apple HIG pour React Native + Expo + NativeWind — lire les guidelines Apple et la doc Expo pour comprendre les contraintes de développement iOS natif avec cette stack. Alimentera la décision d'orientation RAMrezo (app native vs PWA). **Priorité haute — avant démarrage RAMrezo.**
 - 3 — Tester Code Design comme outil de génération UI — à évaluer comme alternative/complément à Claude Design. Décision d'intégration dans la stack design après test. **Priorité moyenne.**
 - 4 — Évaluation comparative vibe-method vs BMAD — avec BMAD installé localement dans `~/dev/bmad-method/`, comparer point par point chaque phase et skill de vibe-method contre l'équivalent BMAD. Identifier : (a) ce que BMAD couvre mieux, (b) ce que vibe-method couvre mieux, (c) les lacunes dans vibe-method à combler. Produire un rapport de décision pour chaque point. **Priorité moyenne — après tâche 5.**
 - 5 — Audit de cohérence interne vibe-method — vérifier que tous les fichiers `.md` de doctrine et tous les skills sont alignés : pas de contradiction entre eux, pas de référence à un skill ou fichier inexistant, pas de règle dans un skill qui contredit un autre. Grille d'évaluation et stratégie d'audit déjà produites dans `audit-doctrine-strategie.md`. **Priorité haute.**
@@ -52,6 +65,9 @@
 - ~~templates/ dans vibe-method~~ — Décidé de ne pas faire. Chaque skill produit son fichier avec la bonne structure quand il s'exécute.
 
 ### Réalisées
+
+- ✅ 1 — Recherche Claude Design + apple-hig-react-native — `claude-design.md` + `apple-hig-react-native.md` créés (2026-05-11)
+- ✅ 2 — Recherche Apple HIG pour React Native + Expo + NativeWind — documentation complète + décision RAMrezo → natif (2026-05-11)
 
 - ✅ 11 — Finir l'étude Radio Vibe Code #6 — intégrer les enseignements dans la vibe-method (2026-05-08)
 - ✅ 15 — Agents IA — doctrine complète (`methode.md` + étape 4b `/specs`) (2026-05-08)

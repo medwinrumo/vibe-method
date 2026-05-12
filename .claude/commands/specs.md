@@ -148,6 +148,17 @@ Si non → documenter le risque explicitement dans la spec.
 
 ---
 
+## Étape 4d — Décision architecturale révélée → /adr
+
+Si la spec a révélé une décision architecturale nouvelle (nouveau module identifié, contrainte technique structurante, approche d'implémentation qui engage l'avenir) :
+
+> "Cette spec a révélé [décision architecturale]. Je recommande de la capturer avec `/adr` maintenant — sinon elle sera perdue après compaction. Tu veux le faire ?"
+
+Si oui → lancer `/adr`.
+Si non → documenter la décision dans la spec sous "Contexte d'implémentation".
+
+---
+
 ## Étape 5 — Génération du document
 
 Tu génères le document final dans un fichier **`[projet].spec.[nom-feature].md`** dans le repo du projet.
@@ -192,6 +203,7 @@ En tant que [acteur], je souhaite [objectif] afin de [bénéfice].
 - [ ] Recette manuelle validée par Medwin
 - [ ] Aucune valeur hardcodée
 - [ ] Code sur branche feat/[feature], prêt à merger
+- [ ] `[projet].doc-user.md` mis à jour
 ```
 
 Tu confirmes :

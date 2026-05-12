@@ -4,18 +4,13 @@
 
 ---
 
-## Dernière session — 2026-05-11
+## Dernière session — 2026-05-12
 
 ### Ce qui a été fait
-- Tâches 1 & 2 — Recherche Claude Design + Apple HIG : `claude-design.md` créé (Claude Design vs frontend-design plugin, format input, Mode B) ; `apple-hig-react-native.md` créé (Safe Areas, NativeWind v5 limitations, checklist pre-submission).
-- Décision RAMrezo → natif (React Native + Expo) : friction PWA iOS documentée (6 étapes manuelles, pas de push notification iOS PWA). Apple Developer Program, certificats, EAS Build expliqués.
-- Skill `/setup` créé et symlinké : gap bootstrap technique identifié et comblé. Place dans la chaîne : après `/stack`, avant `/prp`.
-- Skill `/todo` corrigé : suppression appel MCP Notion pendant les sessions (lecture locale uniquement).
-- `audit-doctrine-strategie.md` créé : grille d'évaluation 4 axes, stratégie d'audit, lacunes préliminaires.
-- `prp-doctrine-enrichissement.md` créé : règles critiques securite.md + tests.md à intégrer dans `/prp`.
-- TDD intégré dans la vibe-method : `tests.md` (Red-Green-Refactor, quand appliquer), `methode.md` (deux ordres d'exécution Phase 6/7), skill `/tests` (étape 0b), skill `/specs` (rappel /setup → /prp).
-- `cybersecurite-recherche.md` créé (879 lignes) : 16 failles OWASP analysées vs securite.md, 7 manques identifiés, 15 priorités en 3 niveaux.
-- `CLAUDE.md` mis à jour : chaîne complète /context + /setup, table skills enrichie, tâches obsolètes supprimées.
+- Tâche 11 — Sync GitHub Projects : `/todo` refondu (sync GH Projects au démarrage, GH = source de vérité, setup `.gh-project.local`). `/maj` refondu (Étape 3 GH Projects — tâches terminées + nouvelles tâches).
+- Tâche 12 — Skill `/adr` créé : capture décision architecturale en 4 questions, append dans `[projet].adr.md`. Symlink créé. `/archi` (Étape 5b) et `/specs` (Étape 4d) proposent automatiquement `/adr` après décision structurante.
+- Tâche 13 — Documentation locale : `/recette` (Étape 6) propose mise à jour `[projet].doc-user.md` après validation de phase. Definition of Done enrichie dans `methode.md` et template `/specs` : `doc-user.md` ajouté.
+- Tâche 14 — `/maj` restructuré : pont Notion retiré (plus de mise à jour auto `.peda`, `.log`, `.spec`, `.doc`). Garder : Git + sync sécurité + GitHub Projects + cohérence doctrine. MCP Notion supprimé des allowed-tools.
 
 ---
 
@@ -61,15 +56,16 @@
 - 6 — Audit et enrichissement des skills existants — les skills peuvent contenir : exemples de code, URLs de doc, scripts de validation, chemins de fichiers précis, versions de librairies. Points spécifiques à traiter dans `/archi` : (a) vérification des versions de technologie par WebSearch au moment où une décision est documentée ; (b) vérification des implications en cascade — après chaque décision majeure, identifier explicitement quelles autres décisions elle déclenche ou modifie. Inclure : enrichissement `/prp` avec règles critiques des doctrines — analyse déjà produite dans `prp-doctrine-enrichissement.md`. **Priorité haute.**
 - 7 — Skill `/doc-tech` — documentation technique dans le code : JSDoc, README technique, commentaires d'architecture. Définir quand déclencher, quoi documenter, comment. Créer la page Notion `[projet].doc-tech` associée. Distinct de `/doc` (documentation utilisateur). **Priorité moyenne.**
 - 8 — Doctrine refactoring + skill `/refacto` — définir ce qu'est le refactoring, quand le faire, selon quels critères, quelles règles pour ne pas casser ce qui marche. Décider si nouvelle doctrine (`refacto.md`) ou enrichissement d'une doctrine existante. Créer le skill une fois la doctrine établie. **Priorité moyenne.**
-- 11 — Refonte `/maj` + `/todo` — sync GitHub Projects bidirectionnel. `/todo` lit depuis GH Projects au démarrage → met à jour `.todo.md` local (GH Projects = source de vérité). `/maj` pousse les changements de session vers GH Projects. Setup initial requis : récupérer project ID + column IDs via `gh project list`. **Priorité haute.**
-- 12 — Skill `/adr` — capture des décisions architecturales à chaud, immédiatement après qu'une décision structurante est prise. 4 questions : décision prise / alternatives écartées / raisonnement qui a tranché / conditions de révision. Stockage dans `[projet].adr.md` (appendé, jamais écrasé). À déclencher manuellement — proposé automatiquement par `/archi` et `/specs` sur les décisions majeures. **Priorité haute.**
-- 13 — Documentation locale `.md` — créer `[projet].doc-user.md` et `[projet].doc-dev.md` comme fichiers locaux construits au fil du dev. `/recette` propose la mise à jour de `doc-user` après validation d'une feature. Le merge propose la mise à jour de `doc-dev`. En fin de projet : session dédiée pour transformer ces `.md` en documentation Notion structurée. Mettre à jour la Definition of Done dans `methode.md` pour inclure la doc. **Priorité moyenne.**
-- 14 — Restructure `/maj` Notion — réduire le pont. Supprimer les mises à jour automatiques de `.peda`, `.log`, `.spec`, `.doc` (faits manuellement ou via fichiers locaux). Garder uniquement : Git commit/push + sync GitHub Projects + sync sécurité `archi.md` → `CLAUDE.md`. **Priorité haute — après tâche 11.**
 - 10 — Enrichir `/sessionCode` — connecter le skill au planning et à la démarche complète : vérifier l'état de la feature dans la roadmap, charger la spec de la feature (`[projet].spec.[feature].md`), rappeler les tests attendus si TDD, vérifier les dépendances entre features, détecter si le PRP est à jour ou doit être régénéré. **Priorité moyenne — après tâche 5.**
 - 9 — Cybersécurité des apps et sites construits avec la vibe-method — refonte et enrichissement de `securite.md` + stratégie par projet. Points identifiés comme manquants : (a) auth toujours côté serveur — jamais côté client ; (b) principe du moindre privilège en base de données — LLMs configurent trop large par défaut ; (c) inventaire complet OWASP Top 10 + Mobile Top 10 appliqué à la stack vibe-method ; (d) double audit LLM — enrichir `/securite` avec un second modèle indépendant (pattern /party appliqué à la sécurité) ; (e) outils de scan automatique de vulnérabilités à intégrer dans le pipeline CI/CD (Dependabot, Snyk, plugins ESLint sécurité) — checklist concrète à venir depuis source externe. Bases de travail : `cybersecurite-recherche.md` (recherche en cours) + checklist livre (à intégrer quand disponible). **Priorité haute.**
 - ~~templates/ dans vibe-method~~ — Décidé de ne pas faire. Chaque skill produit son fichier avec la bonne structure quand il s'exécute.
 
 ### Réalisées
+
+- ✅ 11 — Sync GitHub Projects : `/todo` + `/maj` refondus, setup `.gh-project.local` documenté (2026-05-12)
+- ✅ 12 — Skill `/adr` créé : 4 questions, append `[projet].adr.md`, proposé par `/archi` Étape 5b + `/specs` Étape 4d (2026-05-12)
+- ✅ 13 — Documentation locale : `doc-user.md` dans Definition of Done + `/recette` Étape 6 propose la mise à jour (2026-05-12)
+- ✅ 14 — `/maj` restructuré : pont Notion retiré (plus d'auto `.peda`/`.log`/`.spec`/`.doc`), GH Projects + Git + sécurité uniquement (2026-05-12)
 
 - ✅ 1 — Recherche Claude Design + apple-hig-react-native — `claude-design.md` + `apple-hig-react-native.md` créés (2026-05-11)
 - ✅ 2 — Recherche Apple HIG pour React Native + Expo + NativeWind — documentation complète + décision RAMrezo → natif (2026-05-11)

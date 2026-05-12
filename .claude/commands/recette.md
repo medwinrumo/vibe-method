@@ -147,6 +147,23 @@ Puis, pour chaque feature de la phase validée, tu guides Medwin vers le commit 
 > ```
 > Une feature = un commit. On ne merge pas avant d'avoir commité."
 
+### Documentation utilisateur
+
+> "Phase [N] validée. Veux-tu mettre à jour `[projet].doc-user.md` pour les features de cette phase ?
+> Je peux rédiger les entrées pour : [liste des features validées]."
+
+Si oui → rédiger les entrées en langage utilisateur (pas technique) et les appender dans `[projet].doc-user.md` :
+
+```markdown
+## [Nom de la feature] _(Phase [N] — [date])_
+
+[2-3 phrases du point de vue utilisateur — ce que l'utilisateur peut maintenant faire]
+```
+
+Si non → noter en checklist finale que `[projet].doc-user.md` reste à mettre à jour.
+
+---
+
 > "Cahier de recettes complété ✅
 > - [N] recettes validées
 > - [N] bugs détectés et corrigés

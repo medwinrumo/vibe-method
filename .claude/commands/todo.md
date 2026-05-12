@@ -1,18 +1,57 @@
 ---
-description: Lecture de l'état du projet en début de session — affiche ce qui reste à faire et propose de choisir par où commencer
-allowed-tools: Bash(cat *)
+description: Lecture de l'état du projet en début de session — sync GitHub Projects puis affichage de l'état courant
+allowed-tools: Bash(cat *), Bash(gh *), Bash(git *)
 ---
 
-Lis `[projet].todo.md` et présente un résumé de démarrage de session.
+Ouvre la session de travail : sync depuis GitHub Projects puis affiche l'état du projet.
 
-## Identification du projet
+## Étape 0 — Identification du projet
 
 Détermine le nom du projet à partir du répertoire de travail courant.
 
-## Ce que tu affiches
+## Étape 1 — Sync GitHub Projects
 
-1. **Dernière session** — une ou deux lignes sur ce qui a été fait (depuis la section "Dernière session" du fichier local)
-2. **Tâches actives** — depuis le fichier local uniquement : "En cours" et "Bloqué" en priorité, puis "À faire"
+**GitHub Projects = source de vérité.** Les changements faits dans le kanban entre les sessions ont priorité sur le fichier local.
+
+Si `.gh-project.local` existe dans le répertoire courant :
+1. Lire les variables : `project_number`, `owner`, `field_status_id`, `option_done_id`
+2. `gh project item-list $project_number --owner $owner --format json 2>/dev/null`
+3. Pour chaque item avec Status "Done" → si la tâche est encore "À faire" dans `.todo.md` local → la déplacer en "Réalisées"
+4. Mettre à jour `.todo.md` local si des changements ont été détectés
+5. Si modifié → `git add [projet].todo.md && git commit -m "chore: sync todo from gh projects" && git push`
+
+Si `.gh-project.local` absent → ignorer silencieusement, continuer avec le fichier local.
+
+### Setup GitHub Projects (une fois par projet)
+
+    # 1. Activer le scope nécessaire
+    gh auth refresh -s read:project,project
+
+    # 2. Récupérer le numéro du projet
+    gh project list --owner medwinrumo
+
+    # 3. Récupérer les IDs des champs Status
+    gh project field-list [N] --owner medwinrumo --format json
+
+Créer `.gh-project.local` dans le repo :
+
+    project_number=N
+    owner=medwinrumo
+    field_status_id=PVTF_xxx
+    option_todo_id=xxx
+    option_in_progress_id=xxx
+    option_done_id=xxx
+
+Ajouter `.gh-project.local` au `.gitignore`.
+
+---
+
+## Étape 2 — Affichage
+
+Lis `.todo.md` (maintenant synchronisé) et présente le résumé de démarrage.
+
+1. **Dernière session** — une ou deux lignes (depuis la section "Dernière session")
+2. **Tâches actives** — "En cours" et "Bloqué" en priorité, puis "À faire"
 3. **Question** : "Par quoi on commence ?"
 
 ## Format de présentation
@@ -22,11 +61,8 @@ Détermine le nom du projet à partir du répertoire de travail courant.
 
 Dernière session : [résumé court]
 
-Bloqué :
-  — [tâche] ([priorité])
-
 En cours :
-  — [tâche] ([priorité])
+  — [tâche]
 
 À faire :
   — [tâche] ([priorité])
@@ -36,6 +72,6 @@ Par quoi on commence ?
 
 ## Règles
 
-- Lecture du fichier local uniquement — jamais de Notion, jamais de MCP.
+- Jamais de Notion, jamais de MCP — GitHub Projects ou fichier local uniquement.
 - Pas de reformulation, pas d'analyse — données brutes.
-- Si le fichier local n'existe pas, le signaler et proposer de lancer `/majtodo` pour le créer.
+- Si `.todo.md` n'existe pas → signaler et proposer `/majtodo` pour le créer.

@@ -399,6 +399,21 @@ Voir `architecture.md` section "Dépendances externes — MCP" pour la doctrine.
 
 ---
 
+## Étape 5b — Décisions à capturer dans /adr
+
+Les décisions structurantes prises pendant cet archi (pattern, distribution, stack, BDD, sécurité...) méritent d'être capturées avant compaction.
+
+> "Cet archi a produit des décisions structurantes. Je propose de les capturer avec `/adr` maintenant — en particulier :
+> - [décision 1 prise pendant cette session]
+> - [décision 2 prise pendant cette session]
+>
+> Tu veux lancer `/adr` ?"
+
+Si oui → lancer `/adr` pour chaque décision identifiée.
+Si non → noter que ces décisions peuvent être perdues après compaction.
+
+---
+
 ## Étape 6 — Enrichissement du CLAUDE.md
 
 Tu proposes les lignes à ajouter au `CLAUDE.md` du projet. Deux blocs : architecture et sécurité.

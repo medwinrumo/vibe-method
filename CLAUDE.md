@@ -54,6 +54,7 @@ Mode A de /design et /archi se construisent en aller-retour. Les écrans révèl
 | `/recette` | Génère Gherkin depuis User Stories + validation manuelle | `[projet].recette.md` |
 | `/debug` | Diagnostic et résolution de bug (déclenché par `/recette`) | — |
 | `/party` | Multi-perspectives sur une décision (sous-agents parallèles) | — |
+| `/adr` | Capture d'une décision architecturale (4 questions → append dans `[projet].adr.md`) | `[projet].adr.md` |
 
 **Règle de stockage :** tous les outputs sont des fichiers `.md` dans le repo du projet — pas dans Notion. Notion est une copie pour la lecture, mise à jour en fin de session via `/maj`.
 

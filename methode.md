@@ -207,6 +207,7 @@ Une feature n'est "Done" que si toutes ces cases sont cochées. Aucune exception
 - [ ] Recette manuelle validée par Medwin
 - [ ] Aucune valeur hardcodée (tokens, clés API, URLs, credentials)
 - [ ] Code sur branche `feat/[feature]`, prêt à merger
+- [ ] `[projet].doc-user.md` mis à jour (entrée rédigée en langage utilisateur)
 
 Si un critère n'est pas atteint → la feature reste "In Progress". Pas de merge.
 

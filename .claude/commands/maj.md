@@ -1,19 +1,9 @@
 ---
-description: Clôture de session complète — GitHub + toutes les pages Notion du projet en cours
-allowed-tools: Bash(git *), Bash(cat *), mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-update-page, mcp__claude_ai_Notion__notion-create-pages
+description: Clôture de session — Git + sync sécurité + GitHub Projects + cohérence doctrine
+allowed-tools: Bash(git *), Bash(cat *), Bash(gh *)
 ---
 
 Effectue la clôture complète de session pour le projet en cours.
-
-## Étape 0 — Vérification MCP Notion
-
-**Avant de continuer, assurez-vous que le MCP Notion est activé dans Claude Web.**
-
-🔗 [Cliquez ici pour accéder aux paramètres d'intégration MCP](https://claude.ai/settings/integrations)
-
-Recherchez « Notion » dans la liste et vérifiez que le connecteur est **actif** (symbole ✓ ou indicateur vert visible).
-
-⏱️ **Attente : 30 secondes** pour que vous ayez le temps d'activer si nécessaire. Une fois activé, tapez simplement `Continuer` ou attendez la fin du compte à rebours pour que `/maj` procède à l'étape suivante.
 
 ## Étape 1 — Identification du projet
 
@@ -36,53 +26,29 @@ Si `[projet].archi.md` existe et contient une section `## Sécurité` :
 3. Si les deux diffèrent → mettre à jour le bloc du `CLAUDE.md` projet pour le remettre en phase avec `archi.md`
 Cette sync est silencieuse si aucune différence — elle ne signale que si une mise à jour a été faite.
 
-## Étape 3 — Notion
+## Étape 3 — GitHub Projects
 
-Ces pages vivent uniquement dans Notion, indépendamment de Git. Créer toute page manquante avant d'y écrire.
+Met à jour le kanban du projet.
 
-**Règle de non-duplication — s'applique à toutes les pages ci-dessous :**
-Avant d'écrire quoi que ce soit, lire le contenu existant de la page. Identifier ce qui est déjà documenté. N'écrire que ce qui ne l'est pas encore. Si la session a déjà été partiellement documentée via `/checkpoint`, ne reprendre que l'incrément restant — jamais réécrire ce qui existe.
+**Prérequis** : `.gh-project.local` présent dans le répertoire courant (voir `/todo` — setup GitHub Projects).
 
-**Convention couleur :** tout contenu ajouté dans une page existante doit être coloré en bleu (`{color="blue"}`), pour que Medwin puisse distinguer visuellement le nouveau de l'existant.
+Si `.gh-project.local` existe :
+1. Lire les variables : `project_number`, `owner`, `field_status_id`, `option_todo_id`, `option_in_progress_id`, `option_done_id`
+2. `gh project item-list $project_number --owner $owner --format json 2>/dev/null` → état actuel du kanban
+3. **Tâches terminées cette session** → trouver l'item correspondant et mettre à jour en "Done" :
 
-### Page `[projet].peda`
+       gh project item-edit --id [item-id] --project-id [project-id] \
+         --field-id $field_status_id --single-select-option-id $option_done_id
 
-Journal d'apprentissage à vocation pédagogique. Rédigé avec une intention professorale — comme si on expliquait à Medwin ce qui s'est passé, pourquoi les choses ont été faites ainsi, ce qu'il faut avoir compris. Les difficultés, erreurs et doutes méritent autant d'attention que les succès.
+4. **Nouvelles tâches identifiées** → créer les items :
 
-Structure obligatoire :
-```
-▶ Jour N — [date] — [objectif de la session]
-    ▶ Session N — [résumé en une phrase]
-        - Ce qu'on a fait et pourquoi (contexte, intention, décision)
-        - Comment (outils, commandes, méthodes utilisées)
-        - Difficultés rencontrées et comment elles ont été résolues
-        - Points qui méritent compréhension ou recul
-```
-Règle absolue : chaque session dans son propre menu dépliant. Jamais dans le menu d'une session précédente.
+       gh project item-create $project_number --owner $owner --title "[titre de la tâche]"
 
-### Page `[projet].log`
+5. **Tâches démarrées** → mettre à jour en "In Progress" (même commande avec `$option_in_progress_id`)
 
-Journal de bord factuel et daté. Entrées courtes, sans explication technique. Même structure de menus imbriqués par jour et par session.
+Si `.gh-project.local` absent → ignorer cette étape silencieusement.
 
-Calibrage :
-- Bonne entrée : `Implémenté streaming SSE sur POST /api/chat`
-- Trop vague : `Travaillé sur le chat`
-- Trop technique : `Modifié le handler EventSource pour corriger le flush des chunks en cas de timeout réseau`
-
-### Page `[projet].spec`
-
-Mettre à jour si la session a produit une décision de spec : nouvelle fonctionnalité spécifiée, décision d'architecture, contrainte levée ou ajoutée, fonctionnalité abandonnée. Ne pas toucher sinon.
-
-Frontière : `.spec` = ce qui est décidé. `.doc/Développeur` = ce qui est implémenté.
-
-### Page `[projet].doc`
-
-Mettre à jour si la session a produit quelque chose qui change ce qu'un lecteur peut comprendre ou faire. Trois sous-pages cibles :
-- 👤 Utilisateur : comportement visible, fonctionnalité nouvelle ou modifiée
-- 🛠️ Développeur : architecture implémentée, route API, variable `.env`, convention
-- ⚙️ Exploitation : déploiement, dépendance système, configuration serveur
-
-Créer la sous-page si elle n'existe pas.
+**Note :** les pages Notion (.peda, .log, .spec, .doc) se mettent à jour manuellement via leurs skills dédiés (`/peda`, `/log`, `/spec`, `/doc`) — non automatisé dans /maj.
 
 ## Étape 4 — Cohérence skills / doctrine (si projet vibe-method ou si un skill a été modifié)
 
@@ -106,16 +72,5 @@ Pour chaque paire concernée :
 - [ ] Tout commité et poussé sur GitHub
 - [ ] `CLAUDE.md` mis à jour si nécessaire
 - [ ] Bloc sécurité du `CLAUDE.md` synchronisé avec `archi.md` (si projet avec archi)
+- [ ] GitHub Projects mis à jour (tâches terminées + nouvelles tâches)
 - [ ] Cohérence skills / doctrine vérifiée si applicable
-- [ ] `[projet].peda` complétée dans Notion
-- [ ] `[projet].log` complétée dans Notion
-- [ ] `[projet].spec` mise à jour si nécessaire
-- [ ] `[projet].doc` mise à jour si nécessaire
-
-## Étape 5 — Nettoyage post-exécution
-
-Une fois que tout est publié dans Notion (étape 4 complétée), **désactivez le MCP Notion** pour économiser les tokens à votre prochaine session.
-
-🔗 [Cliquez ici pour accéder aux paramètres d'intégration MCP](https://claude.ai/settings/integrations)
-
-Trouvez « Notion » et **cliquez sur le bouton de désactivation** (le symbole ✓ ou l'indicateur de statut doit disparaître).

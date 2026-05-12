@@ -29,6 +29,13 @@ Détermine le nom du projet à partir du répertoire de travail courant (ex : `m
 
 Mettre à jour si la session a produit des décisions d'architecture, des changements d'implémentation, des corrections de spec, ou tout élément qui modifie la compréhension du projet. C'est une source de vérité — elle doit refléter la réalité du code, pas une version périmée.
 
+**Sync sécurité automatique :**
+Si `[projet].archi.md` existe et contient une section `## Sécurité` :
+1. Lire la section `## Sécurité` de `[projet].archi.md`
+2. Lire le bloc `## Sécurité — règles de ce projet` du `CLAUDE.md` projet
+3. Si les deux diffèrent → mettre à jour le bloc du `CLAUDE.md` projet pour le remettre en phase avec `archi.md`
+Cette sync est silencieuse si aucune différence — elle ne signale que si une mise à jour a été faite.
+
 ## Étape 3 — Notion
 
 Ces pages vivent uniquement dans Notion, indépendamment de Git. Créer toute page manquante avant d'y écrire.
@@ -98,6 +105,7 @@ Pour chaque paire concernée :
 
 - [ ] Tout commité et poussé sur GitHub
 - [ ] `CLAUDE.md` mis à jour si nécessaire
+- [ ] Bloc sécurité du `CLAUDE.md` synchronisé avec `archi.md` (si projet avec archi)
 - [ ] Cohérence skills / doctrine vérifiée si applicable
 - [ ] `[projet].peda` complétée dans Notion
 - [ ] `[projet].log` complétée dans Notion

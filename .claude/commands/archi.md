@@ -408,6 +408,9 @@ Tu proposes les lignes à ajouter au `CLAUDE.md` du projet. Deux blocs : archite
 ### Bloc 1 — Architecture
 
 ```markdown
+## PRP
+Au démarrage de toute session sur ce projet : lire `[projet].prp.md` immédiatement.
+
 ## Architecture
 
 Pattern : modulaire + silos.

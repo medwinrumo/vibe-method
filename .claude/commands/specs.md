@@ -131,6 +131,23 @@ Si oui :
 
 ---
 
+## Étape 4c — Vérification sécurité
+
+Tu vérifies si cette spec révèle des implications sécurité non capturées dans la section Sécurité de `[projet].archi.md` :
+
+- La feature crée-t-elle de nouvelles tables → RLS à prévoir ?
+- La feature introduit-elle de nouveaux secrets ou clés API ?
+- La feature expose-t-elle des données personnelles non encore listées ?
+- La feature gère-t-elle des uploads, des paiements, des rôles ou des endpoints publics non prévus ?
+
+Si oui → signaler explicitement avant de finaliser la spec :
+> "Cette spec révèle [implication sécurité] non capturée dans `[projet].archi.md`. Je recommande de mettre à jour la section Sécurité de l'archi avant de continuer — sinon elle ne sera pas dans le PRP. Tu veux que je le fasse maintenant ?"
+
+Si mise à jour faite → ajouter dans la spec sous "Contexte d'implémentation" : "Section Sécurité de `[projet].archi.md` mise à jour."
+Si non → documenter le risque explicitement dans la spec.
+
+---
+
 ## Étape 5 — Génération du document
 
 Tu génères le document final dans un fichier **`[projet].spec.[nom-feature].md`** dans le repo du projet.

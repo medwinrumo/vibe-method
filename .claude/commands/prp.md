@@ -47,10 +47,11 @@ Tu lis chaque fichier source et en extrais **uniquement** :
 - 1 ligne par feature : nom + ce qu'elle fait
 - Rien d'autre
 
-**`[projet].archi.md`** → structure du code
+**`[projet].archi.md`** → structure du code + sécurité
 - Carte des modules (nom + responsabilité en quelques mots)
 - Règles silo : quel module peut appeler quoi, ce qui est interdit
 - Contraintes techniques structurantes (ex : région BDD, niveau de déploiement si critique)
+- Section Sécurité complète : règles universelles + règles projet (secrets, tables RLS, endpoints, blocs conditionnels)
 
 **`CLAUDE.md`** → règles du projet
 - Conventions de code non-évidentes
@@ -113,6 +114,9 @@ _Généré le [date] — feature courante : [nom de la feature]_
 
 ## Conventions
 [depuis CLAUDE.md — règles non-évidentes uniquement]
+
+## Sécurité
+[Depuis [projet].archi.md — section Sécurité complète, telle quelle]
 
 ## Stack — contraintes critiques
 - [gotcha ou contrainte 1]

@@ -369,6 +369,30 @@ Voir `architecture.md` section "Dépendances externes — MCP" pour la doctrine.
 - Monitoring : UptimeRobot — [URL ou "à définir après déploiement"]
 - Prochaine étape : lancer `/backup` après déploiement
 
+## Sécurité
+
+### Règles universelles
+- Jamais de clé API privée ou `service_role` en front-end — secrets back-end uniquement
+- `.env` jamais commité — vérifier `.gitignore` avant chaque commit
+- RLS à activer sur chaque nouvelle table dès sa création
+- Validation des entrées côté serveur — jamais uniquement dans le navigateur
+- Authentification ET autorisation vérifiées côté serveur à chaque requête
+
+### Règles projet
+- Secrets : [NOM_SECRET_1] ([rôle]), [NOM_SECRET_2] ([rôle]) — back-end uniquement
+- RLS sur : [table1] (filtre : [colonne]), [table2] (filtre : [colonne])
+- Validation côté serveur sur : [endpoint ou formulaire 1], [endpoint ou formulaire 2]
+- Routes protégées : [route] (connexion + [rôle ou condition d'appartenance])
+
+[Blocs conditionnels — ajouter selon la nature du projet :]
+[Rôles : rôles définis + règle anti-auto-promotion]
+[Multi-tenant : filtre organization_id obligatoire sur chaque requête et RLS]
+[Paiements : token Stripe uniquement, jamais de données de carte, jamais logger]
+[Données sensibles : chiffrement au repos sur [champs], accès restreint aux profils [rôles]]
+[APIs publiques : rate limiting obligatoire sur [routes sans auth]]
+[Upload : validation MIME côté serveur, taille max [valeur], stockage statique uniquement]
+[Niveau 2+ : invoquer /securite check avant chaque merge sur main]
+
 ## Points ouverts
 [Questions d'architecture qui ne peuvent pas être résolues sans voir la roadmap]
 ```
@@ -410,89 +434,15 @@ Si un élément devrait changer de statut (privé → public, feature → shared
 
 ### Bloc 2 — Sécurité
 
-Le bloc sécurité est une projection des règles non négociables sur le projet réel. Pas des principes génériques — des instructions concrètes issues de ce qui a été défini aux étapes précédentes. Tu remplis chaque champ avec les données du projet.
-
-**Bloc de base — présent dans tout projet :**
+Extrait court et opérationnel depuis la section Sécurité de `[projet].archi.md`. Règles projet-spécifiques uniquement — pas les universelles (déjà dans `CLAUDE.global.md`). 5 lignes maximum.
 
 ```markdown
-## Sécurité
-
-### RLS
-Tables identifiées dans ce projet :
-- `[table1]` — filtre : `[colonne]` (ex : `user_id`)
-- `[table2]` — filtre : `[colonne]`
-- `[table_publique]` — lecture publique, pas de RLS
-Toute nouvelle table doit avoir sa politique RLS définie avant d'écrire le code qui l'utilise.
-
-### Secrets
-Secrets de ce projet — back-end uniquement, jamais en front-end :
-- `[NOM_SECRET_1]` — [rôle]
-- `[NOM_SECRET_2]` — [rôle]
-
-### Validation côté serveur
-Points d'entrée identifiés dans ce projet :
-- `[formulaire ou endpoint 1]` — [données reçues]
-- `[formulaire ou endpoint 2]` — [données reçues]
-Valider à l'arrivée sur le serveur avant toute écriture en base.
-
-### Authentification et autorisation
-Routes protégées de ce projet :
-- `[route 1]` — vérifie : connexion + [rôle ou condition d'appartenance]
-- `[route 2]` — vérifie : connexion + [rôle ou condition d'appartenance]
+## Sécurité — règles de ce projet
+- Secrets back-end : [NOM_SECRET_1], [NOM_SECRET_2]
+- RLS sur : [table1] (filtre : [colonne]), [table2] (filtre : [colonne])
+- Validation côté serveur sur : [endpoint 1], [endpoint 2]
+[ligne conditionnelle si applicable : paiements / rôles / upload / rate limiting]
 ```
-
-**Blocs conditionnels — à ajouter selon la nature du projet :**
-
-*Si le projet a plusieurs rôles utilisateurs :*
-```markdown
-### Rôles
-Rôles définis : [admin / user / viewer / ...]
-Un utilisateur ne peut jamais s'auto-promouvoir — vérification côté serveur obligatoire.
-L'IA ne génère pas la gestion des rôles par défaut — la demander explicitement à chaque feature qui touche aux permissions.
-```
-
-*Si le projet est multi-tenant :*
-```markdown
-### Isolation multi-tenant
-Filtre `organization_id` obligatoire sur chaque requête et chaque politique RLS.
-Tester que les données d'une organisation ne fuitent jamais vers une autre.
-```
-
-*Si le projet gère des paiements :*
-```markdown
-### Données financières
-Jamais stocker de numéros de carte — token [Stripe / équivalent] uniquement.
-Ne jamais logger les données de paiement.
-```
-
-*Si le projet traite des données médicales ou particulièrement sensibles :*
-```markdown
-### Données sensibles
-Chiffrement au repos obligatoire sur : [liste des champs].
-Accès restreint aux profils : [liste des rôles autorisés].
-```
-
-*Si le projet expose des endpoints sans authentification :*
-```markdown
-### Rate limiting
-Routes publiques : [liste des endpoints sans auth].
-Rate limiting obligatoire sur ces routes — ne pas coder une route publique sans limite d'appels.
-```
-
-*Si le projet accepte des uploads de fichiers :*
-```markdown
-### Upload de fichiers
-Validation MIME côté serveur obligatoire. Taille maximale : [définie au /archi].
-Les fichiers uploadés ne s'exécutent jamais — stockage statique uniquement.
-```
-
-*Si le niveau de déploiement est 2 ou 3 :*
-```markdown
-### Contrôle qualité sécurité
-Invoquer `/securite check` avant chaque merge sur `main`.
-```
-
----
 
 Tu ne génères pas le CLAUDE.md entier — tu fournis les deux blocs à ajouter.
 Medwin les intègre manuellement dans son projet.

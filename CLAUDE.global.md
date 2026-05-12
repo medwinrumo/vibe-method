@@ -34,6 +34,20 @@ Medwin s'appuie sur Claude comme un développeur senior expérimenté. Il ne peu
 
 ---
 
+## Règles de sécurité — non négociables
+
+Ces règles s'appliquent à tout code écrit, quelle que soit la phase, quel que soit le projet. Elles ne nécessitent pas qu'on invoque `/securite` pour être actives — elles sont permanentes.
+
+- **Jamais de clé API privée ou de clé `service_role` Supabase en front-end** — ni dans le code, ni dans les variables d'environnement front. Les secrets vivent uniquement côté serveur.
+- **`.env` jamais commité** — vérifier `.gitignore` avant chaque commit.
+- **RLS à activer sur chaque nouvelle table dès sa création** — sur Supabase, RLS est désactivé par défaut. Ne jamais laisser une table sans politique RLS.
+- **Validation des entrées côté serveur** — la validation dans le navigateur ne protège pas. Toujours valider à l'arrivée sur le serveur avant toute interaction avec la base de données.
+- **Authentification ET autorisation vérifiées côté serveur à chaque requête** — être connecté ne suffit pas. Vérifier aussi que l'utilisateur a le droit d'accéder à *cet* enregistrement précis.
+
+La doctrine complète est dans `vibe-method/securite.md`.
+
+---
+
 ## Écosystème de projets
 
 ### Minou (en cours)

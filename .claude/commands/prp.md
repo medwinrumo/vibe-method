@@ -146,8 +146,10 @@ Critères d'acceptance :
 ## Étape 4 — Confirmation
 
 > "`[projet].prp.md` généré.
-> À donner en contexte au début de chaque session de code.
 > À régénérer quand la feature change ou après un changement d'architecture."
+
+Tu proposes immédiatement :
+> "Lance `/sessionCode` pour démarrer la session de code."
 
 ---
 

@@ -26,7 +26,7 @@ vibe-method/
 ## Chaîne de skills — workflow complet
 
 ```
-/context → /brief → /charte → /prd → /prd-update → [/design Mode A ↔ /archi itératif] → /stack → [/design Mode B] → /roadmap → /specs → /setup → /prp → [code] → /code-review → /tests → /recette ↔ /debug
+/context → /brief → /charte → /prd → /prd-update → [/design Mode A ↔ /archi itératif] → /stack → [/design Mode B] → /roadmap → /specs → /setup → /prp → /sessionCode → [code] → /code-review → /tests → /recette ↔ /debug
 ```
 
 Skills transversaux (invocables à tout moment) : `/party`, `/securite`
@@ -48,6 +48,7 @@ Mode A de /design et /archi se construisent en aller-retour. Les écrans révèl
 | `/specs` | User story auto-contenue — un fichier par feature | `[projet].spec.[feature].md` |
 | `/setup` | Bootstrap technique — prérequis, dépendances, tooling, structure de dossiers, .env, premier lancement | — |
 | `/prp` | Agrège tous les outputs en un document condensé optimisé pour le LLM — contexte de démarrage de session de code | `[projet].prp.md` |
+| `/sessionCode` | Sas d'entrée obligatoire avant de coder : charge le PRP, confirme la feature, rappelle les règles critiques | — |
 | `/code-review` | Revue structurelle + sécurité avant merge | — |
 | `/tests` | Tests unitaires + intégration + Playwright | `[projet].tests.md` |
 | `/recette` | Génère Gherkin depuis User Stories + validation manuelle | `[projet].recette.md` |

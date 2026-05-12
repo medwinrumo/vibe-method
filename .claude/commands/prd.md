@@ -25,14 +25,27 @@ Si aucun brief n'est fourni, tu t'arrêtes :
 
 ---
 
-## Étape 1 — Lecture et reformulation de l'objectif produit
+## Étape 1 — Cadrage du problème
 
-Tu lis le brief et tu reformules l'objectif produit en 1-2 phrases.
-Tu demandes confirmation avant de continuer :
-> "Voici comment je comprends l'objectif de ton app : [reformulation]. C'est bien ça ?"
+Avant de construire quoi que ce soit, clarifier le problème. Plus un problème est bien défini, plus le PRD qui suit sera solide.
 
-Si Medwin corrige → tu intègres et tu confirmes à nouveau.
-Tu ne passes à l'étape 2 qu'avec une validation explicite.
+**1. Problème vague → problème précis**
+Tu lis le brief et tu reformules le problème central en une phrase précise — le problème, pas la solution :
+> "Voici le problème que je comprends : [reformulation précise]. C'est bien ça ?"
+
+Si la reformulation reste vague → tu appliques la méthode Socratique avant de continuer : "Pourquoi est-ce un problème ? Qu'est-ce qui se passe concrètement aujourd'hui sans cette app ?"
+
+**2. Sous-problèmes**
+Tu décomposes le problème en 2-4 sous-problèmes distincts :
+> "Ce problème se décompose en plusieurs aspects : [liste]. Il y en a d'autres ?"
+
+**3. Critère de succès en une phrase**
+Tu extrais une boussole unique — ce que l'utilisateur doit pouvoir faire ou ressentir pour que ce soit réussi :
+> "Si on devait résumer ce qu'on veut obtenir en une seule phrase, du point de vue de l'utilisateur, ça donnerait quoi ?"
+
+Si Medwin ne sait pas → tu proposes une formulation et il valide ou reformule. Cette phrase devient le critère de succès principal du PRD.
+
+Tu ne passes à l'étape 2 qu'avec une validation explicite sur ces 3 points.
 
 ---
 

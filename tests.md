@@ -198,7 +198,33 @@ Si un scénario n'a pas de test → le générer avant de continuer.
 
 ## Remontée de bug
 
-Quand un bug est détecté lors de la recette manuelle, le skill `/debug` est déclenché automatiquement. Il collecte les informations nécessaires via un questionnaire structuré, tente la résolution en deux passes, puis lance une recherche web si le bug persiste.
+Quand un bug est détecté lors de la recette manuelle, le skill `/debug` est déclenché automatiquement.
+
+### Anatomie d'un bon rapport de bug
+
+Un rapport insuffisant ("ça ne marche pas, corrige") ne donne pas le contexte nécessaire pour diagnostiquer. Un bon rapport contient 4 éléments :
+
+```
+1. OÙ      → quelle page, quel écran, quel rôle utilisateur
+2. QUOI    → quelle action exactement
+3. RÉSULTAT → ce qui s'est passé (message d'erreur, comportement incorrect)
+4. ATTENDU  → ce qui aurait dû se passer
++ message d'erreur copié intégralement (console du navigateur ou terminal)
+```
+
+Exemple :
+```
+OÙ      : page /planning, connecté en tant que bénévole (test@email.com)
+QUOI    : clic sur "Signaler une indisponibilité" pour le créneau Mardi 14h
+RÉSULTAT : le bouton se grise une seconde puis revient. Console : "Error 403: permission denied on table disponibilites"
+ATTENDU : le créneau aurait dû passer en orange
+```
+
+**Règle :** si on envoie un screenshot sans préciser le résultat attendu, l'IA risque de considérer l'état bugué comme l'état normal.
+
+### Escalade
+
+Si le bug n'est pas résolu après deux essais → suivre le protocole d'escalade défini dans `methode.md` (Phase Code — section Pilotage de la session de code).
 
 Un bug non résolu est bloquant : la recette ne peut pas continuer tant qu'il n'est pas corrigé.
 

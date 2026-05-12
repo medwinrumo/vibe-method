@@ -171,6 +171,7 @@ Appliquer la procédure selon le niveau du projet.
 - [ ] Si site vitrine : pages publiques accessibles sans authentification vérifiées
 - [ ] Migration BDD appliquée selon le niveau
 - [ ] Monitoring configuré selon le niveau
+- [ ] Alertes de facturation configurées sur tous les services cloud (seuil à définir selon le projet)
 
 **Stores (si app native)**
 - [ ] Comptes développeur créés et vérifiés (Apple Developer + Google Play Console)

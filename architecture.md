@@ -162,6 +162,34 @@ Le niveau est décidé au `/archi` selon la nature de l'app et ses utilisateurs.
 
 ---
 
+### Quand faire appel à un pro — zones de risque
+
+La décision de déployer seul ou avec de l'aide dépend des enjeux du projet, pas de sa complexité technique.
+
+**Zone verte — peut déployer seul**
+- Site statique ou front-end pur
+- Pas de données sensibles
+- Cercle d'utilisateurs limité et connu
+- Plateforme cloud qui gère l'hébergement (Vercel, Lovable...)
+
+**Zone orange — déployer avec prudence**
+- Application multi-utilisateurs
+- Base de données avec données personnelles (noms, emails, téléphones)
+- Back-end no-code (Supabase, Convex)
+→ Audit sécurité croisé obligatoire (voir `securite.md` — Phase 4)
+→ Séparation dev/prod obligatoire (niveau 2 minimum)
+
+**Zone rouge — faire appel à un professionnel**
+- Paiement en ligne
+- Données de santé, financières, légales
+- Authentification multi-utilisateurs avec rôles complexes
+- Exposition publique large
+- Back-end custom
+
+Faire appel à un professionnel n'est pas un aveu d'échec — c'est du vibe coding éclairé. Si on a codé une application fonctionnelle, on a fait la partie la plus créatrice. La mise en production sécurisée d'un projet en zone rouge, c'est un autre métier.
+
+---
+
 ## Backup & conformité RGPD — doctrine
 
 ### Périmètre

@@ -434,6 +434,36 @@ Les bases de données SQL sont mal faites pour le scaling horizontal (multiplier
 
 ---
 
+## Phase 4 — Avant la mise en ligne
+
+### Checklist sécurité minimale
+
+À passer obligatoirement avant toute mise en production.
+
+- [ ] Les clés API et secrets sont dans des variables d'environnement — jamais dans le code source, jamais en front-end
+- [ ] L'authentification est vérifiée côté serveur, pas uniquement côté navigateur
+- [ ] Les permissions de la base de données sont restrictives — chaque utilisateur ne voit que ses propres données (RLS activé)
+- [ ] Les entrées utilisateur sont validées côté serveur (formulaires, paramètres d'URL)
+- [ ] Les données sensibles sont chiffrées (mots de passe hachés, données personnelles protégées)
+- [ ] HTTPS activé (géré automatiquement par Vercel/Netlify)
+- [ ] Un audit sécurité a été demandé à l'IA sur l'ensemble du code
+- [ ] L'audit a été croisé avec un second LLM
+
+### Audit sécurité croisé
+
+L'IA qui a écrit le code peut également auditer sa propre sécurité — à condition qu'on le lui demande explicitement. Elle ne le fait jamais spontanément.
+
+Prompt d'audit :
+> "Fais un audit de sécurité complet de cette application. Vérifie : validation des entrées, gestion des clés API, authentification, permissions de la base de données, protection contre les injections."
+
+**Règle : croiser avec un second LLM.** Chaque modèle a été entraîné différemment et détecte des choses que l'autre manque. Claude → GPT, ou GPT → Claude.
+
+### Erreur critique Supabase — clé service_role
+
+La clé `service_role` contourne toutes les protections de la base de données. Elle ne doit jamais se trouver dans le code JavaScript exécuté dans le navigateur. Seule la clé `anon` (clé publique) est faite pour le front-end — à condition que les Row Level Security soient activées sur toutes les tables. La `service_role` vit uniquement dans les variables d'environnement back-end.
+
+---
+
 ## 4 — Attaques connues : références rapides
 
 | **Attaque** | **Description courte** | **Protection** |

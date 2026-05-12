@@ -231,6 +231,7 @@ La question se pose lors du `/stack` ou du `/archi`.
 
 - `main` = toujours stable, jamais de code non validé
 - Une branche par feature : `feat/[nom-feature]`
+- **Un commit par feature validée** — un seul commit propre sur la branche `feat/`, après validation `/recette`. Pas de commits intermédiaires pendant le dev.
 - Merge dans `main` après validation `/recette` ✅
 - Branche supprimée après merge
 - PR (Pull Request) optionnelle en solo — recommandée pour forcer une relecture avant merge

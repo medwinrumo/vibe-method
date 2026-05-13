@@ -1,9 +1,11 @@
 ---
-description: Met à jour la documentation structurée [projet].doc dans Notion — sous-pages Utilisateur, Développeur, Exploitation
+description: Met à jour la documentation structurée [projet].doc dans Notion — sous-pages Utilisateur et Exploitation
 allowed-tools: mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-update-page, mcp__claude_ai_Notion__notion-create-pages
 ---
 
 Met à jour la page `[projet].doc` dans Notion et ses sous-pages de documentation structurée.
+
+**Note :** la documentation destinée aux développeurs (architecture, JSDoc, .env, conventions, maintenance) est dans `[projet].doc-tech.md` — généré par `/doc-tech`. Ce skill ne couvre pas ce périmètre.
 
 ## Identification du projet
 
@@ -11,12 +13,11 @@ Détermine le nom du projet à partir du répertoire de travail courant.
 
 ## Structure cible de [projet].doc
 
-La page `[projet].doc` est une page parent contenant trois sous-pages fixes :
+La page `[projet].doc` est une page parent contenant deux sous-pages fixes :
 
 | Sous-page | Audience | Contenu typique |
 |---|---|---|
-| 👤 Utilisateur | Utilisateur final non-technique | Fonctionnalités disponibles, guides d'utilisation, comportements attendus, limitations connues |
-| 🛠️ Développeur | Toi / Claude Code / futur contributeur | Architecture, décisions techniques, variables d'environnement, routes API, schémas de données, conventions |
+| 👤 Utilisateur | Utilisateur final non-technique | Vue d'ensemble (ce que fait l'application) — puis par feature : ce qu'elle fait, comment elle fonctionne, comment l'utiliser |
 | ⚙️ Exploitation | Opérateur / installateur | Prérequis système, installation, déploiement, configuration serveur, maintenance |
 
 Si une sous-page n'existe pas encore, la créer avant de la mettre à jour.
@@ -35,11 +36,11 @@ Si la réponse est non, ne pas toucher.
 
 ### 3. Cibler la bonne sous-page
 
-- Comportement visible, fonctionnalité nouvelle ou modifiée → **👤 Utilisateur**
-- Décision d'architecture, nouveau paramètre `.env`, route API, schéma de données, convention → **🛠️ Développeur**
+- Comportement visible, fonctionnalité nouvelle ou modifiée, guide d'utilisation → **👤 Utilisateur**
 - Procédure de déploiement, dépendance système, variable serveur → **⚙️ Exploitation**
+- Décision d'architecture, `.env`, route API, schéma de données, convention → **`/doc-tech`**, pas ce skill
 
-Un même changement peut justifier une mise à jour dans plusieurs sous-pages.
+Un même changement peut justifier une mise à jour dans les deux sous-pages.
 
 ### 4. Modifier sans dégrader
 

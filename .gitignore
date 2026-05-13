@@ -1,6 +1,9 @@
 # Config locale GitHub Projects (IDs privés)
 .gh-project.local
 
+# Documents sources (binaires)
+*.epub
+
 # Backups temporaires
 *-backup
 *_backup

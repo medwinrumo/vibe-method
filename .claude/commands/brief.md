@@ -101,6 +101,17 @@ Proposer le niveau basé sur les réponses aux 6 domaines :
 
 > "D'après ce que tu m'as dit, je propose un niveau de risque **[Bas / Moyen / Élevé]**. Ce niveau déterminera l'intensité des audits de sécurité et des mesures à mettre en place. C'est juste ?"
 
+### 8. Données personnelles et population (RGPD)
+Objectif : identifier dès le brief si le projet est soumis au RGPD et quelle population est concernée. Ces informations alimentent `/archi` pour la déclaration des traitements.
+
+Questions :
+> "L'app collecte-t-elle des données personnelles ? (emails, noms, localisation, comportements, données de santé...)"
+> "Qui sont les utilisateurs ? (grand public, professionnels, potentiellement des mineurs ?)"
+
+Si données personnelles → noter le type dans le brief et signaler que `/archi` devra déclarer la base légale et la durée de rétention.
+Si mineurs possibles → signaler dès maintenant : consentement parental requis, restrictions publicité comportementale — à traiter dans `/archi`.
+Si niveau Bas et aucune donnée personnelle → section RGPD : "Non applicable".
+
 ---
 
 ## Format du brief généré
@@ -138,6 +149,11 @@ Proposer le niveau basé sur les réponses aux 6 domaines :
 
 ## Niveau de risque sécurité
 **[Bas / Moyen / Élevé]** — [justification en une ligne]
+
+## Données personnelles
+- Type : [emails / noms / localisation / santé / comportements / autre — ou "aucune"]
+- Population : [grand public / professionnels / mineurs possibles]
+- RGPD : [Applicable — base légale et durée de rétention à définir dans /archi / Non applicable]
 ```
 
 Après avoir généré le brief, tu demandes : "Est-ce que ce brief reflète bien ton intention ? On peut ajuster avant de le soumettre aux IA."
@@ -158,6 +174,8 @@ Avant de sauvegarder, tu vérifies que le brief est complet et prêt pour `/prd`
 - [ ] Les contraintes techniques sont notées ou explicitement "aucune"
 - [ ] Les règles métier sont notées ou explicitement "aucune"
 - [ ] Le niveau de risque sécurité est défini (Bas / Moyen / Élevé) et justifié
+- [ ] Le type de données personnelles collectées est identifié (ou "aucune" explicitement)
+- [ ] La population est précisée — mineurs possibles signalés si applicable
 
 Si une case est vide → tu poses la question manquante avant de continuer. Tu ne sauvegardes pas un brief incomplet.
 

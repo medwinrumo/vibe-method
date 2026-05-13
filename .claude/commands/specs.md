@@ -155,6 +155,25 @@ Si non → documenter le risque explicitement dans la spec.
 
 ---
 
+## Étape 4c-bis — Vérification RGPD
+
+Tu vérifies si cette feature collecte ou modifie une donnée personnelle.
+
+**Si oui :**
+
+> "Cette feature touche des données personnelles. Avant de finaliser la spec, deux points RGPD à déclarer :
+> 1. **Base légale** : sur quelle base cette donnée est-elle collectée ? (consentement / contrat / intérêt légitime / obligation légale)
+> 2. **Durée de rétention** : combien de temps cette donnée est-elle conservée après la fin du service ou la suppression du compte ?"
+
+Tu ajoutes ces deux éléments dans la spec sous "Contexte d'implémentation".
+
+**Si la feature touche les droits utilisateurs** (suppression de compte, export de données, rectification) :
+> "Cette feature impacte les droits RGPD des utilisateurs. Je l'inclus explicitement dans les règles de gestion."
+
+**Si non (aucune donnée personnelle touchée)** → continuer sans bloquer.
+
+---
+
 ## Étape 4d — Décision architecturale révélée → /adr
 
 Si la spec a révélé une décision architecturale nouvelle (nouveau module identifié, contrainte technique structurante, approche d'implémentation qui engage l'avenir) :

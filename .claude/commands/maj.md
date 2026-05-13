@@ -33,11 +33,15 @@ Met à jour le kanban du projet.
 **Prérequis** : `.gh-project.local` présent dans le répertoire courant (voir `/todo` — setup GitHub Projects).
 
 Si `.gh-project.local` existe :
-1. Lire les variables : `project_number`, `owner`, `field_status_id`, `option_todo_id`, `option_in_progress_id`, `option_done_id`
-2. `gh project item-list $project_number --owner $owner --format json 2>/dev/null` → état actuel du kanban
-3. **Tâches terminées cette session** → trouver l'item correspondant et mettre à jour en "Done" :
+1. Lire les variables : `project_number`, `owner`, `project_id`, `field_status_id`, `option_todo_id`, `option_in_progress_id`, `option_done_id`, `option_late_id`, `field_debut_id`, `field_fin_id`
 
-       gh project item-edit --id [item-id] --project-id [project-id] \
+2. Récupérer l'état actuel via GraphQL (retourne status + dates pour chaque item) :
+
+       gh api graphql -f query='{ node(id: "$project_id") { ... on ProjectV2 { items(first: 50) { nodes { id content { ... on DraftIssue { id title } } fieldValues(first: 10) { nodes { ... on ProjectV2ItemFieldSingleSelectValue { name field { ... on ProjectV2SingleSelectField { name } } } ... on ProjectV2ItemFieldDateValue { date field { ... on ProjectV2Field { name } } } } } } } } } }'
+
+3. **Tâches terminées cette session** → mettre à jour en "Done" :
+
+       gh project item-edit --id [pvti_id] --project-id $project_id \
          --field-id $field_status_id --single-select-option-id $option_done_id
 
 4. **Nouvelles tâches identifiées** → créer les items avec titre + description :
@@ -52,6 +56,13 @@ Si `.gh-project.local` existe :
        gh project item-edit --id "DI_xxx" --title "[titre]" --body "[description depuis .todo.md]"
 
 5. **Tâches démarrées** → mettre à jour en "In Progress" (même commande avec `$option_in_progress_id`)
+
+6. **Détection des tâches "Late"** → pour chaque item Todo ou In Progress dont `fin < aujourd'hui` :
+
+       gh project item-edit --id [pvti_id] --project-id $project_id \
+         --field-id $field_status_id --single-select-option-id $option_late_id
+
+   Mettre à jour `.todo.md` local avec la mention du retard.
 
 Si `.gh-project.local` absent → ignorer cette étape silencieusement.
 

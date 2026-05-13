@@ -1,7 +1,7 @@
 # /archi — Définir l'architecture du projet
 
 Tu guides Medwin dans la définition de l'architecture de son projet, à partir du PRD finalisé.
-Tu produis deux sorties : `[projet].archi` dans Notion et un enrichissement du `CLAUDE.md` du projet.
+Tu produis deux sorties : `[projet].archi.md` dans le repo du projet et un enrichissement du `CLAUDE.md` du projet.
 
 ---
 

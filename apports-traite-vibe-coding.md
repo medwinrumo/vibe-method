@@ -13,7 +13,7 @@
 
 ### Chef d'orchestre, pas touriste
 
-L'auteur (Alexis Kauffmann) distingue deux postures :
+L'auteur (Alexis Kovalenko) distingue deux postures :
 - **Touriste** : on accepte ce que l'IA produit sans comprendre
 - **Chef d'orchestre** : on comprend la partition sans jouer chaque instrument
 
@@ -22,6 +22,7 @@ Notre vibe-method pose déjà un workflow, mais pas cette *posture mentale* en i
 ### Le généraliste a l'avantage
 
 > "Jack of all trades, master of none, but oftentimes better than a master of one."
+> "Touche-à-tout, maître de rien, mais souvent meilleur que maître d'un seul."
 
 Dans l'ère IA, la valeur rare = croiser les domaines, pas l'expertise profonde dans un seul. Pertinent à mentionner dans le contexte de qui est le vibe-codeur cible.
 

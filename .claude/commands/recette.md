@@ -46,6 +46,9 @@ Alors [résultat attendu]
 
 Il y a autant de scénarios Gherkin que de User Stories, plus les cas limites.
 
+**Signal de découpage :** après génération, si une User Story a produit plus de 15 scénarios Gherkin, tu signales avant de continuer :
+> "La story '[titre]' a généré [N] scénarios — au-delà de 15, c'est un signal que la story était trop large. Pour cette phase c'est trop tard pour découper, mais à noter pour les prochaines specs. On continue ?"
+
 ---
 
 ## Étape 2 — Génération du cahier de recettes

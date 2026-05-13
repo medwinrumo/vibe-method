@@ -117,6 +117,8 @@ Avant de finaliser, tu vérifies trois points :
 **Signal de découpage :** si la story génère plus de 5 règles de gestion distinctes, tu t'arrêtes :
 > "Cette feature est peut-être trop large. Je recommande de la découper en [liste de sous-features proposées]. Tu veux le faire avant de continuer ?"
 
+Un second signal existe plus tard : si `/recette` génère plus de 15 scénarios Gherkin pour cette story, le découpage sera re-signalé à ce moment-là. Les deux critères sont complémentaires — voir `produit.md`.
+
 ---
 
 ## Étape 4b — Décision agent

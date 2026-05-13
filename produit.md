@@ -60,4 +60,8 @@ Scenario: [titre du scénario]
   Then [résultat attendu]
 ```
 
-Signal de découpage : si une user story génère plus de 15-20 scénarios Gherkin, elle est trop large et doit être splittée.
+Signal de découpage — deux critères complémentaires, mesurés à deux moments différents :
+- **Au moment des specs** (`/specs`) : plus de 5 règles de gestion distinctes → story probablement trop large
+- **Au moment de la recette** (`/recette`) : plus de 15-20 scénarios Gherkin pour une même story → story confirmée trop large
+
+Dans les deux cas, c'est Medwin qui décide du découpage — le signal n'est pas un blocage.

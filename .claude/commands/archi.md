@@ -381,6 +381,15 @@ Un module peut appeler un autre mais ne peut pas modifier son code.
 | /shared | Utilitaires génériques uniquement — pas de logique métier |
 | /config | Variables d'environnement, constantes |
 
+## Navigation & Routing
+_Complété par `/design` Mode B après exécution de Claude Design._
+
+| Élément | Page | Type | Destination / Action |
+|---|---|---|---|
+| — | — | — | — |
+
+Types : **Simple** (destination fixe, câblée par Mode B) / **Conditionnel** (dépend d'un résultat métier, implémenté en session de code) / **Action** (logique métier, pas de navigation) / **Non défini** (à préciser par Medwin avant les sessions de code)
+
 ## Règles silo
 Pour chaque module :
 - Responsabilité : [description]

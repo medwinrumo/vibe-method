@@ -48,7 +48,7 @@ Exemples : Minou V2 (Firebase → Convex), fork d'une app existante, reprise d'u
 - Rédiger le brief
 - Construire le PRD (cross-pollination entre IA)
 - Définir le backlog et les user stories
-- Identifier les enjeux de sécurité
+- Identifier les enjeux de sécurité → `/securite analyse` (une fois par projet, avant `/archi`)
 
 Fichiers de référence : `produit.md`, `securite.md`
 

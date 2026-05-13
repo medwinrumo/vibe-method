@@ -176,6 +176,10 @@ L'IA a tendance à générer des tests qui passent toujours, parce qu'elle chois
 
 Ne jamais demander en un seul prompt "développe cette feature ET écris les tests". D'abord le code. Ensuite, dans un contexte séparé, les tests.
 
+**Règle b — Vérifier que les tests échouent avant l'implémentation**
+
+Avant d'écrire le code, lancer les tests. S'ils passent déjà — le code n'existant pas — le test est mal écrit. Un test qui passe sans code ne teste rien.
+
 **Règle c — Demander explicitement des tests négatifs**
 
 Toujours inclure dans la demande de génération : "Génère également des scénarios qui doivent échouer — inputs incorrects, cas limites, actions non autorisées. Les tests doivent vérifier que l'application rejette correctement ces cas, pas seulement qu'elle les accepte."

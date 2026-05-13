@@ -28,10 +28,9 @@ Tu as besoin de :
    - `CLAUDE.md`
    - `[projet].stack.md`
    - `[projet].tests.md`
-   - `[projet].design.md`
    - `[projet].spec.[feature].md`
 
-Si un fichier est absent → le signaler et continuer sans lui. Ne pas bloquer sur un fichier optionnel (design, tests) si le projet n'en a pas encore.
+Si un fichier est absent → le signaler et continuer sans lui. Ne pas bloquer sur un fichier optionnel (tests) si le projet n'en a pas encore.
 
 ---
 
@@ -68,11 +67,6 @@ Tu lis chaque fichier source et en extrais **uniquement** :
 - Quoi tester et à quel niveau (unitaire / intégration / E2E)
 - Outils et patterns utilisés dans ce projet
 - Ce qu'on ne teste pas et pourquoi
-
-**`[projet].design.md`** → tokens et composants
-- Configuration Tailwind ou NativeWind condensée (couleurs, espacements, border-radius)
-- Liste des composants principaux avec leurs états
-- Rien sur le workflow de design, rien sur les décisions esthétiques
 
 **`[projet].spec.[feature].md`** → feature en cours
 - User story condensée (qui fait quoi, dans quel but)
@@ -127,11 +121,6 @@ _Généré le [date] — feature courante : [nom de la feature]_
 - [pattern 1]
 - [pattern 2]
 [si tests.md absent : omettre cette section]
-
-## Design — tokens et composants
-[config Tailwind/NativeWind condensée]
-[liste des composants principaux avec états]
-[si design.md absent ou session backend : omettre cette section]
 
 ## Feature en cours — [nom]
 [User story condensée]

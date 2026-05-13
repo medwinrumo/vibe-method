@@ -4,7 +4,25 @@
 
 ---
 
-## Dernière session — 2026-05-13
+## Dernière session — 2026-05-13 (session 2)
+
+### Ce qui a été fait — Tâche 5 (audit cohérence, suite) + refonte design
+
+**Corrections audit (D3, G3, I1, I2) :**
+- D3 — `design.md` entièrement réécrit : workflow Claude Design (Mode A ↔ /archi → Claude Design → Mode B), NativeWind ajouté, Stitch/Figma retirés de la chaîne systématique (Figma optionnel), Principe réécrit (interface d'abord, logique ensuite), ASCII art documenté comme format de maquette collaboratif, frontend-design retiré (redondant avec design system déjà dans le code)
+- G3 — `/specs` Étape 1 et template Étape 5 : source sécurité corrigée (`securite.md` → section Sécurité de `[projet].archi.md`)
+- I1 — `tests.md` Anti-auto-validation : Règle b ajoutée (vérifier que les tests échouent avant l'implémentation)
+- I2 — `methode.md` Phase 1 : "Identifier les enjeux de sécurité" complété avec `→ /securite analyse`
+
+**Évolutions design & architecture :**
+- `/design` Mode B : nouvelle Étape 2 "Extraction du routing" — scan éléments interactifs, tableau Simple/Conditionnel/Action/Non défini, validation Medwin requise, écriture dans `[projet].archi.md`
+- `/archi` template : section "Navigation & Routing" ajoutée (complétée par Mode B, disponible dans le PRP)
+- `/prp` : `[projet].design.md` retiré des inputs (redondant après Mode B — tokens dans `tailwind.config.ts`, composants dans le codebase)
+- `design.md` : routing extrait écrit dans `archi.md` (pas dans `design.md` — non disponible en session de code)
+
+---
+
+## Session précédente — 2026-05-13 (session 1)
 
 ### Ce qui a été fait
 - Tâche 7 — Skill `/doc-tech` créé : Mode A (`[projet].doc-tech.md` — vue d'ensemble développeur, fin de phase) + Mode B (annotations JSDoc/TSDoc dans le code, après `/tests` avant `/recette`). `/doc` mis à jour : sous-page Développeur supprimée, Utilisateur restructurée. Symlink créé.
@@ -61,12 +79,11 @@
 
 - 3 — Tester Code Design comme outil de génération UI — à évaluer comme alternative/complément à Claude Design. Décision d'intégration dans la stack design après test. **Priorité moyenne.**
 - 4 — Évaluation comparative vibe-method vs BMAD — avec BMAD installé localement dans `~/dev/bmad-method/`, comparer point par point chaque phase et skill de vibe-method contre l'équivalent BMAD. Identifier : (a) ce que BMAD couvre mieux, (b) ce que vibe-method couvre mieux, (c) les lacunes dans vibe-method à combler. Produire un rapport de décision pour chaque point. **Priorité moyenne — après tâche 5.**
-- 5 — Audit de cohérence interne vibe-method — vérifier que tous les fichiers `.md` de doctrine et tous les skills sont alignés : pas de contradiction entre eux, pas de référence à un skill ou fichier inexistant, pas de règle dans un skill qui contredit un autre. Grille d'évaluation et stratégie d'audit déjà produites dans `audit-doctrine-strategie.md`. **Priorité haute.**
+- 5 — Audit de cohérence interne vibe-method — **En cours.** D1, C1, C2, D2, G1, G2, D3, G3, I1, I2 traités. Reste : relire `audit-doctrine-strategie.md` pour vérifier s'il reste des points non traités. **Priorité haute.**
 - 6 — Audit et enrichissement des skills existants — les skills peuvent contenir : exemples de code, URLs de doc, scripts de validation, chemins de fichiers précis, versions de librairies. Points spécifiques à traiter dans `/archi` : (a) vérification des versions de technologie par WebSearch au moment où une décision est documentée ; (b) vérification des implications en cascade — après chaque décision majeure, identifier explicitement quelles autres décisions elle déclenche ou modifie. Inclure : enrichissement `/prp` avec règles critiques des doctrines — analyse déjà produite dans `prp-doctrine-enrichissement.md`. **Priorité haute.**
 - 7 — Skill `/doc-tech` — documentation technique dans le code : JSDoc, README technique, commentaires d'architecture. Définir quand déclencher, quoi documenter, comment. Créer la page Notion `[projet].doc-tech` associée. Distinct de `/doc` (documentation utilisateur). **Priorité moyenne.**
 - 8 — Doctrine refactoring + skill `/refacto` — définir ce qu'est le refactoring, quand le faire, selon quels critères, quelles règles pour ne pas casser ce qui marche. Décider si nouvelle doctrine (`refacto.md`) ou enrichissement d'une doctrine existante. Créer le skill une fois la doctrine établie. **Priorité moyenne.**
 - 10 — Enrichir `/sessionCode` — connecter le skill au planning et à la démarche complète : vérifier l'état de la feature dans la roadmap, charger la spec de la feature (`[projet].spec.[feature].md`), rappeler les tests attendus si TDD, vérifier les dépendances entre features, détecter si le PRP est à jour ou doit être régénéré. **Priorité moyenne — après tâche 5.**
-- 9 — Cybersécurité des apps et sites construits avec la vibe-method — refonte et enrichissement de `securite.md` + stratégie par projet. Points identifiés comme manquants : (a) auth toujours côté serveur — jamais côté client ; (b) principe du moindre privilège en base de données — LLMs configurent trop large par défaut ; (c) inventaire complet OWASP Top 10 + Mobile Top 10 appliqué à la stack vibe-method ; (d) double audit LLM — enrichir `/securite` avec un second modèle indépendant (pattern /party appliqué à la sécurité) ; (e) outils de scan automatique de vulnérabilités à intégrer dans le pipeline CI/CD (Dependabot, Snyk, plugins ESLint sécurité) — checklist concrète à venir depuis source externe. Bases de travail : `cybersecurite-recherche.md` (recherche en cours) + checklist livre (à intégrer quand disponible). **Priorité haute.**
 - ~~templates/ dans vibe-method~~ — Décidé de ne pas faire. Chaque skill produit son fichier avec la bonne structure quand il s'exécute.
 
 ### Réalisées
@@ -80,6 +97,7 @@
 - ✅ 13 — Documentation locale : `doc-user.md` dans Definition of Done + `/recette` Étape 6 propose la mise à jour (2026-05-12)
 - ✅ 14 — `/maj` restructuré : pont Notion retiré (plus d'auto `.peda`/`.log`/`.spec`/`.doc`), GH Projects + Git + sécurité uniquement (2026-05-12)
 
+- ✅ 9 — Cybersécurité — `securite.md` refondu : OWASP Top 10 + Mobile Top 10, auth côté serveur, moindre privilège, double audit LLM via `/party`, outils scan CI/CD. Commit 6d0c805 (2026-05-12)
 - ✅ 1 — Recherche Claude Design + apple-hig-react-native — `claude-design.md` + `apple-hig-react-native.md` créés (2026-05-11)
 - ✅ 2 — Recherche Apple HIG pour React Native + Expo + NativeWind — documentation complète + décision RAMrezo → natif (2026-05-11)
 

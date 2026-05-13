@@ -39,7 +39,7 @@ Tu lis `[projet].archi.md`, `[projet].prd.md` et `[projet].Rmap.md`. Tu proposes
 > - Module concerné : [module]
 > - Dépendances : [features ou modules qui doivent exister avant]
 > - La feature touche : [un seul module / plusieurs modules]
-> - Contrainte de sécurité applicable : [depuis securite.md, ou "aucune spécifique"]
+> - Contrainte de sécurité applicable : [depuis la section Sécurité de [projet].archi.md, ou "aucune spécifique"]
 > - Contrainte de plateforme applicable : [App Store / Android / web / aucune]
 >
 > C'est correct ?"
@@ -181,7 +181,7 @@ _[date]_
 - **Module** : [module concerné dans l'architecture]
 - **Dépendances** : [features ou modules qui doivent exister avant]
 - **Imports autorisés** : [depuis le contrat d'interface défini dans /archi, ou "standard"]
-- **Contrainte de sécurité** : [règle applicable depuis securite.md, ou "aucune spécifique"]
+- **Contrainte de sécurité** : [règle applicable depuis la section Sécurité de [projet].archi.md, ou "aucune spécifique"]
 - **Contrainte de plateforme** : [App Store / Android / web / aucune — avec référence à appstore.md si applicable]
 - **Mode d'exécution** : [Standard / Agent]
 

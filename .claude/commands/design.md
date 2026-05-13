@@ -288,7 +288,37 @@ Signaler tout ce qui n'a pas d'équivalent direct en NativeWind (certains effets
 
 ---
 
-### Étape 2 — Test d'intégration
+### Étape 2 — Extraction du routing
+
+Tu analyses tous les éléments interactifs du code Claude Design (boutons, liens, icônes cliquables) et tu identifies leur intention de navigation.
+
+**Trois catégories :**
+
+- **Routing simple** — l'élément mène toujours au même endroit, sans condition (ex : "Voir mon profil" → `/profil`). Tu peux le câbler directement.
+- **Routing conditionnel** — la destination dépend d'un résultat métier (ex : "Se connecter" → `/dashboard` si succès, message d'erreur si échec). Tu le notes — il sera implémenté pendant les sessions de code métier, depuis les specs.
+- **Aucun routing** — l'élément déclenche une action sans navigation (ex : "Sauvegarder", "Supprimer"). Normal — pas de routing à définir.
+
+**Si un élément interactif n'a ni routing identifiable ni action claire** → tu le signales à Medwin :
+> "Le bouton '[label]' sur la page '[page]' n'a pas de destination ni d'action définie. Il s'agit d'un routing simple vers une page existante, d'un routing conditionnel, ou d'une action métier ?"
+
+Tu produis un tableau récapitulatif avant de continuer :
+
+```
+| Élément | Page | Type | Destination / Action |
+|---|---|---|---|
+| Bouton "Se connecter" | Login | Conditionnel | Succès → /dashboard / Échec → message erreur |
+| Lien "Profil" | Nav | Simple | → /profil |
+| Bouton "Sauvegarder" | Formulaire | Action | Soumet le formulaire |
+| Bouton "?" | Dashboard | ⚠️ Non défini | À préciser |
+```
+
+Tu présentes ce tableau à Medwin et attends sa validation avant de passer à l'étape suivante.
+
+Une fois validé, tu mets à jour la section **Navigation & Routing** de `[projet].archi.md` avec ce tableau. C'est là qu'il sera disponible pendant les sessions de code — archi.md est dans le PRP, design.md ne l'est pas.
+
+---
+
+### Étape 3 — Test d'intégration
 
 Avant de valider, vérifier :
 - [ ] Les couleurs s'affichent correctement (nominal + dark mode si applicable)
@@ -301,7 +331,7 @@ Si un élément ne passe pas → signaler et proposer une correction avant de va
 
 ---
 
-### Étape 3 — Enregistrement Mode B
+### Étape 4 — Enregistrement Mode B
 
 Tu mets à jour `[projet].design.md` en ajoutant une section Mode B :
 

@@ -1,66 +1,93 @@
 # design.md
 
-Doctrine de conception visuelle — du brief à l'interface, comment passer des features à une maquette exploitable par Claude.
+Doctrine de conception visuelle — du brief à l'interface, comment passer des features à une maquette exploitable par le code.
 
 ---
 
 ## Principe
 
-L'interface est conçue **avant** le code, pas après. La maquette Figma est la référence visuelle pour toutes les features — elle évite les allers-retours de style pendant le développement.
+La construction de l'application suit une logique précise : l'interface visuelle est construite en premier.
+
+À ce stade, toutes les pages sont créées et visibles, tous les boutons sont positionnés, toutes les relations de navigation entre les éléments sont définies. L'application existe visuellement, dans sa totalité — mais rien ne fonctionne encore. Les boutons ne déclenchent aucune action, les logiques métier ne sont pas configurées.
+
+C'est là qu'interviennent les sessions de code : écrire la logique fonctionnelle en s'appuyant sur le code d'interface déjà en place. L'interface est le squelette. Le code lui donne vie.
+
+La référence visuelle est **Claude Design** par défaut — Figma reste disponible pour des retouches manuelles ou comme source alternative si le besoin s'en présente.
 
 ---
 
 ## Le workflow
 
 ```
-PRD → export features → Stitch → Figma → export CSS → Claude
+/charte → /design Mode A ↔ /archi → Claude Design → /design Mode B → [code]
 ```
 
-### Étape 1 — Export features (Claude)
+**Figma :** optionnel, pour retouches manuelles si nécessaire — pas dans la chaîne systématique.
 
-Claude produit une liste structurée depuis le PRD :
+---
+
+## Étape 1 — Charte graphique (`/charte`)
+
+Couleurs, typographie, logo, ambiance générale. Produit `[projet].charte.md`.
+
+C'est le point de départ du design system — rien n'est inventé après, tout découle de la charte.
+
+---
+
+## Étape 2 — Design system et architecture (`/design Mode A` ↔ `/archi`)
+
+Phase itérative : `/design Mode A` et `/archi` se construisent en aller-retour.
+
+- Les écrans révèlent des modules manquants dans l'architecture
+- L'architecture précise les états attendus des composants
+
+La phase se termine quand les deux sont cohérents. Output : `[projet].design.md` complet.
+
+**Ce que produit `/design Mode A` :**
+- Composants UI nécessaires, leurs états, leurs variantes
+- Hiérarchie visuelle et espacements
+- Comportements interactifs (hover, focus, erreur, chargement)
+- Si utile : ASCII art pour les écrans complexes
+
+**ASCII art — format de maquette collaboratif :**
+
+Pour les écrans dont la structure est non évidente, un ASCII art peut être esquissé dans `[projet].design.md`. C'est un format léger pour s'aligner sur la disposition avant de donner à Claude Design — ni prototype figé, ni contrainte rigide. Il sert de socle commun entre Medwin, Claude et Claude Design.
 
 ```
-- [Nom de la feature]
-  - Composant UI : [bouton / champ texte / liste déroulante / onglet / panneau / ...]
-  - Comportement : [description courte si non évident]
+┌─────────────────────────────┐
+│ [Logo]        [Nav]    [CTA]│
+├─────────────────────────────┤
+│  Titre principal            │
+│  Sous-titre                 │
+├──────────┬──────────────────┤
+│  Sidebar │  Contenu         │
+│  - item  │  principal       │
+│  - item  │                  │
+└──────────┴──────────────────┘
 ```
 
-Exemple :
-```
-- Saisie du message
-  - Composant UI : champ texte multi-ligne + bouton Envoyer
-  - Comportement : Entrée envoie le message, Shift+Entrée saute une ligne
+---
 
-- Sélection du modèle LLM
-  - Composant UI : liste déroulante
-  - Comportement : sélection immédiate, pas de confirmation
+## Étape 3 — Génération de l'interface (Claude Design)
 
-- Historique des conversations
-  - Composant UI : panneau latéral, liste cliquable
-  - Comportement : clic → charge la conversation dans la zone principale
-```
+Claude Design prend `[projet].design.md` en input et génère le code HTML/CSS/JS de l'interface.
 
-### Étape 2 — Maquette (Medwin, hors Claude)
+- **Outil :** Claude Design (Anthropic Labs — claude.ai/design)
+- **Modèle :** Opus 4.7
+- **Accès :** Pro, Max, Team, Enterprise
+- **Input :** `[projet].design.md`
+- **Output :** HTML/CSS/JS interactif (pas React, pas Tailwind — c'est l'étape suivante)
 
-1. Donner la liste de features à **Stitch** (Google) avec 2-3 captures d'écran de styles aimés
-2. Stitch génère une première maquette
-3. Importer dans **Figma**, affiner : couleurs, polices, espacement, composants
-4. Quand satisfait → exporter
+---
 
-### Étape 3 — Export Figma (Medwin → Claude)
+## Étape 4 — Intégration dans le projet (`/design Mode B`)
 
-Ce que Medwin livre à Claude :
-- Export CSS du mode Inspect (palette, typographie, border-radius, shadows)
-- Captures d'écran des écrans principaux
-- Éventuellement : fichier HTML/CSS si généré par un plugin
+Claude traduit le HTML/CSS/JS de Claude Design dans la stack du projet :
 
-### Étape 4 — Intégration (Claude)
+- **Web :** classes Tailwind CSS dans les composants React
+- **Natif (iOS/Android) :** classes NativeWind dans les composants React Native
 
-À partir de l'export Figma, Claude :
-1. Configure `tailwind.config.ts` — couleurs, fonts, border-radius, espacements
-2. Personnalise les composants **shadcn/ui** pour coller au style
-3. Applique la cohérence visuelle sur toutes les features codées
+À cette étape, les composants shadcn/ui (web) ou les composants natifs sont stylisés pour coller au design généré.
 
 ---
 
@@ -68,16 +95,17 @@ Ce que Medwin livre à Claude :
 
 | Outil | Rôle |
 |---|---|
-| **Stitch** (Google) | Génération de maquette depuis description features + références visuelles |
-| **Figma** | Affinage et validation de la maquette, export CSS |
-| **Tailwind CSS** | Implémentation du style dans le code (classes utilitaires) |
-| **shadcn/ui** | Composants UI prêts à l'emploi, personnalisables avec Tailwind |
+| **Claude Design** | Génération de l'interface depuis `[projet].design.md` (HTML/CSS/JS) |
+| **Tailwind CSS** | Implémentation du style — projets web |
+| **NativeWind** | Implémentation du style — projets natifs (iOS/Android) |
+| **shadcn/ui** | Composants UI web prêts à l'emploi, personnalisables avec Tailwind |
+| **Figma** | Optionnel — retouches manuelles si l'interface générée doit être ajustée |
 
 ---
 
 ## Règles
 
 - La maquette est livrée **avant** le début du code — pas en cours de route
-- Si la maquette change en cours de dev → discuter l'impact avant d'appliquer
-- Claude applique le style Figma mais ne l'invente pas — si l'export est insuffisant, demander à Medwin
-- La cohérence visuelle est une responsabilité de Claude : un bouton a le même style partout
+- Si le design change en cours de dev → discuter l'impact avant d'appliquer
+- Claude applique le design system, il ne l'invente pas — si `[projet].design.md` est insuffisant, demander à Medwin
+- La cohérence visuelle est une responsabilité de Claude : un composant a le même style partout

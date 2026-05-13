@@ -4,7 +4,16 @@
 
 ---
 
-## Dernière session — 2026-05-12
+## Dernière session — 2026-05-13
+
+### Ce qui a été fait
+- Tâche 7 — Skill `/doc-tech` créé : Mode A (`[projet].doc-tech.md` — vue d'ensemble développeur, fin de phase) + Mode B (annotations JSDoc/TSDoc dans le code, après `/tests` avant `/recette`). `/doc` mis à jour : sous-page Développeur supprimée, Utilisateur restructurée. Symlink créé.
+- Tâche 8 — Doctrine `refacto.md` créée (discipline autonome : définition, critères, règles non-négociables, types, intégration workflow 3 déclencheurs, lien TDD micro/macro). Skill `/refacto` créé : 4 étapes (vérification session, prérequis, diagnostic, exécution atomique avec verrous anti-dérive). Journal de dette `[projet].refacto-dette.md` défini et intégré. `tests.md` enrichi : Refactor TDD détaillé + renvoi vers `refacto.md`. `methode.md` mis à jour. Symlink créé.
+- Tâche 10 — `/sessionCode` enrichi : 7 étapes (was 4). Ajouts : fraîcheur PRP (feature courante vs demandée), chargement obligatoire spec, vérification dette refacto sur le module ciblé, état roadmap + dépendances, détection TDD/Standard, rappel chaîne post-coding.
+
+---
+
+## Session précédente — 2026-05-12
 
 ### Ce qui a été fait
 - Tâche 11 — Sync GitHub Projects : `/todo` refondu (sync GH Projects au démarrage, GH = source de vérité, setup `.gh-project.local`). `/maj` refondu (Étape 3 GH Projects — tâches terminées + nouvelles tâches).
@@ -61,6 +70,10 @@
 - ~~templates/ dans vibe-method~~ — Décidé de ne pas faire. Chaque skill produit son fichier avec la bonne structure quand il s'exécute.
 
 ### Réalisées
+
+- ✅ 7 — Skill `/doc-tech` — Mode A (`[projet].doc-tech.md`) + Mode B (JSDoc/TSDoc). `/doc` restructuré. (2026-05-13)
+- ✅ 8 — Doctrine `refacto.md` + skill `/refacto` + journal de dette + enrichissement `tests.md` TDD Refactor. (2026-05-13)
+- ✅ 10 — `/sessionCode` enrichi — 7 étapes, dette refacto, roadmap, dépendances, TDD/Standard, fraîcheur PRP. (2026-05-13)
 
 - ✅ 11 — Sync GitHub Projects : `/todo` + `/maj` refondus, setup `.gh-project.local` documenté (2026-05-12)
 - ✅ 12 — Skill `/adr` créé : 4 questions, append `[projet].adr.md`, proposé par `/archi` Étape 5b + `/specs` Étape 4d (2026-05-12)

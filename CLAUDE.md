@@ -54,6 +54,7 @@ Mode A de /design et /archi se construisent en aller-retour. Les écrans révèl
 | `/doc-tech` | Mode A : `[projet].doc-tech.md` (vue d'ensemble développeur — fin de phase). Mode B : annotations JSDoc/TSDoc dans le code (après `/tests`, avant `/recette`) | `[projet].doc-tech.md` |
 | `/recette` | Génère Gherkin depuis User Stories + validation manuelle | `[projet].recette.md` |
 | `/debug` | Diagnostic et résolution de bug (déclenché par `/recette`) | — |
+| `/refacto` | Refactoring guidé — diagnostic + exécution étape par étape. Déclenché avant une feature sur module dégradé, fin de phase, ou on-demand. Exige une session dédiée. | — |
 | `/party` | Multi-perspectives sur une décision (sous-agents parallèles) | — |
 | `/adr` | Capture d'une décision architecturale (4 questions → append dans `[projet].adr.md`) | `[projet].adr.md` |
 

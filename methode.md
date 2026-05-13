@@ -274,6 +274,24 @@ Si oui :
 
 ---
 
+## Refactoring
+
+Le refactoring est une discipline à part entière avec ses propres règles et son propre workflow. Doctrine complète : `refacto.md`. Skill d'exécution : `/refacto`.
+
+Trois déclencheurs dans le workflow :
+
+**Avant une feature** — si le module ciblé présente des signaux de dégradation (duplication, logique floue, responsabilités mélangées) → diagnostic d'abord, refactoring si confirmé, feature ensuite.
+`/refacto → /sessionCode (feature)`
+
+**Fin de phase** — après validation de toutes les features de la phase par `/recette`, avant release. Session de stabilisation.
+`/recette (dernière feature) → /refacto → release`
+
+**On-demand** — ciblé, justifié par un signal concret. Doit rester l'exception.
+
+**Règle absolue :** le refactoring exige sa propre session dédiée. Jamais mélangé avec une feature en cours ou un bug fix. Si une session est en cours → `/maj`, `/clear`, puis `/todo` → refactoring en première action.
+
+---
+
 ## Skills transversaux
 
 Ces skills peuvent être invoqués à tout moment dans le workflow, quelle que soit la phase :
@@ -283,6 +301,7 @@ Ces skills peuvent être invoqués à tout moment dans le workflow, quelle que s
 | `/party` | Sur toute décision structurante où une seule perspective risque d'être incomplète (choix archi, priorisation, découpage V1/V2) |
 | `/securite` | Analyse sécurité du PRD ou vérification sécurité d'une feature |
 | `/debug` | Dès qu'un bug bloque la progression |
+| `/refacto` | Avant une feature sur un module dégradé, fin de phase, ou on-demand |
 
 ---
 

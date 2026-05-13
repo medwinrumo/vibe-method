@@ -9,7 +9,7 @@
 |---|---|---|
 | Culture générale > diplôme + "you don't know what you don't know" | ✅ Intégré | `methode.md` — Posture fondatrice |
 | Chef d'orchestre vs touriste | ✅ Intégré | `methode.md` — Posture fondatrice |
-| Le généraliste a l'avantage à l'ère IA | ❌ Non intégré | On en a parlé, pas écrit |
+| Le généraliste a l'avantage à l'ère IA | ❌ Non intégré | On en a parlé, pas écrit — Tâche 19 |
 
 ---
 
@@ -17,13 +17,13 @@
 
 | Point | Statut | Où / Pourquoi |
 |---|---|---|
-| Cadre 3 phases AVANT / PENDANT / APRÈS | ❌ Non intégré | `methode.md` a des phases 1-7 mais pas cette lecture macro |
-| 3 règles d'état d'esprit (contrôle, concentration, notes) | ❌ Non intégré | Jamais discuté |
+| Cadre 3 phases AVANT / PENDANT / APRÈS | ❌ Non intégré | `methode.md` a des phases 1-7 mais pas cette lecture macro — Tâche 17 |
+| 3 règles d'état d'esprit (contrôle, concentration, notes) | ❌ Non intégré | Jamais discuté — Tâche 17 |
 | Kidlin — 5 étapes | ⚠️ Partiel | `/prd` — 3 étapes sur 5 intégrées (vague→précis, sous-problèmes, critère de succès). "Solutions possibles" laissée aux features V1/V2 |
 | User flows sur papier avant l'outil | ✅ Déjà existait | `/prd` — Étape 3b User Journeys |
-| Template prompt PRD (4 sections) | ❌ Non intégré | Notre `/prd` est un dialogue, pas un template prompt. Plus avancé sur le fond, mais le template du livre n'a pas été ajouté |
-| Règle : relire le PRD intégralement, l'amender soi-même | ❌ Non intégré | Jamais discuté |
-| Prototype exploratoire jetable (YOLO first) | ❌ Non intégré | Couvert indirectement par "la mue du serpent" mais pas explicitement |
+| Template prompt PRD (4 sections) | ❌ Non intégré | Notre `/prd` est un dialogue, pas un template prompt. Plus avancé sur le fond, mais le template du livre n'a pas été ajouté — Tâche 17 |
+| Règle : relire le PRD intégralement, l'amender soi-même | ❌ Non intégré | Jamais discuté — Tâche 17 |
+| Prototype exploratoire jetable (YOLO first) | ❌ Non intégré | Couvert indirectement par "la mue du serpent" mais pas explicitement — Tâche 17 |
 
 ---
 
@@ -31,8 +31,8 @@
 
 | Point | Statut | Où / Pourquoi |
 |---|---|---|
-| 4 familles d'architecture (statique → complexe) | ❌ Non intégré | Notre `architecture.md` classe par distribution (web/PWA/native) et back-end. Deux lectures différentes, pas incompatibles |
-| 3 questions pour choisir son archi (BDD ? Auth ? Tiers ?) | ❌ Non intégré | Jamais discuté |
+| 4 familles d'architecture (statique → complexe) | ❌ Non intégré | Notre `architecture.md` classe par distribution (web/PWA/native) et back-end. Deux lectures différentes, pas incompatibles — Tâche 18 |
+| 3 questions pour choisir son archi (BDD ? Auth ? Tiers ?) | ❌ Non intégré | Jamais discuté — Tâche 18 |
 | Zones verte / orange / rouge | ✅ Intégré | `architecture.md` — section "Quand faire appel à un pro" |
 
 ---
@@ -57,10 +57,10 @@
 
 | Point | Statut | Où / Pourquoi |
 |---|---|---|
-| Happy path en premier, puis cas limites | ❌ Non intégré | `tests.md` a une section edge cases mais pas la règle "happy path d'abord" |
-| Ouvrir la console du navigateur au premier chargement | ❌ Non intégré | Jamais discuté |
+| Happy path en premier, puis cas limites | ✅ Intégré | `/recette` — "happy path d'abord, cas limites ensuite" (vérifié 2026-05-13) |
+| Ouvrir la console du navigateur au premier chargement | ❌ Non intégré | Jamais discuté — Tâche 20 |
 | Gherkin (confirmation) | ✅ Déjà existait | `tests.md` |
-| Prompt pour générer les Gherkin depuis le PRD | ❌ Non intégré | Jamais discuté |
+| Prompt pour générer les Gherkin depuis le PRD | ✅ Intégré | `/recette` génère automatiquement les Gherkin depuis les User Stories (vérifié 2026-05-13) |
 | Playwright pour verrouiller ce qui marche | ✅ Déjà existait | `tests.md` |
 
 ---
@@ -81,7 +81,7 @@
 |---|---|---|
 | Séparation dev/prod | ✅ Déjà existait | `architecture.md` — niveaux 1/2/3, notion de staging |
 | Hébergement selon l'architecture | ✅ Déjà existait | `architecture.md` — Les 6 couches |
-| Git : un commit par feature validée | ❌ Non intégré | `methode.md` a les règles Git (branches) mais pas cette règle précise |
+| Git : un commit par feature validée | ✅ Intégré | `methode.md` ligne 235 — "Un commit par feature validée" (vérifié 2026-05-13) |
 | Alertes de facturation | ✅ Intégré | `/deploy` — checklist finale |
 
 ---
@@ -90,10 +90,10 @@
 
 | Point | Statut | Où / Pourquoi |
 |---|---|---|
-| Work slop (livrer du vérifié, pas du généré) | ❌ Non intégré | Jamais discuté |
-| Deskilling (danger de déléguer sans comprendre) | ❌ Non intégré | Jamais discuté |
-| Vibe = domaine non-expert, pas standard pro | ❌ Non intégré | Jamais discuté |
-| FOMO des outils | ❌ Non intégré | Jamais discuté |
+| Work slop (livrer du vérifié, pas du généré) | ❌ Non intégré | Jamais discuté — Tâche 19 |
+| Deskilling (danger de déléguer sans comprendre) | ❌ Non intégré | Jamais discuté — Tâche 19 |
+| Vibe = domaine non-expert, pas standard pro | ❌ Non intégré | Jamais discuté — Tâche 19 |
+| FOMO des outils | ❌ Non intégré | Jamais discuté — Tâche 19 |
 
 ---
 
@@ -102,12 +102,14 @@
 | Point | Statut | Où / Pourquoi |
 |---|---|---|
 | CLAUDE.md = fichier le plus important | ✅ Déjà existait | Dans notre architecture |
-| Documenter le POURQUOI des décisions | ❌ Non intégré | Mentionné dans l'extraction, jamais discuté |
+| Documenter le POURQUOI des décisions | ⚠️ Partiel | `/adr` capture le POURQUOI pour les décisions architecturales — pas encore comme règle générale de code |
 
 ---
 
 ## Comptage final
 
-- ✅ 20 points intégrés ou déjà couverts
-- ⚠️ 1 point partiel (Kidlin)
-- ❌ 14 points non intégrés
+- ✅ 23 points intégrés ou déjà couverts
+- ⚠️ 2 points partiels (Kidlin, Documenter le POURQUOI)
+- ❌ 10 points non intégrés
+
+_Mis à jour 2026-05-13 — vérification dans les fichiers réels._

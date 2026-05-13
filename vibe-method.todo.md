@@ -78,6 +78,10 @@
 ### À faire
 
 - 9 — Test filtrage de dates /todo — tâche de validation : début 2026-05-14, fin 2026-05-14. Vérifier : (1) non affichée le 2026-05-13 car début > aujourd'hui, (2) visible le 2026-05-14, (3) passage en Late si fin dépassée sans clôture. **Test.**
+- 17 — Intégration traité : phase AVANT — 5 points non intégrés : cadre 3 phases AVANT/PENDANT/APRÈS, 3 règles d'état d'esprit (contrôle/concentration/notes), template prompt PRD 4 sections, règle relire le PRD avant de coder, prototype exploratoire jetable (YOLO first). Cibles : `methode.md`, `/prd`, `/prp`. **Priorité moyenne.**
+- 18 — Intégration traité : architecture — 2 points non intégrés : 4 familles d'architecture (statique→complexe), 3 questions pour choisir son archi (BDD ? Auth ? Tiers ?). Cibles : `architecture.md`, `/archi` Étape 1. **Priorité moyenne.**
+- 19 — Intégration traité : posture et philosophie — 5 points non intégrés : le généraliste a l'avantage, work slop (livrer du vérifié pas du généré), deskilling (danger de déléguer sans comprendre), vibe = domaine non-expert, FOMO des outils. Cibles : `methode.md` section Posture, `stack.md`. **Priorité moyenne.**
+- 20 — Intégration traité : tests + POURQUOI — 2 points : ouvrir la console navigateur au premier chargement (`tests.md` + `/recette`), étendre la règle "documenter le POURQUOI" au-delà de `/adr` (code, commits, PRD). **Priorité basse.**
 - 3 — Tester Code Design comme outil de génération UI — à évaluer comme alternative/complément à Claude Design. Décision d'intégration dans la stack design après test. **Priorité moyenne.**
 - 4 — Évaluation comparative vibe-method vs BMAD — avec BMAD installé localement dans `~/dev/bmad-method/`, comparer point par point chaque phase et skill de vibe-method contre l'équivalent BMAD. Identifier : (a) ce que BMAD couvre mieux, (b) ce que vibe-method couvre mieux, (c) les lacunes dans vibe-method à combler. Produire un rapport de décision pour chaque point. **Priorité moyenne — après tâche 5.**
 - ~~5~~

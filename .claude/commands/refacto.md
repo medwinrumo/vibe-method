@@ -70,13 +70,30 @@ Tu lis le(s) fichier(s) du module concerné. Tu identifies ce qui pose problème
 > Ce que je propose de traiter dans cette session : [objectif en une phrase précise]
 > Périmètre exact : [module], [fichier(s)], [type de refactoring]
 >
-> Ce qui est hors scope (journal de dette pour plus tard) :
+> Ce qui est hors scope (journal de dette) :
 > - [point hors scope 1]
 > - [point hors scope 2]"
 
 Medwin valide l'objectif et le périmètre avant de continuer.
 
 **Règle absolue :** si Medwin ne valide pas l'objectif ou le périmètre → ne pas commencer l'exécution.
+
+**Écriture dans le journal de dette :**
+Tu ajoutes immédiatement les points hors scope dans `[projet].refacto-dette.md` (dans le repo projet).
+
+Si le fichier n'existe pas → le créer avec cet en-tête :
+```markdown
+# Journal de dette refactoring — [projet]
+_Appended par /refacto. Ne jamais supprimer les entrées existantes._
+
+```
+
+Format d'une entrée :
+```
+- [ ] [module/fichier] — [signal identifié] — noté le [date]
+```
+
+Les points en cours de traitement dans cette session ne sont PAS ajoutés au journal — uniquement ce qui est explicitement laissé hors scope.
 
 ---
 
@@ -127,11 +144,14 @@ Une fois toutes les étapes validées :
 
 Si oui → le refactoring est sûr. Le comportement externe est préservé.
 
-**Journal de dette :**
-Tu récapitules ce qui a été identifié pendant le diagnostic ou l'exécution mais laissé hors scope :
-> "Points notés pour la prochaine session de refactoring :
-> - [point 1]
-> - [point 2]"
+**Mise à jour du journal de dette :**
+Tu marques les points traités comme résolus dans `[projet].refacto-dette.md` :
+- Remplace `- [ ]` par `- [x]` sur chaque point traité
+- Ajoute `— résolu le [date]` en fin de ligne
+
+Si de nouveaux points ont été identifiés pendant l'exécution (hors scope apparu en cours de route) → les ajouter au journal avec le format standard.
+
+> "Journal de dette mis à jour. Points résolus : [liste]. Points restants : [liste]."
 
 **Prochaine étape :**
 - Si le refactoring était pré-feature → proposer de lancer `/sessionCode` pour la feature

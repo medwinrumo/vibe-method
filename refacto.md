@@ -144,3 +144,5 @@ Après que toutes les features d'une phase sont validées par `/recette` → ses
 Quand un signal de dégradation est identifié en dehors des deux moments précédents. Doit rester l'exception, pas la règle — le refactoring n'est pas une activité quotidienne.
 
 Skill de référence : `/refacto`
+
+**Journal de dette :** `[projet].refacto-dette.md` — fichier dans le repo projet, appendé à chaque session `/refacto`. Contient les signaux identifiés mais laissés hors scope. Lu par `/sessionCode` avant chaque session de code pour détecter une dette en attente sur le module ciblé.

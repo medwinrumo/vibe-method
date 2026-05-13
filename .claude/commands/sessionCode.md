@@ -46,7 +46,27 @@ Si absent → arrêt :
 
 ---
 
-## Étape 3 — État dans la roadmap et dépendances
+## Étape 3 — Dette de refactoring sur le module ciblé
+
+Tu lis `[projet].refacto-dette.md` si le fichier existe.
+
+Si absent → continuer sans signaler (pas encore de dette enregistrée).
+
+Si présent → tu vérifies s'il existe des entrées `- [ ]` (non résolues) qui concernent le module ciblé par cette feature.
+
+Si oui → recommandation forte, pas un blocage dur :
+> "Il y a une dette de refactoring en attente sur le module [X] :
+> - [entrée 1]
+> - [entrée 2]
+>
+> La doctrine recommande de refactoriser avant de coder sur ce module.
+> Lance `/refacto` d'abord, puis reviens ici — ou confirme que tu veux coder maintenant malgré la dette."
+
+Medwin décide. Si il choisit de continuer malgré la dette → noter et passer à l'étape suivante.
+
+---
+
+## Étape 4 — État dans la roadmap et dépendances
 
 Tu lis `[projet].Rmap.md`.
 
@@ -69,7 +89,7 @@ Si une dépendance n'est pas "Done" → signaler avant de continuer :
 
 ---
 
-## Étape 4 — Mode de développement
+## Étape 5 — Mode de développement
 
 Tu lis `[projet].archi.md` pour identifier le module concerné par cette feature.
 
@@ -87,7 +107,7 @@ Si le module n'est pas identifiable → signaler :
 
 ---
 
-## Étape 5 — Rappel des règles critiques
+## Étape 6 — Rappel des règles critiques
 
 Tu rappelles en quelques lignes les règles qui s'appliquent à cette session, extraites du PRP et de la spec :
 
@@ -99,8 +119,9 @@ Ne recopie pas tout le PRP — seulement ce qui est pertinent pour cette feature
 
 ---
 
-## Étape 6 — Confirmation de démarrage
+## Étape 7 — Confirmation de démarrage
 
 > "Contexte chargé pour [feature].
 > Module : [module]. Mode : [TDD / Standard].
+> Chaîne après cette session : `/code-review` → `/tests` → `/doc-tech` (Mode B) → `/recette`.
 > Tu peux commencer."

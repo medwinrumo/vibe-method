@@ -341,6 +341,18 @@ Tu documentes toutes ces décisions pour les intégrer dans `[projet].archi.md` 
 
 ## Étape 5 — Génération de [projet].archi
 
+**Préparation — section Sécurité :**
+
+Avant de générer le document, lis `securite.md` dans le repo vibe-method (`~/dev/vibe-method/securite.md`).
+
+Depuis ce fichier, génère les deux parties de la section `## Sécurité` :
+
+1. **Règles universelles** — sections 1 (Phase 1) et 2 (Phase 2) : condense toutes les règles applicables à tout projet vibe-method en bullet points actionnables. Une ligne par règle, formulée comme une contrainte (interdit / obligatoire). Sans exemples de code.
+
+2. **Blocs conditionnels** — selon les décisions prises en Étape 3c (rôles, multi-tenant, webhooks, SSRF, mobile, niveau de risque...), sélectionne les sections pertinentes dans `securite.md` et condense chaque bloc en une ligne.
+
+Cette lecture garantit que la section Sécurité reflète toujours l'état actuel de `securite.md`, quelle que soit la date du skill.
+
 Tu génères le document d'architecture :
 
 ```markdown
@@ -402,13 +414,7 @@ Voir `architecture.md` section "Dépendances externes — MCP" pour la doctrine.
 **[Bas / Moyen / Élevé]** — défini dans `[projet].brief.md`
 
 ### Règles universelles
-- Jamais de clé API privée ou `service_role` en front-end — secrets back-end uniquement
-- `.env` jamais commité — vérifier `.gitignore` avant chaque commit
-- RLS à activer sur chaque nouvelle table dès sa création, avec policies distinctes par opération (SELECT / INSERT / UPDATE / DELETE)
-- Validation des entrées côté serveur — jamais uniquement dans le navigateur
-- Authentification ET autorisation vérifiées côté serveur à chaque requête (`supabase.auth.getUser()` ou `ctx.auth.getUserIdentity()`)
-- Mutations : whitelist explicite des champs acceptés — jamais `req.body` passé directement
-- `dangerouslySetInnerHTML` : interdit sans DOMPurify
+[Lues depuis securite.md sections 1 et 2 — condensées en bullet points actionnables, sans exemples de code]
 
 ### Règles projet
 - Secrets : [NOM_SECRET_1] ([rôle]), [NOM_SECRET_2] ([rôle]) — back-end uniquement
@@ -416,17 +422,17 @@ Voir `architecture.md` section "Dépendances externes — MCP" pour la doctrine.
 - Validation côté serveur sur : [endpoint ou formulaire 1], [endpoint ou formulaire 2]
 - Routes protégées : [route] (connexion + [rôle ou condition d'appartenance])
 
-[Blocs conditionnels — ajouter selon la nature du projet :]
-[Rôles : rôles définis + stockés dans app_metadata (jamais user_metadata) + règle anti-auto-promotion]
-[Multi-tenant : colonne organization_id sur chaque table, filtre organization_id obligatoire dans chaque RLS]
-[Paiements : token Stripe uniquement, jamais de données de carte, jamais logger]
-[Données sensibles : chiffrement au repos sur [champs], accès restreint aux profils [rôles]]
-[APIs publiques : rate limiting obligatoire sur [routes sans auth]]
-[Upload : validation MIME côté serveur, taille max [valeur], stockage statique uniquement]
-[Webhooks : vérification HMAC-SHA256 sur [endpoints], corps lu en RAW avant parsing]
-[SSRF : whitelist de domaines sur [fonctions qui fetchent des URLs utilisateur]]
-[Mobile : expo-secure-store obligatoire, Universal Links / App Links pour OAuth, aucune clé dans le bundle]
-[Niveau moyen/élevé : invoquer /securite check avant chaque merge sur main + /securite audit avant déploiement]
+[Blocs conditionnels — depuis securite.md, selon les décisions de l'Étape 3c :]
+[Si rôles → §1.5 : app_metadata obligatoire, anti-auto-promotion côté serveur]
+[Si multi-tenant → §1.5 : organization_id sur chaque table, RLS filtre par organisation obligatoire]
+[Si paiements → section paiements : token Stripe uniquement, jamais de données de carte, jamais logger]
+[Si données sensibles → §1.6 : chiffrement au repos sur [champs], accès restreint aux profils [rôles]]
+[Si APIs publiques → §2.6 : rate limiting obligatoire sur [routes sans auth]]
+[Si upload → section upload : validation MIME côté serveur, taille max [valeur], stockage statique uniquement]
+[Si webhooks → §2.9 : vérification HMAC-SHA256 sur [endpoints], corps lu en RAW avant parsing]
+[Si SSRF → §2.10 : whitelist de domaines + blocage IPs privées (10.x, 172.16.x, 192.168.x, localhost)]
+[Si mobile → §2.11 : expo-secure-store obligatoire, Universal Links / App Links pour OAuth, aucune clé dans le bundle]
+[Si niveau moyen/élevé → §3.2 + §4 : /securite check avant chaque merge, /securite audit avant déploiement]
 
 ## Points ouverts
 [Questions d'architecture qui ne peuvent pas être résolues sans voir la roadmap]

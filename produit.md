@@ -41,11 +41,14 @@ Liste ordonnée et priorisée de tout ce qu'il y a à construire (features, bugs
 ## User Story — Format Story A4
 
 - **Titre** : une phrase courte et explicite
-- **Description** : En tant que [utilisateur], je souhaite [objectif] afin de [bénéfice]
+- **Description** : En tant que [acteur], je souhaite [objectif] afin de [bénéfice]
 - **Règles de gestion** : les cas métier précis qui définissent le comportement attendu
-- **Critères d'acceptation** : les conditions qui permettent de valider que la story est "Done"
+- **Cas limites** : les situations inhabituelles que la feature doit gérer (données manquantes, droits insuffisants, valeurs extrêmes...)
+- **Cas d'échec** : les façons dont la feature peut échouer (erreur de saisie, service indisponible, règle métier non respectée...)
 
 Règle : tout doit tenir sur une feuille A4 — force la concision et le bon découpage.
+
+Le skill `/specs` produit le format complet : il ajoute un "Contexte d'implémentation" (module, dépendances, contraintes sécurité) et une "Definition of Done" autour de cette user story.
 
 ---
 

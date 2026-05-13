@@ -86,6 +86,21 @@ Objectif : capturer la logique spécifique au domaine — ce qui ne va pas de so
 Question de départ : "Est-ce qu'il y a des règles propres à ton domaine que l'app doit respecter ?"
 Sous-questions possibles : Des calculs spécifiques ? Des cas particuliers ? Des contraintes légales ou réglementaires ?
 
+### 7. Niveau de risque sécurité
+Objectif : calibrer dès le départ l'intensité des mesures de sécurité du projet. Ce niveau est documenté dans le brief et utilisé par `/securite`, `/archi`, `/recette` et `/deploy`.
+
+Question de départ : "Quelles données sensibles l'app manipule-t-elle ?"
+
+Proposer le niveau basé sur les réponses aux 6 domaines :
+
+| Niveau | Critères |
+|---|---|
+| Bas | Pas de données personnelles, pas de paiement, app publique |
+| Moyen | Comptes utilisateurs, données personnelles standard |
+| Élevé | Paiements, données de santé, données d'entreprise confidentielles |
+
+> "D'après ce que tu m'as dit, je propose un niveau de risque **[Bas / Moyen / Élevé]**. Ce niveau déterminera l'intensité des audits de sécurité et des mesures à mettre en place. C'est juste ?"
+
 ---
 
 ## Format du brief généré
@@ -120,6 +135,9 @@ Sous-questions possibles : Des calculs spécifiques ? Des cas particuliers ? Des
 
 ## Règles métier
 - [Logiques spécifiques au domaine — ou "aucune règle particulière identifiée"]
+
+## Niveau de risque sécurité
+**[Bas / Moyen / Élevé]** — [justification en une ligne]
 ```
 
 Après avoir généré le brief, tu demandes : "Est-ce que ce brief reflète bien ton intention ? On peut ajuster avant de le soumettre aux IA."
@@ -139,6 +157,7 @@ Avant de sauvegarder, tu vérifies que le brief est complet et prêt pour `/prd`
 - [ ] La question du site vitrine est tranchée : oui ou non
 - [ ] Les contraintes techniques sont notées ou explicitement "aucune"
 - [ ] Les règles métier sont notées ou explicitement "aucune"
+- [ ] Le niveau de risque sécurité est défini (Bas / Moyen / Élevé) et justifié
 
 Si une case est vide → tu poses la question manquante avant de continuer. Tu ne sauvegardes pas un brief incomplet.
 

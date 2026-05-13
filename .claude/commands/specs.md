@@ -135,10 +135,15 @@ Si oui :
 
 Tu vérifies si cette spec révèle des implications sécurité non capturées dans la section Sécurité de `[projet].archi.md` :
 
-- La feature crée-t-elle de nouvelles tables → RLS à prévoir ?
+- La feature crée-t-elle de nouvelles tables → RLS à prévoir, avec policies distinctes par opération ?
 - La feature introduit-elle de nouveaux secrets ou clés API ?
 - La feature expose-t-elle des données personnelles non encore listées ?
 - La feature gère-t-elle des uploads, des paiements, des rôles ou des endpoints publics non prévus ?
+- La feature accepte-t-elle des mises à jour d'objets en base → whitelist des champs explicite dans la spec ?
+- La feature affiche-t-elle du HTML généré par l'utilisateur → DOMPurify à spécifier ?
+- La feature reçoit-elle des webhooks d'un service tiers → vérification HMAC à spécifier ?
+- La feature fait-elle des requêtes HTTP vers des URLs fournies par l'utilisateur → whitelist de domaines à spécifier ?
+- La feature est-elle mobile → stockage sécurisé, deep links OAuth via Universal Links ?
 
 Si oui → signaler explicitement avant de finaliser la spec :
 > "Cette spec révèle [implication sécurité] non capturée dans `[projet].archi.md`. Je recommande de mettre à jour la section Sécurité de l'archi avant de continuer — sinon elle ne sera pas dans le PRP. Tu veux que je le fasse maintenant ?"

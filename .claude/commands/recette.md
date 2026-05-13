@@ -132,6 +132,29 @@ Après résolution d'un bug, tu reprends exactement à la recette suivante — p
 
 ---
 
+## Étape 5b — Audit de sécurité léger (avant clôture de phase)
+
+À exécuter une fois toutes les recettes ✅, avant de clore la phase. Obligatoire si l'app est déployée ou sur le point de l'être.
+
+**Outils gratuits à lancer :**
+
+```bash
+# Mozilla Observatory — en-têtes de sécurité HTTP
+npx observatory --format report https://[url-staging-ou-prod]
+```
+
+- **securityheaders.com** — vérification manuelle de l'URL (CSP, HSTS, X-Frame-Options)
+- **OWASP ZAP** (scan DAST) — si le niveau de risque est moyen ou élevé (voir `[projet].archi.md`)
+
+Demander à Medwin :
+> "Avant de clore la phase, on lance un audit de sécurité léger sur l'URL de staging. Tu veux qu'on le fasse maintenant ?"
+
+Si oui → lancer les outils ci-dessus, intégrer les résultats dans `[projet].recette.md` sous une section "Sécurité — Phase [N]".
+
+Si des problèmes sont identifiés → les traiter avant de clore la phase (même traitement qu'un bug de recette : bloquant).
+
+---
+
 ## Étape 6 — Clôture
 
 Quand toutes les recettes sont ✅ :

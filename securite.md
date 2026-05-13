@@ -1,8 +1,6 @@
 Règles de sécurité à appliquer dans tout projet web.
 
-Sources : podcast Radio Vibe Code #6 ou #7 + connaissances Claude (OWASP, bonnes pratiques générales).
-
-Medwin valide les règles via Claude Web — les modifications arrivent ensuite par GitHub.
+Sources : podcast Radio Vibe Code #6 + recherche OWASP 2025 + Apiiro + Snyk + USENIX Security 2025 + documentation officielle Supabase/Convex/React Native.
 
 ---
 
@@ -11,6 +9,8 @@ Medwin valide les règles via Claude Web — les modifications arrivent ensuite 
 **Zero Trust** : ne faire confiance à rien par défaut. Autoriser explicitement le minimum nécessaire, interdire tout le reste.
 
 La sécurité est aussi solide que son maillon le plus faible. Un seul point négligé suffit.
+
+**Loi du code généré par IA :** les LLMs génèrent du code fonctionnel mais rarement sécurisé par défaut. Étude Apiiro (40 000+ repos Fortune 50, 2025) : le code généré par IA contient 2× plus de vulnérabilités que le code humain. Étude Pearce et al. (CACM 2023) : 40 % du code généré contient des vulnérabilités de sécurité actives. Ce n'est pas un défaut de l'IA — c'est sa nature. La sécurité doit être demandée explicitement à chaque étape.
 
 ---
 
@@ -93,7 +93,7 @@ Avec des IDs séquentiels (1, 2, 3...), l'attaquant peut facilement tester tous 
     - Protection contre les bugs : une erreur de code ne peut pas exposer les données des autres
     - Protection contre les attaques : impossible de contourner les filtres en manipulant les requêtes
     
-    **Sur Supabase : Attention je n'utilise pas forcement Supabase , mais aussi firebase par exemple…**
+    **Sur Supabase :**
     
     - Par défaut, RLS est **désactivé** — toutes les données sont accessibles à tout le monde
     - Il faut l'activer manuellement pour chaque table
@@ -151,12 +151,6 @@ Avec des IDs séquentiels (1, 2, 3...), l'attaquant peut facilement tester tous 
     - Si tu as l'expertise et le temps pour bien le sécuriser
     - Si tu acceptes le risque et la charge de travail supplémentaire
     
-    <aside>
-    
-    **Conseil Vibe Coding :** commence par un hébergeur managé (Vercel, etc.). Si vraiment tu as besoin d'un VPS plus tard, tu migreras. Mais 99% des projets n'en ont pas besoin.
-    
-    </aside>
-    
 - HTTPS obligatoire — géré automatiquement par les hébergeurs modernes
 
 ### 1.4 Choix de l'authentification
@@ -169,6 +163,7 @@ Avec des IDs séquentiels (1, 2, 3...), l'attaquant peut facilement tester tous 
     - OAuth (Google, GitHub, Apple…) — réduit les frictions et délègue la sécurité au provider
     - Magic link (lien envoyé par email) — plus simple, pas de mot de passe à gérer
     - MFA (Multi-Factor Authentication) — à envisager pour les apps sensibles (finance, santé, admin)
+    - **Mobile — PKCE obligatoire** : sur les flux OAuth mobiles, utiliser PKCE (Proof Key for Code Exchange) — élimine le besoin d'un `client_secret` fixe dans le bundle. Un `client_secret` hardcodé dans le code React Native est extractible par décompilation.
 - Le choix impacte l'UX, le schéma de BDD et les flux de récupération de compte — difficile à changer après coup
 - L'IA ne propose pas de MFA par défaut — toujours le demander explicitement si nécessaire
 
@@ -179,6 +174,16 @@ Avec des IDs séquentiels (1, 2, 3...), l'attaquant peut facilement tester tous 
 - Ajouter les rôles après coup est toujours plus coûteux et risqué que de les prévoir dès le départ
 - **Principe du moindre privilège** : chaque rôle ne doit avoir accès qu'à ce dont il a strictement besoin
 - Un utilisateur ne doit **jamais** pouvoir s'auto-promouvoir admin (vérification côté serveur obligatoire)
+- **Supabase — `app_metadata` vs `user_metadata` :** les rôles doivent toujours être stockés dans `app_metadata`, jamais dans `user_metadata`. `user_metadata` est modifiable par l'utilisateur lui-même — un utilisateur peut s'auto-promouvoir admin. `app_metadata` n'est modifiable qu'en backend.
+    ```javascript
+    // DANGEREUX — l'utilisateur peut modifier user_metadata
+    CREATE POLICY "admin_only" ON sensitive_table
+    USING (auth.jwt() -> 'user_metadata' ->> 'role' = 'admin');
+
+    // CORRECT — app_metadata non modifiable par l'utilisateur
+    CREATE POLICY "admin_only" ON sensitive_table
+    USING (auth.jwt() -> 'app_metadata' ->> 'role' = 'admin');
+    ```
 - Si l'app est **multi-tenant** (plusieurs organisations/clients dans la même app) :
     - Prévoir la séparation des données dès le schéma de base (ex: colonne `organization_id` sur chaque table)
     - Les règles RLS doivent inclure le filtre par organisation en plus du filtre par utilisateur
@@ -187,11 +192,27 @@ Avec des IDs séquentiels (1, 2, 3...), l'attaquant peut facilement tester tous 
 
 ### 1.6 Données sensibles
 
-> À enrichir lors d'une session dédiée.
-> 
 - Identifier dès le départ quelles données sont sensibles (données personnelles, moyens de paiement, mots de passe, données de santé, etc.)
 - Décider comment les stocker : chiffrement au repos, chiffrement en transit, accès restreint
 - Ne jamais stocker en clair ce qui peut être chiffré ou haché
+
+**Stockage sécurisé sur mobile (React Native / Expo) :**
+
+| Stockage | Statut | Raison |
+|---|---|---|
+| `AsyncStorage` pour credentials | Interdit | Non chiffré, accessible par root/jailbreak |
+| Variables d'env compilées dans le bundle | Interdit | Lisibles par décompilation du JS |
+| Clés hardcodées dans le code | Interdit | Extraction triviale |
+| `expo-secure-store` | Recommandé | Keychain iOS, Keystore Android |
+| Mémoire (state React) | Acceptable | Disparaît à la fermeture, jamais persisté |
+
+Le bundle JS Expo/React Native est entièrement lisible par décompilation. Tout ce qui est dans le code ou dans `AsyncStorage` est extractible. Il n'existe pas de variable d'environnement "privée" dans un bundle mobile — elles finissent dans le bundle.
+
+Règle absolue : aucune clé privée ne doit exister dans le code source React Native.
+
+**Backups mobiles :**
+- Désactiver les backups iCloud/Google pour les données sensibles via les flags de stockage appropriés
+- Ne jamais logguer de données personnelles, même en debug (`console.log('User data:', user)` est une fuite de données)
 
 ### 1.7 RGPD
 
@@ -203,8 +224,6 @@ La doctrine complète est dans `rgpd.md` — bases légales, minimisation des do
 
 ### 1.8 Stratégie de backup
 
-> À enrichir lors d'une session dédiée.
-> 
 - Décider dès le départ comment et à quelle fréquence les données sont sauvegardées
 - Vérifier ce que le service choisi (Supabase, Firebase, etc.) propose nativement comme backups
 - Tester la restauration — un backup qui n'a jamais été testé ne vaut rien
@@ -250,6 +269,7 @@ La doctrine complète est dans `rgpd.md` — bases légales, minimisation des do
     - Mots de passe (même hachés)
     - Tokens d'authentification
     - Données personnelles complètes (numéros de carte, etc.)
+    - Données utilisateur en debug (`console.log('User:', user)`)
 - **Où stocker les logs** : utiliser un service managé (Vercel logs, LogTail, Datadog, etc.) plutôt que des `console.log` en production
 - Les logs permettent de détecter les attaques en cours et de comprendre les incidents après coup
 - L'IA n'ajoute pas de logging de sécurité par défaut — le demander explicitement
@@ -267,6 +287,18 @@ La doctrine complète est dans `rgpd.md` — bases légales, minimisation des do
     - ✅ "Identifiants incorrects" (ne révèle rien)
 - L'IA génère souvent des messages d'erreur trop détaillés — relire et remplacer avant la mise en production
 
+### 1.14 Niveau de risque du projet
+
+À définir dès `/brief` et `/archi` — détermine l'intensité des mesures de sécurité requises.
+
+| Niveau | Critères | Exemples |
+|---|---|---|
+| Bas | Pas de données personnelles, pas de paiement, app publique | Site vitrine, portfolio |
+| Moyen | Comptes utilisateurs, données personnelles standard | App de notes, SaaS |
+| Élevé | Paiements, données de santé, données d'entreprise confidentielles | Fintech, santé, B2B |
+
+Ce niveau est à documenter dans `[projet].brief.md` et `[projet].archi.md`. Il détermine les outils de scan à utiliser (§3.2), le type d'audit avant déploiement (§4), et si un pentest externe est nécessaire (§4).
+
 ---
 
 ## 2 — Phase 2 : Pendant le code
@@ -279,12 +311,32 @@ La doctrine complète est dans `rgpd.md` — bases légales, minimisation des do
 - Ne jamais donner la secret key Supabase à l'IA — ni à Claude, ni à aucun autre modèle
 - Exception : certaines clés publiques sont faites pour être exposées (ex: Supabase anonkey, Firebase config)
 
+**Supabase — `anon` key vs `service_role` key :**
+
+| Clé | Rôle | Bypass RLS | Où l'utiliser |
+|---|---|---|---|
+| `anon` key | Utilisateurs non authentifiés | Non | Client-side, public |
+| `service_role` key | Admin système | Oui — bypass total | Back-end uniquement, jamais dans le bundle |
+
+L'IA génère souvent du code côté client qui initialise Supabase avec la `service_role` key "pour que ça marche" pendant le développement. Cette clé bypass le RLS et donne accès complet à toute la base — y compris les données de tous les utilisateurs.
+
 ### 2.2 Dépendances
 
 - Lancer `npm audit` après chaque `npm install`
 - L'IA installe souvent des versions obsolètes (ses données d'entraînement ont une date limite)
 - Les versions obsolètes contiennent des failles connues — les pirates les exploitent en priorité
 - S'abonner aux newsletters des frameworks utilisés (Next.js, etc.) pour être alerté des failles critiques
+- **En CI/CD** : utiliser `npm ci` (ou `yarn --frozen-lockfile`) — utilise exclusivement le lockfile et détecte les modifications non validées
+- **Dependabot** : activer sur chaque repo GitHub — alertes de sécurité automatiques + PR de mise à jour des dépendances vulnérables (gratuit)
+- **lockfile-lint** : valide que le lockfile ne pointe que vers des registries de confiance (protège contre les attaques supply chain via substitution de registry)
+
+**Hallucinations de packages LLM — risque critique :**
+
+Étude USENIX Security 2025 (576 000 échantillons, 16 LLMs) : ~20 % des échantillons référencent des packages inexistants. 43 % de ces noms sont reproduits de façon stable — un attaquant peut créer le package inexistant et attendre que du code généré par IA l'importe.
+
+Règle : avant d'installer un package suggéré par l'IA, vérifier son existence sur npmjs.com (nombre de téléchargements, date de dernière publication, mainteneur actif). Un package avec 0 téléchargements ou créé très récemment est suspect.
+
+Illustration réelle : en mars 2026, le package Axios (100 millions de téléchargements/semaine) a été compromis via le compte npm de son mainteneur. Un script postinstall installait un RAT. En septembre 2025, l'attaque "Shai-hulud" a propagé du code malveillant dans 18 packages populaires via phishing d'un seul mainteneur.
 
 ### 2.3 Front-end
 
@@ -292,6 +344,15 @@ La doctrine complète est dans `rgpd.md` — bases légales, minimisation des do
 - Ne jamais masquer des données sensibles avec CSS ou JavaScript : elles restent présentes dans le HTML et accessibles à n'importe qui
 - Stocker le token d'authentification en cookie HttpOnly (pas en localStorage si possible)
 - Ne jamais construire des requêtes SQL ou des commandes avec des données venant de l'utilisateur directement
+- **`dangerouslySetInnerHTML` interdit sans sanitisation :** React échappe par défaut les valeurs JSX, mais l'IA utilise régulièrement `dangerouslySetInnerHTML` pour afficher du HTML "riche". Ne jamais l'utiliser sans passer le contenu par `DOMPurify` ou `sanitize-html`.
+    ```jsx
+    // DANGEREUX — généré typiquement par l'IA
+    <div dangerouslySetInnerHTML={{ __html: userContent }} />
+
+    // CORRECT
+    import DOMPurify from 'dompurify'
+    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(userContent) }} />
+    ```
 
 ### 2.4 Validation des entrées utilisateur
 
@@ -306,15 +367,253 @@ La doctrine complète est dans `rgpd.md` — bases légales, minimisation des do
     - Authentification : "est-ce que cet utilisateur est connecté ?" (token valide)
     - Autorisation : "est-ce que cet utilisateur a le droit d'accéder à CET enregistrement ?"
     - Vérifier les deux à chaque requête
+
+**Auth côté serveur obligatoire — le piège le plus courant généré par l'IA :**
+
+Le pattern le plus courant généré par les LLMs pour "protéger" une route :
+```jsx
+// React — guard côté client
+function ProtectedPage() {
+  const { user } = useAuth()
+  if (!user) return <Navigate to="/login" />
+  return <SensitivePage />
+}
+```
+Ce code protège l'affichage visuel — **pas les données**. Un attaquant n'a pas besoin de l'interface React. Il appelle directement l'API avec `curl` ou `fetch`. Si l'API ne vérifie pas le token, les données sont exposées.
+
+Pattern correct pour Supabase :
+```javascript
+// Edge Function — vérification du JWT côté serveur
+export default async function handler(req: Request) {
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    global: { headers: { Authorization: req.headers.get('Authorization') ?? '' } }
+  })
+  const { data: { user }, error } = await supabase.auth.getUser()
+  if (!user || error) return new Response('Unauthorized', { status: 401 })
+  // Suite du traitement...
+}
+```
+`supabase.auth.getUser()` valide le JWT en appelant le serveur Supabase — ce n'est pas une vérification locale du token (qui serait falsifiable). C'est la seule méthode sûre.
+
+Pattern correct pour Convex :
+```javascript
+export const getMyOrders = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity()
+    if (!identity) throw new ConvexError("Unauthenticated")
+    return await ctx.db
+      .query("orders")
+      .withIndex("by_user", (q) => q.eq("userId", identity.subject))
+      .collect()
+  }
+})
+```
+
+Toute `query()` et `mutation()` Convex publique doit appeler `ctx.auth.getUserIdentity()`. Les opérations sensibles passent par `internalMutation`.
+
 - Utiliser les générateurs de requêtes (Supabase client, ORM) plutôt que le SQL brut
 - Relire et comprendre le SQL généré par l'IA avant de l'appliquer
 - Ne jamais laisser l'IA appliquer directement des changements en base de données
+
+**Mass Assignment — whitelister les champs acceptés :**
+
+L'IA passe souvent `req.body` directement à la mise à jour sans filtrer les champs autorisés — un utilisateur peut envoyer `{"role": "admin"}` et l'app l'accepte.
+
+```javascript
+// DANGEREUX — généré typiquement
+const updatedUser = await supabase
+  .from('users')
+  .update(req.body)      // Accepte tout ce que l'utilisateur envoie
+  .eq('id', userId)
+
+// CORRECT — whitelister les champs autorisés
+const { displayName, avatar } = req.body
+const updatedUser = await supabase
+  .from('users')
+  .update({ displayName, avatar })   // Jamais 'role', 'email', etc.
+  .eq('id', userId)
+```
+
+Convex : valider les arguments avec un schéma exact — ne jamais accepter `v.any()` pour des mutations qui modifient la base.
+
+```javascript
+// DANGEREUX
+export const updateUser = mutation({
+  args: { updates: v.any() },
+  ...
+})
+
+// CORRECT
+export const updateUser = mutation({
+  args: {
+    displayName: v.optional(v.string()),
+    avatar: v.optional(v.string()),
+    // 'role' absent — un utilisateur ne peut pas changer son rôle
+  },
+  ...
+})
+```
 
 ### 2.6 Rate limiting
 
 - Limiter le nombre d'appels par endpoint (ex: 10 tentatives de login par minute)
 - Protège contre le brute-force et les abus d'API
 - Protège aussi contre les factures d'API gonflées si une clé fuite
+- Limiter la taille des payloads (body-parser limits en Express) — empêche les attaques par payload massif
+- Quotas sur les appels aux APIs externes (OpenAI, Anthropic, etc.) avec alertes de coût configurées
+
+### 2.7 Principe du moindre privilège — base de données
+
+Au-delà du RLS, deux axes souvent oubliés.
+
+**Supabase — RLS par opération, pas global :**
+
+Une policy SELECT ≠ UPDATE ≠ INSERT ≠ DELETE. L'IA génère souvent `USING (auth.uid() = user_id)` pour tout — ce qui est insuffisant.
+
+```sql
+-- Insuffisant (généré par l'IA)
+CREATE POLICY "users_own_data" ON orders USING (auth.uid() = user_id);
+
+-- Correct : politiques distinctes par opération
+CREATE POLICY "select_own_orders" ON orders FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "insert_own_orders" ON orders FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "update_own_orders" ON orders FOR UPDATE
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id AND status != 'completed');
+-- Pas de DELETE policy = pas de DELETE pour les utilisateurs
+```
+
+**Supabase — Grants PostgreSQL :**
+
+Au-delà du RLS, Supabase utilise les rôles PostgreSQL `anon` et `authenticated`. N'accorder que les privileges nécessaires.
+
+```sql
+-- Table orders — lecture et insertion pour les authentifiés, rien pour anon
+GRANT SELECT, INSERT ON orders TO authenticated;
+REVOKE ALL ON orders FROM anon;
+```
+
+**Convex — public vs internal :**
+
+```javascript
+// Accessible depuis le client — doit vérifier l'auth
+export const createOrder = mutation({ ... })
+
+// Accessible uniquement depuis d'autres fonctions Convex — jamais depuis le client
+export const processPayment = internalMutation({ ... })
+```
+
+Audit systématique à faire sur tout projet Convex : chercher toutes les occurrences de `query(`, `mutation(`, `action(`, `httpAction(` et vérifier que chacune appelle `ctx.auth.getUserIdentity()`.
+
+### 2.8 En-têtes de sécurité HTTP (Security Headers)
+
+Vercel gère HTTPS automatiquement mais **ne configure pas** les en-têtes de sécurité HTTP au niveau application. Un déploiement Vercel sans configuration additionnelle est signalé comme "insecure headers" par les scanners.
+
+Configuration minimale dans `vercel.json` :
+
+```json
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    }
+  ]
+}
+```
+
+**Content Security Policy (CSP) :**
+
+La CSP est plus complexe — une CSP mal configurée casse l'app. Protocole recommandé :
+
+1. Démarrer en mode rapport : `Content-Security-Policy-Report-Only`
+2. Analyser les violations sans bloquer
+3. Passer en mode enforcement une fois la politique stable
+4. Interdire `unsafe-inline` pour les scripts — ne jamais l'autoriser
+
+```json
+{
+  "key": "Content-Security-Policy",
+  "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://*.convex.cloud; frame-ancestors 'none'"
+}
+```
+
+Note : `'unsafe-inline'` est conservé pour `style-src` car Tailwind CSS et la plupart des librairies CSS-in-JS en ont besoin. Pour les scripts (`script-src`), `unsafe-inline` ne doit jamais être autorisé.
+
+**Supabase Edge Functions :** `verify_jwt: true` par défaut en prod, jamais `false` — l'IA met parfois `false` "pour tester rapidement".
+
+### 2.9 Sécurité des webhooks
+
+Les apps qui intègrent des services tiers (Stripe, Supabase Events, services d'emailing) via des webhooks doivent vérifier l'authenticité des requêtes. L'IA génère des endpoints webhook qui acceptent n'importe quelle requête POST sans vérification.
+
+**Protection : vérification HMAC-SHA256**
+
+```javascript
+// Supabase Edge Function — exemple avec Stripe
+export default async function handler(req: Request) {
+  const signature = req.headers.get('stripe-signature')
+  const rawBody = await req.text() // CRITIQUE : lire le corps RAW avant tout parsing
+
+  try {
+    const event = stripe.webhooks.constructEvent(rawBody, signature, STRIPE_WEBHOOK_SECRET)
+    // Traitement...
+  } catch (err) {
+    return new Response('Invalid signature', { status: 400 })
+  }
+}
+```
+
+Points critiques :
+1. Le corps doit être lu en RAW — si le framework parse le JSON d'abord, la sérialisation peut invalider la signature
+2. Stripe inclut un timestamp dans la signature — le valider pour prévenir les attaques par replay
+3. Utiliser `timingSafeEqual` pour la comparaison — évite les attaques par timing side channel
+
+### 2.10 SSRF — Server-Side Request Forgery
+
+L'IA génère des proxies d'URL simples côté serveur sans valider que l'URL cible est autorisée :
+
+```javascript
+// Edge Function — DANGEREUX si url vient de l'utilisateur
+const response = await fetch(req.body.url)
+```
+
+Un attaquant peut cibler des services internes non exposés publiquement (métadonnées cloud AWS/GCP, services internes).
+
+Protection :
+- Toujours valider les URLs fournies par l'utilisateur contre une whitelist de domaines autorisés
+- Bloquer les plages d'IP privées (10.x.x.x, 172.16.x.x, 192.168.x.x) et les adresses loopback (127.0.0.1, localhost)
+
+### 2.11 Mobile — Sécurité spécifique React Native / Expo
+
+**Deep Link Hijacking :**
+
+L'IA génère des deep links du type `myapp://callback?token=xxx` pour les flows OAuth mobiles. Une app malveillante peut enregistrer le même scheme et capturer les tokens.
+
+Protection :
+- Utiliser **Universal Links** (iOS) et **App Links** (Android) — liés au domaine HTTPS, non interceptables par d'autres apps
+- Ne jamais transmettre de token dans les paramètres d'URL d'un deep link
+- Expo : configurer `scheme` + `intentFilters` avec `autoVerify: true` pour les App Links Android
+
+**Données sensibles sur l'appareil :**
+- iOS : utiliser le Keychain pour les credentials, GroupContainers avec chiffrement pour les données utilisateur
+- Désactiver les backups iCloud/Google pour les données sensibles
+- Ne jamais logguer de données personnelles, même en debug
+
+### 2.12 Prototype Pollution (JavaScript)
+
+Manipulation du prototype global d'un objet JavaScript via des données utilisateur (`__proto__`, `constructor`, `prototype`). L'IA merge des objets utilisateur sans protection : `Object.assign({}, req.body)`. CVE-2024-51999 dans Express (sévérité 6.9).
+
+Protection :
+- Ne pas merger directement des objets utilisateur dans des objets applicatifs
+- Utiliser `JSON.parse(JSON.stringify(input))` pour cloner les objets issus d'entrées utilisateur
+- `npm audit` détecte les CVE connus sur les dépendances vulnérables
 
 ---
 
@@ -425,38 +724,99 @@ Les bases de données SQL sont mal faites pour le scaling horizontal (multiplier
 
 ### 3.1 Ce que Claude vérifie à chaque fin de feature
 
-- Les données retournées sont-elles filtrées par utilisateur ?
-- Les clés privées sont-elles absentes du front-end et du repo ?
-- Le `.env` est-il dans le `.gitignore` ?
-- Les entrées utilisateur sont-elles validées côté serveur ?
-- Le RLS est-il activé sur les tables concernées ?
-- `npm audit` a-t-il été lancé ?
+- [ ] Les données retournées sont-elles filtrées par utilisateur ?
+- [ ] Les vérifications d'autorisation sont-elles faites côté serveur (pas seulement guard React) ?
+- [ ] Les clés privées sont-elles absentes du front-end et du repo ?
+- [ ] Le `.env` est-il dans le `.gitignore` ?
+- [ ] Les entrées utilisateur sont-elles validées côté serveur ?
+- [ ] Le RLS est-il activé sur les tables concernées ? Avec des policies distinctes par opération (SELECT/INSERT/UPDATE/DELETE) ?
+- [ ] `npm audit` a-t-il été lancé ?
+- [ ] Les mutations whitelistent-elles les champs acceptés (pas de `req.body` passé directement) ?
+- [ ] Y a-t-il du `dangerouslySetInnerHTML` ? → vérifier que DOMPurify est appliqué
+- [ ] Les nouvelles routes d'API vérifient-elles l'auth côté serveur (pas seulement côté client) ?
+- [ ] Y a-t-il des webhooks entrants ? → vérifier la signature HMAC
+- [ ] Y a-t-il des URLs fournies par l'utilisateur passées à `fetch` côté serveur ? → vérifier la whitelist
+- [ ] Les packages nouvellement installés ont-ils été vérifiés sur npmjs.com ?
+- [ ] Si mobile : aucune donnée sensible dans `AsyncStorage` ? → expo-secure-store utilisé ?
+
+### 3.2 Outils de scan automatique
+
+À intégrer dans la CI/CD dès le setup du projet.
+
+| Outil | Type | Coût | Ce qu'il détecte |
+|---|---|---|---|
+| Semgrep | SAST (analyse statique du code) | Gratuit (OSS) | `dangerouslySetInnerHTML`, SQL brut, secrets dans le code, patterns dangereux React/Node |
+| Snyk | SCA (analyse des dépendances) | Gratuit (dev) | CVE dans les dépendances node_modules |
+| Dependabot | Automatique GitHub | Gratuit | Alertes de sécurité + PR de mise à jour |
+| `npm audit` | SCA local | Gratuit | CVE connus dans node_modules |
+
+```bash
+# Semgrep — scan avec règles de sécurité React/Node/secrets
+npm install -g semgrep
+semgrep --config "p/react" --config "p/nodejs" --config "p/secrets" .
+
+# Snyk — scan des dépendances
+npm install -g snyk
+snyk test         # Scan ponctuel
+snyk monitor      # Surveillance continue
+```
+
+Benchmark : Snyk Code : 97 % de vrais positifs (OWASP Benchmark). Semgrep : 87 %. Utilisés ensemble, leur couverture est complémentaire.
 
 ---
 
-## Phase 4 — Avant la mise en ligne
+## 4 — Avant la mise en ligne
 
 ### Checklist sécurité minimale
 
 À passer obligatoirement avant toute mise en production.
 
 - [ ] Les clés API et secrets sont dans des variables d'environnement — jamais dans le code source, jamais en front-end
+- [ ] Les clés de production sont différentes des clés de développement (rotation)
 - [ ] L'authentification est vérifiée côté serveur, pas uniquement côté navigateur
-- [ ] Les permissions de la base de données sont restrictives — chaque utilisateur ne voit que ses propres données (RLS activé)
+- [ ] Les permissions de la base de données sont restrictives — chaque utilisateur ne voit que ses propres données (RLS activé, policies par opération)
+- [ ] Les mutations whitelistent les champs acceptés — pas de `req.body` direct
 - [ ] Les entrées utilisateur sont validées côté serveur (formulaires, paramètres d'URL)
 - [ ] Les données sensibles sont chiffrées (mots de passe hachés, données personnelles protégées)
 - [ ] HTTPS activé (géré automatiquement par Vercel/Netlify)
-- [ ] Un audit sécurité a été demandé à l'IA sur l'ensemble du code
-- [ ] L'audit a été croisé avec un second LLM
+- [ ] Security headers configurés dans `vercel.json` (X-Frame-Options, X-Content-Type-Options, CSP testée en mode report-only d'abord)
+- [ ] Dependabot activé sur le repo GitHub
+- [ ] `service_role` key Supabase absente de tout repo Git (y compris les configs CI)
+- [ ] Variables d'environnement de prod déclarées dans Vercel Dashboard — pas dans `.env` commité
 
-### Audit sécurité croisé
+### Audit de sécurité léger (avant chaque mise en production)
+
+**Outils gratuits à utiliser avant le go-live :**
+
+```bash
+# Mozilla Observatory CLI — scan des en-têtes de sécurité HTTP
+npx observatory --format report https://monapp.vercel.app
+```
+
+- **Mozilla Observatory** (gratuit) — scan des en-têtes HTTP, TLS, CSP
+- **securityheaders.com** (gratuit) — vérification rapide CSP, HSTS, X-Frame-Options
+- **OWASP ZAP** (gratuit, open source) — scan DAST de l'app en ligne (failles runtime)
+
+Intégrer le résultat du scan dans `[projet].recette.md` (section Sécurité) avant le go-live.
+
+**Si niveau de risque élevé** (paiements, données de santé, B2B, >1 000 utilisateurs avec données personnelles) : envisager un pentest manuel ou faire appel à un service de bug bounty (HackerOne, YesWeHack) avant le lancement.
+
+### Audit sécurité croisé double LLM
 
 L'IA qui a écrit le code peut également auditer sa propre sécurité — à condition qu'on le lui demande explicitement. Elle ne le fait jamais spontanément.
 
-Prompt d'audit :
-> "Fais un audit de sécurité complet de cette application. Vérifie : validation des entrées, gestion des clés API, authentification, permissions de la base de données, protection contre les injections."
+**Étape 1 — Audit avec le LLM courant (Claude) :**
 
-**Règle : croiser avec un second LLM.** Chaque modèle a été entraîné différemment et détecte des choses que l'autre manque. Claude → GPT, ou GPT → Claude.
+Prompt d'audit :
+> "Fais un audit de sécurité complet de cette application. Vérifie : validation des entrées, gestion des clés API, authentification côté serveur vs côté client, permissions de la base de données, protection contre les injections, mass assignment, webhooks, security headers, dangerouslySetInnerHTML, packages suspects."
+
+**Étape 2 — Audit croisé avec un second LLM (pattern /party appliqué à la sécurité) :**
+
+Chaque modèle a été entraîné différemment et détecte des choses que l'autre manque. Après l'audit Claude, soumettre le même code à GPT-4 ou Gemini avec le même prompt.
+
+Points de divergence entre les deux audits → à traiter en priorité (ni l'un ni l'autre n'a validé ce point).
+
+**Règle :** l'audit croisé est obligatoire pour les projets de niveau de risque moyen et élevé (§1.14). Pour les projets bas, il est recommandé.
 
 ### Erreur critique Supabase — clé service_role
 
@@ -464,28 +824,124 @@ La clé `service_role` contourne toutes les protections de la base de données. 
 
 ---
 
-## 4 — Attaques connues : références rapides
+## 5 — Attaques connues : références rapides
 
 | **Attaque** | **Description courte** | **Protection** |
 | --- | --- | --- |
-| **XSS** | Injection de code JS dans une page via un formulaire | Valider + échapper les entrées |
+| **XSS** | Injection de code JS dans une page via un formulaire | Valider + échapper les entrées. Ne jamais utiliser `dangerouslySetInnerHTML` sans DOMPurify |
 | **SQL Injection** | Injection de code SQL dans une requête | Utiliser les générateurs de requêtes, jamais de SQL brut avec données utilisateur |
 | **IDOR** | Accéder aux données d'un autre utilisateur en changeant l'ID dans l'URL | RLS + vérification d'autorisation à chaque requête |
 | **CSRF** | Forcer un utilisateur connecté à effectuer une action à son insu | Tokens CSRF, cookies SameSite |
-| **Fuite de secrets** | Clé API dans le code versionné sur GitHub | `.gitignore`  • variables d'environnement |
+| **Fuite de secrets** | Clé API dans le code versionné sur GitHub | `.gitignore` + variables d'environnement |
+| **Mass Assignment** | L'utilisateur envoie des champs qu'il ne devrait pas pouvoir modifier (`role: admin`) | Whitelist explicite des champs acceptés en update |
+| **SSRF** | Forcer le serveur à faire des requêtes vers des services internes | Whitelist d'URLs + blocage IPs privées |
+| **Supply Chain** | Package npm compromis ou halluciné par l'IA | Vérifier npmjs.com + Dependabot + lockfile-lint |
+| **Deep Link Hijacking** | App malveillante capture les tokens via deep links | Universal Links (iOS) + App Links (Android) |
+| **Prototype Pollution** | Manipulation du prototype global via `__proto__` | Ne pas merger objets utilisateur directement |
+| **Broken Access Control** | Auth vérifiée uniquement côté client — l'API est accessible sans auth | Vérification JWT côté serveur à chaque route |
 
 ---
 
-## 5 — Spécifique vibe coding
+## 6 — Stratégie cybersécurité par projet
 
-- Les IA génèrent du code fonctionnel mais rarement sécurisé par défaut
-- Toujours demander explicitement : "ajoute le RLS", "valide les entrées", "n'expose pas cette clé"
-- Relire le code généré avec cet angle de lecture avant d'exécuter
+La sécurité n'est pas une phase — c'est une contrainte transversale. Elle s'intègre à chaque phase du workflow vibe-method avec un livrable spécifique.
+
+### 6.1 Phase /brief
+
+**Question obligatoire :** "Quelles données sensibles l'app manipule-t-elle ?"
+
+**Décision :** niveau de risque du projet (bas / moyen / élevé) — voir §1.14.
+
+**Livrable :** mention du niveau de risque dans `[projet].brief.md`.
+
+### 6.2 Phase /archi
+
+C'est la phase la plus critique pour la sécurité — les décisions d'architecture sont les plus coûteuses à changer.
+
+**Questions obligatoires :**
+1. Quel service d'auth ? (Supabase Auth, Clerk, Auth0, Firebase Auth — jamais fait maison)
+2. Les accès multi-rôles sont-ils nécessaires ? (Si oui : schéma de rôles dès maintenant, stockés dans `app_metadata`)
+3. L'app est-elle multi-tenant ? (Si oui : `organization_id` sur chaque table dès le schéma)
+4. Y a-t-il des webhooks entrants ? (Si oui : stratégie de vérification HMAC-SHA256)
+5. Y a-t-il des appels à des URLs fournies par l'utilisateur ? (Si oui : whitelist de domaines)
+
+**Livrable dans `[projet].archi.md` — section Sécurité :**
+- Schéma des rôles et permissions
+- Liste des tables avec leur niveau RLS requis
+- Liste des endpoints publics vs authentifiés
+- Décision : `service_role` key — où et comment protégée
+
+### 6.3 Phase /stack
+
+**Questions sécu à ajouter au spike :**
+- Le service a-t-il un rate limiting natif ? (peut-il être épuisé par une attaque ?)
+- Le comportement à saturation est-il une dégradation douce ou un crash dur ?
+- Le service supporte-t-il les security headers nécessaires ?
+- Y a-t-il un historique de CVE sur les dépendances principales ?
+
+**Livrable :** section "Risques sécu" dans `[projet].stack.md`.
+
+### 6.4 Phase /specs
+
+**Pour chaque user story, vérifier :**
+- Qui peut effectuer cette action ? (rôle requis)
+- Quelles données sont exposées ? (minimisation)
+- Y a-t-il une validation des entrées à spécifier côté serveur ?
+
+**Livrable :** contraintes sécu documentées dans `[projet].spec.[feature].md`.
+
+### 6.5 Phase [code]
+
+Appliquer la checklist §3.1 à chaque feature. Lancer Semgrep + Snyk (§3.2) régulièrement.
+
+### 6.6 Phase /code-review
+
+**Questions de sécurité à vérifier :**
+- Chaque endpoint API vérifie-t-il l'auth côté serveur ?
+- Les nouvelles tables ont-elles des policies RLS distinctes par opération ?
+- Les mutations whitelistent-elles les champs acceptés ?
+- Les en-têtes de sécurité sont-ils configurés dans `vercel.json` ?
+- Y a-t-il des packages nouvellement installés ? → vérifier sur npmjs.com
+- Y a-t-il du `dangerouslySetInnerHTML` ? → vérifier DOMPurify
+
+### 6.7 Phase /recette (avant mise en production)
+
+Lancer les scanners de la §4 : Mozilla Observatory, securityheaders.com, OWASP ZAP.
+
+Intégrer le rapport dans `[projet].recette.md`.
+
+### 6.8 Phase /deploy
+
+Appliquer la checklist complète de la §4 avant go-live.
+
+### 6.9 Qui fait quoi — IA vs développeur
+
+| Responsabilité | IA | Développeur |
+|---|---|---|
+| Générer les policies RLS | Oui — à la demande | Valide, teste avec un utilisateur non-propriétaire |
+| Configurer les security headers | Oui — template standard | Adapte la CSP à l'app spécifique |
+| Implémenter la validation des entrées | Oui | Vérifie que tous les champs sont couverts |
+| Décider du niveau de risque | Non | Oui — décision métier |
+| Valider les policies RLS multi-rôles complexes | Non seul — risque d'erreur | Teste chaque rôle manuellement |
+| Scanner les dépendances (Snyk) | Déclenche le scan | Analyse les résultats, décide des mises à jour |
+| Audit de sécurité final (DAST) | Déclenche le scan | Interprète les résultats, priorise les corrections |
+
+---
+
+## 7 — Spécifique vibe coding
+
+- Les IA génèrent du code fonctionnel mais rarement sécurisé par défaut — voir §0
+- Toujours demander explicitement : "ajoute le RLS", "valide les entrées", "n'expose pas cette clé", "whitelist les champs acceptés"
+- Relire le code généré avec l'angle de sécurité avant d'exécuter
 - En cas de doute sur une règle RLS générée : la faire vérifier par un second modèle
-
-<aside>
-📌
+- Vérifier tout package suggéré par l'IA sur npmjs.com avant installation (§2.2)
+- Les patterns dangereux les plus courants générés par les LLMs :
+    - Guards React sans vérification API côté serveur
+    - `service_role` key côté client "pour que ça marche"
+    - `dangerouslySetInnerHTML` sans sanitisation
+    - `req.body` passé directement à un update DB
+    - `Access-Control-Allow-Origin: *` en production
+    - `verify_jwt: false` sur les Edge Functions Supabase
+    - `AsyncStorage` pour les tokens sur mobile
 
 Source GitHub : `https://github.com/medwinrumo/vibe-method/blob/main/securite.md`
-
-</aside>

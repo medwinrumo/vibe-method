@@ -138,8 +138,13 @@ Pour chaque outil de la stack, tu mènes une investigation en 7 points. **Lance 
 
 **4. Sécurité**
 - Données exposées par défaut
-- Configurations de sécurité désactivées par défaut
+- Configurations de sécurité désactivées par défaut (ex : `verify_jwt: false` sur les Edge Functions Supabase, RLS désactivé par défaut)
 - Clés / tokens qui ne doivent jamais se retrouver côté client
+- Le service a-t-il un rate limiting natif ? (peut-il être épuisé par une attaque ou un abus ?)
+- Le comportement à saturation est-il une dégradation douce ou un crash dur ?
+- Le service supporte-t-il les security headers HTTP nécessaires ? (ou faut-il les configurer manuellement ?)
+- Y a-t-il un historique de CVE connus sur ce service ou ses dépendances principales ? (chercher sur nvd.nist.gov ou snyk.io)
+- Y a-t-il des données exposées par défaut que l'on doit explicitement restreindre ?
 
 **5. APIs et SDK clés**
 - Fonctions principales que le projet va utiliser
@@ -220,6 +225,10 @@ _Investigué le [date]_
 ### APIs clés pour ce projet
 - [fonction/API 1] — [usage prévu + pattern recommandé]
 - [fonction/API 2] — [usage prévu + pattern recommandé]
+
+### Risques sécu
+- [point de sécurité 1 — données exposées par défaut, config à changer]
+- [point de sécurité 2 — CVE connus, rate limiting, comportement à saturation]
 
 ### Ressources de référence
 - [lien documentation officielle]

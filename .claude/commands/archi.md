@@ -209,6 +209,33 @@ Medwin valide.
 
 ---
 
+## Étape 3c — Questions de sécurité structurantes
+
+Ces questions doivent être tranchées avant de définir les modules — leurs réponses impactent directement le schéma de données et les contrats d'interface.
+
+Tu poses chaque question et tu documentes la décision :
+
+**1. Rôles et permissions**
+> "Y a-t-il plusieurs types d'utilisateurs (admin, utilisateur, viewer...) ? Si oui : les rôles doivent être définis maintenant et stockés dans `app_metadata` Supabase (jamais `user_metadata` — modifiable par l'utilisateur)."
+
+**2. Multi-tenant**
+> "Plusieurs organisations ou clients partageront-ils la même instance ? Si oui : une colonne `organization_id` est obligatoire sur chaque table — pas ajoutée après coup."
+
+**3. Webhooks entrants**
+> "L'app recevra-t-elle des webhooks de services tiers (Stripe, emails, etc.) ? Si oui : chaque endpoint webhook devra vérifier la signature HMAC du service émetteur."
+
+**4. Requêtes serveur vers URLs utilisateur**
+> "Le back-end fera-t-il des requêtes HTTP vers des URLs fournies par l'utilisateur ? Si oui : une whitelist de domaines autorisés est obligatoire (protection SSRF)."
+
+**5. App mobile**
+> "L'app est-elle React Native / Expo ? Si oui : aucune clé privée dans le bundle, `expo-secure-store` pour les credentials, Universal Links / App Links pour les flux OAuth."
+
+Les décisions prises ici alimentent directement la section Sécurité du document `[projet].archi.md` (Étape 5).
+
+**[A/P/C]** Tu présentes le menu avant de passer aux règles silo.
+
+---
+
 ## Étape 4 — Règles silo du projet
 
 Pour chaque module, tu définis avec Medwin :
@@ -371,12 +398,17 @@ Voir `architecture.md` section "Dépendances externes — MCP" pour la doctrine.
 
 ## Sécurité
 
+### Niveau de risque
+**[Bas / Moyen / Élevé]** — défini dans `[projet].brief.md`
+
 ### Règles universelles
 - Jamais de clé API privée ou `service_role` en front-end — secrets back-end uniquement
 - `.env` jamais commité — vérifier `.gitignore` avant chaque commit
-- RLS à activer sur chaque nouvelle table dès sa création
+- RLS à activer sur chaque nouvelle table dès sa création, avec policies distinctes par opération (SELECT / INSERT / UPDATE / DELETE)
 - Validation des entrées côté serveur — jamais uniquement dans le navigateur
-- Authentification ET autorisation vérifiées côté serveur à chaque requête
+- Authentification ET autorisation vérifiées côté serveur à chaque requête (`supabase.auth.getUser()` ou `ctx.auth.getUserIdentity()`)
+- Mutations : whitelist explicite des champs acceptés — jamais `req.body` passé directement
+- `dangerouslySetInnerHTML` : interdit sans DOMPurify
 
 ### Règles projet
 - Secrets : [NOM_SECRET_1] ([rôle]), [NOM_SECRET_2] ([rôle]) — back-end uniquement
@@ -385,13 +417,16 @@ Voir `architecture.md` section "Dépendances externes — MCP" pour la doctrine.
 - Routes protégées : [route] (connexion + [rôle ou condition d'appartenance])
 
 [Blocs conditionnels — ajouter selon la nature du projet :]
-[Rôles : rôles définis + règle anti-auto-promotion]
-[Multi-tenant : filtre organization_id obligatoire sur chaque requête et RLS]
+[Rôles : rôles définis + stockés dans app_metadata (jamais user_metadata) + règle anti-auto-promotion]
+[Multi-tenant : colonne organization_id sur chaque table, filtre organization_id obligatoire dans chaque RLS]
 [Paiements : token Stripe uniquement, jamais de données de carte, jamais logger]
 [Données sensibles : chiffrement au repos sur [champs], accès restreint aux profils [rôles]]
 [APIs publiques : rate limiting obligatoire sur [routes sans auth]]
 [Upload : validation MIME côté serveur, taille max [valeur], stockage statique uniquement]
-[Niveau 2+ : invoquer /securite check avant chaque merge sur main]
+[Webhooks : vérification HMAC-SHA256 sur [endpoints], corps lu en RAW avant parsing]
+[SSRF : whitelist de domaines sur [fonctions qui fetchent des URLs utilisateur]]
+[Mobile : expo-secure-store obligatoire, Universal Links / App Links pour OAuth, aucune clé dans le bundle]
+[Niveau moyen/élevé : invoquer /securite check avant chaque merge sur main + /securite audit avant déploiement]
 
 ## Points ouverts
 [Questions d'architecture qui ne peuvent pas être résolues sans voir la roadmap]

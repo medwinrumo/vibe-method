@@ -53,15 +53,37 @@ Tu lis chaque fichier modifié et tu vérifies :
 
 Tu appliques les règles de `securite.md` :
 
+**Secrets et clés**
 - [ ] Aucune valeur hardcodée (clés API, tokens, URLs d'environnement, credentials)
-- [ ] Les inputs utilisateur sont validés avant tout traitement
-- [ ] Les données sensibles ne sont pas loggées
-- [ ] Les règles d'accès (auth, rôles) sont vérifiées côté serveur, pas seulement côté client
-- [ ] Pas de requête SQL construite par concaténation de chaînes
-- [ ] Les erreurs retournées à l'utilisateur ne révèlent pas d'informations internes
+- [ ] La `service_role` key Supabase absente du code front-end et du bundle
 
-Si le projet est une app mobile (App Store) :
-- [ ] Aucune donnée sensible stockée en clair sur l'appareil
+**Auth et accès**
+- [ ] Les règles d'accès (auth, rôles) sont vérifiées côté serveur (`supabase.auth.getUser()` ou `ctx.auth.getUserIdentity()`), pas seulement côté client (guard React)
+- [ ] RLS activé sur les nouvelles tables, avec policies distinctes par opération (SELECT/INSERT/UPDATE/DELETE)
+
+**Entrées et mutations**
+- [ ] Les inputs utilisateur sont validés côté serveur avant tout traitement
+- [ ] Les mutations whitelistent les champs acceptés — pas de `req.body` passé directement à un update DB
+- [ ] Pas de requête SQL construite par concaténation de chaînes
+- [ ] Pas de `dangerouslySetInnerHTML` sans DOMPurify appliqué
+
+**Intégrations**
+- [ ] Les webhooks entrants vérifient la signature HMAC du service émetteur, corps lu en RAW
+- [ ] Les URLs fournies par l'utilisateur passées à `fetch` côté serveur sont filtrées par une whitelist de domaines
+
+**Configuration**
+- [ ] Les en-têtes de sécurité HTTP sont configurés dans `vercel.json` (X-Frame-Options, X-Content-Type-Options, CSP)
+- [ ] Les erreurs retournées à l'utilisateur ne révèlent pas d'informations internes
+- [ ] Les données sensibles ne sont pas loggées
+
+**Dépendances**
+- [ ] Les packages nouvellement installés ont été vérifiés sur npmjs.com (téléchargements, date, mainteneur)
+- [ ] `npm audit` a été lancé
+
+Si le projet est une app mobile (React Native / Expo) :
+- [ ] Aucune donnée sensible stockée dans `AsyncStorage` → `expo-secure-store` utilisé
+- [ ] Aucune clé privée dans le code source ou les variables d'env compilées dans le bundle
+- [ ] Les deep links OAuth utilisent Universal Links (iOS) / App Links (Android)
 - [ ] Les permissions iOS/Android déclarées dans Info.plist correspondent à ce qui est utilisé
 
 ---

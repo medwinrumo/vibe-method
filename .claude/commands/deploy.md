@@ -165,13 +165,23 @@ Appliquer la procédure selon le niveau du projet.
 ## Checklist finale
 
 **Déploiement web**
-- [ ] Variables d'environnement déclarées dans Vercel
+- [ ] Variables d'environnement de production déclarées dans Vercel Dashboard (pas dans `.env` commité)
+- [ ] Clés de production différentes des clés de développement (rotation effectuée)
 - [ ] Build Vercel passe sans erreur
 - [ ] Domaine configuré et SSL actif
 - [ ] Si site vitrine : pages publiques accessibles sans authentification vérifiées
 - [ ] Migration BDD appliquée selon le niveau
 - [ ] Monitoring configuré selon le niveau
 - [ ] Alertes de facturation configurées sur tous les services cloud (seuil à définir selon le projet)
+
+**Sécurité — avant go-live**
+- [ ] Security headers configurés dans `vercel.json` (X-Frame-Options, X-Content-Type-Options, Referrer-Policy)
+- [ ] CSP testée en mode `Content-Security-Policy-Report-Only` puis activée en enforcement
+- [ ] `service_role` key Supabase absente de tout repo Git, de toute config CI, de tout log
+- [ ] Dependabot activé sur le repo GitHub (alertes de sécurité automatiques)
+- [ ] `/securite audit` exécuté — rapport produit et corrections appliquées
+- [ ] Mozilla Observatory ou securityheaders.com : score acceptable sur l'URL de production
+- [ ] Si niveau de risque élevé : OWASP ZAP lancé sur l'URL de production
 
 **Stores (si app native)**
 - [ ] Comptes développeur créés et vérifiés (Apple Developer + Google Play Console)

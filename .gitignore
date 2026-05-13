@@ -1,3 +1,6 @@
+# Config locale GitHub Projects (IDs privés)
+.gh-project.local
+
 # Backups temporaires
 *-backup
 *_backup

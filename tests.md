@@ -100,27 +100,31 @@ Exécutée via `/recette`.
 
 **Mode TDD** (modules métier et sécurité) :
 ```
-1. /specs        → règles de gestion + cas d'échec définis
-2. /tests        → tests écrits depuis le spec (Red — échouent)
-3. Code          → feature implémentée pour satisfaire les tests
-4. /tests        → tests passants (Green) + refactor
-5. /tests        → non-régression (batterie Playwright sur features existantes)
-6. /recette      → génération du cahier de recettes (Gherkin)
-7. /tests        → Playwright sur la nouvelle feature
-8. /recette      → validation manuelle finale
+1.  /specs         → règles de gestion + cas d'échec définis
+2.  /tests         → tests écrits depuis le spec (Red — échouent)
+3.  Code           → feature implémentée pour satisfaire les tests
+4.  /tests         → tests passants (Green) + refactor
+5.  /tests         → non-régression (batterie Playwright sur features existantes)
+6.  /code-review   → revue structurelle + sécurité → bloquant si point critique
+7.  /recette       → génération du cahier de recettes (Gherkin)
+8.  /tests         → Playwright sur la nouvelle feature
+9.  /securite check → vérification sécurité → bloquant si point en échec
+10. /recette       → validation manuelle finale
 ```
 
 **Mode Standard** (modules UI et techniques) :
 ```
-1. Code          → feature implémentée
-2. /tests        → tests unitaires + intégration
-3. /tests        → non-régression (batterie Playwright sur features existantes)
-4. /recette      → génération du cahier de recettes (Gherkin)
-5. /tests        → Playwright sur la nouvelle feature
-6. /recette      → validation manuelle finale
+1. Code            → feature implémentée
+2. /tests          → tests unitaires + intégration
+3. /tests          → non-régression (batterie Playwright sur features existantes)
+4. /code-review    → revue structurelle + sécurité → bloquant si point critique
+5. /recette        → génération du cahier de recettes (Gherkin)
+6. /tests          → Playwright sur la nouvelle feature
+7. /securite check → vérification sécurité → bloquant si point en échec
+8. /recette        → validation manuelle finale
 ```
 
-Dans les deux modes, l'humain arrive en dernier pour valider ce que l'automatisation ne peut pas juger.
+Dans les deux modes, l'humain arrive en dernier pour valider ce que l'automatisation ne peut pas juger. Ordre de référence complet : `methode.md` Phase 7.
 
 ---
 

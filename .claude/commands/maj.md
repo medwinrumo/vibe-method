@@ -40,9 +40,16 @@ Si `.gh-project.local` existe :
        gh project item-edit --id [item-id] --project-id [project-id] \
          --field-id $field_status_id --single-select-option-id $option_done_id
 
-4. **Nouvelles tâches identifiées** → créer les items :
+4. **Nouvelles tâches identifiées** → créer les items avec titre + description :
 
-       gh project item-create $project_number --owner $owner --title "[titre de la tâche]"
+       # Créer l'item (retourne PVTI_xxx)
+       gh project item-create $project_number --owner $owner --title "[titre]" --format json
+
+       # Récupérer l'ID DI_ du contenu draft
+       gh api graphql -f query='{ node(id: "PVTI_xxx") { ... on ProjectV2Item { content { ... on DraftIssue { id } } } } }'
+
+       # Remplir la description (--title obligatoire avec --body)
+       gh project item-edit --id "DI_xxx" --title "[titre]" --body "[description depuis .todo.md]"
 
 5. **Tâches démarrées** → mettre à jour en "In Progress" (même commande avec `$option_in_progress_id`)
 

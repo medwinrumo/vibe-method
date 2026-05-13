@@ -21,7 +21,20 @@ Il y a deux dimensions à vérifier : que ça **fonctionne** techniquement, et q
 Cycle **Red → Green → Refactor** :
 - **Red** : le test est écrit, il échoue (le code n'existe pas encore). Un test qui passe sans code est un test inutile.
 - **Green** : on écrit le minimum de code pour que le test passe. Rien de plus.
-- **Refactor** : on nettoie le code sans casser le Green. Les tests restent verts.
+- **Refactor** : on améliore le code qu'on vient d'écrire sans changer son comportement. Les tests restent verts — c'est la preuve que rien n'a cassé.
+
+**Ce que "refactoriser" signifie concrètement à cette étape :**
+- Renommer une variable ou fonction dont le nom ne reflète pas ce qu'elle fait
+- Extraire un bloc répété ou trop dense dans une fonction séparée
+- Simplifier une condition inutilement complexe
+- Supprimer du code mort ou redondant introduit pour atteindre le Green
+
+**Règles du Refactor TDD :**
+- Scope strict : uniquement le code qui vient d'être écrit pour ce test, rien d'autre
+- Un seul changement à la fois — relancer les tests après chaque changement
+- Si un test échoue après le refactor → revenir en arrière immédiatement, pas de correction en avant
+
+C'est un **micro-refactoring** : immédiat, ciblé, dans la même session et sur la même branche. À ne pas confondre avec le refactoring de dette accumulée, qui exige une session dédiée. Voir `refacto.md`.
 
 ### Quand appliquer TDD
 

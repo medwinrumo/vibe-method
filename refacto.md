@@ -104,6 +104,30 @@ Une logique qui se trouve dans le mauvais module → déplacée dans celui qui e
 
 ---
 
+## Lien avec TDD — micro vs macro
+
+Il existe deux niveaux de refactoring dans la vibe-method. Ils partagent les mêmes principes mais ne sont pas le même acte.
+
+**Micro-refactoring TDD** — troisième étape du cycle Red → Green → Refactor.
+Se fait immédiatement après le Green, sur le code qui vient d'être écrit, dans la même session, sur la même branche feature. Périmètre : les quelques lignes produites pour satisfaire le test. Pas de branche dédiée, pas de session séparée.
+
+**Macro-refactoring `/refacto`** — ce que décrit cette doctrine.
+Session dédiée, déclenchée par un diagnostic de dette accumulée. Branche `refacto/[module]`, étapes atomiques, commits séparés.
+
+**Ce qu'ils ont en commun :**
+- Tests verts comme baseline avant de toucher quoi que ce soit
+- Comportement externe inchangé — les tests doivent rester verts
+- Petits pas, un changement à la fois
+- Scope strict — rien hors du périmètre défini
+
+**La règle de distinction :**
+Si le code à améliorer vient d'être écrit dans cette session → micro-refactoring TDD, on reste sur la branche feature.
+Si le code à améliorer existe depuis une ou plusieurs sessions → macro-refactoring, on ouvre une session `/refacto` dédiée.
+
+Doctrine TDD de référence : `tests.md`
+
+---
+
 ## Intégration dans le workflow
 
 Le refactoring peut être déclenché à trois moments :

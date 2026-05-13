@@ -77,6 +77,7 @@
 
 ### À faire
 
+- 9 — Test filtrage de dates /todo — tâche de validation : début 2026-05-14, fin 2026-05-14. Vérifier : (1) non affichée le 2026-05-13 car début > aujourd'hui, (2) visible le 2026-05-14, (3) passage en Late si fin dépassée sans clôture. **Test.**
 - 3 — Tester Code Design comme outil de génération UI — à évaluer comme alternative/complément à Claude Design. Décision d'intégration dans la stack design après test. **Priorité moyenne.**
 - 4 — Évaluation comparative vibe-method vs BMAD — avec BMAD installé localement dans `~/dev/bmad-method/`, comparer point par point chaque phase et skill de vibe-method contre l'équivalent BMAD. Identifier : (a) ce que BMAD couvre mieux, (b) ce que vibe-method couvre mieux, (c) les lacunes dans vibe-method à combler. Produire un rapport de décision pour chaque point. **Priorité moyenne — après tâche 5.**
 - ~~5~~

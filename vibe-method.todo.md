@@ -8,6 +8,20 @@
 
 ### Ce qui a été fait
 
+- Tâche 6 — Audit et enrichissement skills :
+  - `/archi` Étape 1b : WebSearch obligatoire version Expo avant confirmation stack native
+  - `/archi` Étape 1b : implications en cascade listées (→ `/stack`, → roadmap délais stores, → règles sécu mobile)
+  - `/archi` Étape 4c : WebSearch obligatoire limites free tier Supabase/Convex avant confirmation backend
+  - `/archi` Étape 4c : implications en cascade listées (→ `/stack` connexions simultanées, → risque RGPD Convex, → patterns RLS CLAUDE.md)
+  - `securite.md` §1.8 : renvoi explicite vers `architecture.md` section "Backup & conformité RGPD"
+  - `/prp` : confrontation avec `prp-doctrine-enrichissement.md` — tous les gaps Haute priorité résolus (sécurité via `archi.md`, règles silo via `archi.md`, règles tests dans `/tests`)
+
+---
+
+## Session précédente — 2026-05-14 (session 1)
+
+### Ce qui a été fait
+
 - Sync `/todo` : tâche 9 (test filtrage dates) supprimée du fichier local, conformément au kanban GH.
 
 ---
@@ -92,13 +106,15 @@
 - 3 — Tester Code Design comme outil de génération UI — à évaluer comme alternative/complément à Claude Design. Décision d'intégration dans la stack design après test. **Priorité moyenne.**
 - 4 — Évaluation comparative vibe-method vs BMAD — avec BMAD installé localement dans `~/dev/bmad-method/`, comparer point par point chaque phase et skill de vibe-method contre l'équivalent BMAD. Identifier : (a) ce que BMAD couvre mieux, (b) ce que vibe-method couvre mieux, (c) les lacunes dans vibe-method à combler. Produire un rapport de décision pour chaque point. **Priorité moyenne — après tâche 5.**
 - ~~5~~
-- 6 — Audit et enrichissement des skills existants — les skills peuvent contenir : exemples de code, URLs de doc, scripts de validation, chemins de fichiers précis, versions de librairies. Points spécifiques à traiter dans `/archi` : (a) vérification des versions de technologie par WebSearch au moment où une décision est documentée ; (b) vérification des implications en cascade — après chaque décision majeure, identifier explicitement quelles autres décisions elle déclenche ou modifie. Inclure : enrichissement `/prp` avec règles critiques des doctrines — analyse déjà produite dans `prp-doctrine-enrichissement.md`. **Points supplémentaires issus de l'audit tâche 5 :** `securite.md` sections 1.6 (Données sensibles) et 1.8 (Backup) marquées "À enrichir" — compléter ou renvoyer explicitement. Protocole complet `audit-doctrine-strategie.md` Sessions 1-5 (WebSearch OWASP, CNIL, free tier, Playwright). **Priorité haute.**
+- ~~6~~
 - ~~7~~
 - ~~8~~
 - ~~10~~
 - ~~templates/ dans vibe-method~~ — Décidé de ne pas faire. Chaque skill produit son fichier avec la bonne structure quand il s'exécute.
 
 ### Réalisées
+
+- ✅ 6 — `/archi` : WebSearch versions (Expo, free tier) + implications en cascade. `securite.md` §1.8 renvoi. `/prp` confrontation : gaps résolus. (2026-05-14)
 
 - ✅ 20 — Intégration traité : tests + POURQUOI — 2 points décidés non intégrables. (2026-05-14)
 - ✅ 19 — Intégration traité : posture & philosophie — 5 points décidés non intégrables (redondant/non actionnable). (2026-05-14)

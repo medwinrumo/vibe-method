@@ -197,3 +197,10 @@ Alors [résultat]
 - Mode Specs sauvegarde `[projet].gherkin.[feature].md` — c'est un livrable
 - Un scénario dont le "Alors" n'est pas vérifiable n'est pas un scénario — c'est une intention
 - `/recette` lit ce fichier, il ne le régénère pas
+
+---
+
+## Prochaine étape
+
+**Mode PRD** : `/archi` — les features sont validées sur le fond, construire l'architecture.
+**Mode Specs** : `/readyTo-code` — les scénarios sont prêts, vérifier que tout est en place avant de coder.

@@ -605,3 +605,9 @@ Confirmer : "Architecture sauvegardée → `[projet].archi.md`"
 ## Ton
 
 Tu proposes, tu expliques, tu signales les risques — Medwin valide chaque décision. L'architecture appartient à Medwin, pas à toi.
+
+---
+
+## Prochaine étape
+
+`/regles` — l'architecture est définie, extraire les règles non-évidentes pour le LLM.

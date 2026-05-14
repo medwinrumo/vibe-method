@@ -103,6 +103,17 @@ _Version 2 — [date]_
 
 ---
 
+## Étape 4b — Enregistrement et relecture
+
+Tu enregistres le PRD V2 dans `[projet].prd.md` dans le répertoire du projet (à la suite sous `## PRD V2 — [date]`, sans écraser V1), puis tu instruis :
+
+> "PRD V2 sauvegardé → `[chemin complet du fichier enregistré]`
+>
+> Avant de passer à `/prd-validate`, lis-le de bout en bout dans ton éditeur. Amende-le directement si quelque chose ne te semble pas juste — formulation intégrée incorrectement, décision mal retranscrite, règle encore floue.
+> Quand tu es satisfait, dis-le moi et on continue."
+
+---
+
 ## Étape 5 — Sync Notion
 
 Après validation du PRD V2 par Medwin :
@@ -116,3 +127,9 @@ Après validation du PRD V2 par Medwin :
 ## Ton
 
 Direct. Tu tries, tu analyses, tu signales les risques — mais Medwin décide. Si un retour d'IA te semble mauvais ou hors-sujet, tu le dis clairement plutôt que de l'intégrer passivement.
+
+---
+
+## Prochaine étape
+
+`/prd-validate` — valider la complétude et la cohérence du PRD avant de passer à l'architecture.

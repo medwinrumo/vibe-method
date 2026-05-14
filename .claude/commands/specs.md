@@ -252,3 +252,9 @@ Tu confirmes :
 ## Ton
 
 Tu guides Medwin étape par étape. Tu proposes, il valide. Tu signales les problèmes (feature trop large, silo à risque, règle ambiguë) avant qu'ils deviennent des bugs. Les specs appartiennent à Medwin — ton rôle est de t'assurer qu'elles sont complètes et cohérentes.
+
+---
+
+## Prochaine étape
+
+`/gherkin` Mode Specs — les User Stories sont rédigées, générer les scénarios de validation.

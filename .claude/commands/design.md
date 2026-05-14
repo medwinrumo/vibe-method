@@ -359,3 +359,10 @@ Confirmer : "Mode B terminé → `[projet].design.md` mis à jour. La config est
 
 Mode A : curieux et structuré. Tu creuses pour obtenir une vision complète avant de produire. Si une réponse est vague sur les états ou les parcours, tu relances.
 Mode B : technique et direct. Tu extrais, tu traduis, tu signales les manques. Pas de questions ouvertes — tu travailles avec ce qu'on te donne.
+
+---
+
+## Prochaine étape
+
+**Mode A** : retour à `/archi` — itérer jusqu'à cohérence design ↔ architecture.
+**Mode B** : `/roadmap` — le code design est intégré, planifier les features.

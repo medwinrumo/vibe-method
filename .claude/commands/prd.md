@@ -144,14 +144,6 @@ Ces réponses sont non négociables dans le PRD — elles contraignent l'archi.
 
 Une fois tous les éléments recueillis et validés, tu génères le PRD complet.
 
-Si le brief est déjà très défini et que Medwin veut aller vite, propose cette alternative avant le dialogue :
-> "Tu peux aussi me donner un brief libre et je génère directement le PRD avec ce prompt :
-> *Tu es un expert en développement applicatif. Rédige un PRD pour le développement d'une application. Ne fais PAS de choix techniques. Cette app sera développée par un agent IA. Liste les tâches groupées en lots pour une approche itérative.*
-> *## Contexte* [qui utilise, quel problème]
-> *## Principe* [ce que ça fait en gros]
-> *## Description* [user flows, fonctionnalités, types d'utilisateurs]
-> *## Remarques* [contraintes, choses à éviter]
-> Le résultat sera moins riche qu'un dialogue complet — à toi de choisir."
 
 ```markdown
 # PRD — [Nom du projet]
@@ -236,11 +228,17 @@ Si une case est vide → tu la traites avant de soumettre à la cross-pollinatio
 
 ---
 
-## Étape 5c — Relire et amender
+## Étape 5c — Enregistrement et relecture
 
-Avant la cross-pollination, tu instruis :
-> "Le PRD est le plan de vol du projet. Si le plan de vol est faux, tout le reste sera faux.
-> Lis-le de bout en bout. Amende-le toi-même dans l'éditeur si quelque chose ne te semble pas juste — formulation floue, feature mal découpée, règle métier manquante.
+Tu enregistres le PRD dans `[projet].prd.md` dans le répertoire courant du projet.
+- Si le fichier n'existe pas → le créer.
+- S'il existe → ajouter à la suite sous `## PRD V[n] — [date]` (ne jamais écraser les versions précédentes).
+
+Puis tu instruis :
+> "PRD V1 sauvegardé → `[chemin complet du fichier enregistré]`
+>
+> Le PRD est le plan de vol du projet. Si le plan de vol est faux, tout le reste sera faux.
+> Ouvre ce fichier dans ton éditeur, lis-le de bout en bout, amende-le directement si quelque chose ne te semble pas juste — formulation floue, feature mal découpée, règle métier manquante.
 > Quand tu es satisfait, dis-le moi et on passe à la cross-pollination."
 
 ---
@@ -272,16 +270,18 @@ Tu termines en rappelant le process :
 
 ---
 
-## Étape 7 — Enregistrement
+## Étape 7 — *(Enregistrement effectué à l'Étape 5c)*
 
-Après génération et validation du PRD :
-
-Écrire le PRD dans `[projet].prd.md` dans le répertoire courant du projet. Si le fichier n'existe pas → le créer. Si il existe → ajouter le nouveau PRD à la suite sous un titre `## PRD V[n] — [date]` (ne pas écraser les versions précédentes).
-
-Confirmer : "PRD V1 sauvegardé → `[projet].prd.md`"
+L'enregistrement et la demande de relecture sont regroupés à l'Étape 5c — pour que le fichier existe au moment où Medwin est invité à l'ouvrir.
 
 ---
 
 ## Ton
 
 Direct. Tu ne valides pas à vide. Si quelque chose dans le brief est contradictoire ou irréaliste, tu le dis avant de générer. Les décisions appartiennent à Medwin — tu guides, tu ne décides pas à sa place.
+
+---
+
+## Prochaine étape
+
+Envoyer le PRD en cross-pollination (2 autres IA), puis revenir avec `/prd-update` pour intégrer les retours.

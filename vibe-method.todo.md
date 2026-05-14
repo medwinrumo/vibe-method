@@ -4,7 +4,19 @@
 
 ---
 
-## Dernière session — 2026-05-14 (session 3)
+## Dernière session — 2026-05-14 (session 4)
+
+### Ce qui a été fait
+
+- Récap pédagogique vibe-method complet envoyé dans Notion (page Vibe-Method) :
+  - 7 parties + transversaux + récapitulatif de tous les fichiers produits
+  - Couverture : 25 skills principaux + 6 skills transversaux
+  - Pour chaque skill : rôle, qui fait quoi, doctrine, exemples concrets, comment ça se termine
+  - Exemples basés sur app RAM réseau et app menu de la semaine
+
+---
+
+## Session précédente — 2026-05-14 (session 3)
 
 ### Ce qui a été fait
 
@@ -16,6 +28,7 @@
   - `/code-review-hostil` : revue cynique 10 angles systématiques, minimum 10 problèmes, BLOQUANT/IMPORTANT/À SURVEILLER
   - Symlinks créés pour les 5 skills
   - CLAUDE.md : chaîne mise à jour (prd-validate, regles, readyTo-code, code-review-hostil, phase-retrospective) + table mise à jour
+  - Section "Prochaine étape" ajoutée à tous les skills existants
 
 ---
 
@@ -119,6 +132,29 @@
 ## Tâches
 
 ### À faire
+
+- 26 — **Les 9 gestes du kung fu — décision d'intégration** _(à faire le 2026-05-15)_
+  Reprendre en détail chaque technique issue du Traité du Vibe Coding Éclairé et décider où et comment les intégrer dans la méthode.
+  
+  **Au chargement de cette tâche — lire ces fichiers avant de commencer :**
+  1. `resume-traite-vibe-coding.md` → section "Les 9 techniques nommées" pour le détail de chaque geste
+  2. `apports-traite-vibe-coding.md` → section 4 "Pendant" pour les propositions d'intégration
+  3. `methode.md` → section "Pilotage de la session de code" pour voir ce qui est déjà en prose
+  4. `.claude/commands/sessionCode.md` → état actuel du skill
+  5. `.claude/commands/debug.md` → état actuel du skill
+  
+  **Les 9 gestes à traiter un par un :**
+  1. L'archer immobile — plan avant code → `/sessionCode` ?
+  2. La mue du serpent — recommencer, ne pas corriger → `/sessionCode` + `/debug` ?
+  3. Le bond du tigre — git reset + contraintes négatives → `/debug` ?
+  4. Le tranchant de la main — interrompre immédiatement → `/sessionCode` ?
+  5. L'œil de l'aigle — analyse globale avant de corriger → `/debug` ?
+  6. Le singe change de branche — changer de modèle → `/debug` ?
+  7. Le souffle neuf — nouvelle conversation = contexte propre → `/sessionCode` ?
+  8. Le faucon en chasse — recherche web préventive → `/debug` (déjà là) ?
+  9. Le kiai — dicter les prompts complexes → `/sessionCode` ?
+  
+  **Question de fond :** les techniques réactives (quand ça bloque) vont dans `/debug`. Les techniques de posture (avant/pendant le code) vont dans `/sessionCode`. Est-ce suffisant ou faut-il un skill dédié ?
 
 - ~~17~~
 - ~~18~~

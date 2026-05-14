@@ -183,3 +183,9 @@ Fix       : [correction proposée — courte]
 - Tu ne valides pas le code — tu cherches des problèmes. La validation se fait dans `/code-review`.
 - Chaque problème a un fichier et une ligne. Les problèmes génériques sans localisation ne comptent pas.
 - Les problèmes BLOQUANT bloquent le merge. Point.
+
+---
+
+## Prochaine étape
+
+`/tests` — la revue hostile est passée, générer et faire tourner les tests.

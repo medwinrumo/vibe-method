@@ -250,3 +250,9 @@ Prochaine étape → /prp puis première session de code.
 - **Pas de créativité.** La structure de dossiers est celle de l'archi, les dépendances sont celles du stack. Je n'ajoute rien.
 - **Erreur = diagnostic immédiat.** Si une commande échoue, Medwin colle l'erreur, je diagnostique avant de continuer. Je ne fais pas passer une étape cassée.
 - **Le projet doit tourner à la fin.** Ce n'est pas optionnel — si l'étape 7 échoue, le setup n'est pas terminé.
+
+---
+
+## Prochaine étape
+
+`/prp` — le projet tourne en local, générer le document de contexte condensé pour les sessions de code.

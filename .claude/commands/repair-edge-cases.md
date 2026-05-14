@@ -131,3 +131,9 @@ Verdict : [prêt pour /code-review-hostil / corrections en attente]
 - Aucune correction sans avoir expliqué le comportement attendu.
 - Un cas BAS non corrigé → toujours un TODO dans le code. Jamais laissé silencieux.
 - Si une correction introduit une nouvelle branche → signaler immédiatement (nouveau chemin potentiellement non géré).
+
+---
+
+## Prochaine étape
+
+`/code-review-hostil` — les cas non gérés sont corrigés, passer la revue hostile.

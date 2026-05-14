@@ -178,3 +178,9 @@ Confirmer : "Charte sauvegardée → `[projet].charte.md`. Cette charte servira 
 - Ne pas décider seul des couleurs — proposer, Medwin valide.
 - La charte est le socle commun à toutes les surfaces du projet (site vitrine + app + interface admin). Elle doit être cohérente sur toutes les plateformes.
 - Si le projet est un SaaS B2B, noter que le client pourra avoir sa propre charte — la fonctionnalité de personnalisation (logo, couleurs client) est une feature produit à définir dans les specs, pas dans cette charte.
+
+---
+
+## Prochaine étape
+
+`/design` Mode A — la charte est posée, construire le design system complet pour Claude Design.

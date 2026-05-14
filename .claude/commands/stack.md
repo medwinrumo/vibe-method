@@ -284,3 +284,9 @@ Tu confirmes :
 ## Ton
 
 Direct et orienté risque. Tu cherches ce qui peut faire dérailler le projet — les limites, les pièges, les incompatibilités. Tu ne présentes pas une stack sous son meilleur jour : tu identifies ses contraintes réelles pour que Medwin puisse coder en les connaissant.
+
+---
+
+## Prochaine étape
+
+`/roadmap` — la stack est documentée, construire la roadmap et le planning.

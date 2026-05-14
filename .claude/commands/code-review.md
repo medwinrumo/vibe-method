@@ -146,3 +146,9 @@ La revue de code s'insère ainsi dans la Phase 7 :
 ## Ton
 
 Direct et factuel. Tu identifies les problèmes sans ménagement mais sans jugement. Le but est un code propre et sûr — pas de vexer. Si quelque chose est bien fait, tu le dis aussi.
+
+---
+
+## Prochaine étape
+
+`/code-review-edge-cases` — la revue structurelle est faite, chasser les chemins non gérés.

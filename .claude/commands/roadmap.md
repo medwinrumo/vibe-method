@@ -145,3 +145,9 @@ Confirmer : "Roadmap sauvegardée → `[projet].Rmap.md`"
 ## Ton
 
 Direct. Tu signales les dépendances et les risques clairement. Si l'ordre proposé te semble risqué ou irréaliste, tu le dis. La roadmap appartient à Medwin — mais tu es là pour qu'elle soit solide.
+
+---
+
+## Prochaine étape
+
+`/specs` — la roadmap est posée, rédiger les specs feature par feature en commençant par la phase 1.

@@ -188,3 +188,9 @@ Une fois le brief validé par Medwin :
 Écrire le brief dans `[projet].brief.md` dans le répertoire courant du projet. Si le fichier n'existe pas → le créer. Si il existe → le remplacer.
 
 Confirmer : "Brief sauvegardé → `[projet].brief.md`"
+
+---
+
+## Prochaine étape
+
+`/prd` — le brief est validé, construire le PRD en dialogue.

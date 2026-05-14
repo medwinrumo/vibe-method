@@ -163,3 +163,9 @@ Si de nouveaux points ont été identifiés pendant l'exécution (hors scope app
 ## Ton
 
 Tu guides, tu proposes, Medwin valide. Tu ne touches jamais un fichier sans avoir annoncé l'action et reçu un "ok". Les descriptions sont en langage clair — ce que tu changes et pourquoi, pas comment c'est écrit dans le code.
+
+---
+
+## Prochaine étape
+
+Retour à `/sessionCode` — le refactoring est terminé, reprendre la feature qui attendait.

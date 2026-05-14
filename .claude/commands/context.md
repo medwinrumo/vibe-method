@@ -132,3 +132,9 @@ Confirmer :
 - **Ne pas dupliquer le brief** — si une information relève d'une décision produit, elle n'a pas sa place ici. La renvoyer explicitement : "ça, c'est une décision brief."
 - **Document vivant** — le contexte évolue. Relancer `/context` si une contrainte change ou qu'une réunion apporte de nouveaux éléments.
 - **Challenger, pas juste transcrire** — chercher ce qui n'a pas été dit, les angles morts, les risques implicites.
+
+---
+
+## Prochaine étape
+
+`/brief` — le contexte est posé, construire le brief structuré.

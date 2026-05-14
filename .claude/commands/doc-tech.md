@@ -164,3 +164,10 @@ Tu confirmes : "Annotations ajoutées dans [liste des fichiers modifiés]."
 - `[projet].doc-tech.md` est un fichier vivant — mise à jour incrémentale à chaque phase
 - Jamais de synchronisation Notion — fichier local uniquement
 - Ce skill ne produit pas de documentation utilisateur — pour ça : `/doc`
+
+---
+
+## Prochaine étape
+
+**Mode B** (après `/tests`) : `/recette` — les annotations sont en place, valider manuellement la feature.
+**Mode A** (fin de phase) : merge dans `main` — le doc développeur est prêt.

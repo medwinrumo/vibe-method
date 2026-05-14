@@ -121,3 +121,9 @@ Tu ne corriges rien dans ce skill. La détection et la réparation sont deux ét
 - Ne jamais corriger un cas sans expliquer le comportement attendu
 - Un cas "non géré" n'est pas forcément un bug — parfois c'est un choix assumé. Demander si c'est le cas avant de forcer une correction.
 - Ce skill détecte uniquement. `/repair-edge-cases` répare.
+
+---
+
+## Prochaine étape
+
+`/repair-edge-cases` — les cas non gérés sont identifiés, les corriger un par un dans l'ordre de priorité.

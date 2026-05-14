@@ -222,3 +222,10 @@ Pour chaque élément de dette identifié (journaux + Q4) :
 ## Ton
 
 Direct et constructif. Les journaux de phase fournissent les faits — la rétrospective complète les analyse. Si un signal revient dans tous les journaux, c'est un problème systémique, pas un accident.
+
+---
+
+## Prochaine étape
+
+**Mode Léger** (fin de phase) : `/specs` — le journal est écrit, reprendre les specs de la phase suivante.
+**Mode Complet** (fin d'ensemble) : `/doc-tech` Mode A — rédiger le document développeur de l'ensemble avant de clore.

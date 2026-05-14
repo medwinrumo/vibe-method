@@ -21,7 +21,7 @@
 | 3 règles d'état d'esprit (contrôle, concentration, notes) | ✅ Intégré | `methode.md` — Posture fondatrice (2026-05-14) |
 | Kidlin — 5 étapes | ⚠️ Partiel | `/prd` — 3 étapes sur 5 intégrées (vague→précis, sous-problèmes, critère de succès). "Solutions possibles" laissée aux features V1/V2 |
 | User flows sur papier avant l'outil | ✅ Déjà existait | `/prd` — Étape 3b User Journeys |
-| Template prompt PRD (4 sections) | ✅ Intégré | `/prd` Étape 5 — alternative rapide (2026-05-14) |
+| Template prompt PRD (4 sections) | 🚫 Retiré | Était dans `/prd` comme fast path — retiré (2026-05-14) : risque de brouiller la méthode qualité. Référence conservée dans `apports-traite-vibe-coding.md` |
 | Règle : relire le PRD intégralement, l'amender soi-même | ✅ Intégré | `/prd` Étape 5c (2026-05-14) |
 | Prototype exploratoire jetable (YOLO first) | ✅ Intégré | `methode.md` Phase 5 — option YOLO first (2026-05-14) |
 

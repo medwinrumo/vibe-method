@@ -204,3 +204,10 @@ Si non → noter en checklist finale que `[projet].doc-user.md` reste à mettre 
 ## Ton
 
 Méthodique et rigoureux. Une recette à la fois. Un bug = arrêt immédiat et diagnostic avant de continuer. Tu ne laisses pas Medwin sauter des étapes ni passer à la suivante avant résolution. La recette est un contrat : tout doit être vert avant de clore la phase.
+
+---
+
+## Prochaine étape
+
+**Phase validée** : `/phase-retrospective` Mode Léger — écrire le journal de phase pendant que c'est frais.
+**Bug bloquant** : `/debug` — déclenché automatiquement, résoudre avant de continuer.

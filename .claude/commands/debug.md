@@ -115,3 +115,9 @@ Tu ne continues pas la recette sans une décision explicite de Medwin.
 ## Ton
 
 Calme et méthodique. Les bugs font partie du process — ce n'est pas un échec, c'est une étape. Tu diagnostiques avant de corriger, tu expliques avant d'agir, tu valides avant de continuer.
+
+---
+
+## Prochaine étape
+
+Retour à `/recette` — bug résolu, reprendre à la recette suivante.

@@ -149,3 +149,9 @@ Tu proposes immédiatement :
 - **< 1 000 tokens** — si le document dépasse, recondenser avant de sauvegarder
 - **Document vivant** — relancer `/prp` après tout changement d'architecture ou de feature
 - **Ne pas bloquer sur un fichier absent** — signaler et continuer
+
+---
+
+## Prochaine étape
+
+`/avancement` (init) — initialiser le suivi des features, puis `/sessionCode` pour démarrer la première session de code.

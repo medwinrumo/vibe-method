@@ -71,3 +71,9 @@ Tu attribues le numéro suivant (ADR-1, ADR-2...) en comptant les entrées exist
 - **Capture immédiate** — l'ADR perd sa valeur si la session se compacte avant qu'il soit écrit
 - **Jamais réécrire** — si une décision est révisée, créer un nouvel ADR qui référence l'ancien
 - **Bref et précis** — 2-3 phrases max par section
+
+---
+
+## Prochaine étape
+
+Reprendre là où tu étais dans la chaîne — l'ADR est capturé, retour au skill appelant (`/specs`, `/archi`, ou autre).

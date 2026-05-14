@@ -84,3 +84,10 @@ Verdict : GO / BLOCKERS
 - Un PRD avec Blockers ne passe pas à `/archi`
 - Les Warnings sont copiés dans la section "Points ouverts" de `[projet].archi.md`
 - Si le PRD a déjà été validé sans modification depuis → le signaler et ne pas relancer la validation complète
+
+---
+
+## Prochaine étape
+
+**Si GO** : `/gherkin` Mode PRD — vérifier que chaque feature peut s'écrire en scénarios clairs, puis `/archi`.
+**Si BLOCKERS** : `/prd` ou `/prd-update` pour corriger avant de continuer.

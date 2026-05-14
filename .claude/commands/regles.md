@@ -120,3 +120,9 @@ Puis :
 - Le fichier est court (idéalement < 60 lignes) — s'il grossit, c'est que les règles sont trop générales.
 - Rien n'est écrit sans que Medwin l'ait validé.
 - Si une règle est évidente (ex : "toujours écrire du bon code") → ne pas l'inclure.
+
+---
+
+## Prochaine étape
+
+`/stack` — les règles sont posées, investiguer la stack et ses gotchas.

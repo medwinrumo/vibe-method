@@ -229,3 +229,9 @@ Tu mets à jour `[projet].tests.md` dans le repo du projet avec :
 ## Ton
 
 Direct. Les tests ne mentent pas — si ça échoue, il y a un problème dans le code. Tu corriges le code pour faire passer les tests, jamais l'inverse. Tu signales clairement ce qui échoue et pourquoi avant de corriger.
+
+---
+
+## Prochaine étape
+
+`/doc-tech` Mode B — tous les tests sont verts, annoter le code (JSDoc/TSDoc) avant la recette.

@@ -93,9 +93,9 @@
 - 4 — Évaluation comparative vibe-method vs BMAD — avec BMAD installé localement dans `~/dev/bmad-method/`, comparer point par point chaque phase et skill de vibe-method contre l'équivalent BMAD. Identifier : (a) ce que BMAD couvre mieux, (b) ce que vibe-method couvre mieux, (c) les lacunes dans vibe-method à combler. Produire un rapport de décision pour chaque point. **Priorité moyenne — après tâche 5.**
 - ~~5~~
 - 6 — Audit et enrichissement des skills existants — les skills peuvent contenir : exemples de code, URLs de doc, scripts de validation, chemins de fichiers précis, versions de librairies. Points spécifiques à traiter dans `/archi` : (a) vérification des versions de technologie par WebSearch au moment où une décision est documentée ; (b) vérification des implications en cascade — après chaque décision majeure, identifier explicitement quelles autres décisions elle déclenche ou modifie. Inclure : enrichissement `/prp` avec règles critiques des doctrines — analyse déjà produite dans `prp-doctrine-enrichissement.md`. **Points supplémentaires issus de l'audit tâche 5 :** `securite.md` sections 1.6 (Données sensibles) et 1.8 (Backup) marquées "À enrichir" — compléter ou renvoyer explicitement. Protocole complet `audit-doctrine-strategie.md` Sessions 1-5 (WebSearch OWASP, CNIL, free tier, Playwright). **Priorité haute.**
-- 7 — Skill `/doc-tech` — documentation technique dans le code : JSDoc, README technique, commentaires d'architecture. Définir quand déclencher, quoi documenter, comment. Créer la page Notion `[projet].doc-tech` associée. Distinct de `/doc` (documentation utilisateur). **Priorité moyenne.**
-- 8 — Doctrine refactoring + skill `/refacto` — définir ce qu'est le refactoring, quand le faire, selon quels critères, quelles règles pour ne pas casser ce qui marche. Décider si nouvelle doctrine (`refacto.md`) ou enrichissement d'une doctrine existante. Créer le skill une fois la doctrine établie. **Priorité moyenne.**
-- 10 — Enrichir `/sessionCode` — connecter le skill au planning et à la démarche complète : vérifier l'état de la feature dans la roadmap, charger la spec de la feature (`[projet].spec.[feature].md`), rappeler les tests attendus si TDD, vérifier les dépendances entre features, détecter si le PRP est à jour ou doit être régénéré. **Priorité moyenne — après tâche 5.**
+- ~~7~~
+- ~~8~~
+- ~~10~~
 - ~~templates/ dans vibe-method~~ — Décidé de ne pas faire. Chaque skill produit son fichier avec la bonne structure quand il s'exécute.
 
 ### Réalisées

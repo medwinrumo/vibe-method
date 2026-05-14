@@ -45,28 +45,72 @@ En **Mode TDD** — le code absent est normal. Tu continues.
 
 ---
 
-## Étape 0b — Mode TDD : tests depuis le spec
+## Étape 0b — Mode TDD : progression scénario par scénario
 
 *Cette étape s'applique uniquement aux modules métier et sécurité.*
 
-Tu lis `[projet].spec.[feature].md` et tu extrais :
-- **Règles de gestion** → chaque règle devient un test unitaire positif
-- **Cas d'échec** → chaque cas d'échec devient un test négatif
-- **Cas limites** → chaque cas limite devient un test négatif
+### Ordre de travail
 
-Tu génères les tests et tu les présentes :
-> "Voici les tests générés depuis le spec — ils doivent tous échouer pour l'instant (le code n'existe pas encore) :
-> - [test 1 — règle testée]
-> - [test 2 — cas d'échec testé]
-> [...]
-> On confirme que ces tests couvrent toutes les règles de gestion avant de coder ?"
+Tu lis `[projet].spec.[feature].md` et `[projet].gherkin.[feature].md` si présent.
 
-**Règle Red :** tu vérifies que les tests échouent bien avant de lancer le code. Un test qui passe sans code = un test mal écrit.
+Tu extrais tous les scénarios et tu les classes dans cet ordre strict :
 
-Une fois les tests confirmés et échouants → tu passes la main :
-> "Tests en place. Tu peux coder la feature. Quand c'est fait, relance `/tests` — on passe à Green puis Refactor."
+```
+1. Happy path        — le cas nominal, l'utilisateur fait ce qu'on attend
+2. Cas limites       — les frontières (valeurs vides, maximales, doublons)
+3. Cas d'échec       — les rejets attendus (droits insuffisants, données incorrectes)
+```
 
-*Le reste du skill (étapes 1 à 8) s'exécute après le code, en mode TDD comme en mode standard.*
+Tu présentes la liste ordonnée :
+> "Voici les scénarios dans l'ordre TDD :
+>
+> Happy path :
+> - [scénario 1]
+> - [scénario 2]
+>
+> Cas limites :
+> - [scénario 3]
+> - [scénario 4]
+>
+> Cas d'échec :
+> - [scénario 5]
+>
+> On traite un scénario à la fois dans cet ordre. On confirme ?"
+
+---
+
+### Cycle Red / Green / Refactor — un scénario à la fois
+
+Pour chaque scénario, dans l'ordre ci-dessus :
+
+**Red — écrire le test**
+Tu écris le test pour ce scénario uniquement. Tu le lances.
+> "Test [scénario N] écrit. Je le lance — il doit échouer."
+
+Si le test passe sans code → le test est mal écrit. Tu le corriges avant de continuer.
+Si le test échoue → parfait.
+> "Red ✅ — le test échoue comme attendu. Tu peux coder le minimum pour le faire passer."
+
+**Green — écrire le minimum de code**
+Medwin écrit le minimum de code pour faire passer ce test — rien de plus.
+> "Lance les tests quand c'est prêt."
+
+Si le test passe → Green.
+> "Green ✅ — le test passe. On passe au Refactor avant le scénario suivant."
+
+Si d'autres tests existants cassent → les corriger avant de continuer.
+
+**Refactor — améliorer sans casser**
+> "Le code fonctionne. Y a-t-il quelque chose à clarifier ou simplifier avant de passer au scénario suivant ? (nommage, duplication, lisibilité)"
+
+Si oui → refactoriser, relancer les tests, vérifier que tout est toujours Green.
+Si non → passer au scénario suivant.
+
+---
+
+**Règle absolue :** on ne passe jamais au scénario suivant tant que le cycle Red/Green/Refactor du scénario courant n'est pas complet. Un test qui passe avec un autre qui échoue = on traite l'échec d'abord.
+
+*Le reste du skill (étapes 1 à 8) s'exécute après que tous les scénarios TDD sont Green.*
 
 ---
 
@@ -89,11 +133,16 @@ Tu présentes l'analyse :
 
 ## Étape 2 — Génération des unit tests
 
-Pour chaque fonction impliquée dans la feature, tu génères les tests unitaires.
+Pour chaque fonction impliquée dans la feature, tu génères les tests unitaires dans l'ordre suivant :
+
+```
+1. Happy path   → le code fait ce qu'il doit faire sur le cas nominal
+2. Cas limites  → le code se comporte correctement aux frontières
+3. Cas d'échec  → le code rejette proprement les cas invalides
+```
 
 **Règles anti-auto-validation :**
 - Les tests unitaires sont générés dans un contexte séparé de la génération du code — jamais dans le même prompt
-- Tu génères des tests positifs (happy path) ET des tests négatifs (inputs incorrects, cas limites, actions interdites)
 - Les données de test représentent de vrais cas d'usage — jamais des données choisies pour garantir que les tests passent
 
 Règles de forme :

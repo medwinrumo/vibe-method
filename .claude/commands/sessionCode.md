@@ -44,6 +44,16 @@ Tu lis `[projet].spec.[feature].md`.
 Si absent → arrêt :
 > "La spec de cette feature est introuvable (`[projet].spec.[feature].md`). Lance `/specs` d'abord."
 
+**Vérification 4 — Sprint status**
+Si `[projet].sprint-status.yaml` existe → tu lis le statut actuel de cette feature et tu l'affiches :
+> "Sprint status : [nom feature] → [statut actuel]"
+
+Si le statut est `done` → signaler :
+> "Cette feature est déjà marquée 'done' dans le sprint status. Tu veux la reprendre ?"
+
+Sinon → proposer de passer le statut à `in-progress` :
+> "Je mets à jour le sprint status : [feature] → in-progress ?"
+
 ---
 
 ## Étape 3 — Dette de refactoring sur le module ciblé
@@ -123,5 +133,5 @@ Ne recopie pas tout le PRP — seulement ce qui est pertinent pour cette feature
 
 > "Contexte chargé pour [feature].
 > Module : [module]. Mode : [TDD / Standard].
-> Chaîne après cette session : `/code-review` → `/tests` → `/doc-tech` (Mode B) → `/recette`.
+> Chaîne après cette session : `/code-review` → `/code-review-edge-cases` → `/tests` → `/doc-tech` (Mode B) → `/recette`.
 > Tu peux commencer."

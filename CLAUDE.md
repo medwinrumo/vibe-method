@@ -26,10 +26,10 @@ vibe-method/
 ## Chaîne de skills — workflow complet
 
 ```
-/context → /brief → /charte → /prd → /prd-update → [/design Mode A ↔ /archi itératif] → /stack → [/design Mode B] → /roadmap → /specs → /setup → /prp → /sessionCode → [code] → /code-review → /tests → /doc-tech (Mode B) → /recette ↔ /debug → [fin de phase] /doc-tech (Mode A)
+/context → /brief → /charte → /prd → /prd-update → [/design Mode A ↔ /archi itératif] → /stack → [/design Mode B] → /roadmap → /specs → /setup → /prp → /sprint-status (init) → /sessionCode → [code] → /code-review → /code-review-edge-cases → /tests → /doc-tech (Mode B) → /recette ↔ /debug → [fin de phase] /doc-tech (Mode A)
 ```
 
-Skills transversaux (invocables à tout moment) : `/party`, `/securite`
+Skills transversaux (invocables à tout moment) : `/party`, `/securite`, `/change-request`, `/sprint-status`
 
 **Note sur la phase itérative /design ↔ /archi :**
 Mode A de /design et /archi se construisent en aller-retour. Les écrans révèlent des modules manquants dans l'archi ; l'archi précise les états des composants. La phase se termine quand les deux sont cohérents. Output : `[projet].design.md` complet → donné à Claude Design pour exécution. Mode B intègre le code produit par Claude Design dans Tailwind (web) ou NativeWind (native).
@@ -50,6 +50,9 @@ Mode A de /design et /archi se construisent en aller-retour. Les écrans révèl
 | `/prp` | Agrège tous les outputs en un document condensé optimisé pour le LLM — contexte de démarrage de session de code | `[projet].prp.md` |
 | `/sessionCode` | Sas d'entrée obligatoire avant de coder : charge le PRP, confirme la feature, rappelle les règles critiques | — |
 | `/code-review` | Revue structurelle + sécurité avant merge | — |
+| `/code-review-edge-cases` | Chasse aux cas non gérés — énumération mécanique de tous les chemins | — |
+| `/sprint-status` | Suivi de l'état des fonctions du projet (YAML centralisé) | `[projet].sprint-status.yaml` |
+| `/change-request` | Analyse d'impact d'un changement sur tous les artefacts | — |
 | `/tests` | Tests unitaires + intégration + Playwright | `[projet].tests.md` |
 | `/doc-tech` | Mode A : `[projet].doc-tech.md` (vue d'ensemble développeur — fin de phase). Mode B : annotations JSDoc/TSDoc dans le code (après `/tests`, avant `/recette`) | `[projet].doc-tech.md` |
 | `/recette` | Génère Gherkin depuis User Stories + validation manuelle | `[projet].recette.md` |

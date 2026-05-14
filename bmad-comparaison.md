@@ -5,7 +5,7 @@ _Produit le 2026-05-14 — base : fichiers réels `~/dev/bmad-method/src/` vs `~
 
 ## Section A — Ce que BMAD couvre mieux
 
-### 1. Gestion de sprint à deux niveaux (épics + stories + status tracking)
+### 1. Gestion de sprint à deux niveaux (ensemble de fonctionss + stories + status tracking)
 **BMAD** : `bmad-sprint-planning` génère et maintient `sprint-status.yaml` avec tracking exhaustif (state machine : backlog → ready-for-dev → in-progress → review → done). `bmad-sprint-status` consulte ce fichier pour surfacer les risques.
 **vibe-method** : `/todo` lit l'état du projet mais ne gère pas d'artefact centralisé de sprint tracking. Le statut des stories reste dispersé.
 **Impact** : BMAD donne une visibilité temps-réel sur quelle story développer ensuite et détecte les goulots d'étranglement.
@@ -16,12 +16,12 @@ _Produit le 2026-05-14 — base : fichiers réels `~/dev/bmad-method/src/` vs `~
 **Impact** : BMAD piège les failles de PRD avant qu'elles n'impactent l'architecture.
 
 ### 3. Vérification de readiness avant implementation
-**BMAD** : `bmad-check-implementation-readiness` valide que PRD, UX, Archi, Épics et Stories sont complets et alignés AVANT Phase 4.
+**BMAD** : `bmad-check-implementation-readiness` valide que PRD, UX, Archi, Ensemble de fonctionss et Stories sont complets et alignés AVANT Phase 4.
 **vibe-method** : Pas de skill équivalent. Transition vers `/specs` → `/sessionCode` sans vérification formelle.
 **Impact** : BMAD empêche le code de démarrer sur des fondations instables.
 
 ### 4. Gestion du changement avec impact cross-artifact
-**BMAD** : `bmad-correct-course` analyse les impacts d'un changement sur PRD, Épics, Archi, UX. Trie par sévérité (Minor → Moderate → Major).
+**BMAD** : `bmad-correct-course` analyse les impacts d'un changement sur PRD, Ensemble de fonctionss, Archi, UX. Trie par sévérité (Minor → Moderate → Major).
 **vibe-method** : Pas de skill dédié. Les changements sont gérés ad hoc.
 **Impact** : BMAD maîtrise les cascades de dépendances lors du changement.
 
@@ -40,7 +40,7 @@ _Produit le 2026-05-14 — base : fichiers réels `~/dev/bmad-method/src/` vs `~
 **vibe-method** : `/code-review` est structure-first, non cynical.
 **Impact** : BMAD pousse à la critique extrême. vibe-method peut manquer des défauts systémiques.
 
-### 8. Retrospective post-épic structurée
+### 8. Retrospective post-ensemble de fonctions structurée
 **BMAD** : `bmad-retrospective` — workflow 12 étapes : deep story analysis, previous retro follow-through, next epic preview, preparation planning, action items, readiness verification. Avec party mode.
 **vibe-method** : Pas de skill retrospective. `/maj` clôture de session mais sans ce layer de post-epic learning.
 **Impact** : BMAD crée un cycle d'amélioration continue.
@@ -81,7 +81,7 @@ _Produit le 2026-05-14 — base : fichiers réels `~/dev/bmad-method/src/` vs `~
 **BMAD** : Pas de skill dédié. Investigation distribuée dans `bmad-create-architecture`.
 
 ### 5. Roadmap globale avant fragmentation en stories
-**vibe-method** : `/roadmap` produit une roadmap PRD → épics → planning global avant de découper.
+**vibe-method** : `/roadmap` produit une roadmap PRD → ensemble de fonctionss → planning global avant de découper.
 **BMAD** : Pas de skill roadmap. Passe directement PRD → create epics.
 
 ### 6. Spec par feature (fichier auto-contenu)
@@ -129,9 +129,9 @@ _Produit le 2026-05-14 — base : fichiers réels `~/dev/bmad-method/src/` vs `~
 **Recommandation** : Créer `/sprint-status` — lit un `sprint-status.yaml` (ou équivalent) et résume : % complété, risques, prochaine story.
 **Déclencheur** : en début de session de code (via `/sessionCode`).
 
-### 4. Retrospective post-épic — **Haute priorité**
+### 4. Retrospective post-ensemble de fonctions — **Haute priorité**
 **Recommandation** : Créer `/epic-retrospective` — deep story analysis, previous retro follow-through, next epic preview, action items.
-**Déclencheur** : quand toutes les stories d'une épic sont "done".
+**Déclencheur** : quand toutes les stories d'une ensemble de fonctions sont "done".
 
 ### 5. Project context dédié LLM — **Haute priorité**
 **Recommandation** : Créer `/project-context` — dialogue itératif pour documenter les règles unobvious spécifiques au projet. Output : `[projet].project-context.md` compact.
@@ -165,7 +165,7 @@ _Produit le 2026-05-14 — base : fichiers réels `~/dev/bmad-method/src/` vs `~
 | Haute | Gate validation PRD | `/prd-validate` (nouveau) |
 | Haute | Gate readiness avant dev | `/readiness-check` (nouveau) |
 | Haute | Sprint tracking | `/sprint-status` (nouveau) ou enrichir `/todo` |
-| Haute | Retrospective post-épic | `/epic-retrospective` (nouveau) |
+| Haute | Retrospective post-ensemble de fonctions | `/epic-retrospective` (nouveau) |
 | Haute | Project context LLM-optimized | `/project-context` (nouveau) |
 | Moyenne | Change management | `/change-request` (nouveau) |
 | Moyenne | Edge case hunting | `/code-review-edge-cases` (nouveau) ou enrichir `/code-review` |

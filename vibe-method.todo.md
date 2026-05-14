@@ -4,9 +4,15 @@
 
 ---
 
-## Dernière session — 2026-05-14
+## Dernière session — 2026-05-14 (session 2)
 
 ### Ce qui a été fait
+
+- Tâche 4 — Comparaison BMAD vs vibe-method :
+  - Rapport `bmad-comparaison.md` produit (11 points BMAD mieux, 14 vibe-method mieux, 11 lacunes identifiées)
+  - 3 skills créés : `/sprint-status` (YAML tracking), `/code-review-edge-cases` (chasse cas non gérés), `/change-request` (impact analysis)
+  - Intégrations : `/sessionCode` (sprint status + chaîne), `/recette` (sprint done), CLAUDE.md (chaîne + table)
+  - 5 rappels créés pour les points restants (tâches 21-25)
 
 - Tâche 6 — Audit et enrichissement skills :
   - `/archi` Étape 1b : WebSearch obligatoire version Expo avant confirmation stack native
@@ -104,9 +110,14 @@
 - ~~19~~
 - ~~20~~
 - 3 — Tester Code Design comme outil de génération UI — à évaluer comme alternative/complément à Claude Design. Décision d'intégration dans la stack design après test. **Priorité moyenne.**
-- 4 — Évaluation comparative vibe-method vs BMAD — avec BMAD installé localement dans `~/dev/bmad-method/`, comparer point par point chaque phase et skill de vibe-method contre l'équivalent BMAD. Identifier : (a) ce que BMAD couvre mieux, (b) ce que vibe-method couvre mieux, (c) les lacunes dans vibe-method à combler. Produire un rapport de décision pour chaque point. **Priorité moyenne — après tâche 5.**
+- ~~4~~
 - ~~5~~
 - ~~6~~
+- 21 — Gate de readiness avant dev — créer `/readiness-check` : vérifier que PRD, archi, specs et sprint-status sont complets avant de coder la première ligne. Output : rapport GO / BLOCKERS / WARNINGS. **Priorité haute.**
+- 22 — Validation PRD avant archi — créer `/prd-validate` : skill standalone qui relit un PRD et valide cohérence interne, traçabilité (feature → critère de succès) et complétude. Déclenché automatiquement après `/prd`. **Priorité haute.**
+- 23 — Retrospective post-phase — créer `/phase-retrospective` : analyse après completion d'un ensemble de fonctions (lessons learned, dette, prep phase suivante, action items). **Priorité haute.**
+- 24 — Project context dédié LLM — créer `/project-context` : dialogue pour documenter les règles unobvious spécifiques au projet. Output : `[projet].project-context.md`. Déclenché après `/archi`. **Priorité haute.**
+- 25 — Adversarial review — créer `/code-review-adversarial` : revue cynique qui assume que le code est mauvais et trouve au minimum 10 problèmes. Complémentaire à `/code-review-edge-cases`. **Priorité moyenne.**
 - ~~7~~
 - ~~8~~
 - ~~10~~
@@ -114,6 +125,7 @@
 
 ### Réalisées
 
+- ✅ 4 — Comparaison BMAD vs vibe-method : rapport `bmad-comparaison.md` + 3 skills créés (`/sprint-status`, `/code-review-edge-cases`, `/change-request`) + 5 rappels (tâches 21-25). (2026-05-14)
 - ✅ 6 — `/archi` : WebSearch versions (Expo, free tier) + implications en cascade. `securite.md` §1.8 renvoi. `/prp` confrontation : gaps résolus. (2026-05-14)
 
 - ✅ 20 — Intégration traité : tests + POURQUOI — 2 points décidés non intégrables. (2026-05-14)

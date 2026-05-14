@@ -1,115 +1,178 @@
-# /phase-retrospective — Rétrospective de fin de phase
+# /phase-retrospective — Rétrospective
 
-Tu orchestres la rétrospective après qu'une phase de la roadmap est terminée. C'est le moment de capitaliser sur ce qui s'est passé — ce qui a marché, ce qui a bloqué, ce qu'on améliore pour la suite.
+Deux modes selon le moment :
 
-Ce n'est pas une punition. C'est le mécanisme d'amélioration continue.
+- **Mode Léger** — fin de phase : journal de 5 lignes, écrit pendant que c'est frais
+- **Mode Complet** — fin d'ensemble de fonctions : rétrospective complète, nourrie par les journaux de phase
+
+L'objectif du Mode Léger est simple : ne pas faire reposer la rétrospective finale sur ta mémoire.
 
 ---
 
 ## Quand lancer /phase-retrospective
 
-Quand toutes les features d'une phase sont "done" dans `[projet].avancement.yaml` — ou quand `/recette` a validé la phase. Avant de démarrer la phase suivante.
+- **Mode Léger** : quand toutes les features d'une phase sont `done` dans `[projet].avancement.yaml`, avant de démarrer la phase suivante
+- **Mode Complet** : quand toutes les phases d'un ensemble de fonctions sont terminées, avant de démarrer le prochain ensemble
 
 ---
 
-## Étape 0 — Identification
+## Étape 0 — Identification du mode
 
 Tu demandes :
-> "Quelle phase est terminée ? (ex : Phase 1 — Authentification)"
+> "On clôture une phase ou un ensemble de fonctions complet ?"
+
+- Phase → **Mode Léger**
+- Ensemble de fonctions → **Mode Complet**
 
 Tu lis silencieusement :
-- `[projet].avancement.yaml` — pour la liste des features et leurs statuts
-- `[projet].Rmap.md` — pour le contexte de la phase
-- `[projet]-retrospective.md` si existant — pour les action items des retros précédentes
+- `[projet].avancement.yaml` — statuts des features
+- `[projet].Rmap.md` — contexte de la phase ou de l'ensemble
+- `[projet]-retrospective.md` si existant — journaux et retros précédents
 
 ---
 
-## Étape 1 — Analyse des features de la phase
+## MODE LÉGER — Fin de phase
 
-Pour chaque feature de la phase terminée, tu extrais depuis `avancement.yaml` :
-- Statut final (done / blocked / partiel)
-- Notes éventuelles
+### L1 — 4 questions rapides
 
-Tu demandes ensuite pour chaque feature une note rapide :
-> "Pour la feature [X] — comment s'est-elle passée ? (une ou deux phrases : ce qui a été facile, ce qui a bloqué, ce qui a pris plus de temps que prévu)"
+Tu poses les 4 questions l'une après l'autre. Réponses courtes attendues — une ou deux phrases maximum.
 
-Tu procèdes feature par feature. Si Medwin répond "rien de particulier" ou "OK" → passer à la suivante sans forcer.
+> "Phase [N] terminée. 4 questions rapides pendant que c'est frais :"
 
----
+**Q1 — Ce qui a bien marché**
+> "Une chose qui a bien marché dans cette phase ?"
 
-## Étape 2 — Questions de rétrospective
+**Q2 — Ce qui a bloqué**
+> "Une chose qui a bloqué ou ralenti ?"
 
-Tu poses les 5 questions une par une. Tu attends la réponse avant de passer à la suivante.
+**Q3 — Ce qui a surpris**
+> "Une surprise — bonne ou mauvaise ?"
 
-**Question 1 — Ce qui a bien marché**
-> "Qu'est-ce qui s'est bien passé dans cette phase ? (outils, méthode, organisation, décisions techniques)"
+**Q4 — Dette**
+> "Un raccourci pris ou quelque chose laissé en suspens ?"
 
-**Question 2 — Ce qui a bloqué**
-> "Qu'est-ce qui a bloqué ou ralenti ? (bugs récurrents, manque de clarté dans les specs, mauvaise estimation, dépendances imprévues)"
-
-**Question 3 — Les surprises**
-> "Y a-t-il eu des surprises — bonnes ou mauvaises ? (comportements inattendus de la stack, découvertes en cours de route, changements de scope)"
-
-**Question 4 — La dette**
-> "Y a-t-il de la dette technique accumulée pendant cette phase ? (raccourcis pris, TODO laissés, tests non écrits, refactorisations reportées)"
-
-**Question 5 — Pour la prochaine phase**
-> "Si tu pouvais changer une seule chose pour la prochaine phase, ce serait quoi ?"
+Si la réponse est "rien" ou "tout s'est bien passé" → noter explicitement : "RAS" — ne pas forcer.
 
 ---
 
-## Étape 3 — Suivi de la retro précédente
+### L2 — Écriture du journal
 
-Si une retro précédente existe dans `[projet]-retrospective.md` :
-
-Tu lis les action items de la retro précédente et tu demandes :
-> "La retro précédente avait ces action items : [liste]. Lesquels ont été appliqués ?"
-
-Pour chaque item → ✅ Fait / ❌ Non fait / 🔄 En cours.
-
-Si des items n'ont pas été faits → les reporter dans la nouvelle retro avec une note.
-
----
-
-## Étape 4 — Action items
-
-Depuis les réponses aux 5 questions + la dette identifiée, tu proposes des action items concrets pour la prochaine phase :
-
-Format :
-```
-[ ] [action] — responsable : Medwin — à faire avant : [phase N+1 / dès maintenant]
-```
-
-Tu proposes, tu n'imposes pas. Medwin valide, reformule ou supprime chaque item.
-
-Maximum 5 action items — si plus, prioriser.
-
----
-
-## Étape 5 — Preview de la phase suivante
-
-Tu lis `[projet].Rmap.md` pour identifier la phase suivante.
-
-> "Prochaine phase : [nom]. Features prévues : [liste].
-> Y a-t-il des prérequis à vérifier avant de démarrer ? (artefacts manquants, décisions non prises, dépendances externes)"
-
----
-
-## Étape 6 — Génération du compte-rendu
-
-Tu génères le compte-rendu et tu l'appends dans `[projet]-retrospective.md` (tu ne remplaces pas les retros précédentes).
-
-Format :
+Tu appends dans `[projet]-retrospective.md` :
 
 ```markdown
 ---
 
-## Rétrospective — Phase [N] — [date]
+### Journal — Phase [N] — [date]
+_[nom de la phase]_
 
-### Features de la phase
-| Feature | Statut | Notes |
-|---|---|---|
-| [feature] | done / blocked | [note courte] |
++ [ce qui a bien marché]
+~ [ce qui a bloqué]
+! [surprise]
+⚠ [dette / raccourci]
+```
+
+Quatre lignes maximum. Pas de titres, pas de tableaux — juste les signaux bruts.
+
+---
+
+### L3 — Dette rapide
+
+Si une dette a été mentionnée en Q4 → proposer immédiatement :
+> "Je note cette dette dans `[projet].refacto-dette.md` : [entrée]. Je le fais ?"
+
+---
+
+### L4 — Avancement
+
+Pour les features encore ouvertes → proposer de les passer à `done` :
+> "Ces features sont encore ouvertes : [liste]. Je les passe à done ?"
+
+---
+
+> "Journal Phase [N] écrit ✅. Ces notes alimenteront la rétrospective de l'ensemble de fonctions."
+
+---
+
+## MODE COMPLET — Fin d'ensemble de fonctions
+
+### C0 — Lecture des journaux de phase
+
+Tu lis dans `[projet]-retrospective.md` tous les journaux des phases qui composent cet ensemble de fonctions.
+
+Tu produis une synthèse des signaux récurrents :
+> "Sur les [N] phases de cet ensemble, les signaux récurrents sont :
+> - [signal qui revient plusieurs fois]
+> - [signal qui revient plusieurs fois]
+> On part de là pour la rétrospective."
+
+---
+
+### C1 — 5 questions de rétrospective
+
+Tu poses les questions une par une, en t'appuyant sur les signaux des journaux. Tu attends la réponse avant de passer à la suivante.
+
+**Question 1 — Ce qui a bien marché**
+> "Sur l'ensemble de cet ensemble de fonctions — qu'est-ce qui a systématiquement bien fonctionné ?"
+
+**Question 2 — Ce qui a bloqué**
+> "Qu'est-ce qui a bloqué ou ralenti plusieurs fois ? (bugs récurrents, specs floues, dépendances imprévues)"
+
+**Question 3 — Les surprises**
+> "Y a-t-il eu des surprises majeures — une décision technique à revoir, un module plus complexe que prévu ?"
+
+**Question 4 — La dette accumulée**
+> "En relisant les journaux de phase, quelle dette reste ouverte ? Qu'est-ce qu'on a consciemment reporté ?"
+
+**Question 5 — Pour le prochain ensemble**
+> "Si tu pouvais changer une seule chose pour le prochain ensemble de fonctions, ce serait quoi ?"
+
+---
+
+### C2 — Suivi des action items précédents
+
+Si une rétrospective complète précédente existe :
+> "La dernière rétrospective complète avait ces action items : [liste]. Lesquels ont été appliqués ?"
+
+Pour chaque item → ✅ Fait / ❌ Non fait / 🔄 En cours.
+
+Les items non faits sont reportés avec une note.
+
+---
+
+### C3 — Action items
+
+Depuis les réponses aux 5 questions, tu proposes des action items concrets :
+
+```
+[ ] [action précise] — à faire avant : [prochain ensemble / dès maintenant]
+```
+
+Maximum 5. Tu proposes, Medwin valide, reformule ou supprime.
+
+---
+
+### C4 — Preview du prochain ensemble
+
+Tu lis `[projet].Rmap.md` pour identifier la suite.
+
+> "Prochain ensemble de fonctions : [nom]. Phases prévues : [liste].
+> Prérequis à vérifier avant de démarrer : [artefacts manquants, décisions ouvertes]"
+
+---
+
+### C5 — Génération du compte-rendu complet
+
+Tu appends dans `[projet]-retrospective.md` :
+
+```markdown
+---
+
+## Rétrospective — Ensemble "[nom]" — [date]
+_Phases couvertes : Phase [N] → Phase [M]_
+
+### Signaux des journaux de phase
+- [signal récurrent 1]
+- [signal récurrent 2]
 
 ### Ce qui a bien marché
 - [point]
@@ -128,41 +191,34 @@ Format :
 |---|---|
 | [item] | ✅ / ❌ / 🔄 |
 
-### Action items pour la prochaine phase
-- [ ] [action] — avant [date ou phase]
+### Action items pour le prochain ensemble
+- [ ] [action] — avant [date ou ensemble]
 
-### Preview Phase [N+1]
-- Features : [liste]
-- Points à clarifier avant démarrage : [liste]
+### Preview — Prochain ensemble
+- Nom : [nom]
+- Phases : [liste]
+- Prérequis : [liste]
 ```
 
 ---
 
-## Étape 7 — Dette → fichier de dette
+### C6 — Dette → fichier de dette
 
-Pour chaque élément de dette identifié → proposer de l'ajouter dans `[projet].refacto-dette.md` :
+Pour chaque élément de dette identifié (journaux + Q4) :
 > "Je note cette dette dans `[projet].refacto-dette.md` : [entrée]. Je le fais ?"
 
-Format entrée dette :
 ```markdown
-- [ ] [description courte] — détecté en Phase [N] — module : [module]
+- [ ] [description courte] — détecté sur ensemble "[nom]" — module : [module]
 ```
 
 ---
 
-## Étape 8 — Sprint status
-
-Pour les features encore marquées `in-progress` ou `review` → proposer de les mettre à jour :
-> "Ces features sont encore ouvertes dans le sprint status : [liste]. Je les passe à `done` ?"
-
----
-
-> "Rétrospective Phase [N] terminée ✅
-> [N] action items pour la prochaine phase.
-> Lance `/readyTo-code` avant de démarrer la Phase [N+1]."
+> "Rétrospective ensemble '[nom]' terminée ✅
+> [N] action items.
+> Lance `/readyTo-code` avant de démarrer le prochain ensemble."
 
 ---
 
 ## Ton
 
-Direct et constructif. Pas de complaisance, pas de critique excessive. L'objectif est d'apprendre, pas de juger. Si une phase s'est mal passée → analyser sans dramatiser. Si une phase s'est bien passée → identifier ce qui a marché pour le répliquer.
+Direct et constructif. Les journaux de phase fournissent les faits — la rétrospective complète les analyse. Si un signal revient dans tous les journaux, c'est un problème systémique, pas un accident.

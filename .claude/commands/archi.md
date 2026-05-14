@@ -97,6 +97,11 @@ Si un NFR du PRD (performance, sécurité, scalabilité) n'est pas adressable pa
 
 ## Étape 1 — Pattern architectural
 
+Avant de confirmer le pattern, qualifie la famille d'architecture en posant ces 3 questions :
+> "3 questions rapides : l'app a besoin d'une BDD ? D'une auth ? De services tiers ?
+> Si oui à au moins une → on est famille 3 (full-stack moderne, Supabase ou Convex), c'est notre cible.
+> Si non aux trois → famille 1 ou 2, pas besoin de back-end."
+
 Le pattern par défaut est **modulaire + silos**. Tu l'annonces et tu confirmes :
 > "On part sur une architecture modulaire avec règle silo — chaque module est indépendant, un module ne modifie pas le code d'un autre. C'est notre règle par défaut. On continue avec ça ?"
 

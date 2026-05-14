@@ -31,8 +31,8 @@
 
 | Point | Statut | Où / Pourquoi |
 |---|---|---|
-| 4 familles d'architecture (statique → complexe) | ❌ Non intégré | Notre `architecture.md` classe par distribution (web/PWA/native) et back-end. Deux lectures différentes, pas incompatibles — Tâche 18 |
-| 3 questions pour choisir son archi (BDD ? Auth ? Tiers ?) | ❌ Non intégré | Jamais discuté — Tâche 18 |
+| 4 familles d'architecture (statique → complexe) | ✅ Intégré | `architecture.md` — section "Choisir son architecture" (2026-05-14) |
+| 3 questions pour choisir son archi (BDD ? Auth ? Tiers ?) | ✅ Intégré | `architecture.md` + `/archi` Étape 1 (2026-05-14) |
 | Zones verte / orange / rouge | ✅ Intégré | `architecture.md` — section "Quand faire appel à un pro" |
 
 ---
@@ -108,8 +108,8 @@
 
 ## Comptage final
 
-- ✅ 23 points intégrés ou déjà couverts
+- ✅ 25 points intégrés ou déjà couverts
 - ⚠️ 2 points partiels (Kidlin, Documenter le POURQUOI)
-- ❌ 10 points non intégrés
+- ❌ 8 points non intégrés
 
 _Mis à jour 2026-05-13 — vérification dans les fichiers réels._

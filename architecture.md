@@ -25,6 +25,27 @@ C'est cette combinaison (archi + sécurité + recette) qui différencie la vibe-
 
 ---
 
+## Choisir son architecture — 3 questions + 4 familles
+
+Avant toute décision de stack, 3 questions déterminent la complexité du projet :
+
+1. L'app a-t-elle besoin d'une base de données ?
+2. Les utilisateurs doivent-ils s'authentifier ?
+3. Y a-t-il des services tiers à connecter ? (clés API, paiement, etc.)
+
+Les réponses situent le projet dans l'une des 4 familles :
+
+| Famille | Description | Cas d'usage |
+|---|---|---|
+| 1 — Statique | HTML/CSS servi, pas de calcul ni de données | CV, page de présentation |
+| 2 — Front dynamique | Logique dans le navigateur, pas de persistance | Simulateur, petit jeu |
+| 3 — Full-stack moderne ✅ | Front + back-end no-code (Supabase, Convex) | La majorité des projets vibe-method |
+| 4 — Complexe | API custom + BDD + Auth + logique métier | Réservé aux professionnels |
+
+La vibe-method cible la famille 3. Si un projet relève de la famille 4, faire appel à un pro.
+
+---
+
 ## Concepts actés
 
 ### Architecture modulaire

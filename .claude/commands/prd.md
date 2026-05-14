@@ -144,6 +144,15 @@ Ces réponses sont non négociables dans le PRD — elles contraignent l'archi.
 
 Une fois tous les éléments recueillis et validés, tu génères le PRD complet.
 
+Si le brief est déjà très défini et que Medwin veut aller vite, propose cette alternative avant le dialogue :
+> "Tu peux aussi me donner un brief libre et je génère directement le PRD avec ce prompt :
+> *Tu es un expert en développement applicatif. Rédige un PRD pour le développement d'une application. Ne fais PAS de choix techniques. Cette app sera développée par un agent IA. Liste les tâches groupées en lots pour une approche itérative.*
+> *## Contexte* [qui utilise, quel problème]
+> *## Principe* [ce que ça fait en gros]
+> *## Description* [user flows, fonctionnalités, types d'utilisateurs]
+> *## Remarques* [contraintes, choses à éviter]
+> Le résultat sera moins riche qu'un dialogue complet — à toi de choisir."
+
 ```markdown
 # PRD — [Nom du projet]
 _Version 1 — [date]_
@@ -224,6 +233,15 @@ Avant la cross-pollination, tu vérifies que le PRD est complet et prêt pour `/
 - [ ] Les métriques de succès sont renseignées ou "à définir"
 
 Si une case est vide → tu la traites avant de soumettre à la cross-pollination. Tu ne soumets pas un PRD incomplet.
+
+---
+
+## Étape 5c — Relire et amender
+
+Avant la cross-pollination, tu instruis :
+> "Le PRD est le plan de vol du projet. Si le plan de vol est faux, tout le reste sera faux.
+> Lis-le de bout en bout. Amende-le toi-même dans l'éditeur si quelque chose ne te semble pas juste — formulation floue, feature mal découpée, règle métier manquante.
+> Quand tu es satisfait, dis-le moi et on passe à la cross-pollination."
 
 ---
 

@@ -78,7 +78,7 @@
 ### À faire
 
 - 9 — Test filtrage de dates /todo — tâche de validation : début 2026-05-14, fin 2026-05-14. Vérifier : (1) non affichée le 2026-05-13 car début > aujourd'hui, (2) visible le 2026-05-14, (3) passage en Late si fin dépassée sans clôture. **Test.**
-- 17 — Intégration traité : phase AVANT — 5 points non intégrés : cadre 3 phases AVANT/PENDANT/APRÈS, 3 règles d'état d'esprit (contrôle/concentration/notes), template prompt PRD 4 sections, règle relire le PRD avant de coder, prototype exploratoire jetable (YOLO first). Cibles : `methode.md`, `/prd`, `/prp`. **Priorité moyenne.**
+- ~~17~~
 - ~~18~~
 - 19 — Intégration traité : posture et philosophie — 5 points non intégrés : le généraliste a l'avantage, work slop (livrer du vérifié pas du généré), deskilling (danger de déléguer sans comprendre), vibe = domaine non-expert, FOMO des outils. Cibles : `methode.md` section Posture, `stack.md`. **Priorité moyenne.**
 - 20 — Intégration traité : tests + POURQUOI — 2 points : ouvrir la console navigateur au premier chargement (`tests.md` + `/recette`), étendre la règle "documenter le POURQUOI" au-delà de `/adr` (code, commits, PRD). **Priorité basse.**
@@ -93,6 +93,7 @@
 
 ### Réalisées
 
+- ✅ 17 — Intégration traité : phase AVANT — cadre 3 phases, 3 règles état d'esprit, template PRD, relire PRD, YOLO first. (2026-05-14)
 - ✅ 18 — Intégration traité : architecture — 4 familles + 3 questions dans `architecture.md` + `/archi` Étape 1. (2026-05-14)
 
 - ✅ 7 — Skill `/doc-tech` — Mode A (`[projet].doc-tech.md`) + Mode B (JSDoc/TSDoc). `/doc` restructuré. (2026-05-13)

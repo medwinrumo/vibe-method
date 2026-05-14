@@ -17,6 +17,11 @@ La vibe-method est conçue pour la posture du milieu : des garde-fous à chaque 
 
 **"You don't know what you don't know"** — sans compréhension minimale de ce qu'on construit, impossible de poser les bonnes questions à l'IA. L'IA répond aux questions qu'on lui pose. Si on ne sait pas qu'une question existe, on ne la posera jamais.
 
+**3 règles d'état d'esprit — à garder en tête avant chaque session :**
+1. **Être en contrôle** — savoir où on en est dans le projet à tout moment. Lire le todo, le PRP, la spec de la feature avant d'ouvrir l'outil.
+2. **Travailler concentré** — pendant que l'IA travaille, préparer la prochaine instruction. Chaque distraction coûte du contexte.
+3. **Prendre des notes** — capturer les décisions, ce qui marche, ce qui ne marche pas, les termes découverts. C'est ce qui permet de ne pas repartir de zéro à chaque session.
+
 ---
 
 ## Greenfield ou Brownfield ?
@@ -41,6 +46,11 @@ Exemples : Minou V2 (Firebase → Convex), fork d'une app existante, reprise d'u
 ---
 
 ## Les phases
+
+Les 7 phases se regroupent en 3 temps :
+- **AVANT** (phases 1–4) — préparer : comprendre le projet, définir le produit, l'architecture et la stack
+- **PENDANT** (phases 5–6) — construire : planifier et coder
+- **APRÈS** (phase 7) — valider et livrer : tests, recette, mise en production
 
 ### Phase 1 — Produit
 > Définir ce qu'on construit avant de toucher au code.
@@ -108,6 +118,8 @@ Fichier de référence : `stack.md`
 - Donner le PRD, le design et l'architecture pour générer la roadmap en markdown
 - Découper en features parallélisables
 - Chaque bloc = la plus petite feature possible
+
+**Option — prototype exploratoire jetable (YOLO first) :** sur une feature dont l'architecture est incertaine, construire d'abord un prototype rapide sans tests ni commits — uniquement pour comprendre comment l'IA organise le code. Jeter ensuite, recommencer proprement. Ce n'est pas du temps perdu : c'est de la compréhension gagnée avant de s'engager.
 
 ---
 

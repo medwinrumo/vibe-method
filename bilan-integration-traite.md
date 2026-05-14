@@ -17,13 +17,13 @@
 
 | Point | Statut | Où / Pourquoi |
 |---|---|---|
-| Cadre 3 phases AVANT / PENDANT / APRÈS | ❌ Non intégré | `methode.md` a des phases 1-7 mais pas cette lecture macro — Tâche 17 |
-| 3 règles d'état d'esprit (contrôle, concentration, notes) | ❌ Non intégré | Jamais discuté — Tâche 17 |
+| Cadre 3 phases AVANT / PENDANT / APRÈS | ✅ Intégré | `methode.md` — intro "Les phases" (2026-05-14) |
+| 3 règles d'état d'esprit (contrôle, concentration, notes) | ✅ Intégré | `methode.md` — Posture fondatrice (2026-05-14) |
 | Kidlin — 5 étapes | ⚠️ Partiel | `/prd` — 3 étapes sur 5 intégrées (vague→précis, sous-problèmes, critère de succès). "Solutions possibles" laissée aux features V1/V2 |
 | User flows sur papier avant l'outil | ✅ Déjà existait | `/prd` — Étape 3b User Journeys |
-| Template prompt PRD (4 sections) | ❌ Non intégré | Notre `/prd` est un dialogue, pas un template prompt. Plus avancé sur le fond, mais le template du livre n'a pas été ajouté — Tâche 17 |
-| Règle : relire le PRD intégralement, l'amender soi-même | ❌ Non intégré | Jamais discuté — Tâche 17 |
-| Prototype exploratoire jetable (YOLO first) | ❌ Non intégré | Couvert indirectement par "la mue du serpent" mais pas explicitement — Tâche 17 |
+| Template prompt PRD (4 sections) | ✅ Intégré | `/prd` Étape 5 — alternative rapide (2026-05-14) |
+| Règle : relire le PRD intégralement, l'amender soi-même | ✅ Intégré | `/prd` Étape 5c (2026-05-14) |
+| Prototype exploratoire jetable (YOLO first) | ✅ Intégré | `methode.md` Phase 5 — option YOLO first (2026-05-14) |
 
 ---
 
@@ -108,8 +108,8 @@
 
 ## Comptage final
 
-- ✅ 25 points intégrés ou déjà couverts
+- ✅ 30 points intégrés ou déjà couverts
 - ⚠️ 2 points partiels (Kidlin, Documenter le POURQUOI)
-- ❌ 8 points non intégrés
+- ❌ 6 points non intégrés
 
 _Mis à jour 2026-05-13 — vérification dans les fichiers réels._

@@ -77,7 +77,6 @@
 
 ### À faire
 
-- 9 — Test filtrage de dates /todo — tâche de validation : début 2026-05-14, fin 2026-05-14. Vérifier : (1) non affichée le 2026-05-13 car début > aujourd'hui, (2) visible le 2026-05-14, (3) passage en Late si fin dépassée sans clôture. **Test.**
 - ~~17~~
 - ~~18~~
 - ~~19~~

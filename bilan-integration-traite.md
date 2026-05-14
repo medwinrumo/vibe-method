@@ -9,7 +9,7 @@
 |---|---|---|
 | Culture générale > diplôme + "you don't know what you don't know" | ✅ Intégré | `methode.md` — Posture fondatrice |
 | Chef d'orchestre vs touriste | ✅ Intégré | `methode.md` — Posture fondatrice |
-| Le généraliste a l'avantage à l'ère IA | ❌ Non intégré | On en a parlé, pas écrit — Tâche 19 |
+| Le généraliste a l'avantage à l'ère IA | 🚫 Non intégrer | Contenu non actionnable — déjà couvert par la posture chef d'orchestre |
 
 ---
 
@@ -90,10 +90,10 @@
 
 | Point | Statut | Où / Pourquoi |
 |---|---|---|
-| Work slop (livrer du vérifié, pas du généré) | ❌ Non intégré | Jamais discuté — Tâche 19 |
-| Deskilling (danger de déléguer sans comprendre) | ❌ Non intégré | Jamais discuté — Tâche 19 |
-| Vibe = domaine non-expert, pas standard pro | ❌ Non intégré | Jamais discuté — Tâche 19 |
-| FOMO des outils | ❌ Non intégré | Jamais discuté — Tâche 19 |
+| Work slop (livrer du vérifié, pas du généré) | 🚫 Non intégrer | Couvert par /recette + tests.md — pas d'ajout actionnable |
+| Deskilling (danger de déléguer sans comprendre) | 🚫 Non intégrer | Couvert implicitement par les garde-fous de la méthode |
+| Vibe = domaine non-expert, pas standard pro | 🚫 Non intégrer | Clarification culturelle, pas une règle opérationnelle |
+| FOMO des outils | 🚫 Non intégrer | Stack fixée par défaut — risque non réel dans ce contexte |
 
 ---
 
@@ -110,6 +110,7 @@
 
 - ✅ 30 points intégrés ou déjà couverts
 - ⚠️ 2 points partiels (Kidlin, Documenter le POURQUOI)
-- ❌ 6 points non intégrés
+- 🚫 5 points décidés non intégrables (contenu redondant ou non actionnable)
+- ❌ 1 point non intégré (console navigateur — Tâche 20)
 
 _Mis à jour 2026-05-13 — vérification dans les fichiers réels._

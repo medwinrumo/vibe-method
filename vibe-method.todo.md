@@ -81,7 +81,7 @@
 - ~~17~~
 - ~~18~~
 - ~~19~~
-- 20 — Intégration traité : tests + POURQUOI — 2 points : ouvrir la console navigateur au premier chargement (`tests.md` + `/recette`), étendre la règle "documenter le POURQUOI" au-delà de `/adr` (code, commits, PRD). **Priorité basse.**
+- ~~20~~
 - 3 — Tester Code Design comme outil de génération UI — à évaluer comme alternative/complément à Claude Design. Décision d'intégration dans la stack design après test. **Priorité moyenne.**
 - 4 — Évaluation comparative vibe-method vs BMAD — avec BMAD installé localement dans `~/dev/bmad-method/`, comparer point par point chaque phase et skill de vibe-method contre l'équivalent BMAD. Identifier : (a) ce que BMAD couvre mieux, (b) ce que vibe-method couvre mieux, (c) les lacunes dans vibe-method à combler. Produire un rapport de décision pour chaque point. **Priorité moyenne — après tâche 5.**
 - ~~5~~
@@ -93,6 +93,7 @@
 
 ### Réalisées
 
+- ✅ 20 — Intégration traité : tests + POURQUOI — 2 points décidés non intégrables. (2026-05-14)
 - ✅ 19 — Intégration traité : posture & philosophie — 5 points décidés non intégrables (redondant/non actionnable). (2026-05-14)
 - ✅ 17 — Intégration traité : phase AVANT — cadre 3 phases, 3 règles état d'esprit, template PRD, relire PRD, YOLO first. (2026-05-14)
 - ✅ 18 — Intégration traité : architecture — 4 familles + 3 questions dans `architecture.md` + `/archi` Étape 1. (2026-05-14)

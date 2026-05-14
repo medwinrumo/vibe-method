@@ -58,7 +58,7 @@
 | Point | Statut | Où / Pourquoi |
 |---|---|---|
 | Happy path en premier, puis cas limites | ✅ Intégré | `/recette` — "happy path d'abord, cas limites ensuite" (vérifié 2026-05-13) |
-| Ouvrir la console du navigateur au premier chargement | ❌ Non intégré | Jamais discuté — Tâche 20 |
+| Ouvrir la console du navigateur au premier chargement | 🚫 Non intégrer | Playwright + /recette couvrent déjà les erreurs silencieuses |
 | Gherkin (confirmation) | ✅ Déjà existait | `tests.md` |
 | Prompt pour générer les Gherkin depuis le PRD | ✅ Intégré | `/recette` génère automatiquement les Gherkin depuis les User Stories (vérifié 2026-05-13) |
 | Playwright pour verrouiller ce qui marche | ✅ Déjà existait | `tests.md` |
@@ -102,15 +102,15 @@
 | Point | Statut | Où / Pourquoi |
 |---|---|---|
 | CLAUDE.md = fichier le plus important | ✅ Déjà existait | Dans notre architecture |
-| Documenter le POURQUOI des décisions | ⚠️ Partiel | `/adr` capture le POURQUOI pour les décisions architecturales — pas encore comme règle générale de code |
+| Documenter le POURQUOI des décisions | 🚫 Non intégrer | `/adr` couvre les décisions structurantes. Étendre au code entrerait en conflit avec la règle "pas de commentaires par défaut" |
 
 ---
 
 ## Comptage final
 
 - ✅ 30 points intégrés ou déjà couverts
-- ⚠️ 2 points partiels (Kidlin, Documenter le POURQUOI)
-- 🚫 5 points décidés non intégrables (contenu redondant ou non actionnable)
-- ❌ 1 point non intégré (console navigateur — Tâche 20)
+- ⚠️ 1 point partiel (Kidlin)
+- 🚫 7 points décidés non intégrables (contenu redondant ou non actionnable)
+- ❌ 0 point non intégré — bilan complet
 
 _Mis à jour 2026-05-13 — vérification dans les fichiers réels._

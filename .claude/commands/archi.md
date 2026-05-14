@@ -134,9 +134,16 @@ Deux codebases = deux repos ou un monorepo. À décider selon la taille du proje
 
 **Règle absolue :** l'app native est le plan A. On développe en React Native / Expo d'emblée — pas de détour par la PWA. La PWA n'est un repli que si les stores refusent définitivement l'app après corrections, et uniquement si les fonctionnalités de l'app ne requièrent pas de capacités hardware natives (NFC, Bluetooth, capteurs).
 
+**WebSearch obligatoire — version Expo :** avant de confirmer cette stack, vérifier la version stable courante sur `docs.expo.dev`. L'IA peut référencer une version obsolète.
+
 **Trigger obligatoire pour `/stack` :** si app native → lire et documenter les guidelines Apple App Store et Google Play avant de commencer le code mobile. Ces guidelines sont la source primaire — aucune guideline ne doit être une "surprise" lors de la review.
 
 **Processus de soumission :** le délai de review Apple est de 1 à 7 jours. Google Play est plus rapide (quelques heures à 3 jours). Intégrer ce délai dans la roadmap — ne pas planifier un lancement le jour de la soumission.
+
+**Implications en cascade de ce choix :**
+- → `/stack` devra vérifier les limites, gotchas et versions de la stack mobile (WebSearch obligatoire)
+- → La roadmap devra intégrer les délais de review stores : Apple 1-7j, Google Play quelques heures à 3j
+- → Les règles de sécurité mobile (§2.11 `securite.md`) s'appliquent à toutes les features
 
 ### Cas 3 — PWA
 
@@ -310,6 +317,17 @@ Tu proposes le niveau de criticité :
 
 Par défaut : 30 jours quotidiens / 12 mois mensuels / annuel indéfini.
 Si logique saisonnière → adapter (ex : conserver N saisons complètes).
+
+**WebSearch obligatoire — limites free tier :** avant de confirmer le choix Supabase ou Convex, vérifier les limites actuelles :
+- Supabase free tier → `supabase.com/docs/guides/platform/billing-faq`
+- Convex free tier → `docs.convex.dev/production/state/limits`
+
+Ces chiffres changent — ne pas s'appuyer sur des valeurs dans la doctrine ou dans la mémoire d'entraînement.
+
+**Implications en cascade de ce choix de backend :**
+- → `/stack` devra documenter les limites de connexions simultanées et le comportement à saturation (§2bis.1 `securite.md`)
+- → Si Convex : absence de région EU certifiée — signaler le risque RGPD dans `[projet].archi.md`
+- → Les patterns RLS spécifiques au backend choisi (§2.7 `securite.md`) seront intégrés dans le CLAUDE.md du projet
 
 **Question 3 — RGPD** *(niveaux 2 et 3 uniquement)* :
 

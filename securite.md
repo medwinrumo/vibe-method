@@ -228,6 +228,8 @@ La doctrine complète est dans `rgpd.md` — bases légales, minimisation des do
 - Vérifier ce que le service choisi (Supabase, Firebase, etc.) propose nativement comme backups
 - Tester la restauration — un backup qui n'a jamais été testé ne vaut rien
 
+La doctrine complète (niveaux de criticité, outils, fréquences, politique de rétention, test de restauration) est dans `architecture.md` section "Backup & conformité RGPD". `/archi` Étape 4c documente les décisions backup du projet.
+
 ### 1.9 Politique de mots de passe
 
 - Déléguer au maximum au service d'authentification choisi (cf. 1.4)

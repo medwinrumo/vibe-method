@@ -26,7 +26,7 @@ vibe-method/
 ## Chaîne de skills — workflow complet
 
 ```
-/context → /brief → /charte → /prd → /prd-update → [/design Mode A ↔ /archi itératif] → /stack → [/design Mode B] → /roadmap → /specs → /setup → /prp → /sprint-status (init) → /sessionCode → [code] → /code-review → /code-review-edge-cases → /tests → /doc-tech (Mode B) → /recette ↔ /debug → [fin de phase] /doc-tech (Mode A)
+/context → /brief → /charte → /prd → /prd-update → /prd-validate → [/design Mode A ↔ /archi itératif] → /project-context → /stack → [/design Mode B] → /roadmap → /specs → /readiness-check → /setup → /prp → /sprint-status (init) → /sessionCode → [code] → /code-review → /code-review-edge-cases → /code-review-adversarial → /tests → /doc-tech (Mode B) → /recette ↔ /debug → [fin de phase] /phase-retrospective → /doc-tech (Mode A)
 ```
 
 Skills transversaux (invocables à tout moment) : `/party`, `/securite`, `/change-request`, `/sprint-status`
@@ -41,22 +41,27 @@ Mode A de /design et /archi se construisent en aller-retour. Les écrans révèl
 | `/charte` | Charte graphique — couleurs, typo, logo, ambiance | `[projet].charte.md` |
 | `/prd` | Du brief au PRD V1 (dialogue) | `[projet].prd.md` |
 | `/prd-update` | Intégration retours cross-pollination → PRD V2 | `[projet].prd.md` |
+| `/prd-validate` | Gate de validation PRD — complétude, traçabilité, cohérence avant `/archi` | — |
 | `/design` | Mode A : design system complet (input Claude Design). Mode B : intégration code Claude Design → Tailwind ou NativeWind | `[projet].design.md` |
 | `/archi` | Architecture modulaire + silos + garde-fous | `[projet].archi.md` + `CLAUDE.md` projet |
+| `/project-context` | Règles non-évidentes du projet optimisées pour LLM — pièges, patterns obligatoires/interdits | `[projet].project-context.md` |
 | `/stack` | Spike technique — investigation stack, free tier, gotchas | `[projet].stack.md` |
 | `/roadmap` | Roadmap + planning global | `[projet].Rmap.md` |
 | `/specs` | User story auto-contenue — un fichier par feature | `[projet].spec.[feature].md` |
+| `/readiness-check` | Gate avant dev — vérifie que PRD, archi, specs, PRP, sprint-status sont tous présents et cohérents | — |
 | `/setup` | Bootstrap technique — prérequis, dépendances, tooling, structure de dossiers, .env, premier lancement | — |
 | `/prp` | Agrège tous les outputs en un document condensé optimisé pour le LLM — contexte de démarrage de session de code | `[projet].prp.md` |
 | `/sessionCode` | Sas d'entrée obligatoire avant de coder : charge le PRP, confirme la feature, rappelle les règles critiques | — |
 | `/code-review` | Revue structurelle + sécurité avant merge | — |
 | `/code-review-edge-cases` | Chasse aux cas non gérés — énumération mécanique de tous les chemins | — |
+| `/code-review-adversarial` | Revue cynique — 10 angles systématiques, minimum 10 problèmes, assume le code cassé | — |
 | `/sprint-status` | Suivi de l'état des fonctions du projet (YAML centralisé) | `[projet].sprint-status.yaml` |
 | `/change-request` | Analyse d'impact d'un changement sur tous les artefacts | — |
 | `/tests` | Tests unitaires + intégration + Playwright | `[projet].tests.md` |
 | `/doc-tech` | Mode A : `[projet].doc-tech.md` (vue d'ensemble développeur — fin de phase). Mode B : annotations JSDoc/TSDoc dans le code (après `/tests`, avant `/recette`) | `[projet].doc-tech.md` |
 | `/recette` | Génère Gherkin depuis User Stories + validation manuelle | `[projet].recette.md` |
 | `/debug` | Diagnostic et résolution de bug (déclenché par `/recette`) | — |
+| `/phase-retrospective` | Rétrospective de fin de phase — analyse, dette, action items, preview phase suivante | `[projet]-retrospective.md` |
 | `/refacto` | Refactoring guidé — diagnostic + exécution étape par étape. Déclenché avant une feature sur module dégradé, fin de phase, ou on-demand. Exige une session dédiée. | — |
 | `/party` | Multi-perspectives sur une décision (sous-agents parallèles) | — |
 | `/adr` | Capture d'une décision architecturale (4 questions → append dans `[projet].adr.md`) | `[projet].adr.md` |

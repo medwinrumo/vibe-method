@@ -4,7 +4,22 @@
 
 ---
 
-## Dernière session — 2026-05-14 (session 2)
+## Dernière session — 2026-05-14 (session 3)
+
+### Ce qui a été fait
+
+- Tâches 21-25 — 5 skills BMAD manquants (suite de la tâche 4) :
+  - `/prd-validate` : gate de validation PRD avant `/archi` — complétude 8 zones, traçabilité, cohérence, rapport GO/BLOCKERS
+  - `/readiness-check` : gate avant premier `/sessionCode` — vérifie PRD, archi, specs, project-context, PRP, sprint-status
+  - `/project-context` : dialogue d'élicitation des règles non-évidentes → `[projet].project-context.md` (7 questions)
+  - `/phase-retrospective` : rétrospective de fin de phase — analyse features, 5 questions retro, suivi retro précédente, action items, preview phase suivante, gestion dette
+  - `/code-review-adversarial` : revue cynique 10 angles systématiques, minimum 10 problèmes, BLOQUANT/IMPORTANT/À SURVEILLER
+  - Symlinks créés pour les 5 skills
+  - CLAUDE.md : chaîne mise à jour (prd-validate, project-context, readiness-check, code-review-adversarial, phase-retrospective) + table mise à jour
+
+---
+
+## Session précédente — 2026-05-14 (session 2)
 
 ### Ce qui a été fait
 
@@ -113,11 +128,11 @@
 - ~~4~~
 - ~~5~~
 - ~~6~~
-- 21 — Gate de readiness avant dev — créer `/readiness-check` : vérifier que PRD, archi, specs et sprint-status sont complets avant de coder la première ligne. Output : rapport GO / BLOCKERS / WARNINGS. **Priorité haute.**
-- 22 — Validation PRD avant archi — créer `/prd-validate` : skill standalone qui relit un PRD et valide cohérence interne, traçabilité (feature → critère de succès) et complétude. Déclenché automatiquement après `/prd`. **Priorité haute.**
-- 23 — Retrospective post-phase — créer `/phase-retrospective` : analyse après completion d'un ensemble de fonctions (lessons learned, dette, prep phase suivante, action items). **Priorité haute.**
-- 24 — Project context dédié LLM — créer `/project-context` : dialogue pour documenter les règles unobvious spécifiques au projet. Output : `[projet].project-context.md`. Déclenché après `/archi`. **Priorité haute.**
-- 25 — Adversarial review — créer `/code-review-adversarial` : revue cynique qui assume que le code est mauvais et trouve au minimum 10 problèmes. Complémentaire à `/code-review-edge-cases`. **Priorité moyenne.**
+- ~~21~~
+- ~~22~~
+- ~~23~~
+- ~~24~~
+- ~~25~~
 - ~~7~~
 - ~~8~~
 - ~~10~~
@@ -125,6 +140,7 @@
 
 ### Réalisées
 
+- ✅ 21-25 — 5 skills BMAD manquants : `/prd-validate`, `/readiness-check`, `/project-context`, `/phase-retrospective`, `/code-review-adversarial`. Symlinks créés. CLAUDE.md chaîne + table mises à jour. (2026-05-14)
 - ✅ 4 — Comparaison BMAD vs vibe-method : rapport `bmad-comparaison.md` + 3 skills créés (`/sprint-status`, `/code-review-edge-cases`, `/change-request`) + 5 rappels (tâches 21-25). (2026-05-14)
 - ✅ 6 — `/archi` : WebSearch versions (Expo, free tier) + implications en cascade. `securite.md` §1.8 renvoi. `/prp` confrontation : gaps résolus. (2026-05-14)
 

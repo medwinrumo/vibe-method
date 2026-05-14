@@ -1,4 +1,4 @@
-# /project-context — Contexte projet optimisé pour LLM
+# /regles — Contexte projet optimisé pour LLM
 
 Tu construis par dialogue le fichier de règles non-évidentes spécifiques au projet. Ce fichier guide tous les LLMs qui travaillent sur ce projet — il documente ce qu'on ne peut pas déduire du code.
 
@@ -6,7 +6,7 @@ Ce n'est pas un résumé de l'archi. C'est la liste des pièges, des conventions
 
 ---
 
-## Quand lancer /project-context
+## Quand lancer /regles
 
 Après `/archi` et avant le premier `/sessionCode`. Peut être enrichi à n'importe quel moment quand une règle non-évidente émerge.
 
@@ -16,7 +16,7 @@ Après `/archi` et avant le premier `/sessionCode`. Peut être enrichi à n'impo
 
 Détermine le nom du projet depuis le répertoire courant.
 
-Si `[projet].project-context.md` existe déjà → tu le lis et tu proposes de l'enrichir :
+Si `[projet].regles.md` existe déjà → tu le lis et tu proposes de l'enrichir :
 > "Un project-context existe déjà pour [projet]. Veux-tu l'enrichir ou le reprendre de zéro ?"
 
 ---
@@ -63,13 +63,13 @@ Tu poses les questions une par une. Tu attends la réponse avant la suivante. Si
 
 ## Étape 3 — Génération du fichier
 
-Tu génères `[projet].project-context.md` depuis les réponses.
+Tu génères `[projet].regles.md` depuis les réponses.
 
 Format :
 
 ```markdown
 # Project Context — [Nom du projet]
-_Généré le [date] via /project-context_
+_Généré le [date] via /regles_
 
 > Ce fichier documente les règles non-évidentes du projet. Il complète le PRD et l'archi.
 > À lire avant de coder sur [projet].
@@ -101,13 +101,13 @@ _Généré le [date] via /project-context_
 Chaque entrée est une ligne courte. Pas de paragraphes. Le fichier doit être lisible en 2 minutes.
 
 Tu présentes le fichier avant de le sauvegarder :
-> "Voilà le project-context pour [projet]. [N] règles documentées. Je le sauvegarde dans `[projet].project-context.md` ?"
+> "Voilà le project-context pour [projet]. [N] règles documentées. Je le sauvegarde dans `[projet].regles.md` ?"
 
 ---
 
 ## Étape 4 — Sauvegarde
 
-Si Medwin valide → tu sauvegardes `[projet].project-context.md` dans le repo projet.
+Si Medwin valide → tu sauvegardes `[projet].regles.md` dans le repo projet.
 
 Puis :
 > "Project context sauvegardé. À inclure dans ton CLAUDE.md de projet si tu veux qu'il soit chargé automatiquement en début de session."

@@ -121,12 +121,12 @@ _Produit le 2026-05-14 — base : fichiers réels `~/dev/bmad-method/src/` vs `~
 **Déclencheur** : automatique après `/prd` (première version) ou on-demand après itérations.
 
 ### 2. Gate de readiness avant dev — **Haute priorité**
-**Recommandation** : Créer `/readiness-check` — scanne : PRD validé, archi couvre toutes les features, specs existent pour V1, project context existe.
+**Recommandation** : Créer `/readyTo-code` — scanne : PRD validé, archi couvre toutes les features, specs existent pour V1, project context existe.
 **Output** : rapport readiness (GO / BLOCKERS / WARNINGS).
 **Déclencheur** : avant `/setup` ou premier `/sessionCode`.
 
 ### 3. Sprint tracking centralisé — **Haute priorité**
-**Recommandation** : Créer `/sprint-status` — lit un `sprint-status.yaml` (ou équivalent) et résume : % complété, risques, prochaine story.
+**Recommandation** : Créer `/avancement` — lit un `avancement.yaml` (ou équivalent) et résume : % complété, risques, prochaine story.
 **Déclencheur** : en début de session de code (via `/sessionCode`).
 
 ### 4. Retrospective post-ensemble de fonctions — **Haute priorité**
@@ -134,11 +134,11 @@ _Produit le 2026-05-14 — base : fichiers réels `~/dev/bmad-method/src/` vs `~
 **Déclencheur** : quand toutes les stories d'une ensemble de fonctions sont "done".
 
 ### 5. Project context dédié LLM — **Haute priorité**
-**Recommandation** : Créer `/project-context` — dialogue itératif pour documenter les règles unobvious spécifiques au projet. Output : `[projet].project-context.md` compact.
+**Recommandation** : Créer `/regles` — dialogue itératif pour documenter les règles unobvious spécifiques au projet. Output : `[projet].regles.md` compact.
 **Déclencheur** : après `/archi` et avant premier `/sessionCode`.
 
 ### 6. Change request avec impact analysis — **Moyenne priorité**
-**Recommandation** : Créer `/change-request` — prend un changement proposé, analyse l'impact sur tous les artefacts (PRD, archi, specs), trie par scope (Minor / Moderate / Major), propose before/after.
+**Recommandation** : Créer `/impact` — prend un changement proposé, analyse l'impact sur tous les artefacts (PRD, archi, specs), trie par scope (Minor / Moderate / Major), propose before/after.
 
 ### 7. Revue de code edge-case hunting — **Moyenne priorité**
 **Recommandation** : Créer `/code-review-edge-cases` — skill orthogonal qui énumère tous les branching paths et retourne les unhandled edges.
@@ -163,11 +163,11 @@ _Produit le 2026-05-14 — base : fichiers réels `~/dev/bmad-method/src/` vs `~
 | Priorité | Action | Skill à créer / enrichir |
 |---|---|---|
 | Haute | Gate validation PRD | `/prd-validate` (nouveau) |
-| Haute | Gate readiness avant dev | `/readiness-check` (nouveau) |
-| Haute | Sprint tracking | `/sprint-status` (nouveau) ou enrichir `/todo` |
-| Haute | Retrospective post-ensemble de fonctions | `/epic-retrospective` (nouveau) |
-| Haute | Project context LLM-optimized | `/project-context` (nouveau) |
-| Moyenne | Change management | `/change-request` (nouveau) |
+| Haute | Gate readiness avant dev | `/readyTo-code` (créé) |
+| Haute | Sprint tracking | `/avancement` (créé) |
+| Haute | Retrospective post-ensemble de fonctions | `/phase-retrospective` (créé) |
+| Haute | Project context LLM-optimized | `/regles` (créé) |
+| Moyenne | Change management | `/impact` (créé) |
 | Moyenne | Edge case hunting | `/code-review-edge-cases` (nouveau) ou enrichir `/code-review` |
 | Moyenne | Story workflow complet | Enrichir `/sessionCode` |
 | Basse | Dependency traceability | `/dependency-map` (nouveau) |

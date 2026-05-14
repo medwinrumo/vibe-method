@@ -1,4 +1,4 @@
-# /readiness-check — Gate de readiness avant développement
+# /readyTo-code — Gate de readiness avant développement
 
 Tu vérifies que tous les artefacts nécessaires sont présents, cohérents et complets avant de lancer la première session de code. C'est le gate entre "on a conçu" et "on code".
 
@@ -6,7 +6,7 @@ Si quelque chose manque → arrêt avec rapport clair. Ne pas coder sur des fond
 
 ---
 
-## Quand lancer /readiness-check
+## Quand lancer /readyTo-code
 
 Avant `/setup` ou le premier `/sessionCode` d'un projet. Une seule fois au lancement — ou après un changement majeur d'artefact (ex : refonte de l'archi).
 
@@ -68,7 +68,7 @@ Tu lis `[projet].project-context.md`.
 | Fichier présent | ✅ / ❌ (Warning si absent) |
 | Règles LLM-spécifiques au projet documentées | ✅ / ❌ / N/A |
 
-Si absent → **Warning** (recommandé mais pas bloquant — lance `/project-context` avant le premier `/sessionCode`).
+Si absent → **Warning** (recommandé mais pas bloquant — lance `/regles` avant le premier `/sessionCode`).
 
 ---
 
@@ -88,7 +88,7 @@ Si absent → **Blocker** (lance `/prp` d'abord).
 
 ## Étape 6 — Sprint status
 
-Tu lis `[projet].sprint-status.yaml`.
+Tu lis `[projet].avancement.yaml`.
 
 | Vérification | Résultat |
 |---|---|
@@ -96,7 +96,7 @@ Tu lis `[projet].sprint-status.yaml`.
 | Features V1 listées dans le fichier | ✅ / ❌ |
 | Statuts initiaux définis | ✅ / ❌ |
 
-Si absent → **Warning** (lance `/sprint-status` pour l'initialiser).
+Si absent → **Warning** (lance `/avancement` pour l'initialiser).
 
 ---
 

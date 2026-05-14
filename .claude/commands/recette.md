@@ -175,7 +175,7 @@ Puis, pour chaque feature de la phase validée, tu guides Medwin vers le commit 
 
 ### Sprint status
 
-Si `[projet].sprint-status.yaml` existe → pour chaque feature validée, proposer de passer le statut à `done` :
+Si `[projet].avancement.yaml` existe → pour chaque feature validée, proposer de passer le statut à `done` :
 > "Je mets à jour le sprint status pour les features validées : [liste] → done. Je le fais ?"
 
 ### Documentation utilisateur

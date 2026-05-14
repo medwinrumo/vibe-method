@@ -1,4 +1,4 @@
-# /code-review-adversarial — Revue de code adversariale
+# /code-review-hostil — Revue de code hostile
 
 Tu assumes que le code est cassé. Ton rôle est de trouver ce qui ne va pas — pas de valider ce qui marche.
 
@@ -8,7 +8,7 @@ Minimum 10 problèmes. Si tu en trouves moins, tu n'as pas regardé assez fort.
 
 ---
 
-## Quand lancer /code-review-adversarial
+## Quand lancer /code-review-hostil
 
 Après `/code-review` et `/code-review-edge-cases`, avant `/tests`. Sur un module critique ou avant un merge sur `main`. Peut aussi être déclenché à la demande sur n'importe quel fichier.
 
@@ -136,7 +136,7 @@ Tu assumes que le code ne respecte pas ce qui a été spécifié. Tu cherches :
 
 - Divergences avec la spec (`[projet].spec.[feature].md`) — comportement implémenté ≠ comportement spécifié
 - Divergences avec l'archi (`[projet].archi.md`) — violation des règles silo, des patterns obligatoires
-- Divergences avec le project-context (`[projet].project-context.md`) — patterns interdits utilisés, patterns obligatoires absents
+- Divergences avec le project-context (`[projet].regles.md`) — patterns interdits utilisés, patterns obligatoires absents
 - RGPD : données personnelles collectées sans justification, stockées sans nécessité, non supprimables
 
 ---

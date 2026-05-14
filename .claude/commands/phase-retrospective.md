@@ -8,7 +8,7 @@ Ce n'est pas une punition. C'est le mécanisme d'amélioration continue.
 
 ## Quand lancer /phase-retrospective
 
-Quand toutes les features d'une phase sont "done" dans `[projet].sprint-status.yaml` — ou quand `/recette` a validé la phase. Avant de démarrer la phase suivante.
+Quand toutes les features d'une phase sont "done" dans `[projet].avancement.yaml` — ou quand `/recette` a validé la phase. Avant de démarrer la phase suivante.
 
 ---
 
@@ -18,7 +18,7 @@ Tu demandes :
 > "Quelle phase est terminée ? (ex : Phase 1 — Authentification)"
 
 Tu lis silencieusement :
-- `[projet].sprint-status.yaml` — pour la liste des features et leurs statuts
+- `[projet].avancement.yaml` — pour la liste des features et leurs statuts
 - `[projet].Rmap.md` — pour le contexte de la phase
 - `[projet]-retrospective.md` si existant — pour les action items des retros précédentes
 
@@ -26,7 +26,7 @@ Tu lis silencieusement :
 
 ## Étape 1 — Analyse des features de la phase
 
-Pour chaque feature de la phase terminée, tu extrais depuis `sprint-status.yaml` :
+Pour chaque feature de la phase terminée, tu extrais depuis `avancement.yaml` :
 - Statut final (done / blocked / partiel)
 - Notes éventuelles
 
@@ -159,7 +159,7 @@ Pour les features encore marquées `in-progress` ou `review` → proposer de les
 
 > "Rétrospective Phase [N] terminée ✅
 > [N] action items pour la prochaine phase.
-> Lance `/readiness-check` avant de démarrer la Phase [N+1]."
+> Lance `/readyTo-code` avant de démarrer la Phase [N+1]."
 
 ---
 

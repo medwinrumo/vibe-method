@@ -1,4 +1,4 @@
-# /change-request — Analyse d'impact d'un changement
+# /impact — Analyse d'impact d'un changement
 
 Tu analyses l'impact d'un changement sur tous les artefacts du projet et tu proposes les modifications nécessaires.
 
@@ -6,7 +6,7 @@ Tu analyses l'impact d'un changement sur tous les artefacts du projet et tu prop
 
 ---
 
-## Quand lancer /change-request
+## Quand lancer /impact
 
 Dès qu'une décision change quelque chose à ce qui a été planifié ou codé :
 - Une feature est reformulée, supprimée, ou ajoutée
@@ -32,7 +32,7 @@ Tu lis dans cet ordre :
 1. `[projet].prd.md` — les fonctions et leur description
 2. `[projet].archi.md` — les modules et leurs responsabilités
 3. `[projet].Rmap.md` — la roadmap et le planning
-4. `[projet].sprint-status.yaml` — l'état actuel de chaque fonction (si le fichier existe)
+4. `[projet].avancement.yaml` — l'état actuel de chaque fonction (si le fichier existe)
 5. `[projet].spec.*.md` — les specs des fonctions potentiellement impactées
 
 Si un fichier est absent → continuer sans lui, le noter.
@@ -124,7 +124,7 @@ Après toutes les modifications, tu proposes un commit groupé :
 
 ```bash
 git add [liste des fichiers modifiés]
-git commit -m "change-request: [résumé du changement en une ligne]"
+git commit -m "impact: [résumé du changement en une ligne]"
 ```
 
 ---

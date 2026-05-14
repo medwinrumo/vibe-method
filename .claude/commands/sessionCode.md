@@ -45,7 +45,7 @@ Si absent → arrêt :
 > "La spec de cette feature est introuvable (`[projet].spec.[feature].md`). Lance `/specs` d'abord."
 
 **Vérification 4 — Sprint status**
-Si `[projet].sprint-status.yaml` existe → tu lis le statut actuel de cette feature et tu l'affiches :
+Si `[projet].avancement.yaml` existe → tu lis le statut actuel de cette feature et tu l'affiches :
 > "Sprint status : [nom feature] → [statut actuel]"
 
 Si le statut est `done` → signaler :

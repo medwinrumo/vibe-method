@@ -10,12 +10,12 @@
 
 - Tâches 21-25 — 5 skills BMAD manquants (suite de la tâche 4) :
   - `/prd-validate` : gate de validation PRD avant `/archi` — complétude 8 zones, traçabilité, cohérence, rapport GO/BLOCKERS
-  - `/readiness-check` : gate avant premier `/sessionCode` — vérifie PRD, archi, specs, project-context, PRP, sprint-status
-  - `/project-context` : dialogue d'élicitation des règles non-évidentes → `[projet].project-context.md` (7 questions)
+  - `/readyTo-code` : gate avant premier `/sessionCode` — vérifie PRD, archi, specs, project-context, PRP, sprint-status
+  - `/regles` : dialogue d'élicitation des règles non-évidentes → `[projet].project-context.md` (7 questions)
   - `/phase-retrospective` : rétrospective de fin de phase — analyse features, 5 questions retro, suivi retro précédente, action items, preview phase suivante, gestion dette
-  - `/code-review-adversarial` : revue cynique 10 angles systématiques, minimum 10 problèmes, BLOQUANT/IMPORTANT/À SURVEILLER
+  - `/code-review-hostil` : revue cynique 10 angles systématiques, minimum 10 problèmes, BLOQUANT/IMPORTANT/À SURVEILLER
   - Symlinks créés pour les 5 skills
-  - CLAUDE.md : chaîne mise à jour (prd-validate, project-context, readiness-check, code-review-adversarial, phase-retrospective) + table mise à jour
+  - CLAUDE.md : chaîne mise à jour (prd-validate, regles, readyTo-code, code-review-hostil, phase-retrospective) + table mise à jour
 
 ---
 
@@ -25,7 +25,7 @@
 
 - Tâche 4 — Comparaison BMAD vs vibe-method :
   - Rapport `bmad-comparaison.md` produit (11 points BMAD mieux, 14 vibe-method mieux, 11 lacunes identifiées)
-  - 3 skills créés : `/sprint-status` (YAML tracking), `/code-review-edge-cases` (chasse cas non gérés), `/change-request` (impact analysis)
+  - 3 skills créés : `/avancement` (YAML tracking), `/code-review-edge-cases` (chasse cas non gérés), `/impact` (impact analysis)
   - Intégrations : `/sessionCode` (sprint status + chaîne), `/recette` (sprint done), CLAUDE.md (chaîne + table)
   - 5 rappels créés pour les points restants (tâches 21-25)
 
@@ -140,8 +140,8 @@
 
 ### Réalisées
 
-- ✅ 21-25 — 5 skills BMAD manquants : `/prd-validate`, `/readiness-check`, `/project-context`, `/phase-retrospective`, `/code-review-adversarial`. Symlinks créés. CLAUDE.md chaîne + table mises à jour. (2026-05-14)
-- ✅ 4 — Comparaison BMAD vs vibe-method : rapport `bmad-comparaison.md` + 3 skills créés (`/sprint-status`, `/code-review-edge-cases`, `/change-request`) + 5 rappels (tâches 21-25). (2026-05-14)
+- ✅ 21-25 — 5 skills BMAD manquants : `/prd-validate`, `/readyTo-code`, `/regles`, `/phase-retrospective`, `/code-review-hostil`. Symlinks créés. CLAUDE.md chaîne + table mises à jour. (2026-05-14)
+- ✅ 4 — Comparaison BMAD vs vibe-method : rapport `bmad-comparaison.md` + 3 skills créés (`/avancement`, `/code-review-edge-cases`, `/impact`) + 5 rappels (tâches 21-25). (2026-05-14)
 - ✅ 6 — `/archi` : WebSearch versions (Expo, free tier) + implications en cascade. `securite.md` §1.8 renvoi. `/prp` confrontation : gaps résolus. (2026-05-14)
 
 - ✅ 20 — Intégration traité : tests + POURQUOI — 2 points décidés non intégrables. (2026-05-14)

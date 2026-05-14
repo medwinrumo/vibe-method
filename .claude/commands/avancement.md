@@ -1,10 +1,10 @@
-# /sprint-status — Suivi de l'état des fonctions du projet
+# /avancement — Suivi de l'état des fonctions du projet
 
-Tu lis et mets à jour `[projet].sprint-status.yaml` — le fichier de suivi centralisé des fonctions du projet.
+Tu lis et mets à jour `[projet].avancement.yaml` — le fichier de suivi centralisé des fonctions du projet.
 
 ---
 
-## Quand lancer /sprint-status
+## Quand lancer /avancement
 
 - En début de session de code : voir où en est chaque fonction
 - Après avoir terminé une fonction : mettre à jour le statut
@@ -39,7 +39,7 @@ Détermine le nom du projet depuis le répertoire courant.
 
 ## Étape 1 — Vérification du fichier
 
-Tu cherches `[projet].sprint-status.yaml` dans le répertoire du projet.
+Tu cherches `[projet].avancement.yaml` dans le répertoire du projet.
 
 **Si le fichier existe :** tu le lis et tu passes à l'Étape 2.
 
@@ -55,12 +55,12 @@ Si non → arrêt.
 
 Tu lis `[projet].Rmap.md` et `[projet].prd.md`. Tu extrais chaque fonction/feature de V1.
 
-Tu génères `[projet].sprint-status.yaml` :
+Tu génères `[projet].avancement.yaml` :
 
 ```yaml
-# [projet].sprint-status.yaml
+# [projet].avancement.yaml
 # Source de vérité pour l'état des fonctions en développement.
-# Mis à jour via /sprint-status à chaque changement d'état.
+# Mis à jour via /avancement à chaque changement d'état.
 
 projet: "[nom du projet]"
 dernière-mise-à-jour: "[date]"
@@ -147,5 +147,5 @@ Il est appelé automatiquement par `/recette` à la fin :
 ## Règles
 
 - Le fichier YAML est la source de vérité — pas Notion, pas le `.todo.md`
-- Toute mise à jour → `git add [projet].sprint-status.yaml && git commit -m "chore: update sprint status"`
+- Toute mise à jour → `git add [projet].avancement.yaml && git commit -m "chore: update sprint status"`
 - Un statut ne régresse jamais sans confirmation explicite

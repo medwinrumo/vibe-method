@@ -11,10 +11,9 @@ Détermine le nom du projet à partir du répertoire de travail courant (ex : `m
 
 ## Étape 2 — GitHub
 
-1. Se mettre à jour depuis le dépôt distant (`git pull`)
-2. Vérifier que tout est commité (`git status`)
-3. Si des modifications non commitées existent, demander confirmation avant de commiter
-4. Pousser la branche courante (`git push`)
+1. Vérifier que tout est commité (`git status`)
+2. Si des modifications non commitées existent, demander confirmation avant de commiter
+3. Pousser la branche courante (`git push`)
 
 ### Fichier `CLAUDE.md`
 

@@ -9,14 +9,6 @@ Ouvre la session de travail : sync depuis GitHub Projects puis affiche l'état d
 
 Détermine le nom du projet à partir du répertoire de travail courant.
 
-## Étape 0bis — Mise à jour locale
-
-    git pull
-
-Récupère les commits pushés depuis la dernière session (autre machine, modifications manuelles, etc.) avant toute lecture de fichier local.
-
----
-
 ## Étape 1 — Sync GitHub Projects
 
 **GitHub Projects = source de vérité.** Les changements faits dans le kanban entre les sessions ont priorité sur le fichier local.

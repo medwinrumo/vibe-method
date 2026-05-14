@@ -26,7 +26,7 @@ vibe-method/
 ## Chaîne de skills — workflow complet
 
 ```
-/context → /brief → /charte → /prd → /prd-update → /prd-validate → [/design Mode A ↔ /archi itératif] → /regles → /stack → [/design Mode B] → /roadmap → /specs → /readyTo-code → /setup → /prp → /avancement (init) → /sessionCode → [code] → /code-review → /code-review-edge-cases → /code-review-hostil → /tests → /doc-tech (Mode B) → /recette ↔ /debug → [fin de phase] /phase-retrospective → /doc-tech (Mode A)
+/context → /brief → /charte → /prd → /prd-update → /prd-validate → [/design Mode A ↔ /archi itératif] → /regles → /stack → [/design Mode B] → /roadmap → /specs → /readyTo-code → /setup → /prp → /avancement (init) → /sessionCode → [code] → /code-review → /code-review-edge-cases → /repair-edge-cases → /code-review-hostil → /tests → /doc-tech (Mode B) → /recette ↔ /debug → [fin de phase] /phase-retrospective → /doc-tech (Mode A)
 ```
 
 Skills transversaux (invocables à tout moment) : `/party`, `/securite`, `/impact`, `/avancement`
@@ -54,6 +54,7 @@ Mode A de /design et /archi se construisent en aller-retour. Les écrans révèl
 | `/sessionCode` | Sas d'entrée obligatoire avant de coder : charge le PRP, confirme la feature, rappelle les règles critiques | — |
 | `/code-review` | Revue structurelle + sécurité avant merge | — |
 | `/code-review-edge-cases` | Chasse aux cas non gérés — énumération mécanique de tous les chemins | — |
+| `/repair-edge-cases` | Correction des cas non gérés — traitement un par un dans l'ordre de priorité | — |
 | `/code-review-hostil` | Revue cynique — 10 angles systématiques, minimum 10 problèmes, assume le code cassé | — |
 | `/avancement` | Suivi de l'état des fonctions du projet (YAML centralisé) | `[projet].avancement.yaml` |
 | `/impact` | Analyse d'impact d'un changement sur tous les artefacts | — |

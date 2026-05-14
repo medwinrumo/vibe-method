@@ -104,8 +104,20 @@ Si non → tu listes les cas dans un commentaire `// TODO: edge case` dans le co
 
 ---
 
+## Étape 6 — Handoff vers la correction
+
+Une fois le rapport présenté :
+
+> "Détection terminée. Ce skill s'arrête ici.
+> Pour corriger ces cas, lance `/repair-edge-cases` avec cette liste."
+
+Tu ne corriges rien dans ce skill. La détection et la réparation sont deux étapes séparées.
+
+---
+
 ## Règles
 
 - Reporter UN cas par ligne — pas de regroupement qui cache des problèmes
 - Ne jamais corriger un cas sans expliquer le comportement attendu
 - Un cas "non géré" n'est pas forcément un bug — parfois c'est un choix assumé. Demander si c'est le cas avant de forcer une correction.
+- Ce skill détecte uniquement. `/repair-edge-cases` répare.

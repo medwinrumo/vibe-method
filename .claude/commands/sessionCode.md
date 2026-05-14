@@ -133,5 +133,5 @@ Ne recopie pas tout le PRP — seulement ce qui est pertinent pour cette feature
 
 > "Contexte chargé pour [feature].
 > Module : [module]. Mode : [TDD / Standard].
-> Chaîne après cette session : `/code-review` → `/code-review-edge-cases` → `/tests` → `/doc-tech` (Mode B) → `/recette`.
+> Chaîne après cette session : `/code-review` → `/code-review-edge-cases` → `/repair-edge-cases` → `/tests` → `/doc-tech` (Mode B) → `/recette`.
 > Tu peux commencer."

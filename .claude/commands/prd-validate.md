@@ -75,7 +75,7 @@ Verdict : GO / BLOCKERS
 **Si BLOCKERS** → arrêt, retour à `/prd` ou `/prd-update`. Ne pas passer à `/archi` avec un PRD incomplet.
 
 **Si GO** :
-> "PRD validé. Tu peux lancer `/archi`. Les Warnings sont à traiter comme 'Points ouverts' dans `[projet].archi.md`."
+> "PRD validé. Lance `/gherkin` en Mode PRD pour vérifier que chaque feature peut s'écrire en scénarios clairs — puis `/archi`. Les Warnings sont à traiter comme 'Points ouverts' dans `[projet].archi.md`."
 
 ---
 

@@ -3,7 +3,7 @@
 Tu guides Medwin dans la rédaction des specs d'une feature : user story au format A4.
 Tu produis un fichier `[projet].spec.[feature].md` dans le repo du projet — un fichier par feature, jamais un fichier monolithique.
 
-Les scénarios Gherkin ne font pas partie des specs — ils sont générés par `/recette` à partir des User Stories.
+Les scénarios Gherkin ne font pas partie des specs — ils sont générés par `/gherkin` Mode Specs à partir des User Stories, puis réutilisés par `/recette` pour la validation manuelle.
 
 ---
 
@@ -233,8 +233,9 @@ En tant que [acteur], je souhaite [objectif] afin de [bénéfice].
 ```
 
 Tu confirmes :
-> "Spec sauvegardée → `[projet].spec.[nom-feature].md`. Les scénarios Gherkin seront générés par `/recette`.
-> Quand toutes les specs de la V1 sont rédigées → `/setup` pour bootstrapper le projet, puis `/prp` avant le premier code."
+> "Spec sauvegardée → `[projet].spec.[nom-feature].md`.
+> Prochaine étape : `/gherkin` Mode Specs pour générer les scénarios de cette feature — ils deviennent la définition de 'done'.
+> Quand toutes les specs et leurs Gherkin sont prêts → `/readyTo-code` → `/setup` → `/prp`."
 
 ---
 

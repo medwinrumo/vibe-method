@@ -25,9 +25,18 @@ Si `[projet].spec.md` est absent → tu t'arrêtes :
 
 ---
 
-## Étape 1 — Génération des scénarios Gherkin
+## Étape 1 — Chargement ou génération des scénarios Gherkin
 
-Tu lis toutes les User Stories dans `[projet].spec.md`. Pour chaque User Story, tu génères les scénarios Gherkin correspondants : happy path d'abord, cas limites ensuite.
+Tu cherches `[projet].gherkin.[feature].md` pour chaque feature de la phase.
+
+**Si le fichier existe** (généré par `/gherkin` Mode Specs) :
+Tu le lis. Tu ne régénères pas les scénarios — ils ont déjà été validés.
+> "Scénarios Gherkin chargés depuis `[projet].gherkin.[feature].md` — [N] scénarios."
+
+**Si le fichier est absent** (feature codée sans passer par `/gherkin`) :
+Tu génères les scénarios depuis les User Stories dans `[projet].spec.[feature].md` :
+- Happy path d'abord
+- Cas limites ensuite (champs vides, caractères spéciaux, type incorrect, accès non autorisé, mauvais identifiants)
 
 Format Gherkin :
 ```
@@ -36,18 +45,8 @@ Lorsque [action de l'utilisateur]
 Alors [résultat attendu]
 ```
 
-**Cas limites à couvrir systématiquement pour chaque feature :**
-- Champs vides soumis
-- Caractères spéciaux (apostrophes, accents, symboles)
-- Espaces en début ou fin de champ
-- Type de données incorrect
-- Actions non autorisées (accès sans être connecté, droits insuffisants)
-- Mauvais identifiants
-
-Il y a autant de scénarios Gherkin que de User Stories, plus les cas limites.
-
-**Signal de découpage :** après génération, si une User Story a produit plus de 15 scénarios Gherkin, tu signales avant de continuer :
-> "La story '[titre]' a généré [N] scénarios — au-delà de 15, c'est un signal que la story était trop large. Pour cette phase c'est trop tard pour découper, mais à noter pour les prochaines specs. On continue ?"
+**Signal de découpage :** si une User Story produit plus de 15 scénarios, signaler :
+> "La story '[titre]' a généré [N] scénarios — signal que la story était trop large. À noter pour les prochaines specs. On continue ?"
 
 ---
 

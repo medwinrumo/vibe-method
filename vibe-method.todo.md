@@ -4,7 +4,15 @@
 
 ---
 
-## Dernière session — 2026-05-13 (session 2)
+## Dernière session — 2026-05-14
+
+### Ce qui a été fait
+
+- Sync `/todo` : tâche 9 (test filtrage dates) supprimée du fichier local, conformément au kanban GH.
+
+---
+
+## Session précédente — 2026-05-13 (session 2)
 
 ### Ce qui a été fait — Tâche 5 (audit cohérence, suite) + refonte design
 

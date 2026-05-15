@@ -4,7 +4,15 @@
 
 ---
 
-## Dernière session — 2026-05-14 (session 4)
+## Dernière session — 2026-05-15
+
+### Ce qui a été fait
+
+- Tâche 26 — Les 9 gestes du kung fu : noms attachés aux règles existantes dans `methode.md` (pilotage session de code + protocole d'escalade), tableau de référence rapide ajouté, rappel des 5 gestes de posture dans `/sessionCode` étape 7, step 4 de `/debug` nommé "Le faucon en chasse". Commit pushé.
+
+---
+
+## Session précédente — 2026-05-14 (session 4)
 
 ### Ce qui a été fait
 
@@ -133,29 +141,7 @@
 
 ### À faire
 
-- 26 — **Les 9 gestes du kung fu — décision d'intégration** _(à faire le 2026-05-15)_
-  Reprendre en détail chaque technique issue du Traité du Vibe Coding Éclairé et décider où et comment les intégrer dans la méthode.
-  
-  **Au chargement de cette tâche — lire ces fichiers avant de commencer :**
-  1. `resume-traite-vibe-coding.md` → section "Les 9 techniques nommées" pour le détail de chaque geste
-  2. `apports-traite-vibe-coding.md` → section 4 "Pendant" pour les propositions d'intégration
-  3. `methode.md` → section "Pilotage de la session de code" pour voir ce qui est déjà en prose
-  4. `.claude/commands/sessionCode.md` → état actuel du skill
-  5. `.claude/commands/debug.md` → état actuel du skill
-  
-  **Les 9 gestes à traiter un par un :**
-  1. L'archer immobile — plan avant code → `/sessionCode` ?
-  2. La mue du serpent — recommencer, ne pas corriger → `/sessionCode` + `/debug` ?
-  3. Le bond du tigre — git reset + contraintes négatives → `/debug` ?
-  4. Le tranchant de la main — interrompre immédiatement → `/sessionCode` ?
-  5. L'œil de l'aigle — analyse globale avant de corriger → `/debug` ?
-  6. Le singe change de branche — changer de modèle → `/debug` ?
-  7. Le souffle neuf — nouvelle conversation = contexte propre → `/sessionCode` ?
-  8. Le faucon en chasse — recherche web préventive → `/debug` (déjà là) ?
-  9. Le kiai — dicter les prompts complexes → `/sessionCode` ?
-  
-  **Question de fond :** les techniques réactives (quand ça bloque) vont dans `/debug`. Les techniques de posture (avant/pendant le code) vont dans `/sessionCode`. Est-ce suffisant ou faut-il un skill dédié ?
-
+- ~~26~~
 - ~~17~~
 - ~~18~~
 - ~~19~~
@@ -176,6 +162,7 @@
 
 ### Réalisées
 
+- ✅ 26 — Les 9 gestes du kung fu : noms intégrés dans `methode.md`, `/sessionCode`, `/debug`. (2026-05-15)
 - ✅ 21-25 — 5 skills BMAD manquants : `/prd-validate`, `/readyTo-code`, `/regles`, `/phase-retrospective`, `/code-review-hostil`. Symlinks créés. CLAUDE.md chaîne + table mises à jour. (2026-05-14)
 - ✅ 4 — Comparaison BMAD vs vibe-method : rapport `bmad-comparaison.md` + 3 skills créés (`/avancement`, `/code-review-edge-cases`, `/impact`) + 5 rappels (tâches 21-25). (2026-05-14)
 - ✅ 6 — `/archi` : WebSearch versions (Expo, free tier) + implications en cascade. `securite.md` §1.8 renvoi. `/prp` confrontation : gaps résolus. (2026-05-14)

@@ -143,34 +143,48 @@ Fichiers de référence : `securite.md`, `architecture.md`, `tests.md`
 
 Ces règles s'appliquent en temps réel, pendant la Phase Code. Pas des étapes de process — des réflexes à intérioriser.
 
-**Discuter avant de coder — toujours**
+**L'archer immobile — Discuter avant de coder**
 Avant toute implémentation, commencer en mode discussion. Décrire la feature et demander à l'IA comment elle compte s'y prendre : quels fichiers elle va modifier, quelles étapes elle va suivre. Si elle prévoit de toucher 10 fichiers pour ajouter un bouton, elle part dans la mauvaise direction — rectifier avant qu'elle n'écrive une ligne. Cette validation prend 2 minutes et évite des heures de correction.
 
-**Surveiller et interrompre immédiatement**
+**Le tranchant de la main — Surveiller et interrompre immédiatement**
 Pendant que l'IA travaille, surveiller ce qu'elle fait. Si elle modifie des fichiers hors scope, installe des dépendances non prévues, ou refait ce qui n'a pas été demandé — l'interrompre immédiatement, sans la laisser finir. Plus elle avance dans la mauvaise direction, plus le code erroné s'accumule dans le contexte et plus il sera difficile de revenir en arrière.
 
-**Si la première itération est mauvaise — recommencer, ne pas corriger**
+**La mue du serpent — Si la première itération est mauvaise, recommencer, ne pas corriger**
 Quand une première itération va dans la mauvaise direction, résister à la tentation de corriger. Le code bancal reste dans le contexte et l'IA s'appuie dessus pour la suite — chaque correction s'appuie sur une base défaillante. Recommencer depuis zéro avec un prompt amélioré. Deux ou trois tentatives pour trouver le bon point de départ, c'est un investissement, pas une perte.
 
 **Vérifier les modifications non demandées**
 Après chaque session, demander à l'IA : "Liste tous les fichiers que tu viens de modifier et ce que tu y as changé." L'IA modifie régulièrement des fichiers hors scope sans le signaler — c'est la seule façon de le détecter. Si une modification non demandée est trouvée → la faire annuler avant de continuer.
 
-**Gestion du contexte — une conversation par lot**
+**Le souffle neuf — Gestion du contexte, une conversation par lot**
 La fenêtre de contexte d'un LLM est limitée. Quand une conversation s'allonge, les éléments anciens en sortent — l'IA oublie l'architecture, mélange les noms de composants, perd la cohérence. Règle : une conversation par lot du PRD, maximum 2-3h. Quand le contexte est saturé (erreurs déjà corrigées qui réapparaissent, concepts mélangés) → ouvrir une nouvelle conversation avec un résumé propre de l'état du projet.
 
 **Quand on est bloqué — protocole d'escalade**
 Ne jamais s'entêter au-delà de deux essais sur le même problème. Escalade en 5 étapes :
 
-1. **Analyse globale** — "Relis tout le code lié à cette feature. Analyse le problème dans son ensemble. Propose des hypothèses avant de modifier quoi que ce soit." Passe l'IA du mode correction locale au mode diagnostic global.
-2. **Revenir en arrière + contraintes négatives** — Git reset au dernier commit propre. Relancer en précisant ce que l'IA ne doit PAS faire ("ne touche pas à X", "ne passe pas par Y"). Contraindre par le négatif est souvent plus efficace que prescrire le positif.
-3. **Changer de modèle** — chaque modèle a été entraîné différemment. Ce qui est insoluble pour Claude peut être trivial pour GPT ou Gemini.
-4. **Recherche web** — les modèles ont une date de péremption. Demander à l'IA de chercher les bonnes pratiques actuelles, les incompatibilités de versions connues. S'applique aussi en préventif : avant d'intégrer un service externe, chercher la documentation à jour avant de coder.
-5. **Nouvelle conversation** — contexte propre, redémarrer avec le PRD, l'état du projet, et le problème rencontré + ce qui n'a pas fonctionné.
+1. **L'œil de l'aigle — Analyse globale** — "Relis tout le code lié à cette feature. Analyse le problème dans son ensemble. Propose des hypothèses avant de modifier quoi que ce soit." Passe l'IA du mode correction locale au mode diagnostic global.
+2. **Le bond du tigre — Revenir en arrière + contraintes négatives** — Git reset au dernier commit propre. Relancer en précisant ce que l'IA ne doit PAS faire ("ne touche pas à X", "ne passe pas par Y"). Contraindre par le négatif est souvent plus efficace que prescrire le positif.
+3. **Le singe change de branche — Changer de modèle** — chaque modèle a été entraîné différemment. Ce qui est insoluble pour Claude peut être trivial pour GPT ou Gemini.
+4. **Le faucon en chasse — Recherche web** — les modèles ont une date de péremption. Demander à l'IA de chercher les bonnes pratiques actuelles, les incompatibilités de versions connues. S'applique aussi en préventif : avant d'intégrer un service externe, chercher la documentation à jour avant de coder.
+5. **Le souffle neuf — Nouvelle conversation** — contexte propre, redémarrer avec le PRD, l'état du projet, et le problème rencontré + ce qui n'a pas fonctionné.
 
 Si aucune étape ne débloque → reporter la feature et continuer. Ce n'est pas un échec, c'est du pragmatisme.
 
-**Qualité des prompts — dicter quand le sujet est complexe**
+**Le kiai — Dicter les prompts complexes**
 Pour les sujets complexes, dicter le prompt plutôt que le taper. Les prompts dictés sont naturellement plus riches : on développe, on donne du contexte, on explique le pourquoi en plus du quoi.
+
+**Référence rapide — Les 9 gestes**
+
+| Geste | Ce que c'est | Quand |
+|---|---|---|
+| L'archer immobile | Plan avant code — discuter, pas écrire | Avant chaque feature |
+| Le tranchant de la main | Interrompre l'IA dès qu'elle dérive | Pendant le code |
+| La mue du serpent | Recommencer depuis zéro, ne pas corriger | Première itération ratée |
+| Le kiai | Dicter les prompts complexes | Prompts longs ou techniques |
+| Le souffle neuf | Nouvelle conversation = contexte propre | Contexte saturé ou feature terminée |
+| L'œil de l'aigle | Analyse globale avant toute correction | Bloqué après 2 essais |
+| Le bond du tigre | Git reset + contraintes négatives | Bloqué après analyse globale |
+| Le singe change de branche | Changer de modèle (Claude → GPT → Gemini) | Insoluble après reset |
+| Le faucon en chasse | Recherche web — doc à jour, bonnes pratiques | Avant d'intégrer un service / après 2 tentatives |
 
 ---
 

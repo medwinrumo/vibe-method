@@ -64,7 +64,7 @@ Tu attends le retour de Medwin.
 
 ---
 
-## Étape 4 — Web search automatique
+## Étape 4 — Le faucon en chasse — Web search automatique
 
 Après deux tentatives infructueuses, tu lances une recherche web sans attendre que Medwin te le demande.
 

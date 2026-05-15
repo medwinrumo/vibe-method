@@ -154,4 +154,12 @@ Ne recopie pas tout le PRP — seulement ce qui est pertinent pour cette feature
 > "Contexte chargé pour [feature].
 > Module : [module]. Mode : [TDD / Standard].
 > Chaîne après cette session : `/code-review` → `/code-review-edge-cases` → `/repair-edge-cases` → `/tests` → `/doc-tech` (Mode B) → `/recette`.
+>
+> Rappel des gestes à garder en tête :
+> - **L'archer immobile** — commence en mode discussion, demande à l'IA son plan avant qu'elle écrive une ligne
+> - **Le tranchant de la main** — interromps immédiatement si elle sort du scope
+> - **La mue du serpent** — si la première itération est ratée, recommence depuis zéro, ne corrige pas
+> - **Le kiai** — dicte les prompts complexes plutôt que de les taper
+> - **Le souffle neuf** — une conversation par feature, maximum 2-3h
+>
 > Tu peux commencer."

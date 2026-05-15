@@ -67,19 +67,12 @@ Fichiers de référence : `produit.md`, `securite.md`
 ### Phase 2 — Design
 > Traduire les features en interface visuelle avant de toucher au code.
 
-1. Export des features depuis le PRD — liste structurée :
-   - Nom de la feature
-   - Composant UI associé (bouton, liste déroulante, onglet, champ texte...)
-   - Comportement de base si nécessaire (ex : "clic → déroule un panneau")
-2. Medwin travaille dans Stitch (génération maquette) puis Figma (affinage)
-3. Medwin livre l'export Figma (CSS + captures) — Claude reprend
-
-**Règle :** étape manuelle. Claude produit l'export features, Medwin fait la maquette.
-Claude ne reprend qu'à la réception de l'export Figma.
-
-> **[RÉVISION 2026-05-15]**
-> Consulter `ui-vocabulary.md` avant le Mode A pour nommer précisément les éléments.
-> Après Mode B : révision in-browser obligatoire avant de passer à la Phase 3 (Planification) — corriger les défauts visuels et UX pendant que le code est encore propre.
+1. Consulter `ui-vocabulary.md` pour nommer précisément les zones, composants et états avant de commencer
+2. Décider le mode : **one-shot** (≤ 6 écrans, 1 type d'utilisateur, navigation simple) ou **two-step** (projet large, plusieurs rôles, navigation complexe) — voir `/design` Étape 0b
+3. `/design` Mode A + `/archi` en aller-retour → produit `[projet].design.md` (one-shot) ou `[projet].design-system.md` + `[projet].design-screens-[x].md` (two-step)
+4. Claude Design (outil externe — claude.ai/design) reçoit le(s) fichier(s) → produit le code HTML/CSS de l'interface
+5. `/design` Mode B — intégration dans Tailwind (web) ou NativeWind (natif)
+6. Révision in-browser obligatoire — corriger les défauts visuels et UX directement dans le code, pendant que le code est encore propre, avant de passer à la Phase 3
 
 Fichier de référence : `design.md`
 

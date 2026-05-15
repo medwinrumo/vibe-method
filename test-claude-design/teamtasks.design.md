@@ -1,6 +1,6 @@
 # teamtasks.design.md
 > Test du workflow Claude Design — app fictive "TeamTasks"
-> React Native + NativeWind
+> React + Tailwind CSS
 
 ---
 
@@ -41,8 +41,7 @@ Productive, épurée, professionnelle. Pas de gradients. Peu de décorations. La
 - État normal : titre, badge priorité, avatar assigné, date d'échéance
 - État terminé : titre barré, badge vert "Terminée", opacité réduite
 - État en retard : date d'échéance en rouge
-- Swipe gauche → supprimer (rouge)
-- Swipe droite → marquer terminée (vert)
+- Hover sur une card → affiche deux boutons d'action (supprimer en rouge, marquer terminée en vert)
 
 **Comportements interactifs :**
 - Tap sur une card → navigue vers Écran 2
@@ -92,10 +91,10 @@ Productive, épurée, professionnelle. Pas de gradients. Peu de décorations. La
 - Propre (utilisateur courant) : fond accent léger, aligné à droite
 
 **Comportements interactifs :**
-- Tap sur statut → bottom sheet de sélection (Backlog / En cours / Terminée)
-- Tap sur assigné → bottom sheet de sélection d'un membre
-- Tap sur date → date picker natif
-- Input commentaire : keyboard pushes up la barre de saisie
+- Clic sur statut → dropdown de sélection (Backlog / En cours / Terminée)
+- Clic sur assigné → dropdown de sélection d'un membre
+- Clic sur date → input date HTML natif
+- Barre de saisie commentaire fixe en bas de la zone de contenu
 
 **ASCII art — structure du détail :**
 
@@ -133,8 +132,8 @@ Productive, épurée, professionnelle. Pas de gradients. Peu de décorations. La
 - Header : "Nouvelle tâche" + bouton Annuler (gauche) + bouton Créer (droite, accent, désactivé si titre vide)
 - Champ Titre (obligatoire, autofocus à l'ouverture)
 - Champ Description (optionnel, multiline, max 3 lignes visibles)
-- Sélecteur Assigné (ouvre bottom sheet avec liste des membres)
-- Sélecteur Échéance (ouvre date picker natif)
+- Sélecteur Assigné (ouvre un dropdown avec liste des membres)
+- Sélecteur Échéance (input date HTML natif)
 - Sélecteur Priorité : 3 boutons radio visuels (Haute / Normale / Basse)
 
 **États du formulaire :**
@@ -145,9 +144,8 @@ Productive, épurée, professionnelle. Pas de gradients. Peu de décorations. La
 
 **Comportements interactifs :**
 - Autofocus sur le champ Titre à l'ouverture
-- Tap Annuler → ferme le formulaire (modal dismiss vers le bas)
-- Tap Créer → spinner sur le bouton pendant la création, puis dismiss + ajout dans la liste
-- Keyboard évite le contenu (KeyboardAvoidingView)
+- Clic Annuler → ferme la modal
+- Clic Créer → spinner sur le bouton pendant la création, puis fermeture modal + ajout en tête de liste
 
 **ASCII art — structure du formulaire :**
 
@@ -195,3 +193,5 @@ HTML/CSS/JS interactif pour les 3 écrans, en respectant :
 - Les comportements interactifs (hover, focus, états désactivés)
 
 Priorité : fidélité au style (couleurs, espacements, typographie) > fidélité aux comportements dynamiques.
+
+> **Mode B cible : React + Tailwind CSS** — l'output HTML/CSS/JS sera traduit en composants React avec classes Tailwind.

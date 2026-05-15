@@ -23,14 +23,25 @@ Claude Design peut fonctionner en deux temps :
 
 ## Procédure Handoff Claude Design → Claude Code
 
-1. Dans Claude Design — clic sur "Share" → "Handoff to Claude Code"
-2. Dans le champ **"Give the agent more detail"** → préciser la stack cible :
-   `Implement as React components with Tailwind CSS. Create one file per screen component.`
-3. Cliquer **"Send to local coding agent"** → copie la commande dans le presse-papier
-4. Dans Claude Code — se placer dans le **dossier du projet React** (pas vibe-method)
-5. Coller et exécuter la commande — Claude Code fetch le fichier design depuis l'API Anthropic et implémente
+### Route A — ZIP (recommandée pour projet vierge)
 
-> Note : "Download zip instead" permet de récupérer le bundle HTML/CSS/JS manuellement si besoin.
+1. Dans Claude Design → "Share" → "Handoff to Claude Code" → cocher **"Download zip instead"** → télécharger
+2. Créer le dossier projet (`~/dev/[projet]`)
+3. Déposer le zip dans ce dossier
+4. Ouvrir le dossier dans Claude Code (`claude ~/dev/[projet]`)
+5. Lancer `/init` → Claude crée le CLAUDE.md du projet
+6. Demander à Claude de dézipper et d'implémenter en React + Tailwind
+
+### Route B — Send to local coding agent (projet React déjà configuré)
+
+1. Dans Claude Design → "Share" → "Handoff to Claude Code"
+2. Dans le champ **"Give the agent more detail"** → préciser la stack :
+   `Implement as React components with Tailwind CSS. Create one file per screen component.`
+3. Cliquer **"Send to local coding agent"** → copie la commande
+4. Dans Claude Code — être dans le **dossier du projet React existant**
+5. Coller et exécuter la commande
+
+> **Règle :** Route A quand le projet n'existe pas encore. Route B quand le projet React est déjà bootstrappé et configuré.
 
 ---
 

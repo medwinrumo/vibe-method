@@ -45,6 +45,26 @@ Claude Design peut fonctionner en deux temps :
 
 ---
 
+## Lacunes identifiées dans le Mode A
+
+### Lacune 2 — Surface vs background non spécifiés par zone
+
+Le `teamtasks.design.md` définit deux couleurs globales :
+- `background` : `#F8FAFC` (bleu-gris clair — fond de page)
+- `surface` : `#FFFFFF` (blanc — cards)
+
+Mais il ne précise pas explicitement, pour chaque zone de chaque écran, si le fond est une **card** (blanc délimité avec bordure/ombre/coins arrondis) ou le **background** qui transparaît.
+
+Résultat : Claude Design interprète librement. Sur l'écran Détail, la zone commentaires est apparue en blanc sans bordure — impossible de savoir si c'est une card ou le fond. La hiérarchie visuelle disparaît quand fond de page et surface sont tous les deux blancs ou proches.
+
+**Correction à apporter dans `/design` v2 :**
+Pour chaque zone de chaque écran, préciser explicitement :
+> "Zone X — card (fond blanc, bordure `#E2E8F0`, `border-radius: 8px`)"
+> ou
+> "Zone X — posé directement sur le background, pas de card"
+
+---
+
 ## Résultats (à remplir après le test)
 
 ### Output Claude Design

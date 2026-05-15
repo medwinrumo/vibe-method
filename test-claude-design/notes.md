@@ -57,21 +57,16 @@ Claude Design interprète ce qu'il reçoit. Tout ce qui n'est pas explicitement 
 
 ## Lacunes identifiées dans le Mode A
 
-### Lacune 2 — Surface vs background non spécifiés par zone
+### Lacune 2 — Le Mode A doit forcer la précision à tous les niveaux
 
-Le `teamtasks.design.md` définit deux couleurs globales :
-- `background` : `#F8FAFC` (bleu-gris clair — fond de page)
-- `surface` : `#FFFFFF` (blanc — cards)
+Le `teamtasks.design.md` contient des zones d'ambiguïté — pas uniquement sur les couleurs de fond, mais à tous les niveaux : structure des composants, comportements, états, espacements, hiérarchie visuelle. Partout où quelque chose n'est pas explicitement dit, Claude Design l'invente.
 
-Mais il ne précise pas explicitement, pour chaque zone de chaque écran, si le fond est une **card** (blanc délimité avec bordure/ombre/coins arrondis) ou le **background** qui transparaît.
+Exemple observé : la zone commentaires de l'écran Détail est apparue en blanc sans bordure — impossible de savoir si c'est une card ou le fond de page. Ce n'est qu'un cas parmi d'autres ambiguïtés possibles dans le document.
 
-Résultat : Claude Design interprète librement. Sur l'écran Détail, la zone commentaires est apparue en blanc sans bordure — impossible de savoir si c'est une card ou le fond. La hiérarchie visuelle disparaît quand fond de page et surface sont tous les deux blancs ou proches.
+**L'enseignement n'est pas "préciser surface vs background" — c'est que la précision est de tous les instants dans le Mode A.** Chaque décision non prise par Medwin est une décision prise par Claude Design.
 
 **Correction à apporter dans `/design` v2 :**
-Pour chaque zone de chaque écran, préciser explicitement :
-> "Zone X — card (fond blanc, bordure `#E2E8F0`, `border-radius: 8px`)"
-> ou
-> "Zone X — posé directement sur le background, pas de card"
+Le skill Mode A doit guider Medwin vers cette précision systématique — poser les bonnes questions, forcer les décisions à chaque niveau, ne rien laisser ouvert à l'interprétation. Le document produit doit être une spécification, pas un brief approximatif.
 
 ---
 

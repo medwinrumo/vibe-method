@@ -35,6 +35,10 @@ Tu as besoin de :
 3. **`[projet].prd.md`** — pour connaître les features V1 et les parcours clés
 4. **`[projet].archi.md`** si disponible — pour connaître le périmètre de distribution (web / native / PWA)
 
+> **[RÉVISION 2026-05-15]**
+> Avant de produire `[projet].design.md`, rappeler à Medwin l'existence de `ui-vocabulary.md` :
+> "Avant de commencer, je te recommande de consulter `ui-vocabulary.md` dans vibe-method — il contient le vocabulaire de référence (zones d'un écran, composants, états, patterns). Si tu ne connais pas le nom d'un élément que tu veux, c'est là que tu le trouveras."
+
 Si la charte est absente → tu t'arrêtes :
 > "La charte graphique n'est pas définie. Lance `/charte` d'abord."
 
@@ -155,6 +159,13 @@ La phase se termine quand archi et design sont cohérents — pas avant.
 8. **Si app native** : notes sur les guidelines Apple HIG et Material Design à respecter, décision cross-platform ou adapté par plateforme
 
 > **Règle de complétude :** ce fichier doit être suffisamment complet pour que Claude Design l'exécute sans question supplémentaire. L'instruction sera : "Voici le design system en markdown — construis-le." Plus le fichier est précis, moins Claude Design improvise.
+
+> **[RÉVISION 2026-05-15]**
+> **La précision est de tous les instants.** Claude Design n'interrompt jamais pour demander une clarification — il interprète et produit. Chaque décision non prise par Medwin est une décision prise par Claude Design. Cela s'applique à tous les niveaux : structure des zones (card ou background ?), comportements au clic, états de chaque composant, zones cliquables, espacement entre éléments.
+>
+> Avant de valider `[projet].design.md`, passer chaque écran en revue avec Medwin en mode dialogue guidé : proposer des options nommées avec ASCII art pour chaque point d'ambiguïté, forcer la décision explicite. Ne jamais laisser un point ouvert à l'interprétation.
+>
+> Référence : `ui-vocabulary.md` — à utiliser pour nommer les éléments et proposer les options.
 
 ---
 
@@ -352,6 +363,28 @@ Tu mets à jour `[projet].design.md` en ajoutant une section Mode B :
 ```
 
 Confirmer : "Mode B terminé → `[projet].design.md` mis à jour. La config est prête. Tu peux démarrer le code métier."
+
+---
+
+> **[RÉVISION 2026-05-15]**
+>
+> ### Étape 5 — Révision design in-browser
+>
+> Avant de passer à `/roadmap`, parcourir l'interface dans le navigateur avec Medwin.
+>
+> C'est le bon moment pour corriger — le code est encore propre, rien de métier n'est construit dessus. Les corrections à ce stade sont cosmétiques (padding, zones cliquables, espacements, états manquants) et sans risque de régression.
+>
+> **Grille de vérification :**
+> - [ ] Tous les écrans sont navigables
+> - [ ] Les zones cliquables ont une taille suffisante (min 44px hauteur sur mobile)
+> - [ ] La hiérarchie visuelle est lisible (fond ≠ surface, titres distincts du corps)
+> - [ ] Les états vides, erreur et chargement sont visibles
+> - [ ] La cohérence visuelle est maintenue entre les écrans (mêmes couleurs, mêmes espacements)
+>
+> Corriger directement dans le code. Valider avec Medwin :
+> > "L'interface est correcte visuellement — on peut commencer à coder la logique métier dessus ?"
+>
+> Si non → corriger et re-vérifier. Si oui → passer à `/roadmap`.
 
 ---
 

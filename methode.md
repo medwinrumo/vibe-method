@@ -77,6 +77,10 @@ Fichiers de référence : `produit.md`, `securite.md`
 **Règle :** étape manuelle. Claude produit l'export features, Medwin fait la maquette.
 Claude ne reprend qu'à la réception de l'export Figma.
 
+> **[RÉVISION 2026-05-15]**
+> Consulter `ui-vocabulary.md` avant le Mode A pour nommer précisément les éléments.
+> Après Mode B : révision in-browser obligatoire avant de passer à la Phase 3 (Planification) — corriger les défauts visuels et UX pendant que le code est encore propre.
+
 Fichier de référence : `design.md`
 
 ---

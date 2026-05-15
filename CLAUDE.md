@@ -17,6 +17,7 @@ vibe-method/
 ├── rgpd.md             → Doctrine RGPD complète (bases légales, droits, registre, consentement, checklist)
 ├── tests.md            → Doctrine de test (niveaux, Gherkin, Playwright, anti-auto-validation)
 ├── stack.md            → Doctrine de reconnaissance technique (spike, investigation stack, free tier, gotchas)
+├── ui-vocabulary.md    → Lexique de référence UI/UX — zones, composants, états, patterns (avec ASCII art)
 └── .claude/
     └── commands/       → Skills Claude Code (voir liste ci-dessous)
 ```

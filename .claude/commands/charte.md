@@ -184,3 +184,7 @@ Confirmer : "Charte sauvegardée → `[projet].charte.md`. Cette charte servira 
 ## Prochaine étape
 
 `/design` Mode A — la charte est posée, construire le design system complet pour Claude Design.
+
+> **[RÉVISION 2026-05-15]**
+> Avant de lancer `/design` Mode A, rappeler à Medwin l'existence de `ui-vocabulary.md` dans vibe-method :
+> "Pour nommer précisément les zones, composants et états que tu veux dans tes écrans, consulte `ui-vocabulary.md` — c'est le lexique de référence avec des ASCII arts illustratifs."

@@ -43,6 +43,7 @@ TOI : tu réponds sur l'ambiance, les références visuelles, les couleurs, la t
 CLAUDE : propose des options basées sur tes réponses — tu valides ou ajustes chaque décision
 Fichier produit : [projet].charte.md
 Fin : 'Prochaine étape : /design Mode A — la charte est posée, construire le design system.'
+[RÉVISION 2026-05-15] Avant de lancer /design Mode A, consulter ui-vocabulary.md — le lexique de référence des zones, composants et états UI (avec ASCII art illustratifs). Il permet de nommer précisément ce que tu veux sans l'inventer sur le moment.
  
 ── /prd — DU BRIEF AU PRD V1 ──
 Le PRD (Product Requirements Document) est le plan de vol du projet. Il détaille les features, les règles métier, les user journeys (parcours utilisateur étape par étape), les NFR (performance, sécurité, accessibilité, scalabilité) et les métriques de succès. Règle absolue : si le plan de vol est faux, tout le reste sera faux.
@@ -85,6 +86,10 @@ TOI : tu valides les parcours clés, les composants, les états proposés
 CLAUDE : lit le PRD et la charte, propose les écrans, inventorie les composants, structure le design system
 Fichier produit : [projet].design.md (donné à Claude Design pour exécution)
 Fin : 'Mode A → retour à /archi, itérer jusqu'à cohérence design ↔ architecture.'
+[RÉVISION 2026-05-15] Trois points issus du test Claude Design (TeamTasks, 2026-05-15) :
+1. Précision absolue — Claude Design n'interrompt jamais pour demander une clarification : il interprète et produit. Chaque décision non prise dans [projet].design.md est une décision prise seul par Claude Design. Nommer chaque zone, chaque composant, chaque état explicitement — rien ne doit être laissé à l'interprétation.
+2. Consulter ui-vocabulary.md en amont — zones d'écran (header fixe, contenu scrollable, bottom bar), composants courants (carte vs fond, badge, tab bar), états (hover, disabled, chargement...) et propriétés visuelles (border-radius, ombre, densité). Le lexique est disponible dans le repo vibe-method.
+3. Révision in-browser obligatoire après Mode B — avant de passer à /roadmap, parcourir l'interface dans le navigateur et corriger les défauts visuels et UX directement dans le code. C'est le bon moment : le code est propre, rien de métier n'est encore construit dessus.
  
 ── /archi — ARCHITECTURE MODULAIRE ──
 Définit la structure du code — les modules, leurs responsabilités, les règles silo (qui peut appeler quoi), les contrats d'interface (ce que chaque module expose), les décisions de sécurité, le backup et la conformité RGPD.

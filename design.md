@@ -19,10 +19,15 @@ La référence visuelle est **Claude Design** par défaut — Figma reste dispon
 ## Le workflow
 
 ```
-/charte → /design Mode A ↔ /archi → Claude Design → /design Mode B → [code]
+/charte → /design Mode A ↔ /archi → Claude Design → /design Mode B → révision in-browser → [code]
 ```
 
 **Figma :** optionnel, pour retouches manuelles si nécessaire — pas dans la chaîne systématique.
+
+> **[RÉVISION 2026-05-15]**
+> `ui-vocabulary.md` est le lexique de référence à consulter avant tout Mode A — zones d'un écran, composants, états, patterns, propriétés visuelles. Il permet à Medwin de nommer précisément ce qu'il veut sans avoir à l'inventer.
+>
+> **Révision in-browser (après Mode B, avant le code) :** parcourir l'interface dans le navigateur, corriger les défauts visuels et UX directement dans le code. C'est le bon moment — le code est encore propre, rien de métier n'est construit dessus. Voir le skill `/design` étape 5 Mode B pour la grille de vérification.
 
 ---
 

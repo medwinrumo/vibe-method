@@ -2,7 +2,7 @@ VIBE-METHOD — GUIDE COMPLET DU WORKFLOW
 Mis à jour le 14 mai 2026. Ce guide explique chaque skill de la méthode : ce qu'il fait, qui fait quoi (toi ou Claude), quels fichiers il produit, et comment il se termine.
  
 LA RÈGLE DE BASE — QUI FAIT QUOI ?
-TOI (Medwin) : tu décides, tu valides les propositions de Claude, tu réponds aux questions, tu exécutes les commandes dans ton terminal.
+TOI (User) : tu décides, tu valides les propositions de Claude, tu réponds aux questions, tu exécutes les commandes dans ton terminal.
 CLAUDE : il pose les questions, analyse, génère les documents, écrit les fichiers, guide vers l'étape suivante. Il ne prend jamais de décision à ta place.
 Chaque skill a des INPUTS (ce dont il a besoin) et des OUTPUTS (ce qu'il produit). Si un input manque, le skill s'arrête et demande de lancer le skill manquant d'abord.
  
@@ -142,17 +142,17 @@ PARTIE 4 — AVANT LE CODE
 À ce stade, toute la réflexion est terminée. On a le produit défini (PRD), l'architecture choisie, les règles métier capturées, la stack validée, la roadmap planifiée, et les specs écrites. Avant de toucher une seule ligne de code, trois vérifications s'imposent : est-on vraiment prêt ? L'environnement technique tourne-t-il ? Et Claude a-t-il en tête tout ce dont il a besoin ?
 ── /readyTo-code ──
 Rôle : gate de validation avant de commencer le développement. Ce skill ne produit aucun fichier — c'est un feu vert ou un feu rouge.
-Ce que fait Claude : il vérifie la présence et la cohérence de 5 éléments critiques. Si l'un manque ou est incohérent, il bloque et demande à Medwin de le compléter avant de continuer.
+Ce que fait Claude : il vérifie la présence et la cohérence de 5 éléments critiques. Si l'un manque ou est incohérent, il bloque et demande à User de le compléter avant de continuer.
 [projet].prd.md — existe et contient une version validée
 [projet].archi.md — existe et est cohérent avec le PRD
 [projet].spec.[feature].md — au moins une spec pour la phase à coder
 [projet].prp.md — le document condensé de démarrage existe
 [projet].avancement.yaml — le sprint tracker est initialisé
-Exemple concret — app RAM réseau : avant de coder le module 'Scan réseau', Claude vérifie que la spec du scanner est présente, que l'archi décrit bien le module Network dans le bon silo, et que le PRP mentionne les contraintes de sécurité réseau. S'il manque la spec → bloqué. Medwin lance /specs d'abord.
+Exemple concret — app RAM réseau : avant de coder le module 'Scan réseau', Claude vérifie que la spec du scanner est présente, que l'archi décrit bien le module Network dans le bon silo, et que le PRP mentionne les contraintes de sécurité réseau. S'il manque la spec → bloqué. User lance /specs d'abord.
 Comment ça se termine : Claude affiche un récapitulatif des 5 points avec ✅ ou ❌ pour chacun. Si tout est ✅ → 'Feu vert — tu peux lancer /setup.' Si un ❌ → 'Feu rouge — résoudre [X] avant de continuer.'
 ── /setup ──
-Rôle : bootstrap technique — créer l'environnement de développement depuis zéro. Ce skill est particulier : c'est Medwin qui exécute les commandes, pas Claude. Claude donne les instructions étape par étape.
-Pourquoi Medwin exécute : les commandes touchent au système local (création de dossiers, installation de dépendances, variables d'environnement, premier git commit). Claude ne peut pas faire ces actions à la place de Medwin — il les guide.
+Rôle : bootstrap technique — créer l'environnement de développement depuis zéro. Ce skill est particulier : c'est User qui exécute les commandes, pas Claude. Claude donne les instructions étape par étape.
+Pourquoi User exécute : les commandes touchent au système local (création de dossiers, installation de dépendances, variables d'environnement, premier git commit). Claude ne peut pas faire ces actions à la place de User — il les guide.
 Ce que fait Claude : il s'appuie sur [projet].stack.md pour connaître la stack choisie, puis génère les instructions dans l'ordre suivant :
 Prérequis — vérifier Node, Git, les CLIs nécessaires (Vercel, Supabase, Convex)
 Création du repo — git init, structure de dossiers selon [projet].archi.md
@@ -160,7 +160,7 @@ Installation des dépendances — npm install avec les packages de la stack
 .env.example — liste de toutes les variables nécessaires, sans les valeurs secrètes
 Premier lancement — vérifier que l'app démarre sans erreur
 Premier commit — 'chore: initial setup' avec .gitignore, .env dans .gitignore obligatoirement
-Exemple concret — app Minou (chat multi-LLM, stack Convex) : Claude donne les commandes 'npm create vite@latest minou -- --template react-ts', puis 'cd minou && npm install convex', puis les instructions pour npx convex init. À chaque étape, Claude attend que Medwin confirme que ça a tourné avant de passer à la suite.
+Exemple concret — app Minou (chat multi-LLM, stack Convex) : Claude donne les commandes 'npm create vite@latest minou -- --template react-ts', puis 'cd minou && npm install convex', puis les instructions pour npx convex init. À chaque étape, Claude attend que User confirme que ça a tourné avant de passer à la suite.
 Règle sécurité absolue : .env ne doit JAMAIS être commité. Claude vérifie que .gitignore contient .env avant de donner l'instruction du commit.
 Comment ça se termine : Claude annonce 'Setup terminé — l'app tourne. Lance /prp pour créer le document de démarrage de session.'
 ── /prp ──
@@ -174,7 +174,7 @@ Règles critiques : les 5 règles non-évidentes les plus importantes de [projet
 Contraintes de sécurité : RLS, .env, validation serveur — rappel compact
 Feature en cours : quelle phase, quelle feature, statut actuel
 Exemple concret — app menu de la semaine : le PRP dit en 20 lignes que c'est une app de gestion de menus hebdomadaires, stack React + Supabase, que l'utilisateur est authentifié avec Supabase Auth, que les menus appartiennent à l'utilisateur (RLS obligatoire sur chaque table), que le module Calendar gère les semaines, que le module Recipes gère les plats, et que la phase 1 en cours couvre la création + édition de menus.
-Comment ça se termine : Claude affiche le PRP complet pour relecture et demande 'Ce PRP est-il complet et exact ? On le sauvegarde ?' → Medwin valide → fichier écrit → 'Lance /avancement pour initialiser le tracker de sprint.'
+Comment ça se termine : Claude affiche le PRP complet pour relecture et demande 'Ce PRP est-il complet et exact ? On le sauvegarde ?' → User valide → fichier écrit → 'Lance /avancement pour initialiser le tracker de sprint.'
 ── /avancement ──
 Rôle : créer et tenir à jour le fichier YAML de suivi des fonctions du projet. C'est le tracker de sprint qui répond à la question : 'Où en est-on ?'
 Structure du fichier généré ([projet].avancement.yaml) :
@@ -182,8 +182,8 @@ phase: numéro et nom de la phase en cours
 features: liste avec pour chaque feature son statut (todo / in_progress / done / blocked)
 last_updated: date de la dernière mise à jour
 notes: observations importantes (blocages, décisions prises en cours de dev)
-Qui fait quoi : à l'init (/avancement mode init), Claude génère le YAML depuis la roadmap. Ensuite, /avancement est invocable à tout moment pour mettre à jour un statut — Medwin dit 'marque Login comme done', Claude met à jour le fichier et le commite.
-Exemple concret : après /setup, le YAML liste toutes les features de la Phase 1 en statut 'todo'. Après avoir codé et validé en recette la feature 'Authentification', Medwin lance /avancement et dit 'Authentification : done' → Claude met à jour le YAML, commite, pousse.
+Qui fait quoi : à l'init (/avancement mode init), Claude génère le YAML depuis la roadmap. Ensuite, /avancement est invocable à tout moment pour mettre à jour un statut — User dit 'marque Login comme done', Claude met à jour le fichier et le commite.
+Exemple concret : après /setup, le YAML liste toutes les features de la Phase 1 en statut 'todo'. Après avoir codé et validé en recette la feature 'Authentification', User lance /avancement et dit 'Authentification : done' → Claude met à jour le YAML, commite, pousse.
 Comment ça se termine : à l'init → 'Tracker initialisé — [N] features en todo. Lance /sessionCode pour démarrer le développement.' En mise à jour → 'Statut mis à jour. [N] features restantes en todo, [M] done.'
 ── /sessionCode ──
 Rôle : sas d'entrée obligatoire avant chaque session de développement. Ce skill ne code rien — il prépare Claude à coder correctement. Sans /sessionCode, on ne touche pas au code.
@@ -202,7 +202,7 @@ Comment ça se termine : 'Contexte chargé. Feature : [X]. Mode : [TDD/Standard]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 PARTIE 5 — DÉVELOPPEMENT ET REVUE DE CODE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Le développement en lui-même (le code au sens strict) n'est pas un skill — c'est la séquence [sessionCode] → [code] qui se déroule en dialogue Medwin/Claude. Ce qui EST des skills, c'est la chaîne de revues qui suit chaque feature codée. Aucune feature ne passe en recette sans avoir traversé ces quatre filtres.
+Le développement en lui-même (le code au sens strict) n'est pas un skill — c'est la séquence [sessionCode] → [code] qui se déroule en dialogue User/Claude. Ce qui EST des skills, c'est la chaîne de revues qui suit chaque feature codée. Aucune feature ne passe en recette sans avoir traversé ces quatre filtres.
 ── /code-review ──
 Rôle : revue structurelle et sécurité avant de considérer la feature terminée. C'est la revue 'est-ce que ce code est sain ?'
 Ce que fait Claude : il passe le code en revue sur 4 axes principaux.
@@ -210,7 +210,7 @@ Structure — le code respecte-t-il l'architecture définie ? Pas de violation d
 Sécurité — RLS en place sur chaque table créée, pas de clé API en front, validation des entrées côté serveur, authentification ET autorisation vérifiées.
 Cohérence — le code correspond-il à la spec ? Chaque critère d'acceptance de la User Story est couvert.
 Dette technique — y a-t-il des raccourcis risqués ? Si oui, les signaler, pas les ignorer.
-Output : un rapport de revue inline dans la conversation. Pas un fichier séparé sauf si Medwin le demande.
+Output : un rapport de revue inline dans la conversation. Pas un fichier séparé sauf si User le demande.
 Comment ça se termine : 'Revue structurelle terminée. [N] points à corriger / code sain. Lance /code-review-edge-cases pour la chasse aux cas non gérés.'
 ── /code-review-edge-cases ──
 Rôle : énumération mécanique et exhaustive de tous les cas limites non gérés dans le code. C'est la revue 'qu'est-ce qui peut mal tourner ?'
@@ -223,7 +223,7 @@ Exemple concret — feature 'Création de menu hebdomadaire' : Claude identifie 
 Comment ça se termine : liste numérotée de tous les cas non gérés, triés par priorité (bloquant / important / mineur). 'Lance /repair-edge-cases pour les traiter un par un.'
 ── /repair-edge-cases ──
 Rôle : traiter les cas limites identifiés par /code-review-edge-cases, un par un, dans l'ordre de priorité.
-Principe fondamental : jamais de correction batch. Claude traite un cas, explique ce qu'il a fait, attend que Medwin valide avant de passer au suivant. Ça évite d'introduire de nouveaux bugs en réparant trop vite.
+Principe fondamental : jamais de correction batch. Claude traite un cas, explique ce qu'il a fait, attend que User valide avant de passer au suivant. Ça évite d'introduire de nouveaux bugs en réparant trop vite.
 Comment ça se termine : 'Tous les cas bloquants et importants sont traités. [N] cas mineurs reportés (liste). Lance /code-review-hostil pour la revue cynique.'
 ── /code-review-hostil ──
 Rôle : revue cynique et adversariale. Claude part du principe que le code est cassé et cherche à le prouver. C'est la revue la plus dure — volontairement.
@@ -239,7 +239,7 @@ Dépendances implicites — le code assume-t-il qu'un autre module est prêt ?
 Logique métier incorrecte — le code fait-il vraiment ce que la spec dit ?
 Configuration et déploiement — le code fonctionne en local mais pas en prod ?
 Observabilité — si ça plante en prod, peut-on le diagnostiquer ?
-Comment ça se termine : rapport avec minimum 10 problèmes catégorisés (critique / sérieux / mineur). Medwin décide lesquels traiter maintenant vs reporter. 'Revue hostile terminée. [N] problèmes critiques à traiter avant de continuer.'
+Comment ça se termine : rapport avec minimum 10 problèmes catégorisés (critique / sérieux / mineur). User décide lesquels traiter maintenant vs reporter. 'Revue hostile terminée. [N] problèmes critiques à traiter avant de continuer.'
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 PARTIE 6 — TESTS ET VALIDATION
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -267,22 +267,22 @@ Les contraintes non-évidentes : pourquoi ce choix d'implémentation, quelle rè
 Les effets de bord : si cette fonction modifie un état global ou déclenche un side effect
 Comment ça se termine : 'Code annoté. Lance /recette pour la validation manuelle.'
 ── /recette ──
-Rôle : validation manuelle de l'app par Medwin, guidée par Claude. Ce skill orchestre la séquence : génération du cahier de recettes → Medwin teste → résultat reporté → bug ⇒ debug → reprise.
-Qui fait quoi : Claude génère le cahier structuré (scénarios Gherkin + étapes précises + résultat attendu). Medwin exécute chaque recette dans le navigateur et reporte ✅ ou ❌.
+Rôle : validation manuelle de l'app par User, guidée par Claude. Ce skill orchestre la séquence : génération du cahier de recettes → User teste → résultat reporté → bug ⇒ debug → reprise.
+Qui fait quoi : Claude génère le cahier structuré (scénarios Gherkin + étapes précises + résultat attendu). User exécute chaque recette dans le navigateur et reporte ✅ ou ❌.
 Format d'une recette :
 Scénario Gherkin : Étant donné [contexte] / Lorsque [action] / Alors [résultat attendu]
 Étapes : actions précises (‘Aller sur /login, remplir le champ email avec test@test.com, cliquer Connexion’)
 Résultat attendu : ce qui doit se passer exactement (‘Redirection vers /dashboard avec message Bonjour [prénom]’)
-Règle : une seule recette à la fois. Medwin ne passe pas à la suivante tant que la précédente n'est pas validée ou le bug résolu. Aucun saut autorisé.
+Règle : une seule recette à la fois. User ne passe pas à la suivante tant que la précédente n'est pas validée ou le bug résolu. Aucun saut autorisé.
 Audit sécurité léger : une fois toutes les recettes ✅, Claude propose un audit Mozilla Observatory + securityheaders.com sur l'URL de staging avant de clôturer la phase.
 Comment ça se termine : 'Phase [N] validée — [N] recettes ✅, [N] bugs détectés et corrigés. Lance /phase-retrospective.'
 ── /debug ──
 Rôle : diagnostiquer et corriger un bug détecté pendant la recette. Ce skill est déclenché AUTOMATIQUEMENT par /recette dès qu'un ❌ est signalé. On ne le lance pas manuellement.
 Séquence fixée en 3 tentatives :
-Tentative 1 — diagnostic depuis les informations collectées (contexte, reproductibilité, message d'erreur, capture écran). Correction proposée et appliquée. Medwin reteste.
+Tentative 1 — diagnostic depuis les informations collectées (contexte, reproductibilité, message d'erreur, capture écran). Correction proposée et appliquée. User reteste.
 Tentative 2 — si ❌ encore : Claude change d'angle complètement, relit le flux depuis le début. JAMAIS la même correction deux fois.
 Tentative 3 avec web search — si ❌ encore : Claude lance une recherche web sur le comportement observé + framework concerné. Propose une correction basée sur les résultats.
-Si après 3 tentatives le bug persiste → bug déclaré BLOQUANT. Recette suspendue. Medwin décide : nouvelle approche technique (session dédiée) ou contournement temporaire si non-critique.
+Si après 3 tentatives le bug persiste → bug déclaré BLOQUANT. Recette suspendue. User décide : nouvelle approche technique (session dédiée) ou contournement temporaire si non-critique.
 Règle fondamentale : Claude corrige toujours le CODE, jamais les tests ni les recettes. Si la recette 'semble incorrecte', c'est le code qui doit changer pour correspondre à la recette — pas l'inverse.
 Comment ça se termine : 'Bug Recette [N]-[M] résolu ✅. On reprend le cahier à la Recette [N]-[M+1].'
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -317,11 +317,11 @@ Ces skills n'ont pas de position fixée dans la chaîne. On les invoque quand le
 ── /party ──
 Rôle : obtenir plusieurs perspectives indépendantes sur une décision difficile. 'Party' = plusieurs sous-agents spawnnés en parallèle, chacun avec un angle différent.
 Quand l'utiliser : face à un choix structurant où on hésite. Par exemple : 'Dois-je utiliser Convex ou Supabase pour ce projet ?', 'Dois-je couper cette feature en deux ou la garder unie ?', 'Cette architecture tient-elle vraiment à l'échelle ?'
-Exemple concret : Medwin hésite entre deux approches pour l'authentification. /party spawne 3 agents : l'un argumente pour Supabase Auth, l'autre pour Auth.js, le troisième joue l'avocat du diable sur les deux. Medwin lit les 3 perspectives et décide en connaissance de cause.
+Exemple concret : User hésite entre deux approches pour l'authentification. /party spawne 3 agents : l'un argumente pour Supabase Auth, l'autre pour Auth.js, le troisième joue l'avocat du diable sur les deux. User lit les 3 perspectives et décide en connaissance de cause.
 ── /impact ──
 Rôle : analyser les conséquences d'un changement sur TOUS les artefacts du projet. Avant de modifier quelque chose d'important, on demande à Claude : qu'est-ce que ça impacte ?
 Ce que Claude analyse : le PRD (la décision métier change-t-elle ?), l'archi (des modules sont-ils affectés ?), les specs (des User Stories deviennent-elles incohérentes ?), les tests (quels tests faut-il réécrire ?), la roadmap (le planning est-il décalé ?).
-Exemple concret : Medwin décide d'ajouter une feature 'partage de menu avec un ami' non prévue dans le PRD. /impact révèle que ça touche le modèle de données (nouvelle table shared_menus), la RLS (un menu peut maintenant être lu par un non-propriétaire), et deux specs existantes à mettre à jour.
+Exemple concret : User décide d'ajouter une feature 'partage de menu avec un ami' non prévue dans le PRD. /impact révèle que ça touche le modèle de données (nouvelle table shared_menus), la RLS (un menu peut maintenant être lu par un non-propriétaire), et deux specs existantes à mettre à jour.
 ── /adr ──
 Rôle : capturer une décision architecturale avant que le contexte qui l'a motivée soit perdu. ADR = Architectural Decision Record.
 Les 4 questions que Claude pose :
@@ -335,7 +335,7 @@ Rôle : refactoring guidé d'un module dégradé. Ce skill exige une SESSION DÉ
 Quand déclencher /refacto :
 Avant de coder une nouvelle feature sur un module dégradé (ajouter sur du code pourri = empirer le pourri)
 En fin de phase, si la dette technique accumulée est trop lourde
-On demand : quand Medwin sent que quelque chose pue
+On demand : quand User sent que quelque chose pue
 Séquence : diagnostic → liste des problèmes classés par priorité → exécution étape par étape avec validation entre chaque étape. Jamais de refacto batch.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 RÉCAPITULATIF — TOUS LES FICHIERS PRODUITS PAR LE WORKFLOW
@@ -352,13 +352,14 @@ RÉCAPITULATIF — TOUS LES FICHIERS PRODUITS PAR LE WORKFLOW
 [projet].stack.md — investigation technique, free tier, gotchas (/stack)
 [projet].Rmap.md — roadmap phasée avec planning (/roadmap)
 [projet].spec.[feature].md — user story auto-contenue, un fichier par feature (/specs)
-[projet].prp.md — Project Ready Prompt < 1000 tokens (/prp)
+[projet].prp.md — Project Ready Prompt ≤ 1000 tokens (+ version extended si dépassement inévitable) (/prp)
 [projet].avancement.yaml — sprint tracker YAML (/avancement)
 [projet].recette.md — cahier de recettes avec résultats (/recette)
 [projet].tests.md — suite de tests unit + intégration + Playwright (/tests)
 [projet].doc-tech.md — documentation technique développeur (/doc-tech Mode A)
 [projet]-retrospective.md — journal de rétrospective par phase (/phase-retrospective)
 [projet].adr.md — journal des décisions architecturales (/adr)
+[projet].refacto-dette.md — journal de dette refactoring, points résolus et en attente (/refacto)
 CLAUDE.md (dans le repo projet) — blocs d'architecture injectés automatiquement dans le contexte Claude (/archi)
 Fichiers techniques (générés par /setup) :
 .env.example — template des variables d'environnement (jamais de valeurs réelles)
@@ -367,4 +368,4 @@ Structure de dossiers source — selon l'architecture définie dans [projet].arc
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 FIN DU RÉCAP — VIBE METHOD
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-La chaîne complète représente environ 25 skills principaux + 6 transversaux. Chaque skill a une entrée claire (quand le lancer), un processus défini (ce que Claude fait), et une sortie explicite (comment ça se termine, quel fichier est produit, vers quel skill passer ensuite). La méthode est conçue pour que Medwin ne puisse jamais se demander 'qu'est-ce qu'on fait maintenant ?' — le skill en cours répond toujours à cette question.
+La chaîne complète représente environ 25 skills principaux + 5 transversaux (/party, /impact, /avancement, /adr, /refacto). Chaque skill a une entrée claire (quand le lancer), un processus défini (ce que Claude fait), et une sortie explicite (comment ça se termine, quel fichier est produit, vers quel skill passer ensuite). La méthode est conçue pour que User ne puisse jamais se demander 'qu'est-ce qu'on fait maintenant ?' — le skill en cours répond toujours à cette question.

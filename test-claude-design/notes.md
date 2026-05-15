@@ -75,6 +75,26 @@ Pour chaque zone de chaque écran, préciser explicitement :
 
 ---
 
+### Lacune 3 — Pas de boucle de révision design après Mode B
+
+**Ce qu'on a en sortie de Mode B :** l'interface complète — navigation, routing, états, composants — sans backend ni auth. Le squelette fonctionnel visuel est là, mais pas encore chargé de logique métier.
+
+**Ce qui manque :** une étape explicite entre Mode B et `/roadmap` — une boucle de révision design où on passe l'interface en revue dans le navigateur, on corrige les défauts visuels et UX, et on valide avant de commencer à coder les features.
+
+Exemple concret détecté dans ce test : zone cliquable du composant date trop étroite. Visible immédiatement à l'usage après Mode B. Correction triviale à ce stade (padding sur le composant). Inutile et risqué d'attendre `/recette` — à ce moment le code métier est construit dessus et les corrections peuvent introduire des régressions.
+
+**Pourquoi c'est le bon moment pour corriger :**
+- Le code est encore propre — rien de métier n'est construit dessus
+- Les corrections sont cosmétiques — aucun risque de régression fonctionnelle
+- Attendre `/recette` = corriger du design sur un code chargé de logique
+
+**Correction à apporter dans `/design` v2 :**
+Ajouter une étape explicite après Mode B :
+> **Étape 5 — Révision design in-browser**
+> Parcourir tous les écrans dans le navigateur. Identifier les défauts visuels et UX (zones cliquables, espacements, états manquants, incohérences). Corriger directement dans le code avant de passer à `/roadmap`. Valider avec Medwin : "L'interface est correcte — on peut commencer à coder dessus ?"
+
+---
+
 ## Résultats (à remplir après le test)
 
 ### Output Claude Design

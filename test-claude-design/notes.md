@@ -18,7 +18,21 @@ Claude Design peut fonctionner en deux temps :
 **Décision actée :** le Mode A commence maintenant par une décision one-shot vs two-step (Étape 0b du skill /design).
 - **One-shot** : ≤ 6 écrans, 1 type d'utilisateur, navigation simple → un seul `[projet].design.md`
 - **Two-step** : > 6 écrans, plusieurs rôles, navigation complexe → Passe 1 (design system) + Passe 2 (écrans par batch)
-- **Règle critique two-step** : Claude Design n'a aucune mémoire entre sessions — chaque document de Passe 2 doit inclure la référence complète aux tokens et composants de Passe 1.
+
+**Clarifications apportées le 2026-05-15 — à valider par test :**
+
+**Regroupement des écrans (A2)** : la logique de regroupement est systémique et déléguée à Claude — pas décidée manuellement par Medwin, pas calquée sur les phases de développement. Claude propose le regroupement le plus cohérent visuellement et fonctionnellement. Tous les écrans sont connus dès le départ (PRD validé avant Mode A).
+
+**Structure A1 / A2 reclarifiée :**
+- A1 produit `[projet].design-system.md` → donné à Claude Design → Claude Design **enregistre le design system comme référence globale du projet**. Aucun retour dans Claude Code pour une sous-phase intermédiaire : le design system est la base permanente pour tous les écrans.
+- A2 produit autant de `[projet].design-screens-[x].md` que nécessaire → donnés à Claude Design → Claude Design produit les écrans **en s'appuyant automatiquement sur le design system déjà enregistré**. Pas besoin de réinclure les tokens dans chaque fichier A2.
+
+**⚠️ Correction sur la mémoire Claude Design :** la règle "Claude Design sans mémoire entre sessions — réinclure les tokens dans chaque Passe 2" inscrite dans le skill et le guide (commit d812f81) est **potentiellement incorrecte**. Si Claude Design maintient effectivement le design system comme référence permanente une fois enregistré, cette règle est inutile et doit être retirée. À confirmer par test avant de modifier le skill.
+
+**Point ouvert — transfer HTML/CSS → Claude Code :**
+- **Option A** : tous les écrans compilés dans Claude Design → rapatrié en un seul bloc HTML/CSS dans Claude Code
+- **Option B** : chaque écran rapatrié individuellement dans Claude Code
+→ À tester lors de la prochaine session (2026-05-16).
 
 ---
 

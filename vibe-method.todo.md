@@ -153,6 +153,7 @@
 
 ### À faire
 
+- 27 — Test Claude Design deux passes : valider (1) le mécanisme de mémoire du design system entre A1 et A2 (re-référence nécessaire ou non ?), (2) l'organisation du transfer HTML/CSS vers Claude Code (lot unique ou écran par écran). Mettre à jour skill `/design` et guide après test. **Priorité haute — prévu 2026-05-16.**
 - ~~26~~
 - ~~17~~
 - ~~18~~

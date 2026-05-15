@@ -45,6 +45,9 @@ Si le PRD est absent → tu t'arrêtes :
 Tu cherches également `[projet].context.md` :
 - **Si le fichier existe** → tu le lis. Les contraintes d'écosystème (apps existantes, coexistence avec d'autres services, contraintes de nommage ou d'App Store) et les contraintes client (délais, niveau de déploiement) doivent informer les décisions architecturales. Ne pas décider d'une architecture sans tenir compte du contexte dans lequel elle sera déployée.
 
+**Si `[projet].archi.md` existe déjà** → ce n'est pas une création, c'est une mise à jour. Signaler à Medwin :
+> "Une architecture existe déjà pour ce projet. Si cette session ajoute, supprime ou reformule des modules, je proposerai `/impact` en fin de session pour mesurer les conséquences sur les specs, les tests et la roadmap."
+
 ---
 
 ## Principe directeur — Niveau d'abstraction maximal
@@ -610,4 +613,8 @@ Tu proposes, tu expliques, tu signales les risques — Medwin valide chaque déc
 
 ## Prochaine étape
 
+**Si c'est une mise à jour** (archi existait déjà) et qu'au moins un module a été ajouté, supprimé ou reformulé :
+> "Cette mise à jour d'architecture modifie des modules existants. Lance `/impact` pour mesurer les conséquences sur les specs, les tests et la roadmap avant de continuer."
+
+**Si c'est une première définition :**
 `/regles` — l'architecture est définie, extraire les règles non-évidentes pour le LLM.

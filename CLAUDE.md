@@ -26,10 +26,10 @@ vibe-method/
 ## Chaîne de skills — workflow complet
 
 ```
-/contexte → /brief → /charte → /prd → /prd-update → /prd-validate → /gherkin (Mode PRD) → [/design Mode A ↔ /archi itératif] → /regles → /stack → [/design Mode B] → /roadmap → /specs → /gherkin (Mode Specs) → /readyTo-code → /setup → /prp → /avancement (init) → /sessionCode → [code] → /code-review → /code-review-edge-cases → /repair-edge-cases → /code-review-hostil → /tests → /doc-tech (Mode B) → /recette ↔ /debug → [fin de phase] /phase-retrospective → /doc-tech (Mode A)
+/contexte → /brief → /charte → /prd → /prd-update → /prd-validate → /gherkin (Mode PRD) → [/design Mode A ↔ /archi itératif] → /regles → /stack → [/design Mode B] → /roadmap → /specs → /gherkin (Mode Specs) → /readyTo-code → /setup → /prp → /avancement (init) → /sessionCode → [code] → /code-review → /code-review-edge-cases → /repair-edge-cases → /code-review-hostil → /tests → /securite → /doc-tech (Mode B) → /recette ↔ /debug → [fin de phase] /phase-retrospective → /doc-tech (Mode A)
 ```
 
-Skills transversaux (invocables à tout moment) : `/party`, `/securite`, `/impact`, `/avancement`
+Skills transversaux (invocables à tout moment) : `/party`, `/impact`, `/avancement`
 
 **Note sur la phase itérative /design ↔ /archi :**
 Mode A de /design et /archi se construisent en aller-retour. Les écrans révèlent des modules manquants dans l'archi ; l'archi précise les états des composants. La phase se termine quand les deux sont cohérents. Output : `[projet].design.md` complet → donné à Claude Design pour exécution. Mode B intègre le code produit par Claude Design dans Tailwind (web) ou NativeWind (native).

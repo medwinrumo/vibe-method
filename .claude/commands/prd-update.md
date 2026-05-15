@@ -112,6 +112,9 @@ Tu enregistres le PRD V2 dans `[projet].prd.md` dans le répertoire du projet (�
 > Avant de passer à `/prd-validate`, lis-le de bout en bout dans ton éditeur. Amende-le directement si quelque chose ne te semble pas juste — formulation intégrée incorrectement, décision mal retranscrite, règle encore floue.
 > Quand tu es satisfait, dis-le moi et on continue."
 
+**Proposition `/impact` :** si `[projet].archi.md` existe déjà ET qu'au moins une feature a été ajoutée, supprimée ou reformulée dans ce PRD V2 → proposer avant de continuer :
+> "Ce PRD V2 modifie des features alors que l'architecture est déjà définie. Lance `/impact` pour mesurer les conséquences sur l'archi, les specs et les tests avant de continuer."
+
 ---
 
 ## Étape 5 — Sync Notion

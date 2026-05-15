@@ -45,6 +45,16 @@ Claude Design peut fonctionner en deux temps :
 
 ---
 
+## Observation générale — Précision requise avec Claude Design
+
+Claude Design interprète ce qu'il reçoit. Tout ce qui n'est pas explicitement spécifié est une décision qu'il prend seul — et pas forcément dans le sens voulu. Contrairement à un développeur humain qui pose des questions, Claude Design ne demande pas de clarification : il produit.
+
+**Conséquence pour le Mode A :** le `[projet].design.md` doit être d'une précision extrême. Chaque ambiguïté dans le brief = une décision arbitraire dans l'output. Plus le brief est vague, plus le résultat s'éloigne de l'intention.
+
+**Ce que ça implique pour `/design` v2 :** le skill Mode A doit guider Medwin vers ce niveau de précision — poser les bonnes questions, forcer les décisions explicites, ne rien laisser à l'interprétation.
+
+---
+
 ## Lacunes identifiées dans le Mode A
 
 ### Lacune 2 — Surface vs background non spécifiés par zone

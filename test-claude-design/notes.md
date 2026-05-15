@@ -90,6 +90,23 @@ Ajouter une étape explicite après Mode B :
 
 ---
 
+### Lacune 4 — Medwin ne connaît pas le vocabulaire UI/UX
+
+Sans le vocabulaire, impossible d'être précis dans le Mode A, impossible d'être créatif, impossible de communiquer sans friction. C'est une source d'erreurs et de perte de temps structurelle — pas un problème ponctuel.
+
+**Trois corrections à apporter dans `/design` v2 :**
+
+**1. Créer `ui-vocabulary.md` dans vibe-method**
+Lexique de référence — zones d'un écran, composants courants, patterns de navigation, états — avec pour chacun : nom, définition, ASCII art illustratif. Consulté avant tout `/charte` ou `/design` Mode A.
+
+**2. Transformer le Mode A en dialogue guidé**
+Plutôt que demander à Medwin de décrire ses écrans en partant de zéro, le skill propose des patterns nommés avec exemples visuels (AskUserQuestion + ASCII art). Medwin choisit et ajuste — il ne doit pas inventer depuis rien.
+
+**3. Claude prend en charge la terminologie en temps réel**
+Quand Medwin décrit quelque chose sans en connaître le nom, Claude pose le nom, confirme, et l'utilise de manière cohérente dans tous les documents. Ce comportement existe déjà mais reste une source de friction — les propositions 1 et 2 le réduisent structurellement.
+
+---
+
 ## Résultats (à remplir après le test)
 
 ### Output Claude Design

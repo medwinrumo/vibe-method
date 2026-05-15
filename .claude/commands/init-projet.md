@@ -8,11 +8,11 @@ Initialise l'environnement complet d'un nouveau projet : repo Git + pages Notion
 ## Usage
 
 ```
-/init
+/init-projet
 ```
 
 Pas d'arguments. Le nom du projet est déduit du dossier courant.
-Lancer depuis le dossier du projet : `cd ~/dev/[nom_projet]` puis `/init`.
+Lancer depuis le dossier du projet : `cd ~/dev/[nom_projet]` puis `/init-projet`.
 
 ---
 

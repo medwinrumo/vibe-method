@@ -26,7 +26,7 @@ vibe-method/
 ## Chaîne de skills — workflow complet
 
 ```
-/context → /brief → /charte → /prd → /prd-update → /prd-validate → /gherkin (Mode PRD) → [/design Mode A ↔ /archi itératif] → /regles → /stack → [/design Mode B] → /roadmap → /specs → /gherkin (Mode Specs) → /readyTo-code → /setup → /prp → /avancement (init) → /sessionCode → [code] → /code-review → /code-review-edge-cases → /repair-edge-cases → /code-review-hostil → /tests → /doc-tech (Mode B) → /recette ↔ /debug → [fin de phase] /phase-retrospective → /doc-tech (Mode A)
+/contexte → /brief → /charte → /prd → /prd-update → /prd-validate → /gherkin (Mode PRD) → [/design Mode A ↔ /archi itératif] → /regles → /stack → [/design Mode B] → /roadmap → /specs → /gherkin (Mode Specs) → /readyTo-code → /setup → /prp → /avancement (init) → /sessionCode → [code] → /code-review → /code-review-edge-cases → /repair-edge-cases → /code-review-hostil → /tests → /doc-tech (Mode B) → /recette ↔ /debug → [fin de phase] /phase-retrospective → /doc-tech (Mode A)
 ```
 
 Skills transversaux (invocables à tout moment) : `/party`, `/securite`, `/impact`, `/avancement`
@@ -36,7 +36,7 @@ Mode A de /design et /archi se construisent en aller-retour. Les écrans révèl
 
 | Skill | Rôle | Output |
 |---|---|---|
-| `/context` | Contexte projet — écosystème, client, contraintes, notes de réunions | `[projet].context.md` |
+| `/contexte` | Contexte projet — écosystème, client, contraintes, notes de réunions | `[projet].context.md` |
 | `/brief` | De l'intention au brief structuré | `[projet].brief.md` |
 | `/charte` | Charte graphique — couleurs, typo, logo, ambiance | `[projet].charte.md` |
 | `/prd` | Du brief au PRD V1 (dialogue) | `[projet].prd.md` |

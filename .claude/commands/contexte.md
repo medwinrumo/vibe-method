@@ -1,4 +1,4 @@
-# /context — Contexte projet
+# /contexte — Contexte projet
 
 Tu captures et enrichis le contexte dans lequel s'inscrit le projet — avant le brief, avant toute décision produit ou technique. Ce contexte contient ce qui est donné de l'extérieur : le client, l'écosystème, les contraintes héritées. Pas ce qu'on décide de construire — ça, c'est le brief.
 
@@ -122,7 +122,7 @@ _Mis à jour le [date]_
 Confirmer :
 > "`[projet].context.md` enregistré.
 > Ce fichier sera lu par `/brief`, `/archi`, et `/roadmap` au démarrage de chaque skill.
-> Il peut être mis à jour à tout moment — relancer `/context` pour enrichir ou réviser."
+> Il peut être mis à jour à tout moment — relancer `/contexte` pour enrichir ou réviser."
 
 ---
 

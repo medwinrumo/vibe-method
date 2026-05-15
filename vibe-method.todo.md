@@ -9,6 +9,18 @@
 ### Ce qui a été fait
 
 - Tâche 26 — Les 9 gestes du kung fu : noms attachés aux règles existantes dans `methode.md` (pilotage session de code + protocole d'escalade), tableau de référence rapide ajouté, rappel des 5 gestes de posture dans `/sessionCode` étape 7, step 4 de `/debug` nommé "Le faucon en chasse". Commit pushé.
+- Skill `/askme` créé et symlinké : raccourci contextuel pour AskUserQuestion — analyse le contexte en cours, génère 1-4 questions avec options tranchantes.
+- Tâche 3 — Test Claude Design sur projet fictif TeamTasks (3 écrans, React + Tailwind) :
+  - `test-claude-design/teamtasks.design.md` produit (Mode A complet avec ASCII art 3 écrans)
+  - `test-claude-design/notes.md` : 4 lacunes identifiées (one-shot vs two-step, précision absolue, révision in-browser, vocabulaire UI)
+  - `ui-vocabulary.md` créé : lexique de référence UI/UX complet avec ASCII art (zones, composants, états, couleurs, patterns, propriétés visuelles)
+  - `/design` Mode A : exigence de précision absolue + référence ui-vocabulary.md (bloc [RÉVISION 2026-05-15])
+  - `/design` Mode B : étape 5 "Révision in-browser" ajoutée avant /roadmap
+  - `/charte` : rappel ui-vocabulary.md avant lancement /design
+  - `methode.md` Phase 2 : deux références ajoutées (ui-vocabulary + révision in-browser)
+  - `design.md` (doctrine) : workflow et bloc révision mis à jour
+  - `CLAUDE.md` : ui-vocabulary.md dans la structure
+  - Guide complet : blocs [RÉVISION 2026-05-15] dans /charte et /design Mode A
 
 ---
 
@@ -146,7 +158,7 @@
 - ~~18~~
 - ~~19~~
 - ~~20~~
-- 3 — Tester Code Design comme outil de génération UI — à évaluer comme alternative/complément à Claude Design. Décision d'intégration dans la stack design après test. **Priorité moyenne.**
+- ~~3~~
 - ~~4~~
 - ~~5~~
 - ~~6~~
@@ -162,6 +174,7 @@
 
 ### Réalisées
 
+- ✅ 3 — Test Claude Design (TeamTasks) : 4 lacunes identifiées, `ui-vocabulary.md` créé, `/design` Mode A + Mode B enrichis, guide mis à jour. (2026-05-15)
 - ✅ 26 — Les 9 gestes du kung fu : noms intégrés dans `methode.md`, `/sessionCode`, `/debug`. (2026-05-15)
 - ✅ 21-25 — 5 skills BMAD manquants : `/prd-validate`, `/readyTo-code`, `/regles`, `/phase-retrospective`, `/code-review-hostil`. Symlinks créés. CLAUDE.md chaîne + table mises à jour. (2026-05-14)
 - ✅ 4 — Comparaison BMAD vs vibe-method : rapport `bmad-comparaison.md` + 3 skills créés (`/avancement`, `/code-review-edge-cases`, `/impact`) + 5 rappels (tâches 21-25). (2026-05-14)

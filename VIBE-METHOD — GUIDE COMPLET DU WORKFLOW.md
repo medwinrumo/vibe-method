@@ -8,7 +8,6 @@ Chaque skill a des INPUTS (ce dont il a besoin) et des OUTPUTS (ce qu'il produit
  
 LA CHAÎNE DU WORKFLOW — LES 7 PARTIES
 1. CONCEPTION : /contexte → /brief → /charte → /prd → /prd-update → /prd-validate
-Le PRD (Product Requirements Document) est le document qui décrit précisément quoi construire et pourquoi (besoin, utilisateurs, fonctionnalités, règles métier, parcours, contraintes et critères de succès).
 2. ARCHITECTURE & DESIGN : /gherkin (Mode PRD) → /design (Mode A) ↔ /archi → /regles → /stack
 3. PLANIFICATION : /roadmap → /specs → /gherkin (Mode Specs)
 4. AVANT LE CODE : /readyTo-code → /setup → /prp → /avancement → /sessionCode
@@ -86,10 +85,11 @@ TOI : tu valides les parcours clés, les composants, les états proposés
 CLAUDE : lit le PRD et la charte, propose les écrans, inventorie les composants, structure le design system
 Fichier produit : [projet].design.md (donné à Claude Design pour exécution)
 Fin : 'Mode A → retour à /archi, itérer jusqu'à cohérence design ↔ architecture.'
-[RÉVISION 2026-05-15] Trois points issus du test Claude Design (TeamTasks, 2026-05-15) :
-1. Précision absolue — Claude Design n'interrompt jamais pour demander une clarification : il interprète et produit. Chaque décision non prise dans [projet].design.md est une décision prise seul par Claude Design. Nommer chaque zone, chaque composant, chaque état explicitement — rien ne doit être laissé à l'interprétation.
-2. Consulter ui-vocabulary.md en amont — zones d'écran (header fixe, contenu scrollable, bottom bar), composants courants (carte vs fond, badge, tab bar), états (hover, disabled, chargement...) et propriétés visuelles (border-radius, ombre, densité). Le lexique est disponible dans le repo vibe-method.
-3. Révision in-browser obligatoire après Mode B — avant de passer à /roadmap, parcourir l'interface dans le navigateur et corriger les défauts visuels et UX directement dans le code. C'est le bon moment : le code est propre, rien de métier n'est encore construit dessus.
+[RÉVISION 2026-05-15] Quatre points issus du test Claude Design (TeamTasks, 2026-05-15) :
+1. One-shot ou two-step — première décision à prendre en Mode A, avant de produire quoi que ce soit. One-shot (≤ 6 écrans, 1 type d'utilisateur, navigation simple) : un seul [projet].design.md contenant design system + écrans, donné à Claude Design en une passe. Two-step (> 6 écrans, plusieurs rôles, navigation complexe) : Passe 1 → [projet].design-system.md (tokens + composants uniquement) → Claude Design produit la référence. Passe 2 → [projet].design-screens-[batch].md par groupe d'écrans, chacun incluant la référence complète aux tokens et composants de la Passe 1. Règle critique : Claude Design n'a aucune mémoire d'une session à l'autre — la cohérence entre passes dépend entièrement de la présence de cette référence dans chaque document.
+2. Précision absolue — Claude Design n'interrompt jamais pour demander une clarification : il interprète et produit. Chaque décision non prise dans [projet].design.md est une décision prise seul par Claude Design. Nommer chaque zone, chaque composant, chaque état explicitement — rien ne doit être laissé à l'interprétation.
+3. Consulter ui-vocabulary.md en amont — zones d'écran (header fixe, contenu scrollable, bottom bar), composants courants (carte vs fond, badge, tab bar), états (hover, disabled, chargement...) et propriétés visuelles (border-radius, ombre, densité). Le lexique est disponible dans le repo vibe-method.
+4. Révision in-browser obligatoire après Mode B — avant de passer à /roadmap, parcourir l'interface dans le navigateur et corriger les défauts visuels et UX directement dans le code. C'est le bon moment : le code est propre, rien de métier n'est encore construit dessus.
  
 ── /archi — ARCHITECTURE MODULAIRE ──
 Définit la structure du code — les modules, leurs responsabilités, les règles silo (qui peut appeler quoi), les contrats d'interface (ce que chaque module expose), les décisions de sécurité, le backup et la conformité RGPD.

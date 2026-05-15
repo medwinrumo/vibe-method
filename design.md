@@ -54,6 +54,13 @@ La phase se termine quand les deux sont cohérents. Output : `[projet].design.md
 - Comportements interactifs (hover, focus, erreur, chargement)
 - Si utile : ASCII art pour les écrans complexes
 
+**One-shot vs two-step :**
+
+Le Mode A commence toujours par une décision de mode de travail avec Claude Design.
+
+- **One-shot** (projet ≤ 6 écrans, 1 type d'utilisateur, navigation simple) : un seul `[projet].design.md` contenant design system ET écrans → Claude Design en une passe.
+- **Two-step** (projet > 6 écrans, plusieurs rôles, navigation complexe) : deux passes. Passe 1 : `[projet].design-system.md` (tokens + composants uniquement) → Claude Design construit la référence visuelle. Passe 2 : `[projet].design-screens-[batch].md` par groupe d'écrans, chacun incluant la référence complète aux tokens et composants de la Passe 1 — Claude Design ne garde pas de mémoire entre sessions, la cohérence dépend entièrement de la présence de cette référence dans chaque document.
+
 **ASCII art — format de maquette collaboratif :**
 
 Pour les écrans dont la structure est non évidente, un ASCII art peut être esquissé dans `[projet].design.md`. C'est un format léger pour s'aligner sur la disposition avant de donner à Claude Design — ni prototype figé, ni contrainte rigide. Il sert de socle commun entre Medwin, Claude et Claude Design.

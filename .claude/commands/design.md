@@ -47,6 +47,41 @@ Si le PRD est absent → tu t'arrêtes :
 
 ---
 
+### Étape 0b — One-shot ou two-step ?
+
+Avant de produire quoi que ce soit, tu poses la question du mode de travail avec Claude Design.
+
+Tu lis le PRD et comptes les écrans estimés, les types d'utilisateurs, la complexité de la navigation.
+
+**Critères de décision :**
+
+| Critère | One-shot | Two-step |
+|---|---|---|
+| Nombre d'écrans V1 | ≤ 6 | > 6 |
+| Types d'utilisateurs | 1 | ≥ 2 (ex : admin + user) |
+| Navigation | Linéaire ou à 2 niveaux | Multi-niveaux, drawer, rôles |
+| Nombre de composants distincts | Faible (< 8) | Élevé (≥ 8) |
+
+> "D'après le PRD, le projet a [N écrans estimés], [1 / plusieurs] type(s) d'utilisateur(s) et une navigation [simple / complexe]. Je recommande l'approche [one-shot / two-step].
+>
+> **One-shot** : un seul `[projet].design.md` contenant le design system complet ET tous les écrans → donné à Claude Design en une passe.
+>
+> **Two-step** : deux passes distinctes —
+> 1. `[projet].design-system.md` (design system uniquement : tokens, composants, états — aucun écran) → Claude Design construit la référence visuelle
+> 2. `[projet].design-screens-[batch].md` (écrans par groupe, chacun référençant le design system établi) → Claude Design produit les écrans en cohérence avec la Passe 1
+>
+> Tu confirmes ?"
+
+**Si one-shot confirmé :** continuer normalement — un seul `[projet].design.md` en sortie de Mode A.
+
+**Si two-step confirmé :** la production se divise en deux sous-phases :
+- **Sous-phase A1** : produire `[projet].design-system.md` (tokens + composants + états — pas d'écrans). Medwin le donne à Claude Design. Claude Design produit la référence HTML/CSS. Medwin revient avec le résultat → Mode B partiel (extraction des tokens dans Tailwind uniquement — pas encore d'écrans à intégrer).
+- **Sous-phase A2** : reprendre Mode A ici pour produire les fichiers d'écrans `[projet].design-screens-[batch].md`. Chaque fichier commence par une section "Design system de référence" pointant vers les tokens et composants définis en A1. Medwin donne chaque fichier à Claude Design séparément. Claude Design produit les écrans en s'appuyant sur la référence A1.
+
+> **Règle two-step :** chaque `[projet].design-screens-[batch].md` DOIT inclure en tête une section "Référence design system" qui recopie les tokens critiques (couleurs, typo, border-radius, espacements) ET liste les composants déjà construits en Passe 1. C'est ce qui garantit la cohérence entre passes — Claude Design ne garde pas de mémoire d'une session à l'autre.
+
+---
+
 ### Étape 1 — Périmètre de distribution et implications design
 
 Tu lis `[projet].archi.md` et confirmes le périmètre :

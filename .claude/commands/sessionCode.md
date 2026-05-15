@@ -99,9 +99,32 @@ Si une dépendance n'est pas "Done" → signaler avant de continuer :
 
 ---
 
-## Étape 5 — Mode de développement
+## Étape 5 — Mode de développement et santé du module
 
 Tu lis `[projet].archi.md` pour identifier le module concerné par cette feature.
+
+Si le module n'est pas identifiable → signaler :
+> "Je ne trouve pas le module correspondant à cette feature dans `[projet].archi.md`. Vérifie l'architecture avant de continuer."
+
+**5a — Évaluation de la santé du module**
+
+Tu lis les fichiers du module identifié et tu évalues les 6 critères suivants :
+
+1. Fonctions trop longues ou trop imbriquées
+2. Duplication significative (même logique copiée à plusieurs endroits)
+3. Tests absents ou fragiles sur le module
+4. Interfaces floues entre modules (violations de la règle silo)
+5. Bug récurrent ou effet de bord connu (tracé dans `/debug` ou `/phase-retrospective`)
+6. Modifications à risque (auth, permissions/RLS, paiement) sur du code difficile à raisonner
+
+Si **≥ 2 critères** sont présents → recommandation forte avant de continuer :
+> "Le module [X] présente des signes de dégradation ([critère 1], [critère 2]...).
+> Je recommande `/refacto` avant de coder cette feature — construire sur un module instable risque d'aggraver la dette et de compliquer les reviews.
+> Tu veux lancer `/refacto` d'abord, ou continuer malgré les signaux ?"
+
+Medwin décide. Si il choisit de continuer malgré les signaux → noter et passer à la suite.
+
+**5b — Mode de développement**
 
 **Si module métier ou module sécurité → Mode TDD :**
 > "Cette feature est dans le module [X] — mode TDD.
@@ -111,9 +134,6 @@ Tu lis `[projet].archi.md` pour identifier le module concerné par cette feature
 **Si module UI ou module technique → Mode Standard :**
 > "Cette feature est dans le module [X] — mode Standard.
 > Les tests sont écrits après le code."
-
-Si le module n'est pas identifiable → signaler :
-> "Je ne trouve pas le module correspondant à cette feature dans `[projet].archi.md`. Vérifie l'architecture avant de continuer."
 
 ---
 

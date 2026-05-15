@@ -6,6 +6,37 @@ Doctrine de référence : `refacto.md`
 
 ---
 
+## Quand proposer /refacto
+
+Ce skill n'est jamais automatique — Claude le **propose**, Medwin décide de le lancer ou de le reporter.
+
+Trois signaux déclencheurs :
+
+### Signal 1 — Après une review négative
+
+Si `/code-review` ou `/code-review-hostil` remonte des problèmes de nature **structurelle** sur un module (violation de silo, responsabilités mal placées, couplage excessif, duplication significative, complexité inextricable) → proposer :
+> "Ce module montre des signes de dégradation structurelle. Je recommande `/refacto` avant d'ajouter de nouvelles fonctionnalités ici."
+
+**Filtre important :** `/code-review-hostil` remonte toujours ≥ 10 problèmes par design. Ne proposer `/refacto` que si les problèmes critiques touchent la **structure du module** — pas juste des bugs, des cas limites ou des problèmes de sécurité isolés.
+
+### Signal 2 — Avant d'implémenter une feature sur un module instable
+
+Si la feature à coder touche un module qui présente **au moins 2** des critères suivants → proposer `/refacto` avant de continuer :
+- Fonctions trop longues ou trop imbriquées
+- Duplication significative (même logique copiée à plusieurs endroits)
+- Absence ou fragilité des tests sur le module
+- Interfaces floues entre modules (violations répétées de la règle silo)
+- Bug récurrent ou effet de bord connu dans ce module (vu en `/debug` ou `/phase-retrospective`)
+- Modifications à risque (auth, permissions/RLS, paiement) sur du code difficile à raisonner
+
+Pour évaluer ces critères, Claude lit le module concerné au démarrage de `/sessionCode` avant de commencer le développement.
+
+### Signal 3 — En fin de phase (hygiène)
+
+Après `/phase-retrospective`, si la section "dette technique" contient ≥ 2 items classés "élevé" ou "bloquant" → proposer une session `/refacto` planifiée avant de démarrer la phase suivante.
+
+---
+
 ## Étape 0 — Vérification de session
 
 Avant tout :
@@ -60,6 +91,10 @@ Tu lis le(s) fichier(s) du module concerné. Tu identifies ce qui pose problème
 - Nommage flou : des noms qui ne reflètent plus ce qu'ils font
 - Logique impossible à décrire en une phrase
 - Responsabilités mal placées : logique dans le mauvais module
+- Fonctions trop longues ou trop imbriquées
+- Violations de la règle silo : un module touche le code d'un autre
+- Tests absents ou fragiles sur le module
+- Bug récurrent ou effet de bord connu (tracé dans `/debug` ou `/phase-retrospective`)
 
 **Tu présentes le diagnostic en langage clair, sans code :**
 > "Voici ce que j'observe dans [module] :

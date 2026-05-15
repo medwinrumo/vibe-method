@@ -51,6 +51,7 @@ Tu lis chaque fichier source et en extrais **uniquement** :
 - Règles silo : quel module peut appeler quoi, ce qui est interdit
 - Contraintes techniques structurantes (ex : région BDD, niveau de déploiement si critique)
 - Section Sécurité complète : règles universelles + règles projet (secrets, tables RLS, endpoints, blocs conditionnels)
+- Entry points concernés par la feature en cours (fichiers/dossiers/routes)
 
 **`CLAUDE.md`** → règles du projet
 - Conventions de code non-évidentes
@@ -75,16 +76,55 @@ Tu lis chaque fichier source et en extrais **uniquement** :
 
 ---
 
-## Étape 2 — Vérification de complétude
+## Étape 2 — Évaluation de suffisance
 
-Avant d'écrire le fichier, tu vérifies :
-- Toutes les règles non-évidentes sont présentes (si quelque chose peut surprendre une IA généraliste → ça reste)
-- Aucune explication ou justification n'a glissé dans le document (si une phrase commence par "parce que" ou "afin de" → la supprimer)
-- Le document tient en moins de 1 000 tokens — sinon, recondenser
+Avant d'écrire le fichier, tu évalues si le contenu extrait permet de démarrer une session sans relire le reste.
+
+### Checklist de suffisance (6 catégories)
+
+| Catégorie | Ce qu'elle couvre | Statut |
+|---|---|---|
+| A. Objectif immédiat | Feature en cours + définition de done (1-3 lignes) | OK / Manquant |
+| B. Pointeurs de code | Fichiers/dossiers concernés + 2-5 entry points concrets | OK / Manquant |
+| C. Règles critiques | 5-15 règles non-évidentes (sécurité, pièges, interdits) | OK / Partiel / Manquant |
+| D. Décisions d'archi | 3-7 décisions qui impactent directement l'implémentation | OK / Partiel / Manquant |
+| E. Données & invariants | Modèles/entités touchées + invariants métier | OK / N/A / Manquant |
+| F. Commandes de dev | 3-8 commandes essentielles (dev, test, lint, migrate) | OK / Manquant |
+
+**Si une catégorie est "Manquant"** → chercher l'information dans les fichiers sources. Si elle est absente des sources → signaler explicitement à Medwin que l'artefact correspondant est incomplet (ex : `/regles` n'a pas encore été fait).
+
+**Si ≥ 2 catégories sont "Manquant" ou "Partiel"** → alerter :
+> "PRP incomplet — [N] catégories insuffisantes. Risque de bloquer au démarrage de session sur : [liste]. Recommandation : [action]."
+
+### Test de simulation (obligatoire)
+
+Avant de sauvegarder, vérifie que le PRP permet de répondre sans ambiguïté à ces 4 questions :
+
+1. **Qu'est-ce que je code maintenant ?** (objectif de session)
+2. **Où je le code ?** (fichiers et entry points)
+3. **Quelles règles je ne dois pas violer ?** (sécurité, pièges, interdits)
+4. **Comment je vérifie que ça marche ?** (tests ou commande)
+
+Si une question ne peut pas être répondue depuis le PRP seul → le PRP est insuffisant, quelle que soit sa taille.
 
 ---
 
-## Étape 3 — Génération de `[projet].prp.md`
+## Étape 3 — Contrôle de taille
+
+**Cible : ≤ 1 000 tokens.**
+
+Estimer la taille du PRP produit (approximation acceptable : 1 token ≈ 0,75 mot).
+
+- **≤ 1 000 tokens** → OK, continuer.
+- **> 1 000 tokens** → recondenser. Si impossible sans perdre des éléments de la checklist de suffisance : produire deux versions :
+  - `[projet].prp.md` — version core ≤ 1 000 tokens (objectif, pointeurs, règles critiques)
+  - `[projet].prp-extended.md` — version complète sans contrainte de taille
+
+La version core est chargée par défaut. La version extended est disponible pour les sessions complexes.
+
+---
+
+## Étape 4 — Génération de `[projet].prp.md`
 
 ```markdown
 # PRP — [Nom du projet]
@@ -122,8 +162,14 @@ _Généré le [date] — feature courante : [nom de la feature]_
 - [pattern 2]
 [si tests.md absent : omettre cette section]
 
+## Commandes de dev
+- [commande 1] — [rôle]
+- [commande 2] — [rôle]
+
 ## Feature en cours — [nom]
 [User story condensée]
+
+Entry points : [fichiers/dossiers concernés]
 
 Critères d'acceptance :
 - [critère 1]
@@ -132,13 +178,18 @@ Critères d'acceptance :
 
 ---
 
-## Étape 4 — Confirmation
+## Étape 5 — Confirmation
 
-> "`[projet].prp.md` généré.
-> À régénérer quand la feature change ou après un changement d'architecture."
+Message de fin obligatoire :
 
-Tu proposes immédiatement :
-> "Lance `/sessionCode` pour démarrer la session de code."
+> "PRP estimé : [X] tokens / limite : 1 000 — [OK / Dépassement : version core + extended générées]
+>
+> Suffisance :
+> A=[statut] — B=[statut] — C=[statut] — D=[statut] — E=[statut] — F=[statut]
+>
+> [Si tout OK] : PRP prêt. Lance `/avancement` pour initialiser le tracker, puis `/sessionCode` pour démarrer.
+>
+> [Si alerte] : Risque de bloquer au démarrage sur [catégories]. Recommandation : [action concrète — ex : +250 tokens, compléter /regles, ajouter entry points]."
 
 ---
 
@@ -146,7 +197,8 @@ Tu proposes immédiatement :
 
 - **Décisions et contraintes uniquement** — pas d'explications, pas de justifications
 - **Non-évident préservé toujours** — ce qu'une IA généraliste raterait sans ce fichier
-- **< 1 000 tokens** — si le document dépasse, recondenser avant de sauvegarder
+- **≤ 1 000 tokens (hard)** — si impossible sans sacrifier la suffisance : core + extended
+- **Suffisance prime sur la taille** — un PRP court mais insuffisant est inutile
 - **Document vivant** — relancer `/prp` après tout changement d'architecture ou de feature
 - **Ne pas bloquer sur un fichier absent** — signaler et continuer
 

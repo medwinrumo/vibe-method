@@ -29,6 +29,7 @@ Tu as besoin de :
    - `[projet].stack.md`
    - `[projet].tests.md`
    - `[projet].spec.[feature].md`
+   - `[projet].gloss.md` _(optionnel — glossaire des termes métier du projet)_
 
 Si un fichier est absent → le signaler et continuer sans lui. Ne pas bloquer sur un fichier optionnel (tests) si le projet n'en a pas encore.
 
@@ -73,6 +74,10 @@ Tu lis chaque fichier source et en extrais **uniquement** :
 - User story condensée (qui fait quoi, dans quel but)
 - Critères d'acceptance uniquement
 - Rien sur le contexte ou la justification
+
+**`[projet].gloss.md`** _(si présent)_ → termes métier canoniques
+- Liste complète des termes acté : terme → définition courte
+- Permet à Claude de poliser le vocabulaire pendant la session
 
 ---
 
@@ -165,6 +170,10 @@ _Généré le [date] — feature courante : [nom de la feature]_
 ## Commandes de dev
 - [commande 1] — [rôle]
 - [commande 2] — [rôle]
+
+## Glossaire _(si [projet].gloss.md présent)_
+- [terme] — [définition courte]
+[répéter pour chaque terme — omettre la section si le fichier est absent]
 
 ## Feature en cours — [nom]
 [User story condensée]

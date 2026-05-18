@@ -1,37 +1,37 @@
----
-description: Met à jour uniquement la page [projet].log dans Notion pour la session en cours
-allowed-tools: mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-update-page, mcp__claude_ai_Notion__notion-create-pages
----
+# /log — Journal de bord
 
-Met à jour la page `[projet].log` dans Notion pour le projet en cours de travail.
+Met à jour le fichier `[projet].log.md` pour le projet en cours de travail.
 
 ## Identification du projet
 
 Détermine le nom du projet à partir du répertoire de travail courant.
 
-## Rôle de la page `.log`
+## Rôle de `.log`
 
 Journal de bord factuel et daté. Entrées courtes, sans explication technique — les détails sont dans `.peda`. L'objectif est une trace concise de ce qui s'est passé, consultable d'un coup d'œil.
 
 ## Création
 
-Si la page `[projet].log` n'existe pas dans Notion, la créer avant d'y écrire.
+Si `[projet].log.md` n'existe pas → le créer avec l'en-tête `# [projet].log — Journal de bord`.
 
 ## Structure
 
-Ajouter les entrées de la session courante, imbriquées dans le menu du jour :
+Ajouter les entrées de la session courante :
+
+```markdown
+## Jour N — [date]
+
+### Session N — [résumé en une phrase]
+
+- [entrée factuelle 1]
+- [entrée factuelle 2]
 ```
-▶ Jour N — [date]
-    ▶ Session N — [résumé en une phrase]
-        - [entrée factuelle 1]
-        - [entrée factuelle 2]
-```
 
-Chaque session dans son propre menu dépliant. Jamais dans le menu d'une session précédente.
+Chaque session dans sa propre section. Jamais dans la section d'une session précédente.
 
-## Convention couleur
+## Règle de non-duplication
 
-Tout contenu ajouté dans la page existante doit être coloré en bleu (`{color="blue"}`).
+Lire le fichier avant d'écrire. Ne documenter que l'incrément depuis la dernière entrée.
 
 ## Calibrage des entrées
 

@@ -67,77 +67,40 @@ La doctrine complète est dans `vibe-method/securite.md`.
 
 ---
 
-## Notion — second cerveau
-
-### Bases de données principales
-
-**Notes & Docs**
-- URL : https://www.notion.so/153a67fe703a817a9d8fe523fcbce297?v=153a67fe703a8132a5b8000c1559359b
-- Destination par défaut pour toute création de note
-- Propriété `projet client` : relation vers la DB Projets (obligatoire à chaque création)
-- Propriété `étiquette` (select, pas une relation) : valeur `.exe`
-- Si Medwin oublie de donner le projet → lui rappeler avant de créer
-
-**Projets**
-- URL : https://www.notion.so/153a67fe703a81e38489eabe2c8d076c?v=153a67fe703a8126aa89000c90dfe1b4
-- Reliée à Notes & Docs et à Tâches
-
-**Tâches**
-- URL : https://www.notion.so/153a67fe703a81c1b965c7d4a7a1474f?v=153a67fe703a81db87e8000caed1cc7b
-- Reliée à Notes & Docs (bidirectionnel) et à Projets
-- On peut relier une tâche à une note, une note à une tâche, ou rechercher toutes les tâches d'une note/projet
-
-### Règles opérationnelles Notion
-- Toute nouvelle note → DB Notes & Docs + propriété `projet client` renseignée + étiquette `.exe`
-- Si le projet n'est pas donné → demander avant de créer
-- Relations notes↔tâches : bidirectionnelles, à maintenir dans les deux sens
-- **Convention couleur** : tout contenu ajouté par Claude dans une page Notion existante doit être coloré en bleu (`{color="blue"}`). Permet à Medwin de distinguer visuellement ce qui est nouveau de ce qui existait déjà. S'applique aux mises à jour (`update_content`), pas aux créations de pages entières.
-
----
-
 ## Commandes de session
 
 | Commande | Action |
 |---|---|
-| `/maj` | Clôture de session complète (GitHub + toutes les pages Notion du projet) |
-| `/checkpoint` | Documentation intermédiaire — Notion uniquement, sans clôture Git, on continue |
+| `/maj` | Clôture de session complète — documentation locale + Git |
+| `/checkpoint` | Documentation intermédiaire — `[projet].peda.md` et `[projet].log.md`, sans clôture Git |
 | `/todo` | Lecture de l'état du projet en début de session |
-| `/majtodo` | Met à jour `[projet].todo.md` dans Git et la page `[projet].todo` dans Notion |
-| `/peda` | Met à jour les pages `[projet].peda` et `[projet].gloss` dans Notion |
-| `/log` | Met à jour uniquement la page `[projet].log` dans Notion |
-| `/doc` | Met à jour uniquement la page `[projet].doc` dans Notion |
-| `/spec` | Met à jour uniquement la page `[projet].spec` dans Notion |
+| `/majtodo` | Met à jour `[projet].todo.md` dans Git |
+| `/peda` | Met à jour `[projet].peda.md` et `[projet].gloss.md` |
+| `/log` | Met à jour `[projet].log.md` |
+| `/doc` | Met à jour `[projet].doc.md` |
+| `/spec` | Met à jour `[projet].spec-global.md` |
 
-Les pages Notion ciblées sont celles du **projet en cours de travail**.
-
-**Règle de non-duplication :** avant toute écriture dans Notion, lire le contenu existant de la page et n'écrire que ce qui ne l'est pas encore. Si `/checkpoint` a été utilisé en cours de session, `/maj` ne documente que l'incrément restant.
+**Règle de non-duplication :** lire le fichier existant avant d'écrire. Si `/checkpoint` a été utilisé en cours de session, `/maj` ne documente que l'incrément restant.
 
 ---
 
-## Règles de création de pages Notion
+## Artefacts locaux par projet
 
-### Créer une page dans Notes & Docs
-1. Créer dans **Notes & Docs** la page nommée `[projet].[type]`
-2. Propriété `projet client` (relation) → chercher le projet dans la DB Projets
-3. Propriété `étiquette` (select) → valeur `.exe`
-4. Si le projet n'existe pas dans la DB Projets → le créer avant de relier
+Tous les artefacts sont des fichiers `.md` dans le repo du projet. Source de vérité unique.
 
-### Pages standard par projet (dans Notes & Docs)
-
-| Page Notion | Rôle | Skill associé |
+| Fichier | Rôle | Skill associé |
 |---|---|---|
-| `[projet].brief` | Brief structuré (intention → brief) | `/brief` |
-| `[projet].prd` | Toutes les versions PRD en toggles (V1, V2...) | `/prd`, `/prd-update` |
-| `[projet].archi` | Décisions d'architecture | `/archi` |
-| `[projet].Rmap` | Roadmap + planning | `/roadmap`, `/planning` |
-| `[projet].spec` | Specs et user stories | `/spec` |
-| `[projet].peda` | Journal pédagogique | `/peda` |
-| `[projet].gloss` | Glossaire — définitions courtes des termes et acronymes | `/peda` |
-| `[projet].log` | Journal de bord | `/log` |
-| `[projet].doc` | Documentation utilisateur | `/doc` |
-
-**Règle :** chaque skill crée ou met à jour automatiquement sa page Notion à la fin de son exécution.
-**Règle :** le skill demande le nom du projet en début d'exécution si non fourni, afin de cibler les bonnes pages.
+| `[projet].brief.md` | Brief structuré | `/brief` |
+| `[projet].prd.md` | Toutes les versions PRD (V1, V2...) | `/prd`, `/prd-update` |
+| `[projet].archi.md` | Décisions d'architecture | `/archi` |
+| `[projet].Rmap.md` | Roadmap + planning | `/roadmap` |
+| `[projet].spec-global.md` | Spec vivante du projet (état global des décisions) | `/spec` |
+| `[projet].spec.[feature].md` | Spec d'une feature précise (user story auto-contenue) | `/specs` |
+| `[projet].peda.md` | Journal pédagogique | `/peda` |
+| `[projet].gloss.md` | Glossaire — termes métier canoniques | `/peda` |
+| `[projet].log.md` | Journal de bord | `/log` |
+| `[projet].doc.md` | Documentation utilisateur et exploitation | `/doc` |
+| `[projet].todo.md` | État exécutif — tâches et avancement | `/majtodo` |
 
 ---
 
@@ -167,45 +130,35 @@ Claude Web enrichit ces fichiers depuis GitHub. En début de session, faire `git
 
 À appliquer à la fin de **chaque session de travail**, sans exception.
 
-#### Étape 1 — GitHub
+#### Étape 1 — Documentation locale
 
-- Vérifier que tout est **commité et pushé**
-- Mettre à jour le fichier **`[nom_projet].todo.md`** du projet
+Mettre à jour les fichiers de documentation avant de commiter :
 
-#### Étape 2 — Notion (3 pages par projet)
+| Fichier | Quand |
+|---|---|
+| `[projet].peda.md` | Toujours |
+| `[projet].log.md` | Toujours |
+| `[projet].doc.md` | Si la session a produit des changements visibles pour l'utilisateur |
+| `[projet].spec-global.md` | Si la session a produit des changements de spec |
 
-| Page | Nom dans Notion | Objectif |
-|---|---|---|
-| Journal pédagogique | `[nom_système].peda` | Documenter ce qu'on a fait, pourquoi, comment, les difficultés |
-| Journal de bord | `[nom_système].log` | Entrées courtes et datées, factuelles |
-| Documentation utilisateur | `[nom_système].doc` | Doc destinée à l'utilisateur final, construite au fil du dev |
-
-**Structure des pages `.peda` et `.log` :** menus dépliants imbriqués par jour puis par session.
+Structure des sections `.peda` et `.log` :
 ```
-▶ Jour 1 — [date] — [objectif]
-    ▶ Session 1 — [résumé]
-        [contenu]
-    ▶ Session 2 — [résumé]
-        [contenu]
+## Jour N — [date] — [objectif]
+### Session N — [résumé]
+[contenu]
 ```
-Règle absolue : chaque session dans **son propre menu dépliant**, jamais dans celui d'une session précédente.
+Règle absolue : chaque session dans **sa propre section**, jamais dans celle d'une session précédente.
 
-**Page `.peda` — contenu attendu par session :**
-- Ce qu'on a fait, pourquoi, à quoi ça sert
-- Comment (outils, commandes, sites)
-- Difficultés rencontrées et solutions
-- Points de compréhension difficiles
+#### Étape 2 — GitHub
 
-**Page `.log` — contenu attendu par session :**
-- Entrées courtes et factuelles, datées
-- Pas de détails techniques (ceux-ci sont dans `.peda`)
-
-**Page `.doc` :** ne suit pas une logique chronologique — organisation pensée du point de vue utilisateur, structure à définir lors d'une session dédiée.
+- Vérifier que tout est **commité et pushé** (inclut les fichiers `.peda.md`, `.log.md`, etc.)
+- Mettre à jour le fichier **`[projet].todo.md`**
 
 #### Checklist de clôture
 
+- [ ] `[projet].peda.md` complété
+- [ ] `[projet].log.md` complété
+- [ ] `[projet].doc.md` mis à jour si nécessaire
+- [ ] `[projet].spec-global.md` mis à jour si nécessaire
 - [ ] Tout commité et pushé sur GitHub
 - [ ] Fichier `[projet].todo.md` mis à jour
-- [ ] Page `.peda` complétée
-- [ ] Page `.log` complétée
-- [ ] Page `.doc` mise à jour si nécessaire

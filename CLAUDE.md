@@ -30,7 +30,7 @@ vibe-method/
 /contexte → /brief → /charte → /prd → /prd-update → /prd-validate → /gherkin (Mode PRD) → [/design Mode A ↔ /archi itératif] → /regles → /stack → [/design Mode B] → /roadmap → /specs → /gherkin (Mode Specs) → /readyTo-code → /setup → /prp → /avancement (init) → /sessionCode → [code] → /code-review → /code-review-edge-cases → /repair-edge-cases → /code-review-hostil → /tests → /securite → /doc-tech (Mode B) → /recette ↔ /debug → [fin de phase] /phase-retrospective → /doc-tech (Mode A)
 ```
 
-Skills transversaux (invocables à tout moment) : `/party`, `/impact`, `/avancement`
+Skills transversaux (invocables à tout moment) : `/party`, `/impact`, `/avancement`, `/grill-me`
 
 **Note sur la phase itérative /design ↔ /archi :**
 Mode A de /design et /archi se construisent en aller-retour. Les écrans révèlent des modules manquants dans l'archi ; l'archi précise les états des composants. La phase se termine quand les deux sont cohérents. Output : `[projet].design.md` complet → donné à Claude Design pour exécution. Mode B intègre le code produit par Claude Design dans Tailwind (web) ou NativeWind (native).
@@ -67,9 +67,18 @@ Mode A de /design et /archi se construisent en aller-retour. Les écrans révèl
 | `/phase-retrospective` | Rétrospective de fin de phase — analyse, dette, action items, preview phase suivante | `[projet]-retrospective.md` |
 | `/refacto` | Refactoring guidé — diagnostic + exécution étape par étape. Déclenché avant une feature sur module dégradé, fin de phase, ou on-demand. Exige une session dédiée. | — |
 | `/party` | Multi-perspectives sur une décision (sous-agents parallèles) | — |
-| `/adr` | Capture d'une décision architecturale (4 questions → append dans `[projet].adr.md`) | `[projet].adr.md` |
+| `/grill-me` | Interrogatoire approfondi d'un plan — une question à la fois, recommandation incluse, chaque branche résolue | — |
+| `/adr` | Capture d'une décision architecturale — filtre 3 conditions obligatoire avant création | `[projet].adr.md` |
 
 **Règle de stockage :** tous les outputs sont des fichiers `.md` dans le repo du projet — pas dans Notion. Notion est une copie pour la lecture, mise à jour en fin de session via `/maj`.
+
+### Artefact transversal — `[projet].gloss.md`
+
+Fichier de glossaire des termes métier canoniques du projet. Créé lors du `/prd` quand les premiers termes sont stabilisés, enrichi lors de `/archi` et `/specs`.
+
+Format : une entrée par ligne — `**terme** : définition courte`.
+
+Rôle : chargé par `/prp` à chaque session → Claude peut signaler en cours de session si un terme utilisé diffère du vocabulaire acté ("tu dis 'commande' — le glossaire dit 'ordre'. Lequel est canonique ?").
 
 ---
 

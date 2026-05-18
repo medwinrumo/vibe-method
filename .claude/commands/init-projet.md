@@ -1,9 +1,6 @@
----
-description: Initialise un nouveau projet — Git + Notion — en une commande
-allowed-tools: Bash(git *), Bash(gh *), Bash(mkdir *), Bash(touch *), Bash(cp *), Bash(ls *), Bash(pwd), Bash(basename *), Write, mcp__claude_ai_Notion__notion-create-pages, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-search
----
+# /init-projet — Initialisation d'un nouveau projet
 
-Initialise l'environnement complet d'un nouveau projet : repo Git + pages Notion.
+Initialise l'environnement complet d'un nouveau projet : repo Git local + GitHub.
 
 ## Usage
 
@@ -24,7 +21,7 @@ basename $(pwd)
 
 Tu affiches le nom détecté et tu demandes confirmation avant de continuer :
 
-> "Projet détecté : **[nom_projet]**. Je vais initialiser Git, créer le repo GitHub et les pages Notion. On y va ?"
+> "Projet détecté : **[nom_projet]**. Je vais initialiser Git, créer le repo GitHub et les fichiers de base. On y va ?"
 
 ---
 
@@ -79,46 +76,7 @@ Confirmer : "Repo GitHub créé et pushé → `github.com/medwinrumo/[nom_projet
 
 ---
 
-## Étape 2 — Notion
-
-### Page projet (racine)
-
-Créer une nouvelle entrée dans la DB **Projets** (`153a67fe703a81e38489eabe2c8d076c`) :
-- **Titre** : `[nom_projet]`
-
-Retenir l'ID de la page créée — il sera utilisé pour lier les sous-pages.
-
-### Page principale `[nom_projet].run`
-
-Créer dans la DB **Notes & Docs** (`153a67fe703a817a9d8fe523fcbce297`) avec :
-- **Titre** : `[nom_projet].run`
-- **Template** : `34aa67fe703a80a89161cafb5c431272`
-- **Propriétés** :
-  - `area` (relation → DB Area) : chercher et relier "Business"
-  - `ressource` (relation → DB Ressource) : relier à la page projet créée à l'étape précédente
-  - `étiquette` (select) : `vibe-coding`
-
-### 9 sous-pages (enfants de `.run`)
-
-Créer chaque sous-page comme page enfant de `[nom_projet].run`, avec :
-- **Template** : `34aa67fe703a80669b09c38e718d20c3`
-- **Propriétés identiques** à `.run` sauf `étiquette`
-
-| Titre | Étiquette | Alimentée par |
-|---|---|---|
-| `[nom_projet].brief` | `.brief` | `/brief` |
-| `[nom_projet].prd` | `.prd` | `/prd`, `/prd-update` |
-| `[nom_projet].archi` | `.archi` | `/archi` |
-| `[nom_projet].Rmap` | `.Rmap` | `/roadmap` |
-| `[nom_projet].spec` | `.spec` | `/specs`, `/spec` |
-| `[nom_projet].peda` | `.peda` | `/peda` |
-| `[nom_projet].gloss` | `.gloss` | `/peda` |
-| `[nom_projet].log` | `.log` | `/log` |
-| `[nom_projet].doc` | `.doc` | `/doc` |
-
----
-
-## Étape 3 — Confirmation et prochaine étape
+## Étape 2 — Confirmation et prochaine étape
 
 Afficher le récapitulatif :
 
@@ -134,10 +92,6 @@ Fichiers créés :
   — [nom_projet].todo.md
   — [nom_projet].log.md
   — [nom_projet].context.md  ← à remplir avant /context
-
-Notion :
-  — Page projet créée dans la DB Projets
-  — [nom_projet].run (+ 9 sous-pages)
 ```
 
 Puis suggérer la suite :

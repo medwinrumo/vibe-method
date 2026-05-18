@@ -1,9 +1,6 @@
----
-description: Met à jour la documentation structurée [projet].doc dans Notion — sous-pages Utilisateur et Exploitation
-allowed-tools: mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-update-page, mcp__claude_ai_Notion__notion-create-pages
----
+# /doc — Documentation structurée
 
-Met à jour la page `[projet].doc` dans Notion et ses sous-pages de documentation structurée.
+Met à jour le fichier `[projet].doc.md` pour le projet en cours.
 
 **Note :** la documentation destinée aux développeurs (architecture, JSDoc, .env, conventions, maintenance) est dans `[projet].doc-tech.md` — généré par `/doc-tech`. Ce skill ne couvre pas ce périmètre.
 
@@ -11,36 +8,36 @@ Met à jour la page `[projet].doc` dans Notion et ses sous-pages de documentatio
 
 Détermine le nom du projet à partir du répertoire de travail courant.
 
-## Structure cible de [projet].doc
+## Structure cible de [projet].doc.md
 
-La page `[projet].doc` est une page parent contenant deux sous-pages fixes :
+Le fichier contient deux sections fixes :
 
-| Sous-page | Audience | Contenu typique |
+| Section | Audience | Contenu typique |
 |---|---|---|
-| 👤 Utilisateur | Utilisateur final non-technique | Vue d'ensemble (ce que fait l'application) — puis par feature : ce qu'elle fait, comment elle fonctionne, comment l'utiliser |
-| ⚙️ Exploitation | Opérateur / installateur | Prérequis système, installation, déploiement, configuration serveur, maintenance |
+| `## Utilisateur` | Utilisateur final non-technique | Vue d'ensemble, puis par feature : ce qu'elle fait, comment l'utiliser |
+| `## Exploitation` | Opérateur / installateur | Prérequis système, installation, déploiement, configuration serveur, maintenance |
 
-Si une sous-page n'existe pas encore, la créer avant de la mettre à jour.
+Si le fichier n'existe pas → le créer avec l'en-tête `# [projet].doc — Documentation` et les deux sections vides.
 
 ## Processus de mise à jour
 
 ### 1. Lire avant d'écrire
 
-Fetch l'état actuel de chaque sous-page potentiellement concernée. Ne jamais modifier sans avoir lu l'existant — pas d'écrasement, pas de duplication.
+Lire l'état actuel de `[projet].doc.md`. Ne jamais modifier sans avoir lu l'existant — pas d'écrasement, pas de duplication.
 
 ### 2. Poser la bonne question
 
-> **Ce qui a été produit pendant la session change-t-il ce qu'un lecteur de cette sous-page peut comprendre ou faire ?**
+> **Ce qui a été produit pendant la session change-t-il ce qu'un lecteur de cette section peut comprendre ou faire ?**
 
 Si la réponse est non, ne pas toucher.
 
-### 3. Cibler la bonne sous-page
+### 3. Cibler la bonne section
 
-- Comportement visible, fonctionnalité nouvelle ou modifiée, guide d'utilisation → **👤 Utilisateur**
-- Procédure de déploiement, dépendance système, variable serveur → **⚙️ Exploitation**
+- Comportement visible, fonctionnalité nouvelle ou modifiée, guide d'utilisation → **`## Utilisateur`**
+- Procédure de déploiement, dépendance système, variable serveur → **`## Exploitation`**
 - Décision d'architecture, `.env`, route API, schéma de données, convention → **`/doc-tech`**, pas ce skill
 
-Un même changement peut justifier une mise à jour dans les deux sous-pages.
+Un même changement peut justifier une mise à jour dans les deux sections.
 
 ### 4. Modifier sans dégrader
 
@@ -48,14 +45,10 @@ Un même changement peut justifier une mise à jour dans les deux sous-pages.
 - Réorganiser si la structure actuelle ne correspond plus au contenu réel
 - Ne pas recopier ce qui est dans `.log` — le `.doc` n'est pas un journal, c'est un état stable
 
-## Convention couleur
-
-Tout contenu ajouté dans une page existante doit être coloré en bleu (`{color="blue"}`).
-
 ## Feedback
 
 Ne rien signaler pour les modifications mineures (reformulation, ajout d'un paramètre, correction).
 
-Signaler uniquement si la modification est majeure : nouvelle fonctionnalité documentée, restructuration d'une sous-page, création d'une nouvelle sous-page.
+Signaler uniquement si la modification est majeure : nouvelle fonctionnalité documentée, restructuration d'une section, création du fichier.
 
-Format : `📄 .doc mis à jour — [nom sous-page] : [description en une ligne]`
+Format : `.doc mis à jour — [section] : [description en une ligne]`

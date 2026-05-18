@@ -1,7 +1,4 @@
----
-description: Clôture de session — Git + sync sécurité + GitHub Projects + cohérence doctrine
-allowed-tools: Bash(git *), Bash(cat *), Bash(gh *)
----
+# /maj — Clôture de session
 
 Effectue la clôture complète de session pour le projet en cours.
 
@@ -9,7 +6,18 @@ Effectue la clôture complète de session pour le projet en cours.
 
 Détermine le nom du projet à partir du répertoire de travail courant (ex : `minou` depuis `/Users/medwinrumo/dev/minou`).
 
-## Étape 2 — GitHub
+## Étape 2 — Documentation locale
+
+Avant le commit Git, mettre à jour les fichiers de documentation. Ces fichiers seront inclus dans le commit de clôture.
+
+1. **`[projet].peda.md`** — Documenter la session : ce qu'on a fait, pourquoi, comment, difficultés rencontrées. Lire le fichier avant d'écrire.
+2. **`[projet].log.md`** — Entrées factuelles courtes de la session. Lire avant d'écrire.
+3. **`[projet].doc.md`** — Si la session a produit des changements visibles pour l'utilisateur ou l'opérateur. Ignorer si rien n'a changé.
+4. **`[projet].spec-global.md`** — Si la session a produit des changements de spec (fonctionnalité décidée, contrainte modifiée, décision abandonnée). Ignorer si rien n'a changé.
+
+**Règle de non-duplication :** si `/checkpoint` a été lancé en cours de session, ne documenter que l'incrément depuis le dernier checkpoint.
+
+## Étape 3 — GitHub
 
 1. Vérifier que tout est commité (`git status`)
 2. Si des modifications non commitées existent, demander confirmation avant de commiter
@@ -26,7 +34,7 @@ Si `[projet].archi.md` existe et contient une section `## Sécurité` :
 3. Si les deux diffèrent → mettre à jour le bloc du `CLAUDE.md` projet pour le remettre en phase avec `archi.md`
 Cette sync est silencieuse si aucune différence — elle ne signale que si une mise à jour a été faite.
 
-## Étape 3 — GitHub Projects
+## Étape 4 — GitHub Projects
 
 Met à jour le kanban du projet.
 
@@ -66,9 +74,7 @@ Si `.gh-project.local` existe :
 
 Si `.gh-project.local` absent → ignorer cette étape silencieusement.
 
-**Note :** les pages Notion (.peda, .log, .spec, .doc) se mettent à jour manuellement via leurs skills dédiés (`/peda`, `/log`, `/spec`, `/doc`) — non automatisé dans /maj.
-
-## Étape 4 — Cohérence skills / doctrine (si projet vibe-method ou si un skill a été modifié)
+## Étape 5 — Cohérence skills / doctrine (si projet vibe-method ou si un skill a été modifié)
 
 Si la session a modifié un skill ou un fichier de doctrine (`produit.md`, `methode.md`, `architecture.md`, `securite.md`) :
 
@@ -87,6 +93,10 @@ Pour chaque paire concernée :
 
 ## Checklist finale
 
+- [ ] `[projet].peda.md` complété
+- [ ] `[projet].log.md` complété
+- [ ] `[projet].doc.md` mis à jour si nécessaire
+- [ ] `[projet].spec-global.md` mis à jour si nécessaire
 - [ ] Tout commité et poussé sur GitHub
 - [ ] `CLAUDE.md` mis à jour si nécessaire
 - [ ] Bloc sécurité du `CLAUDE.md` synchronisé avec `archi.md` (si projet avec archi)

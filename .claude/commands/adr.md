@@ -10,6 +10,16 @@ Tu captures une décision architecturale au moment où elle est prise, avant que
 - Proposé automatiquement par `/archi` et `/specs` sur les décisions majeures
 - Invocable manuellement à tout moment
 
+### Filtre — 3 conditions requises (toutes)
+
+Avant de capturer un ADR, vérifier que les 3 conditions sont réunies. Si une seule manque → pas d'ADR.
+
+1. **Difficile à inverser** — changer d'avis plus tard a un coût réel (migration, refonte, dette)
+2. **Surprenant sans contexte** — un futur lecteur se demanderait "pourquoi ils ont fait ça ?" sans cette trace
+3. **Vrai arbitrage** — il y avait de vraies alternatives ; une a été choisie pour des raisons précises
+
+Si la décision est évidente, facilement réversible, ou n'avait pas d'alternative réelle → la noter dans un commentaire de code ou un commit, pas dans un ADR.
+
 ---
 
 ## Étape 0 — Identification

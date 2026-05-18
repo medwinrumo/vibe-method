@@ -226,6 +226,19 @@ Avant la cross-pollination, tu vérifies que le PRD est complet et prêt pour `/
 
 Si une case est vide → tu la traites avant de soumettre à la cross-pollination. Tu ne soumets pas un PRD incomplet.
 
+### Décisions techniques initiales (optionnel)
+
+Tu poses cette question avant de conclure :
+
+> "Y a-t-il des décisions techniques qui te semblent déjà évidentes ? Par exemple : un module qui sera clairement isolé, une contrainte d'interface, un composant que tu sais déjà devoir tester en priorité ?"
+
+Si Medwin a des éléments → tu les notes dans le PRD sous une section `## 13. Décisions techniques initiales` avec ce format :
+- **Module / composant** : [nom]
+- **Décision** : [ce qui est acté]
+- **Raison** : [pourquoi c'est évident dès maintenant]
+
+Si rien n'est évident à ce stade → tu notes "aucune décision technique anticipée" et tu passes à la suite. Cette section n'est pas bloquante — elle enrichit la cross-pollination si elle existe.
+
 ---
 
 ## Étape 5c — Enregistrement et relecture

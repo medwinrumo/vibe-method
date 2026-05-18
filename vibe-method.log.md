@@ -27,3 +27,14 @@
 - Créé `/to-issues` — specs → issues GitHub qualifiées HITL/AFK
 - Recadrage : approche prospective confirmée, distinction HITL/AFK formalisée
 - Commits : `96ff58e`, `24370a8`, `b5761bb`, `fedec66`
+
+### Session 3 — Implementation Decisions, /handoff, /zoom-out, /prototype
+
+- `/prd` : ajout sections 13 (Implementation Decisions) + 14 (Testing Decisions) dans template + questions Étape 5b
+- `/archi` : Étape 0 lit Implementation Decisions du PRD ; Étape 0b challenge obligatoire (hypothèses, pas décisions finales)
+- Créé `/zoom-out` — carte du module courant (archi.md + gloss.md), transversal
+- `/handoff` refondu : sections enrichies toutes phases + bidirectionnel (save/restore) + append + détection par résumé de compaction visible
+- Créé `/prototype` — branche logique (terminal) + branche UI (variations switchables), déclencheurs dans `/archi`, `/design`, `/prd`, `/specs`, `/grill-me`
+- Hooks Claude Code : % de contexte non exposé aux hooks — fonctionnalité manquante, mémoire créée
+- Hallucination sub-agent : issue GitHub #34340 inventée avec détails précis — corrigée
+- Commits : `2087d5e`, `2dab863`, `5b36a0e`, `8c297b9`, `a098913`

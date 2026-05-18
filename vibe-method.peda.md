@@ -89,3 +89,65 @@ Ce recadrage a conduit à reconsidérer `/to-issues` (initialement écarté "fau
 - **Approche prospective** : intégrer les concepts utiles même sans use case immédiat visible — ils seront disponibles quand le besoin viendra.
 - **HITL/AFK** : distinction formalisée dans `/to-issues` et `/roadmap` pour qualifier explicitement ce qu'on délègue vs ce qu'on valide.
 - **`/to-issues` dans la chaîne** : après `/specs`, avant `/sessionCode`. Transforme les specs en issues structurées prêtes à exécuter.
+
+---
+
+### Session 3 — Implementation Decisions, /handoff, /zoom-out, /prototype
+
+#### Ce qu'on a fait et pourquoi
+
+**Implementation Decisions + Testing Decisions dans `/prd` et `/archi`**
+
+Partant du skill externe `to-prd`, on a identifié une lacune : le dialogue PRD capturait des intuitions architecturales (un module évident, une contrainte d'interface) mais les perdait — elles n'étaient nulle part dans un artefact que `/archi` pouvait lire.
+
+Trois changements appliqués :
+- `/prd` : deux nouvelles sections dans le template (13. Implementation Decisions, 14. Testing Decisions) et deux nouvelles questions en Étape 5b pour les collecter
+- `/archi` Étape 0 : lit explicitement la section 13 du PRD dès l'ouverture
+- `/archi` Étape 0b : traite ces décisions comme hypothèses de départ à challenger — complétude, alternatives, cohérence — pas comme décisions finales
+
+L'enjeu : éviter que l'archi se contente de prolonger ce que le PRD a pressenti. Elle doit aussi explorer ce qu'il n'a pas pensé.
+
+**`/zoom-out` — réorientation dans un fichier peu familier**
+
+Évaluation du skill externe `zoom-out`. Cas d'usage retenu : arriver dans un module qu'on n'a pas touché depuis longtemps et comprendre comment il s'insère dans l'architecture avant d'y toucher. Pas pour la reprise post-compaction (c'est `/handoff`), mais pour la redécouverte.
+
+Skill créé en version vibe-method : lit `[projet].archi.md` + `[projet].gloss.md`, produit une carte du module (responsabilité, callers, contrat public, termes du domaine). Pas de questions, pas de validation — juste la carte. Transversal.
+
+Au passage : clarification sur comment `gloss.md` se remplit — créé par `/prd`, enrichi par `/peda` (via `/maj` ou `/checkpoint`). C'est Claude qui fait la sélection et la curation, pas Medwin.
+
+**`/handoff` — refonte complète**
+
+Trois itérations sur `/handoff` dans cette session :
+
+1. **Sections enrichies pour toutes les phases** : la version précédente était trop générique pour les sessions de code et ne capturait pas les sessions de conception (PRD, archi, specs). Ajout de "Phase et skill en cours", "Étape précise", "Décisions validées" séparées des actions, "Artefacts modifiés", "Prochaine action précise". Section conditionnelle code uniquement (module, tests, prochaine action dans le code).
+
+2. **Bidirectionnel** : un seul fichier, deux comportements. Fichier vide → sauvegarde. Fichier avec contenu → reprise (affichage + vidage). Pas de delete/recreate — Write écrase, coût nul.
+
+3. **Append + détection par contexte visible** : Medwin a proposé l'accumulation de plusieurs `/handoff` avant une compaction. Résolution du problème de détection save vs restore : si un résumé de compaction est visible dans la conversation + peu d'historique → reprise automatique. Si conversation active → append. Cas ambigu (fichier non vide + session active) → demande explicite.
+
+Point intéressant appris : Claude n'a pas accès au % de remplissage de contexte affiché dans le CLI. C'est une information UI, pas accessible au modèle.
+
+**`/prototype` — code jetable**
+
+Skill externe évalué et intégré. Deux branches : logique (terminal interactif pour tester une machine d'état) et UI (variations switchables). Zéro polish, une commande, supprimé quand la question est résolue. Sortie vers `/adr` si la réponse engage l'architecture.
+
+Intérêt principal pour notre méthode : embrasser le jetable comme pratique de première classe. Notre méthode construit toujours pour durer — le prototype est l'exception assumée.
+
+Déclencheurs ajoutés dans 5 skills : `/archi` (logique d'état complexe), `/design` (directions visuelles multiples), `/prd` (journey difficile à valider), `/specs` (règles métier impossibles à spécifier sans les voir), `/grill-me` (question intraitable abstraitement). Claude suggère — Medwin n'a pas à y penser.
+
+**Hooks Claude Code et monitoring du contexte**
+
+Medwin voulait savoir si les skills pouvaient accéder au % de contexte pour suggérer `/handoff` automatiquement. Délégué à un sous-agent spécialisé.
+
+Résultat : non disponible. Les hooks n'exposent pas de métrique de contexte. Mais le sous-agent a produit une réponse très convaincante avec un numéro d'issue GitHub (#34340), des noms de variables précis (`CLAUDE_CONTEXT_PERCENT`), et des liens — le tout inventé. Corrigé immédiatement, mémoire mise à jour.
+
+#### Décisions prises
+
+- **Implementation Decisions comme hypothèses** : `/archi` ne prolonge pas les intuitions du PRD — il les challenge. Complétude, alternatives, cohérence.
+- **`/handoff` append** : plusieurs sauvegardes s'accumulent, une seule reprise vide tout. Fichier vide = save, résumé de compaction visible = restore.
+- **`/prototype` transversal** : pas dans la chaîne principale — invocable à tout moment, suggéré par Claude quand le signal apparaît dans un autre skill.
+- **Hallucination à signaler immédiatement** : quand un sous-agent produit des détails très précis non vérifiables (URLs, numéros d'issue, noms de variables), traiter ça comme un signal d'alerte — ne pas faire confiance sans vérification.
+
+#### Difficultés
+
+- **Hallucination du sous-agent** : le claude-code-guide a inventé une issue GitHub #34340 avec des détails très convaincants. Medwin a vérifié et signalé l'erreur. C'est une illustration importante : la précision des détails n'est pas un indicateur de vérité — c'est parfois l'inverse.

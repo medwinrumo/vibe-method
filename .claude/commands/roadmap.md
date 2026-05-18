@@ -42,6 +42,27 @@ Tu présentes cette analyse à Medwin et tu demandes confirmation avant de conti
 
 ---
 
+## Principe de découpage — Vertical slices
+
+Chaque item de la roadmap doit être un **vertical slice** : une tranche fine qui coupe à travers toutes les couches (schéma → API → UI → tests), pas une couche isolée.
+
+**Mauvais découpage (couches horizontales) :**
+- ~~Phase 1 : toute la base de données~~
+- ~~Phase 2 : toutes les routes API~~
+- ~~Phase 3 : tout le front-end~~
+
+Ces phases ne livrent rien de démontrable. Un bug de conception ne se voit qu'à la Phase 3.
+
+**Bon découpage (vertical slices) :**
+- Phase 1 : l'utilisateur peut s'inscrire et se connecter (schéma users + route /login + écran Login + tests)
+- Phase 2 : l'utilisateur peut créer un projet (schéma projects + route /projects + écran NewProject + tests)
+
+Chaque phase est démontrable ou vérifiable seule dès qu'elle est terminée. Les problèmes de conception remontent au plus tôt.
+
+**Test de découpage :** pour chaque item, se demander — "si on livre uniquement ça, est-ce qu'on peut le montrer ou le tester de bout en bout ?" Si non → le découpage est trop horizontal.
+
+---
+
 ## Étape 2 — Cross-pollination (si projet complexe)
 
 Tu évalues la complexité du projet selon ces critères :
@@ -129,6 +150,7 @@ Avant d'enregistrer, tu vérifies que la roadmap est complète et prête pour `/
 - [ ] Le découpage en sprints ou en blocs est cohérent avec la deadline
 - [ ] Les points ouverts vers `/archi` sont listés si nécessaire
 - [ ] La V1 est réaliste dans le délai disponible
+- [ ] Chaque item est un vertical slice démontrable seul — pas une couche isolée
 
 Si une case est vide → tu traites le point avant de sauvegarder. Tu ne sauvegardes pas une roadmap incomplète.
 

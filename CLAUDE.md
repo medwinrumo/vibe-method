@@ -50,6 +50,7 @@ Mode A de /design et /archi se construisent en aller-retour. Les écrans révèl
 | `/stack` | Spike technique — investigation stack, free tier, gotchas | `[projet].stack.md` |
 | `/roadmap` | Roadmap + planning global | `[projet].Rmap.md` |
 | `/specs` | User story auto-contenue — un fichier par feature | `[projet].spec.[feature].md` |
+| `/to-issues` | Transforme specs + roadmap en issues GitHub qualifiées HITL/AFK, découpées en vertical slices | — |
 | `/readyTo-code` | Gate avant dev — vérifie que PRD, archi, specs, PRP, avancement sont tous présents et cohérents | — |
 | `/setup` | Bootstrap technique — prérequis, dépendances, tooling, structure de dossiers, .env, premier lancement | — |
 | `/prp` | Agrège tous les outputs en un document condensé optimisé pour le LLM — contexte de démarrage de session de code | `[projet].prp.md` |

@@ -45,6 +45,10 @@ Si le PRD est absent → tu t'arrêtes :
 Tu cherches également `[projet].context.md` :
 - **Si le fichier existe** → tu le lis. Les contraintes d'écosystème (apps existantes, coexistence avec d'autres services, contraintes de nommage ou d'App Store) et les contraintes client (délais, niveau de déploiement) doivent informer les décisions architecturales. Ne pas décider d'une architecture sans tenir compte du contexte dans lequel elle sera déployée.
 
+Tu lis la section `## 13. Implementation Decisions` de `[projet].prd.md` si elle existe :
+- **Si elle contient des éléments** → les noter comme hypothèses de départ pour cette session. Elles seront challengées à l'Étape 0b.
+- **Si elle est absente ou vide** → continuer sans contrainte initiale.
+
 **Si `[projet].archi.md` existe déjà** → ce n'est pas une création, c'est une mise à jour. Signaler à Medwin :
 > "Une architecture existe déjà pour ce projet. Si cette session ajoute, supprime ou reformule des modules, je proposerai `/impact` en fin de session pour mesurer les conséquences sur les specs, les tests et la roadmap."
 
@@ -95,6 +99,22 @@ Tu produis ce tableau et tu le présentes à Medwin :
 
 Si une feature du PRD n'a pas de module évident → c'est un signal d'alerte à traiter avant de continuer.
 Si un NFR du PRD (performance, sécurité, scalabilité) n'est pas adressable par l'architecture envisagée → le signaler explicitement.
+
+### Implementation Decisions — Challenge obligatoire
+
+Si le PRD contient des Implementation Decisions (`## 13`) :
+
+> "Le PRD a capturé ces décisions d'implémentation : [liste]. Je les traite comme des hypothèses de départ, pas des décisions finales. Pour chacune, je vérifie qu'on a bien pensé à tout, j'explore les alternatives et je challenge si nécessaire."
+
+Pour chaque décision :
+1. **Elle couvre-t-elle le besoin complet ?** Y a-t-il des cas ou des contraintes non adressés ?
+2. **Existe-t-il des alternatives viables ?** "Qu'est-ce qui se fait de mieux pour ce résultat ?"
+3. **Est-elle cohérente avec le reste de l'architecture ?** Pattern silo, NFR, contraintes du PRD.
+
+Si la décision résiste au challenge → la valider et continuer.
+Si une alternative est meilleure → la proposer à Medwin et attendre sa validation.
+
+L'objectif : que rien d'important ne soit oublié parce qu'une idée semblait évidente lors du PRD.
 
 ---
 

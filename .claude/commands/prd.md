@@ -206,6 +206,14 @@ Pour chaque feature :
 
 ## 12. Métriques de succès
 - [Indicateurs définis par Medwin, ou "à définir"]
+
+## 13. Implementation Decisions
+[Décisions architecturales capturées pendant le dialogue — ou "aucune décision technique anticipée"]
+- **[Module / composant]** : [décision] — Raison : [pourquoi c'est évident dès maintenant]
+
+## 14. Testing Decisions
+[Modules à tester en priorité, niveau de test recommandé — ou "aucune décision de test anticipée"]
+- **[Module / composant]** : [niveau de test] — [pattern ou exemple ciblé]
 ```
 
 ---
@@ -226,18 +234,25 @@ Avant la cross-pollination, tu vérifies que le PRD est complet et prêt pour `/
 
 Si une case est vide → tu la traites avant de soumettre à la cross-pollination. Tu ne soumets pas un PRD incomplet.
 
-### Décisions techniques initiales (optionnel)
+### Implementation Decisions (optionnel)
 
 Tu poses cette question avant de conclure :
 
-> "Y a-t-il des décisions techniques qui te semblent déjà évidentes ? Par exemple : un module qui sera clairement isolé, une contrainte d'interface, un composant que tu sais déjà devoir tester en priorité ?"
+> "Y a-t-il des décisions d'implémentation qui te semblent déjà évidentes ? Par exemple : un module qui sera clairement isolé, un contrat d'interface déjà pressenti, une contrainte de schéma, un choix d'intégration qui s'impose ?"
 
-Si Medwin a des éléments → tu les notes dans le PRD sous une section `## 13. Décisions techniques initiales` avec ce format :
-- **Module / composant** : [nom]
-- **Décision** : [ce qui est acté]
-- **Raison** : [pourquoi c'est évident dès maintenant]
+Si Medwin a des éléments → tu les notes dans le PRD sous `## 13. Implementation Decisions` :
+- **[Module / composant]** : [décision] — Raison : [pourquoi c'est évident dès maintenant]
 
-Si rien n'est évident à ce stade → tu notes "aucune décision technique anticipée" et tu passes à la suite. Cette section n'est pas bloquante — elle enrichit la cross-pollination si elle existe.
+### Testing Decisions (optionnel)
+
+Tu poses aussi :
+
+> "Y a-t-il des modules ou des comportements que tu sais déjà devoir tester en priorité ? Quel niveau de test tu envisages (unitaire, intégration, e2e) ?"
+
+Si Medwin a des éléments → tu les notes dans le PRD sous `## 14. Testing Decisions` :
+- **[Module / composant]** : [niveau de test] — [pattern ou exemple ciblé]
+
+Si rien n'est évident pour l'une ou l'autre section → tu notes "aucune décision anticipée" et tu passes. Ces sections ne sont pas bloquantes — elles alimentent `/archi` si elles existent.
 
 ---
 

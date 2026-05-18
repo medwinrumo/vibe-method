@@ -15,7 +15,9 @@ Tu cherches `[projet].context.md` et `[projet].brief.md` dans le répertoire cou
 > "Voici ce que j'ai compris :
 > **Client** : [nom, secteur, ce qu'on sait]
 > **Projet** : [ce qu'on construit, les blocs clés]
-> **Contraintes** : [délai, stack évoquée, budget mentionné]
+> **Contraintes** : [délai, budget mentionné]
+> **Modèle** : [M1 / M2 / M3 — si défini dans le brief]
+> **Architecture légère** : [stack + services tiers + coûts récurrents — si définis dans le brief]
 > C'est correct avant qu'on avance ?"
 
 Tu ne passes à la suite qu'après confirmation explicite.
@@ -139,18 +141,25 @@ Sources : Capterra, G2, Product Hunt, sites officiels — prioriser les solution
 
 ---
 
-## Étape 2 — Architecture légère
+## Étape 2 — Confirmation de l'architecture légère
 
-Objectif : identifier les choix techniques qui impactent les coûts récurrents. Ce n'est pas une architecture complète — juste ce qui est nécessaire pour chiffrer.
+Objectif : confirmer les choix techniques qui impactent les coûts récurrents. Ces informations ont été capturées dans le brief — l'étape consiste à les valider, pas à les re-découvrir.
 
-Tu poses uniquement les questions nécessaires :
+Tu extrais du brief la section "Architecture légère et modèle de prestation" et tu la présentes :
 
-- "Quelle stack envisages-tu ? (ou ta stack habituelle)"
-- "Quel hébergeur ? (Vercel, Railway, VPS…)"
-- "Base de données ? (Supabase, PlanetScale, Neon…)"
-- "Services tiers nécessaires ? (Stripe, SendGrid, stockage fichiers…)"
+> "Voici l'architecture légère définie dans le brief :
+> - Modèle : [M1 / M2 / M3]
+> - Stack : [Stack A — Convex / Stack B — Supabase / à confirmer]
+> - Services tiers : [liste]
+> - Coûts récurrents estimés : [tableau]
+> C'est toujours valide ? Des ajustements ?"
 
-Tu estimes les coûts récurrents mensuels à la charge du client :
+**Si la section est absente du brief** → demander les informations une par une :
+- "Modèle de prestation : M1 (dev sur mesure client unique), M2 (SaaS multi-clients), ou M3 (Notion) ?"
+- "Stack prévue ? (Stack A — Convex, Stack B — Supabase, ou autre)"
+- "Services tiers nécessaires ? (Stripe, Resend, stockage fichiers…)"
+
+Tu consolides la table des coûts récurrents à la charge du client :
 
 | Service | Coût estimé/mois |
 |---|---|
@@ -235,10 +244,9 @@ Tu confirmes les conditions contractuelles, une question à la fois.
 1. "Quelle durée pour la période d'ajustement incluse après livraison ?"
 2. "Tu veux proposer une option de maintenance au-delà ? Si oui, à quel tarif ?"
 3. "L'acompte à 30% / solde à la livraison s'applique ici aussi ?"
+4. "Durée de validité de cette proposition ? (recommandé : 30 jours)"
 
-À la fin, tu rappelles systématiquement :
-
-> ⚠️ **Note CGV** : tes CGV actuelles visent les "systèmes Notion" (article 1). Pour un projet applicatif, les articles 1, 2, 14 et 16 sont à adapter avant signature. À faire en dehors de ce skill.
+À la fin, tu confirmes le modèle de prestation retenu — il sera utilisé par `/cgv` pour sélectionner les Conditions Particulières applicables (M1 / M2 / M3).
 
 ---
 
@@ -248,14 +256,14 @@ Tu génères le document en respectant la structure ci-dessous — fidèle au te
 
 ```markdown
 # Proposition commerciale — [Nom du projet]
-_[Date]_
+_[Date] — Valable jusqu'au [Date + durée de validité]_
 
-**Client :** [Nom]
-**Prestataire :** Medwin Rumo — medwinrumo@gmail.com
+**Client :** [Nom complet — coordonnées]
+**Prestataire :** Medwin Rumo — medwinrumo@gmail.com | SIRET : 520 868 480 00028
 
 ---
 
-[Lettre d'introduction : 3-4 phrases. Rappel du contexte, ce que tu as compris, ton intention. Ton direct et personnel, pas corporate. S'appuyer sur les arguments clés identifiés en Étape 4.]
+[Lettre d'introduction — 3-4 phrases. Rappel du contexte de la relation, ce qu'on a compris de leur situation, angle commercial issu de la qualification (Étape 1). Ton direct et personnel, pas corporate. Montrer qu'on a fait ses devoirs.]
 
 ## 1. Compréhension du besoin
 
@@ -273,48 +281,146 @@ _[Date]_
 ## 2. Solution proposée
 
 ### Description
-[Ce qu'on construit — blocs principaux, logique générale]
+[Ce qu'on construit — logique générale, pour qui, dans quel but]
+
+### Périmètre
+
+<!-- M1 — dev sur mesure -->
+**Ce qui est inclus dans la V1**
+- [Bloc 1] — [description courte]
+- [Bloc 2] — [description courte]
+
+**Ce qui n'est pas inclus**
+- [Exclusion 1]
+Toute demande hors périmètre fait l'objet d'un devis complémentaire (Change Request).
+
+**Stack technique retenue**
+[Stack A — React + Vite + TypeScript + Convex + Vercel / Stack B — React + Vite + TypeScript + Supabase + Vercel]
+
+<!-- M2 — SaaS multi-clients -->
+**Fonctionnalités couvertes**
+- [F1]
+- [F2]
+
+**Hors périmètre**
+- [Exclusion 1]
+Les évolutions fonctionnelles font l'objet d'un devis complémentaire ou sont intégrées à la roadmap.
+
+**Stack technique retenue**
+[Stack A — React + Vite + TypeScript + Convex + Vercel / Stack B — React + Vite + TypeScript + Supabase + Vercel]
+
+<!-- M3 — Notion -->
+**Ce qui est inclus**
+- [Base de données 1] — [description]
+- [Vues et filtres] — [description]
+- [Gabarits] — [description]
+- [Automatisations / intégrations] — si applicable
+
+**Ce qui n'est pas inclus**
+- [Exclusion 1]
+Toute demande hors périmètre fait l'objet d'un devis complémentaire.
 
 ### Méthodologie
-- Cadrage et cahier des charges à partir du brief validé
-- Itérations courtes : développement, démonstration, retours, ajustements
-- Livraison documentée et transfert de compétences
+<!-- M1/M2 --> Brief et cahier des charges validés en amont — itérations courtes : développement, démonstration, retours, ajustements — livraison documentée et transfert des accès.
+<!-- M3 --> Cadrage à partir de vos usages réels — conception en itérations courtes — documentation et prise en main guidée.
 
 ### Planning prévisionnel
-[Découpage en semaines basé sur l'estimation des blocs]
+
+| Étape | Date |
+|---|---|
+| Livraison V1 | [Date] |
+| Début de la période d'accompagnement | [Date] |
+| Fin de la période d'accompagnement | [Date + 3 mois par défaut] |
+<!-- Si formation prévue au devis : -->
+| Formation | [À planifier ensemble] |
+
+Durant la période d'accompagnement, vous testez l'outil en conditions réelles et me faites remonter vos retours. Les corrections sont apportées au fil de l'eau.
 
 ### Livrables
-- [L1]
-- [L2]
 
-### Période d'ajustement
-[Durée confirmée] incluse après livraison. Couvre les ajustements fonctionnels et ergonomiques dans le périmètre livré. Toute demande hors périmètre fait l'objet d'un devis complémentaire (Change Request).
+<!-- M1 -->
+- Code source versionné dans un dépôt Git — accès administrateur transmis à la livraison
+- Application déployée sur [hébergeur] et accessible en production
+- Documentation technique de livraison
+- [Durée] de période d'accompagnement incluse
 
-### Coûts récurrents à la charge du client
-[Tableau hébergement / DB / services tiers — estimations mensuelles]
+<!-- M2 -->
+- Application déployée et accessible en production
+- Compte d'accès transmis à la livraison
+- Documentation utilisateur
+- [Durée] de période d'accompagnement incluse
 
-Ces coûts sont distincts du forfait de réalisation et sont engagés directement par le client auprès des éditeurs concernés.
+<!-- M3 -->
+- Base Notion opérationnelle, dupliquée dans votre espace de travail
+- Documentation d'utilisation
+- [Durée] de période d'accompagnement incluse
+<!-- Si formation prévue au devis : - Session de formation — [durée et modalités] -->
 
-## 3. Proposition financière
+## 3. Infrastructure
 
-**Forfait de réalisation V1 : [Prix final]€ HT**
+<!-- M1 -->
+Les services suivants sont nécessaires au fonctionnement de l'application. Ils sont souscrits et réglés directement par vous auprès des éditeurs concernés, indépendamment du forfait de réalisation.
 
-Inclus : [blocs couverts], tests, livraison, documentation, [durée] d'ajustements inclus.
-Non inclus : coûts d'hébergement et services tiers récurrents, évolutions hors périmètre initial.
+| Service | Usage | Coût estimé / mois |
+|---|---|---|
+| [service] | [usage] | [montant] |
+| **Total récurrent estimé** | | **~X€/mois** |
 
-[Si option maintenance confirmée :]
-**Option maintenance post-ajustement** : [description et tarif confirmé]
+*Dans la majorité des projets de ce type, les volumes restent dans les limites des plans gratuits — à confirmer selon l'usage réel.*
 
-### Conditions de paiement
-Acompte de 30% à la commande. Solde à la livraison, paiement à 7 jours.
-Non assujetti à la TVA — article 293B du CGI.
+<!-- M2 -->
+L'infrastructure nécessaire au fonctionnement du service est incluse dans l'abonnement mensuel. Si le volume du projet augmente significativement, l'abonnement évolue en conséquence — vous en êtes informé avec un préavis de 2 mois.
+
+<!-- M3 -->
+Un abonnement Notion est nécessaire pour accéder à l'espace de travail. Il est souscrit et réglé directement par vous auprès de Notion.
+
+## 4. Propriété intellectuelle
+
+<!-- M1 -->
+À compter du paiement intégral du forfait, l'ensemble des droits patrimoniaux sur le code source développé pour ce projet vous est cédé — reproduction, représentation, adaptation, distribution — pour le monde entier et pour toute la durée légale de protection. Cette cession est comprise dans le forfait. Les droits sur les composants open source tiers et le savoir-faire général du prestataire sont exclus. Les CGV jointes (CP M1, art. CP.4) détaillent l'étendue complète.
+
+<!-- M2 -->
+Le prestataire est et demeure propriétaire de l'application, de son code et de son architecture. Vous bénéficiez d'une licence d'accès non exclusive, limitée à l'utilisation du service dans le cadre de votre activité, pour la durée de l'abonnement. Les CGV jointes (CP M2, art. CP.4) détaillent les droits et obligations associés.
+
+<!-- M3 -->
+Le prestataire est et demeure propriétaire du système Notion — structure, bases de données, automatisations, documentation. Vous bénéficiez d'un droit d'usage non exclusif et non transférable, pour vos besoins propres. Les CGV jointes (CP M3, art. CP.4) détaillent les droits et obligations associés.
+
+## 5. Proposition financière
+
+<!-- M1 et M3 -->
+**Forfait de réalisation : [Prix final]€ HT**
+
+<!-- M1 --> Inclus : conception, développement des blocs définis, tests, déploiement, documentation, [durée] d'accompagnement. Non inclus : infrastructure récurrente (section 3), évolutions hors périmètre.
+<!-- M3 --> Inclus : conception, construction du système Notion, documentation, [durée] d'accompagnement. Non inclus : abonnement Notion (section 3), évolutions hors périmètre[, formation si non prévue au devis].
+
+Acompte de 30% à la commande — [montant acompte]€ HT.
+Solde à la livraison, paiement à 7 jours — [montant solde]€ HT.
+
+<!-- M1 : Si option maintenance confirmée -->
+**Option maintenance post-accompagnement :** [description et tarif]
+
+<!-- M2 -->
+**Coût de développement : [Prix]€ HT** — règlement à la commande.
+**Abonnement mensuel : [Prix]€ HT/mois** — infrastructure, maintenance corrective et support inclus.
+
+Si le volume du projet augmente significativement, l'abonnement évolue en conséquence. Vous en êtes informé avec un préavis de 2 mois.
+
+---
+Non assujetti à la TVA (art. 293B CGI).
 Pénalités de retard et indemnité forfaitaire de 40€ conformément aux CGV.
+**Validité de cette proposition :** [durée] — jusqu'au [date limite].
 
-## 4. Garanties et engagements
+## 6. Garanties et engagements
 - Solution documentée et adaptée au besoin réel
-- Ajustements correctifs inclus sur la période convenue
+- Corrections incluses sur la période d'accompagnement convenue
 - Évolutions par devis complémentaire (Change Request)
-- Les présentes CGV sont disponibles sur demande
+- Les Conditions Générales et Conditions Particulières [M1 / M2 / M3] sont jointes à cette proposition et en font partie intégrante
+
+## Prochaine étape
+
+Pour démarrer :
+1. Retourner cette proposition signée (bon pour accord) accompagnée du règlement de l'acompte ([montant acompte]€ HT)
+2. Les CGV jointes sont réputées acceptées à la signature
 ```
 
 ---
@@ -322,13 +428,14 @@ Pénalités de retard et indemnité forfaitaire de 40€ conformément aux CGV.
 ## Quality Gate — avant enregistrement
 
 - [ ] Le problème client est formulé clairement en 2-3 phrases
-- [ ] Les blocs sont découpés et estimés
-- [ ] Les coûts récurrents mensuels sont identifiés
+- [ ] Le périmètre (inclus) et le hors-scope (exclus) sont explicitement listés
 - [ ] Le prix final est dans la fourchette plancher–plafond
-- [ ] Ce qui est inclus et exclu est explicitement listé
-- [ ] La durée d'ajustement est confirmée (pas supposée)
-- [ ] L'option maintenance est tranchée : incluse ou non
-- [ ] La note CGV figure si le projet est applicatif (pas Notion)
+- [ ] La durée de la période d'accompagnement est confirmée (pas supposée)
+- [ ] La validité de la proposition est précisée (date limite)
+- [ ] Le modèle de prestation est confirmé (M1 / M2 / M3) — nécessaire pour `/cgv`
+- [ ] **Si M1 ou M3** : montants acompte (30%) et solde (70%) calculés — stack et infrastructure précisées
+- [ ] **Si M1** : option maintenance post-accompagnement tranchée (incluse ou non)
+- [ ] **Si M2** : coût de développement initial et abonnement mensuel précisés — blocs découpés et estimés
 
 Si une case est vide → poser la question manquante avant d'écrire.
 
@@ -340,7 +447,8 @@ Tu écris `[projet].proposition.md` dans le répertoire courant du projet.
 
 Confirmer :
 > "`[projet].proposition.md` enregistré.
-> Prochaine étape : personnalise la lettre d'introduction, puis transmets au client pour validation avant de faire signer le devis."
+> Prochaine étape : lance `/cgv` pour générer les Conditions Générales + Conditions Particulières M[1/2/3].
+> Proposition commerciale et CGV partent ensemble au client — ne pas envoyer l'une sans l'autre."
 
 ---
 
@@ -349,11 +457,12 @@ Confirmer :
 - L'étape 4 (calibrage valeur) est **strictement interne** — ne jamais l'inclure dans le document client
 - Ne jamais imposer un tarif de maintenance — demander à chaque fois
 - Si des SaaS concurrents existent dans le secteur → toujours le signaler à l'étape 1
-- Pour tout projet applicatif → toujours rappeler l'inadéquation des CGV actuelles
+- La proposition commerciale ne part jamais seule — elle est toujours accompagnée des CGV générées par `/cgv`
 - Le document généré est une proposition commerciale, pas un devis signable — le devis PDF est produit en dehors de ce skill
 
 ---
 
 ## Prochaine étape
 
-`/prd` — la proposition est acceptée par le client, construire le PRD complet.
+`/cgv` — générer les CGV (CG + CP adaptées au modèle M1/M2/M3). Proposition et CGV partent ensemble au client.
+Après validation client : `/prd`.

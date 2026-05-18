@@ -7,7 +7,7 @@ CLAUDE : il pose les questions, analyse, génère les documents, écrit les fich
 Chaque skill a des INPUTS (ce dont il a besoin) et des OUTPUTS (ce qu'il produit). Si un input manque, le skill s'arrête et demande de lancer le skill manquant d'abord.
  
 LA CHAÎNE DU WORKFLOW — LES 7 PARTIES
-1. CONCEPTION : /contexte → /brief → /charte → /prd → /prd-update → /prd-validate
+1. CONCEPTION : /contexte → /brief → /devis (si projet client) → /cgv → /charte → /prd → /prd-update → /prd-validate
 2. ARCHITECTURE & DESIGN : /gherkin (Mode PRD) → /design (Mode A) ↔ /archi → /regles → /stack
 3. PLANIFICATION : /roadmap → /specs → /gherkin (Mode Specs)
 4. AVANT LE CODE : /readyTo-code → /setup → /prp → /avancement → /sessionCode
@@ -16,8 +16,8 @@ LA CHAÎNE DU WORKFLOW — LES 7 PARTIES
 7. FIN DE PHASE : /phase-retrospective → /doc-tech (Mode A)
 TRANSVERSAUX (invocables à tout moment) : /party, /impact, /avancement, /adr, /refacto
  
-═══ PARTIE 1 — CONCEPTION (6 skills) ═══
-Ces 6 skills définissent CE QU'ON VA CONSTRUIRE et POUR QUI. On ne touche pas encore au code. On réfléchit, on décide, on documente.
+═══ PARTIE 1 — CONCEPTION (8 skills) ═══
+Ces 8 skills définissent CE QU'ON VA CONSTRUIRE et POUR QUI, et encadrent l'engagement commercial. On ne touche pas encore au code. On réfléchit, on décide, on documente.
  
 ── /contexte — CONTEXTE PROJET ──
 Capture tout ce qui existe AVANT que le projet commence — le client, les réunions préparatoires, les délais imposés, les contraintes héritées. Différent du brief : le context c'est ce qui est IMPOSÉ de l'extérieur. Le brief c'est ce qu'on DÉCIDE de construire.
@@ -28,12 +28,28 @@ Fichier produit : [projet].context.md
 Fin : Claude dit 'Prochaine étape : /brief — le contexte est posé, construire le brief structuré.'
  
 ── /brief — DE L'INTENTION AU BRIEF STRUCTURÉ ──
-Transforme une idée vague ('je veux une app de menus') en brief précis. Claude te pose des questions dans 8 domaines : le problème, les utilisateurs, les 3-5 fonctions essentielles, le hors-scope V1, les contraintes techniques, les règles métier, le niveau de risque sécurité (Bas/Moyen/Élevé), les données personnelles (RGPD).
+Transforme une idée vague ('je veux une app de menus') en brief précis. Claude te pose des questions dans 9 domaines : le problème, les utilisateurs, les 3-5 fonctions essentielles, le hors-scope V1, les contraintes techniques, l'architecture légère et le modèle de prestation (M1 dev sur mesure / M2 SaaS / M3 Notion — stack, services tiers, coûts récurrents estimés), les règles métier, le niveau de risque sécurité (Bas/Moyen/Élevé), les données personnelles (RGPD).
 Exemple : 'je veux une app RAM' → Claude : 'Quel problème résout-elle ? Pour qui ? Si l'app ne faisait que 3 choses, lesquelles ?' → Résultat : brief de 2 pages précis, prêt pour le PRD.
-TOI : tu réponds domaine par domaine — problème, utilisateurs, fonctions, hors-scope, contraintes, règles métier
-CLAUDE : pose les questions une par une, fait un brainstorming sur les fonctions si nécessaire, vérifie une Quality Gate de 12 critères avant de valider
+TOI : tu réponds domaine par domaine — problème, utilisateurs, fonctions, hors-scope, contraintes, architecture légère, règles métier, sécurité, RGPD
+CLAUDE : pose les questions une par une, fait un brainstorming sur les fonctions si nécessaire, vérifie une Quality Gate de 16 critères avant de valider
 Fichier produit : [projet].brief.md
-Fin : 'Prochaine étape : /prd — le brief est validé, construire le PRD en dialogue.'
+Fin : 'Prochaine étape : /devis si projet client (proposition commerciale + CGV avant de démarrer), ou /prd directement si le cadrage commercial est déjà acté.'
+ 
+── /devis — DE L'INTENTION À LA PROPOSITION COMMERCIALE ──
+Transforme le brief en proposition commerciale complète, précédée d'un récapitulatif structuré des lignes de devis (utilisable pour remplir le devis PDF formel). Se déroule en 6 étapes : qualification client via recherche exa, confirmation de l'architecture légère, estimation complète de la charge, calibrage valeur interne, conditions contractuelles, génération du document.
+L'estimation est en deux parties. (1) Phases workflow vibe-method calibrées depuis les paramètres du brief : modèle M1/M2/M3, niveau de sécurité, nombre de features, stack, distribution, RGPD — chaque phase est estimée avec sa base, ses ajustements et son incertitude propre. (2) Blocs de développement estimés depuis une table de référence par pattern (auth, CRUD, temps réel, UI, intégrations) ajustée selon la stack Supabase ou Convex — grille P/M/G en fallback.
+TOI : tu confirmes la qualification client, tu valides les estimations de charge phase par phase et bloc par bloc, tu confirmes les conditions contractuelles
+CLAUDE : lance la recherche exa pour qualifier le prospect, estime le workflow et les blocs dev depuis le brief, calibre le prix en interne (jamais montré au client), génère la proposition
+Fichier produit : [projet].proposition.md — récapitulatif lignes de devis (à copier dans le devis PDF) + détail par phase supprimable (à supprimer avant envoi au client) + proposition narrative complète
+Fin : 'Lance /cgv — proposition et CGV partent ensemble au client, jamais l'une sans l'autre.'
+ 
+── /cgv — CONDITIONS GÉNÉRALES ET PARTICULIÈRES ──
+Génère le document CGV personnalisé pour le projet — Conditions Générales (tronc commun, 18 articles) + Conditions Particulières adaptées au modèle de prestation : M1 (développement sur mesure, cession PI complète après paiement), M2 (SaaS, licence d'accès non exclusive), M3 (Notion, droit d'usage non exclusif).
+Points clés par modèle : M1 — cession PI après paiement intégral, maintenance corrective et écosystème incluse sans facturation, accès Git maintenu post-mission. M2 — licence d'accès, SLA, réversibilité, portabilité des données. M3 — droit d'usage, non exclusif (Medwin peut vendre le même système à d'autres clients).
+TOI : tu lis et valides le document généré avant envoi
+CLAUDE : lit le brief et la proposition pour identifier le modèle et les paramètres du projet, génère le document CGV en sélectionnant les CG + CP adaptés
+Fichier produit : [projet].cgv.md
+Fin : 'CGV générées. Proposition et CGV partent ensemble au client. Après validation client : /prd.'
  
 ── /charte — CHARTE GRAPHIQUE ──
 Définit l'identité visuelle du projet une fois pour toutes — couleurs, typographie, ambiance, style (arrondi/angulaire, dense/aéré, dark mode, animations). Cette charte est le socle de tout ce qui sera dessiné ensuite dans le design system avec /design.
@@ -295,16 +311,12 @@ PARTIE 7 — CLÔTURE DE PHASE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 La phase est validée. Avant de démarrer la suivante, on capture ce qu'on a appris et on écrit la documentation de référence. Ces deux étapes prennent 30 minutes — et font gagner des heures à chaque phase suivante.
 ── /phase-retrospective ──
-Rôle : rétrospective de fin de phase — analyser ce qui s'est passé, capturer la dette technique, définir les actions pour la phase suivante.
-Principe clé : à faire immédiatement après /recette, pendant que le contexte est frais. Attendre le lendemain = perdre la moitié des observations.
-Ce que Claude analyse :
-Ce qui a bien fonctionné — patterns réplicables dans les phases suivantes
-Ce qui a mal fonctionné — pourquoi, et ce qu'on fera différemment
-Dette technique accumulée — liste des compromis acceptés (cas mineurs reportés, raccourcis pris)
-Actions items — ce qui doit être fait avant la prochaine phase
-Preview phase suivante — premier regard sur ce qui arrive, pour anticiper les dépendances
-Output : [projet]-retrospective.md (un fichier par phase, appendé à la suite).
-Comment ça se termine : 'Rétrospective Phase [N] écrite. [N] actions items avant la Phase [N+1]. Lance /doc-tech Mode A pour la documentation de référence.'
+Rôle : rétrospective en deux modes — Mode Léger (fin de chaque phase) et Mode Complet (fin d'un ensemble de phases).
+Mode Léger : 4 questions rapides pendant que c'est frais (ce qui a bien marché, bloqué, surpris, dette). Journal de 4 lignes écrit immédiatement après /recette. Alimente le Mode Complet.
+Mode Complet : lecture de tous les journaux Mode Léger de l'ensemble, puis analyse des logs ([projet].log.md) pour reconstituer le temps réel passé par phase — identification des phases depuis les sujets travaillés dans chaque session (une session peut couvrir deux phases : les deux sont comptabilisées). Comparaison estimé vs réel depuis [projet].proposition.md si disponible → tableau de calibration appendé au compte-rendu. Puis 5 questions analytiques, suivi des action items précédents, nouveaux action items, preview de l'ensemble suivant.
+Pourquoi l'analyse des logs : la calibration estimé vs réel sur plusieurs projets permet d'améliorer progressivement les estimations de /devis. C'est la boucle d'apprentissage de la méthode.
+Output : [projet]-retrospective.md (journaux de phase + comptes-rendus d'ensemble, appendés à la suite).
+Comment ça se termine : 'Rétrospective écrite. [N] action items. Lance /doc-tech Mode A pour la documentation de référence.'
 ── /doc-tech Mode A ──
 Rôle : écrire la documentation technique de référence de la phase — vue d'ensemble développeur. C'est le document qu'un nouveau développeur lirait pour comprendre le projet.
 Différence avec Mode B : Mode B annotait le code (JSDoc dans les fichiers). Mode A écrit une documentation narrative dans un fichier Markdown séparé — architecture, modules, décisions, comment démarrer le projet.
@@ -347,7 +359,9 @@ RÉCAPITULATIF — TOUS LES FICHIERS PRODUITS PAR LE WORKFLOW
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 À la fin d'un projet complet, voici tous les fichiers présents dans le repo :
 [projet].context.md — contexte écosystème, client, contraintes (/contexte)
-[projet].brief.md — brief structuré en 8 domaines (/brief)
+[projet].brief.md — brief structuré en 9 domaines dont architecture légère et modèle de prestation (/brief)
+[projet].proposition.md — proposition commerciale : récapitulatif devis + détail par phase + narrative complète (/devis)
+[projet].cgv.md — Conditions Générales + Conditions Particulières M1/M2/M3 (/cgv)
 [projet].charte.md — identité visuelle, couleurs, typo (/charte)
 [projet].prd.md — PRD V1 + V2 + réponses cross-pollination (/prd, /prd-update)
 [projet].gherkin.[feature].md — scénarios Gherkin par feature, Mode Specs (/gherkin)

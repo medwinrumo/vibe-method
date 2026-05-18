@@ -170,29 +170,160 @@ Tu consolides la table des coûts récurrents à la charge du client :
 
 ---
 
-## Étape 3 — Découpage en blocs et estimation
+## Étape 3 — Estimation complète : workflow + développement
 
-Tu découpes le projet en blocs fonctionnels à partir du brief.
+L'étape se déroule en deux parties. Le total des deux alimente le récapitulatif de l'étape 6.
 
-Grille d'estimation :
+---
+
+### Étape 3a — Estimation des phases workflow
+
+À partir des paramètres déjà lus dans le brief (étape 0), tu estimes chaque phase du workflow vibe-method en raisonnant depuis la grille de calibration ci-dessous.
+
+**Paramètres à extraire du brief :**
+- N : nombre de features majeures
+- Modèle : M1 / M2 / M3
+- Sécurité : Bas / Moyen / Élevé
+- Distribution : Web / Mobile natif / PWA
+- Règles métier : simples / complexes
+- Services tiers : nombre
+- Site vitrine : oui / non
+- RGPD : applicable / non
+- Stack : connue (Convex / Supabase) / à confirmer
+
+**Grille de calibration :**
+
+| Phase | Base | Ce qui augmente | Incertitude |
+|---|---|---|---|
+| Brief + cadrage | 0,5 j | M2 : +0,5 j | ± 0 j |
+| PRD | 1 j | N > 5 : +0,5 j — Règles complexes : +0,5 j — M2 : +0,5 j — M3 : −0,5 j | ± 0,5 j |
+| Gherkin (mode PRD) | 0,5 j | N > 5 : +0,5 j | ± 0,5 j |
+| Architecture + Design | M1 : 1 j / M2 : 2 j / M3 : 0,5 j | Mobile natif : +1 j — Services tiers > 3 : +0,5 j — Site vitrine : +0,5 j | ± 1 j |
+| Règles + Stack | 0,5 j | Stack à confirmer : +0,5 j — Par service tiers au-delà de 2 : +0,3 j | ± 0,5 j |
+| Specs + Gherkin (mode Specs) | 0,5 j × N | Règles complexes : +0,5 j — Sécurité élevée : +0,5 j | ± 0,5 j |
+| Setup | 0,5 j | Mobile natif : +0,5 j — Stack nouvelle : +0,5 j | ± 0 j |
+| Revues de code (4 passes) | 20 % du temps dev | Sécurité élevée : × 1,5 — Sécurité basse : × 0,8 | ± 0,5 j |
+| Tests | 15 % du temps dev | Sécurité élevée ou RGPD : × 1,3 | ± 0,5 j |
+| Sécurité (/securite) | Bas : 0,5 j / Moyen : 1 j / Élevé : 2 j | — | ± 0 j |
+| Documentation | 0,5 j | M2 : +0,5 j | ± 0 j |
+| Recette + Debug | 1 j | — | ± 2 j (variable — toujours signaler au client) |
+| Formation | selon étape 5 | — | ± 0 j |
+
+Tu produis le tableau et tu demandes confirmation :
+
+| Phase | Estimé | Incertitude | Justification |
+|---|---|---|---|
+| Brief + cadrage | X j | ± 0 j | — |
+| PRD | X j | ± 0,5 j | [ce qui a ajusté la base] |
+| Gherkin PRD | X j | ± 0,5 j | [ce qui a ajusté la base] |
+| Architecture + Design | X j | ± 1 j | [modèle + paramètres] |
+| Règles + Stack | X j | ± 0,5 j | [stack + services tiers] |
+| Specs + Gherkin Specs | X j | ± 0,5 j | [N features + règles] |
+| Setup | X j | ± 0 j | [stack + distribution] |
+| Revues de code | X j | ± 0,5 j | [niveau sécurité] |
+| Tests | X j | ± 0,5 j | [niveau sécurité + RGPD] |
+| Sécurité | X j | ± 0 j | [niveau sécurité] |
+| Documentation | X j | ± 0 j | [modèle] |
+| Recette + Debug | X j | ± 2 j | Variable selon retours client |
+| Formation | X j | ± 0 j | Confirmée étape 5 |
+| **Total workflow** | **X j** | **± Z j** | Z = somme des incertitudes |
+
+"Est-ce que ces estimations te semblent cohérentes ? On peut ajuster avant de continuer."
+
+---
+
+### Étape 3b — Découpage en blocs de développement
+
+Tu découpes le projet en blocs fonctionnels à partir du brief. Pour chaque bloc, tu cherches d'abord un pattern dans la table de référence ci-dessous — ajusté selon la stack choisie. Si le bloc ne correspond à aucun pattern connu, tu appliques la grille P/M/G en fallback.
+
+**Stack lue dans le brief** : Stack A (Convex) ou Stack B (Supabase). Si mobile natif (Expo) : multiplier les durées × 1,5 à 2 selon la feature.
+
+---
+
+**Table de référence par pattern :**
+
+*Authentification & utilisateurs*
+
+| Pattern | Supabase | Convex |
+|---|---|---|
+| Auth email + mot de passe | 1 j | 1,5 j |
+| Auth OAuth (Google, GitHub…) | 2 j | 2 j |
+| Profil utilisateur (lecture/édition) | 0,5 j | 0,5 j |
+| Rôles et permissions (RBAC) | 1–2 j | 1–2 j |
+| Multi-tenant (M2 — isolation par organisation) | +1–2 j sur toute la stack | +1–2 j |
+
+*Données & CRUD*
+
+| Pattern | Supabase | Convex |
+|---|---|---|
+| CRUD standard (1 entité, UI complète) | 1 j | 1 j |
+| CRUD avec relations complexes | 2 j | 1,5 j |
+| CRUD avec validation métier | 1,5 j | 1,5 j |
+| Recherche et filtres avancés | 1–2 j | 1–2 j |
+| Pagination | 0,5 j | 0,5 j |
+| Import / export CSV | 0,5–1 j | 0,5–1 j |
+
+*Temps réel*
+
+| Pattern | Supabase | Convex |
+|---|---|---|
+| Chat simple | 3–4 j | 1–2 j |
+| Notifications en temps réel | 2–3 j | 1 j |
+| Collaboration multi-utilisateurs | 4–5 j | 2–3 j |
+
+*Interface & UI*
+
+| Pattern | Supabase | Convex |
+|---|---|---|
+| Dashboard (graphes, filtres) | 2–3 j | 2 j |
+| Formulaire multi-étapes avec validation | 1–2 j | 1–2 j |
+| Tableau de données (tri, filtre, pagination) | 1–2 j | 1–2 j |
+| Calendrier / planning | 2–3 j | 2–3 j |
+
+*Intégrations tierces*
+
+| Pattern | Durée |
+|---|---|
+| Stripe — paiement one-time | 1–2 j |
+| Stripe — abonnements (subscriptions) | 2–3 j |
+| Email transactionnel (Resend) | 0,5 j |
+| Upload fichiers (Cloudflare R2) | 1 j |
+| Webhook entrant | 0,5–1 j |
+| API tierce bien documentée | 0,5–1 j par endpoint |
+
+---
+
+**Grille P/M/G — fallback pour les patterns non listés :**
 
 | Taille | Critère | Durée |
 |---|---|---|
-| Petit (P) | Logique simple, peu d'incertitude | 0,5 – 1 jour |
-| Moyen (M) | Logique métier standard | 1 – 2 jours |
-| Gros (G) | Complexité ou incertitude élevée | 3 – 5 jours |
+| Petit (P) | Pattern connu, peu d'incertitude | 0,5 – 1 j |
+| Moyen (M) | Logique métier standard | 1 – 2 j |
+| Gros (G) | Complexité ou incertitude élevée | 3 – 5 j |
+
+---
 
 Tu présentes le tableau et tu demandes confirmation :
 
-| Bloc | Description | Taille | Jours | € HT |
-|---|---|---|---|---|
-| [Bloc 1] | | P/M/G | X | X€ |
-| … | | | | |
-| **Total** | | | **X j** | **X€** |
+| Bloc | Pattern de référence | Jours | € HT |
+|---|---|---|---|
+| [Bloc 1] | [pattern ou P/M/G] | X | X€ |
+| … | | | |
+| **Total développement** | | **X j** | **X€** |
 
 TJM de référence : **400€/jour**
 
 "Est-ce que ce découpage et ces estimations te semblent cohérents ? On peut ajuster avant de continuer."
+
+---
+
+**Total général après 3a + 3b :**
+
+| | Jours | € HT |
+|---|---|---|
+| Workflow (3a) | X j | X€ |
+| Développement (3b) | X j | X€ |
+| **Total** | **X j** | **X€** |
 
 ---
 

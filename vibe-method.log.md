@@ -17,3 +17,13 @@
 - Résolu collision de nom : `/spec` produit `[projet].spec-global.md`
 - Corrigé titre `/caveman` (anciennement `/kavman`)
 - Commité et pushé : `a044fdb`
+
+### Session 2 — Intégration skills externes (suite)
+
+- Créé `/diagnose` — escalade de `/debug` pour bugs difficiles (boucle feedback + hypothèses falsifiables)
+- Enrichi `/refacto` — vocabulaire Seam/Profondeur/Deletion test + mode exploration
+- Enrichi `/tests` — anti-pattern tranches horizontales + signal mauvais test
+- Enrichi `/roadmap` — principe vertical slices + critère Quality Gate
+- Créé `/to-issues` — specs → issues GitHub qualifiées HITL/AFK
+- Recadrage : approche prospective confirmée, distinction HITL/AFK formalisée
+- Commits : `96ff58e`, `24370a8`, `b5761bb`, `fedec66`

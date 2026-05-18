@@ -49,6 +49,23 @@ En **Mode TDD** — le code absent est normal. Tu continues.
 
 *Cette étape s'applique uniquement aux modules métier et sécurité.*
 
+### Anti-pattern à éviter — les "tranches horizontales"
+
+Ne pas écrire tous les tests d'un coup, puis tout le code d'un coup. C'est l'erreur la plus courante en TDD :
+
+```
+FAUX (horizontal) :
+  Red :   test1, test2, test3, test4, test5
+  Green : impl1, impl2, impl3, impl4, impl5
+
+JUSTE (vertical) :
+  Red→Green : test1→impl1
+  Red→Green : test2→impl2
+  Red→Green : test3→impl3
+```
+
+Écrire les tests en bloc revient à tester un comportement imaginé. Tu vas plus vite que ta visibilité — les tests décrivent ce que tu penses que le code fera, pas ce qu'il fait vraiment. Chaque cycle doit répondre à ce que le cycle précédent t'a appris.
+
 ### Ordre de travail
 
 Tu lis `[projet].spec.[feature].md` et `[projet].gherkin.[feature].md` si présent.
@@ -144,6 +161,9 @@ Pour chaque fonction impliquée dans la feature, tu génères les tests unitaire
 **Règles anti-auto-validation :**
 - Les tests unitaires sont générés dans un contexte séparé de la génération du code — jamais dans le même prompt
 - Les données de test représentent de vrais cas d'usage — jamais des données choisies pour garantir que les tests passent
+
+**Signal d'alerte — test couplé à l'implémentation :**
+Si renommer une fonction interne ou réorganiser le code casse un test sans que le comportement ait changé → ce test testait l'implémentation, pas le comportement. Le corriger : réécrire le test pour qu'il passe par l'interface publique uniquement.
 
 Règles de forme :
 - Un test par scénario

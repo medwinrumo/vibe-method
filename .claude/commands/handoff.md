@@ -1,6 +1,6 @@
 # /handoff — Ancre de contexte mid-session
 
-Tu compresses la conversation courante en un document de reprise, ou tu restaures un contexte sauvegardé. Un seul fichier — `handoff.md` — qu'on remplit ou qu'on vide selon l'état.
+Tu compresses la conversation courante en un document de reprise, ou tu restaures un contexte sauvegardé. Un seul fichier — `handoff.md` — dans lequel on accumule des entrées ou qu'on vide après restauration.
 
 Ce skill ne remplace pas `/maj` — il est utilisé en cours de session, avant ou après une compaction.
 
@@ -8,21 +8,42 @@ Ce skill ne remplace pas `/maj` — il est utilisé en cours de session, avant o
 
 ## Détection automatique du mode
 
-Tu lis `handoff.md` dans le répertoire courant.
+**Étape 1 — Lire le contexte visible**
 
-- **Fichier absent ou vide** → mode sauvegarde
-- **Fichier avec du contenu** → mode reprise
+Tu examines la conversation courante :
+
+- **Résumé de compaction visible + peu ou pas d'historique actif** → mode reprise
+- **Conversation active avec de l'historique** → mode sauvegarde (append)
+
+**Étape 2 — Lire `handoff.md`**
+
+- **Fichier absent ou vide** → mode sauvegarde, quoi qu'il arrive
+- **Fichier avec du contenu + résumé de compaction visible** → mode reprise automatique
+- **Fichier avec du contenu + conversation active** → demander :
+  > "Je vois un handoff existant (dernier : [date de la dernière entrée]). Ajout ou reprise ?"
 
 ---
 
-## Mode sauvegarde
+## Mode sauvegarde — Quand lancer /handoff
+
+- La session est longue et le contexte commence à peser
+- Tu sens qu'une compaction est imminente
+- Tu veux préserver une décision, une exploration, un état en cours
 
 Applicable à toutes les phases : PRD, archi, specs, code, méthode, roadmap.
+Plusieurs appels successifs accumulent des entrées dans le même fichier.
 
-Tu rédiges une entrée concise avec ces sections :
+---
+
+## Mode sauvegarde — Rédaction
+
+Tu **ajoutes** une entrée à `handoff.md` (append — ne pas écraser les entrées précédentes) :
+
+---
+**Handoff — [date] [heure]**
 
 **Phase et skill en cours**
-[Phase du projet : conception / archi / specs / code / méthode]
+[Phase : conception / archi / specs / code / méthode]
 [Skill actif : /prd / /archi / /specs / /sessionCode / autre]
 [Étape précise : ex. "Étape 3b de /archi — définition des modules techniques en cours"]
 
@@ -52,19 +73,21 @@ Tu rédiges une entrée concise avec ces sections :
 
 ## Mode reprise
 
-Tu lis le contenu de `handoff.md` et tu le présentes :
+Tu lis l'intégralité de `handoff.md` et tu le présentes :
 
-> "Contexte récupéré — voici où on en était :
-> [contenu du handoff]
+> "Contexte récupéré — [N] entrée(s) sauvegardée(s) :
 >
-> Prochaine action : [prochaine action précise tirée du handoff]"
+> [contenu complet du fichier]
+>
+> Prochaine action : [prochaine action précise tirée de la dernière entrée]"
 
-Puis tu vides `handoff.md` (Write avec contenu vide) — le fichier est consommé.
+Puis tu vides `handoff.md` — le fichier est consommé.
 
 ---
 
 ## Règles
 
+- **Append, jamais overwrite** en mode sauvegarde — les entrées précédentes sont précieuses
 - **Références, pas duplications** — si un artefact existe, noter son chemin, pas son contenu
 - **Concis** — rapide à relire, pas exhaustif
 - **Chemins exacts** — chaque fichier mentionné avec son chemin complet depuis la racine du projet

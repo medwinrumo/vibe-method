@@ -107,6 +107,25 @@ Tu produis une synthèse des signaux récurrents :
 
 ---
 
+### C0b — Analyse du log pour calibration des estimations
+
+Tu lis `[projet].log.md` et tu identifies, session par session, la ou les phases travaillées à partir du sujet décrit dans chaque entrée.
+
+Phases à reconnaître : Brief + cadrage, PRD, Architecture, Specs, Design, Développement [nom du bloc], Tests + recette, Déploiement + documentation, Formation.
+
+Si une session couvre deux phases → tu comptabilises les deux séparément (c'est la réalité du travail — la fin d'une phase et le début d'une autre dans la même session sont tous les deux réels).
+
+Tu cumules la durée par phase et tu construis le tableau de calibration.
+
+Si `[projet].proposition.md` existe → tu lis la section "Détail par phase" pour récupérer les estimations. Sinon → colonne Estimé à "—".
+
+Tu présentes le tableau avant de continuer :
+> "Voici le comparatif estimé / réel d'après les logs. Des durées te semblent incorrectes ?"
+
+Medwin peut corriger avant que le tableau soit écrit dans le compte-rendu.
+
+---
+
 ### C1 — 5 questions de rétrospective
 
 Tu poses les questions une par une, en t'appuyant sur les signaux des journaux. Tu attends la réponse avant de passer à la suivante.
@@ -185,6 +204,13 @@ _Phases couvertes : Phase [N] → Phase [M]_
 
 ### Dette accumulée
 - [entrée] → reportée dans `[projet].refacto-dette.md`
+
+### Calibration — Estimé vs Réel
+
+| Phase | Estimé | Réel | Écart |
+|---|---|---|---|
+| [phase] | [X] j | [X] j | [+/- X] j |
+| **Total** | **[X] j** | **[X] j** | **[+/- X] j** |
 
 ### Suivi retro précédente
 | Action item | Statut |

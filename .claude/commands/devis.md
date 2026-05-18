@@ -252,9 +252,75 @@ Tu confirmes les conditions contractuelles, une question à la fois.
 
 ## Étape 6 — Génération et enregistrement
 
-Tu génères le document en respectant la structure ci-dessous — fidèle au template de proposition commerciale existant.
+Tu génères `[projet].proposition.md` en deux parties : le récapitulatif devis en tête de fichier, puis la proposition commerciale complète.
+
+**Récapitulatif devis — construction du tableau**
+
+À partir des données collectées aux étapes 3 et 5, construis une ligne par élément :
+
+| Type | Désignation | Qté | Prix unitaire | Total HT |
+|---|---|---|---|---|
+| Développement (M1/M2) | [Nom du bloc] | N j | 400 €/j | N × 400 € |
+| Accompagnement inclus | Période d'accompagnement ([X mois]) | Inclus | — | Inclus |
+| Formation (si au devis) | Formation | N j | 400 €/j | N × 400 € |
+| Option maintenance | Maintenance post-accompagnement | 1 | X €/mois | Récurrent |
+| Abonnement tiers pris en charge | Abonnement [outil] | 1 | X €/mois | Récurrent |
+| Achat matériel | [Désignation] | N | X € | N × X € |
+| Abonnement mensuel (M2) | Infrastructure + support | 1 | X €/mois | Récurrent |
+
+Règles tableau 1 :
+- Les lignes "Inclus" et "Récurrent" ne comptent pas dans le Total HT
+- Total HT = somme des lignes à prix fixe uniquement (développement, formation, matériel)
+- Si M2 : deux totaux distincts — "Développement : X €" et "Abonnement mensuel : X €/mois"
+- La colonne "Type" est un guide interne — ne pas l'inclure dans le document généré
+
+**Détail par phase — construction du second tableau**
+
+Construis ce tableau à partir du brief et des estimations de l'étape 3. Il reste dans le fichier pour Medwin — à supprimer avant conversion en PDF.
+
+Référentiel d'estimation par phase :
+
+| Phase | Base | Incertitude |
+|---|---|---|
+| Brief + cadrage | 0,5 j | ± 0 |
+| PRD + architecture | 0,5–1 j selon complexité | ± 0,5 j |
+| Specs | 0,5 j par feature majeure | ± 0,5 j |
+| Design | 0,5–2 j selon périmètre UI | ± 1 j |
+| Développement | blocs étape 3 | ± Y j |
+| Tests + recette | ~15% du temps de dev | ± 0,5 j |
+| Déploiement + documentation | 0,5 j | ± 0 |
+| Formation | confirmée à l'étape 5 | ± 0 |
+
+Le total du tableau 2 doit correspondre au nombre de jours inscrit dans le tableau 1.
 
 ```markdown
+## Récapitulatif — Lignes de devis
+
+| Désignation | Qté | Prix unitaire | Total HT |
+|---|---|---|---|
+| [Bloc 1 — nom] | [N] j | 400 €/j | [N × 400] € |
+| [Bloc 2 — nom] | [N] j | 400 €/j | [N × 400] € |
+| Période d'accompagnement ([X mois]) | Inclus | — | Inclus |
+| **Total HT** | | | **[X] €** |
+
+*TVA non applicable — art. 293B CGI*
+
+## Détail par phase *(à supprimer avant envoi au client)*
+
+| Phase | Charge estimée | Incertitude |
+|---|---|---|
+| Brief + cadrage | [X] j | ± [Y] j |
+| PRD + architecture | [X] j | ± [Y] j |
+| Specs | [X] j | ± [Y] j |
+| Design | [X] j | ± [Y] j |
+| Développement | [X] j | ± [Y] j |
+| Tests + recette | [X] j | ± [Y] j |
+| Déploiement + documentation | [X] j | ± [Y] j |
+| Formation | [X] j | ± 0 j |
+| **Total** | **[X] j** | **± [Y] j** |
+
+---
+
 # Proposition commerciale — [Nom du projet]
 _[Date] — Valable jusqu'au [Date + durée de validité]_
 

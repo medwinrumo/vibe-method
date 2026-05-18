@@ -93,6 +93,7 @@ Si le bug persiste après trois tentatives (2 passes + web search), tu le décla
 >
 > Recette [N]-[M] ne peut pas être validée en l'état.
 > La recette est suspendue. Options :
+> - `/diagnose` — diagnostic approfondi : boucle de feedback automatisée + hypothèses falsifiables (recommandé si le bug est difficile à reproduire ou à isoler)
 > - Changer d'approche technique (nouvelle session dédiée)
 > - Contourner temporairement si la feature n'est pas critique pour la phase
 >

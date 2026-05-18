@@ -3,6 +3,12 @@
 
 # Documents sources (binaires)
 *.epub
+*.pdf
+
+# Outputs locaux — fichiers de session non versionnés
+handoff.md
+\# **Proposition commerciale**.md
+\## CONDITIONS GÉNÉRALES DE VENTE.md
 
 # Backups temporaires
 *-backup

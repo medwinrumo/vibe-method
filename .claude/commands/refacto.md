@@ -6,11 +6,34 @@ Doctrine de référence : `refacto.md`
 
 ---
 
+## Vocabulaire d'analyse
+
+Ces termes sont utilisés dans le diagnostic pour décrire les problèmes avec précision.
+
+- **Seam** — point de couture : endroit où un comportement peut être modifié sans éditer le code en place. Là où une interface existe ou devrait exister.
+- **Profondeur** — ratio valeur / complexité d'interface. Un module **profond** offre beaucoup de comportement derrière une petite interface. Un module **superficiel** a une interface presque aussi complexe que son implémentation.
+- **Deletion test** — outil de diagnostic : "si je supprime ce module, où va la complexité ?" Si elle disparaît → le module était un passe-plat superficiel. Si elle réapparaît chez N appelants → le module gagnait sa place.
+
+---
+
 ## Quand proposer /refacto
 
 Ce skill n'est jamais automatique — Claude le **propose**, Medwin décide de le lancer ou de le reporter.
 
-Trois signaux déclencheurs :
+### Mode exploration (optionnel)
+
+Si aucun module n'est encore identifié mais que le codebase "résiste" — navigation difficile, bugs récurrents sans cause claire, features qui touchent trop de fichiers — lancer `/refacto` en mode exploration :
+
+1. Lire le codebase organiquement, noter les points de friction :
+   - Comprendre un concept oblige à rebondir entre de nombreux petits fichiers ?
+   - Des modules superficiels dont la suppression ne ferait que déplacer la complexité chez les appelants ?
+   - Des fonctions extraites uniquement pour les tests, mais les vrais bugs se cachent dans la façon dont elles sont appelées ?
+   - Des modules qui violent leurs seams (logique qui fuit à travers l'interface) ?
+2. Appliquer le **deletion test** sur les suspects
+3. Présenter une liste classée de candidats à Medwin avec le problème constaté
+4. Medwin choisit un candidat → passer aux prérequis (étape 0)
+
+Trois signaux déclencheurs (mode ciblé) :
 
 ### Signal 1 — Après une review négative
 
@@ -95,6 +118,11 @@ Tu lis le(s) fichier(s) du module concerné. Tu identifies ce qui pose problème
 - Violations de la règle silo : un module touche le code d'un autre
 - Tests absents ou fragiles sur le module
 - Bug récurrent ou effet de bord connu (tracé dans `/debug` ou `/phase-retrospective`)
+
+**Outils d'analyse :**
+- Appliquer le **deletion test** sur chaque suspect : si ce module disparaissait, la complexité s'évaporerait-elle ou réapparaîtrait-elle chez les appelants ? Réapparition chez N appelants = le module gagne sa place. Évaporation = candidat prioritaire.
+- Qualifier la **profondeur** du module : grande valeur derrière une petite interface (profond, à garder) ou interface aussi complexe que l'implémentation (superficiel, à fusionner ou restructurer) ?
+- Identifier les **seams** manquants : où devrait exister une interface pour isoler un comportement, mais n'en existe pas encore ?
 
 **Tu présentes le diagnostic en langage clair, sans code :**
 > "Voici ce que j'observe dans [module] :

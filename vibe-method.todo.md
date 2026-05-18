@@ -4,6 +4,20 @@
 
 ---
 
+## Dernière session — 2026-05-18 (session 4)
+
+### Ce qui a été fait
+
+- Skill `/devis` créé : qualification client (exa:search 8 angles + scoring), archi légère, estimation blocs P/M/G, calibrage valeur interne, conditions CGV, génération `[projet].proposition.md`
+- Exa MCP configuré dans `mcp.json` — connect/disconnect via `/mcp` à la demande
+- Étape 1 challengée par ChatGPT 5.5 → V3 décisionnelle avec scoring 6 dimensions + angle de prospection
+- Étape 4 réécrite : grille de lecture commerciale + 3 décisions (profil acheteur, prix, arguments)
+- CLAUDE.md mis à jour : `/devis` dans la chaîne et la table des skills
+- Analyse CGV : 7 articles inadaptés pour l'applicatif — chantier séparé signalé dans le skill
+- Commit `26bd103`
+
+---
+
 ## Dernière session — 2026-05-15
 
 ### Ce qui a été fait

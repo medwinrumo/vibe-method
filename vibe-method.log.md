@@ -2,6 +2,22 @@
 
 ---
 
+## Jour 1 — 2026-05-18 (suite — session 4)
+
+### Session 4 — Skill /devis + intégration Exa
+
+- Créé `/devis` — 6 étapes : qualification client, archi légère, estimation blocs, calibrage valeur (interne), conditions, génération proposition
+- Exa plugin installé via `claude-plugins-official`, clé API configurée dans `~/.claude/mcp.json`
+- Étape 1 itérée 3 fois : V1 (requête unique) → V2 (8 angles) → V3 (brief décisionnel + scoring 6 dimensions + angle prospection, suite challenge ChatGPT 5.5)
+- Étape 4 réécrite : grille de lecture commerciale + 3 décisions (profil acheteur, fourchette prix, arguments clés)
+- Test qualification sur Hygeia Group : secteur nettoyage (NAF 81.21Y), SIRET 98467027300015, Courtry 77181
+- Règle mémorisée : plugins officiels uniquement (`claude-plugins-official`)
+- Correction structure fichiers : symlink `~/.claude/commands/devis.md` → `vibe-method/.claude/commands/devis.md`
+- Analyse CGV : 7 articles inadaptés pour l'applicatif (1, 2, 6, 9, 14, 16, 17) + article 7 PI critique
+- Commit pushé : `26bd103`
+
+---
+
 ## Jour 1 — 2026-05-18
 
 ### Session 1 — Enrichissement méthode + refactoring Notion

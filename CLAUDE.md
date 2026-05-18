@@ -27,7 +27,7 @@ vibe-method/
 ## Chaîne de skills — workflow complet
 
 ```
-/contexte → /brief → /charte → /prd → /prd-update → /prd-validate → /gherkin (Mode PRD) → [/design Mode A ↔ /archi itératif] → /regles → /stack → [/design Mode B] → /roadmap → /specs → /gherkin (Mode Specs) → /readyTo-code → /setup → /prp → /avancement (init) → /sessionCode → [code] → /code-review → /code-review-edge-cases → /repair-edge-cases → /code-review-hostil → /tests → /securite → /doc-tech (Mode B) → /recette ↔ /debug → [fin de phase] /phase-retrospective → /doc-tech (Mode A)
+/contexte → /brief → /devis (si projet client) → [validation client] → /charte → /prd → /prd-update → /prd-validate → /gherkin (Mode PRD) → [/design Mode A ↔ /archi itératif] → /regles → /stack → [/design Mode B] → /roadmap → /specs → /gherkin (Mode Specs) → /readyTo-code → /setup → /prp → /avancement (init) → /sessionCode → [code] → /code-review → /code-review-edge-cases → /repair-edge-cases → /code-review-hostil → /tests → /securite → /doc-tech (Mode B) → /recette ↔ /debug → [fin de phase] /phase-retrospective → /doc-tech (Mode A)
 ```
 
 Skills transversaux (invocables à tout moment) : `/party`, `/impact`, `/avancement`, `/grill-me`, `/zoom-out`, `/prototype`
@@ -38,6 +38,7 @@ Mode A de /design et /archi se construisent en aller-retour. Les écrans révèl
 | Skill | Rôle | Output |
 |---|---|---|
 | `/contexte` | Contexte projet — écosystème, client, contraintes, notes de réunions | `[projet].context.md` |
+| `/devis` | Du brief à la proposition commerciale — qualification client (exa:search), archi légère, estimation blocs, calibrage valeur, conditions | `[projet].proposition.md` |
 | `/brief` | De l'intention au brief structuré | `[projet].brief.md` |
 | `/charte` | Charte graphique — couleurs, typo, logo, ambiance | `[projet].charte.md` |
 | `/prd` | Du brief au PRD V1 (dialogue) | `[projet].prd.md` |

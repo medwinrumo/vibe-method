@@ -2,6 +2,75 @@
 
 ---
 
+## Jour 1 — 2026-05-18 — Création du skill /devis + intégration Exa
+
+### Session 4 — /devis : du brief à la proposition commerciale
+
+#### Ce qu'on a fait et pourquoi
+
+**Skill `/devis` — création complète**
+
+Constat de départ : la vibe-method couvrait tout le cycle de développement mais pas la phase commerciale qui le précède. Un client doit accepter un prix avant qu'on investisse dans un PRD complet. `/devis` comble ce manque.
+
+Le skill couvre 6 étapes :
+- Étape 0 : vérification des prérequis (context.md + brief.md)
+- Étape 1 : qualification client via `exa:search` (8 angles de recherche)
+- Étape 2 : architecture légère (stack, hébergeur, coûts récurrents)
+- Étape 3 : découpage en blocs fonctionnels (grille P/M/G, TJM 400€/j)
+- Étape 4 : calibrage valeur (interne — jamais dans le document client)
+- Étape 5 : conditions contractuelles
+- Étape 6 : génération de `[projet].proposition.md`
+
+Position dans la chaîne : `/brief` → `/devis` → [validation client] → `/prd`
+
+**Intégration Exa MCP**
+
+Pattern appris : Exa s'installe une fois dans `~/.claude/mcp.json` (API key stockée là, jamais dans le contexte de conversation). On le connecte à la demande via `/mcp` quand besoin, on déconnecte après. Même logique que `notion-local`.
+
+Tentative OAuth : le flux `auth.exa.ai` a échoué (URL tronquée dans le chat → paramètres manquants). Solution : ajout direct de la clé API dans `mcp.json` par Medwin (sans passer par le chat — bonne pratique sécurité). Le skill `/devis` guide maintenant le connect/disconnect au bon moment.
+
+**Itérations sur l'Étape 1 (qualification client)**
+
+V1 : une seule requête générique → résultats pauvres, équivalents à pappers.fr manuellement.
+
+V2 : 8 angles parallèles (légal, financier, maturité digitale, profil décideur, signaux d'achat, actualités, réputation, SaaS concurrents). Meilleur, mais trop "aspirateur à données" — pas de hiérarchie des sources, objectif vague.
+
+V3 (retenue) : suite au challenge ChatGPT 5.5 de Medwin. Trois améliorations structurantes :
+- Objectif décisionnel explicite ("est-ce un bon prospect ?") pas descriptif
+- Hiérarchie des sources (prioritaires / secondaires / si nécessaire)
+- Sortie avec scoring sur 6 dimensions + recommandation A/B/C/écarter + angle de prospection complet (message LinkedIn, email, objection probable)
+
+Test sur Hygeia Group : la société est dans le nettoyage (NAF 81.21Y), pas la santé — le nom "Hygeia" (grec : hygiène) avait induit en erreur. Exa a trouvé le SIRET et l'adresse officielle (Courtry 77181, pas Champs-sur-Marne 77420 comme dit par Medwin). Fondateur non trouvé dans les bases publiques.
+
+**Étape 4 — Calibrage valeur refaite**
+
+Ancienne version : questions vagues sur la valeur et un calcul plancher/plafond sans lien avec les données collectées en Étape 1.
+
+Nouvelle version : grille de lecture commerciale qui traduit chaque signal de l'Étape 1 en décision (favorable / neutre / risque) + trois sorties obligatoires (profil d'acheteur, fourchette de prix défendable, arguments clés pour la proposition).
+
+**Correction structure fichiers**
+
+Le skill avait été créé dans deux mauvais emplacements (`~/.claude/commands/devis.md` en dur + `vibe-method/devis.md` à la racine). Corrigé : source de vérité dans `vibe-method/.claude/commands/devis.md`, symlink depuis `~/.claude/commands/`.
+
+**Analyse des CGV**
+
+Les CGV actuelles (28 articles) ont été rédigées pour un projet Notion spécifique ("gestion de matériel événementiel"). Pour des projets applicatifs, au moins 7 articles sont inadaptés (1, 2, 6, 9, 14, 16, 17) + 1 point critique sur la propriété intellectuelle (article 7 : "droit d'usage non exclusif" alors que les clients app s'attendent à posséder le code source). Signalé dans le skill via note CGV à l'Étape 5. La réécriture des CGV reste un chantier séparé.
+
+#### Décisions prises
+
+- **Exa : connect/disconnect via `/mcp`** — jamais installé/désinstallé entre projets. Clé API dans `mcp.json`, jamais dans le chat.
+- **Plugins officiels uniquement** — `claude-plugins-official` seulement. Jamais buildwithclaude.com, tonsofskills.com ou autre marketplace tiers.
+- **Brief de qualification orienté décision** — la sortie de l'Étape 1 doit répondre à "on contacte ou pas ?" avec scoring et angle de prospection. Pas une fiche encyclopédique.
+- **Étape 4 interne absolue** — le calibrage valeur ne figure jamais dans le document client.
+- **CGV applicatif = chantier séparé** — `/devis` le signale à chaque fois mais ne l'embarque pas.
+
+#### Difficultés
+
+- Le flux OAuth Exa a échoué à cause de l'URL tronquée dans l'interface chat. Contourné par ajout direct dans `mcp.json`.
+- Les fichiers ont été créés aux mauvais endroits (deux fois) avant de corriger la structure symlink.
+
+---
+
 ## Jour 1 — 2026-05-18 — Enrichissement méthode + refactoring Notion
 
 ### Session 1 — Intégration skills externes + suppression complète de Notion

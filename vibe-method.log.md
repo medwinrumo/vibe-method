@@ -18,6 +18,38 @@
 
 ---
 
+## Jour 1 — 2026-05-18 (suite — session 5)
+
+### Session 5 — CGV M1/M2/M3 + /brief refonte
+
+- Créé `cgv.cg.md` — 18 articles tronc commun (Conditions Générales)
+- Créé `cgv.cp-m1.md` — dev sur mesure : cession PI L131-3 après paiement intégral, maintenance incluse (bugs + écosystème), casse client exclue, accès Git maintenu post-mission
+- Créé `cgv.cp-m2.md` — SaaS : licence d'accès non exclusive, SLA, réversibilité, portabilité, DPA, abonnement
+- Créé `cgv.cp-m3.md` — Notion : droit d'usage non exclusif (licence multi-clients), réversibilité export
+- Créé `/cgv` skill — assemblage automatique CG + CP selon modèle M1/M2/M3 détecté depuis brief + proposition
+- `/brief` refondu : domaine 6 ajouté (architecture légère + modèle de prestation M1/M2/M3), quality gate enrichie
+- `/devis` : étape 2 mise à jour (confirmation archi légère depuis brief), étape 5 (validité de la proposition ajoutée)
+- `CLAUDE.md` vibe-method mis à jour
+- Commit pushé : `e5712af`
+
+---
+
+## Jour 1 — 2026-05-18 (suite — session 6)
+
+### Session 6 — /devis estimation complète + /phase-retrospective calibration + guide + Notion
+
+- `/devis` étape 6 : `proposition.md` restructurée en deux parties — Tableau 1 (récapitulatif lignes devis PDF) + Tableau 2 (détail par phase, supprimable avant envoi) + proposition narrative
+- `/devis` étape 3 scindée en 3a + 3b
+  - 3a : calibration 12 phases workflow depuis paramètres brief (modèle M1/M2/M3, sécurité, features, stack, distribution, RGPD) — incertitude concrète ± 0 à ± 2j par phase
+  - 3b : blocs dev depuis table de référence 5 catégories × Supabase/Convex (auth, CRUD, temps réel, UI, intégrations) — mobile Expo × 1,5 à 2 — grille P/M/G en fallback
+- `/phase-retrospective` : C0b ajouté en Mode Complet (lecture logs → identification phase → calibration estimé vs réel) — section "Calibration — Estimé vs Réel" dans template C5 — Mode Léger conservé intact
+- `CLAUDE.md` : descriptions /devis et /phase-retrospective mises à jour
+- `VIBE-METHOD — GUIDE COMPLET DU WORKFLOW.md` : chaîne enrichie, PARTIE 1 → 8 skills, sections /devis et /cgv insérées, /brief 9 domaines, /phase-retrospective Mode Léger vs Complet + C0b
+- Notion page `Vibe-Method.WORKFLOW` mise à jour via API directe Python (MCP update-a-block incompatible — bug mapping `type` key)
+- Commits pushés : `d84ac5e`, `8787d9a`, `79002b2`, `42ab843`
+
+---
+
 ## Jour 1 — 2026-05-18
 
 ### Session 1 — Enrichissement méthode + refactoring Notion

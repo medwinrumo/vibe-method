@@ -71,6 +71,115 @@ Les CGV actuelles (28 articles) ont été rédigées pour un projet Notion spéc
 
 ---
 
+## Jour 1 — 2026-05-18 — CGV M1/M2/M3 + /brief refonte
+
+### Session 5 — Système CGV dynamique + refonte /brief + /cgv skill
+
+#### Ce qu'on a fait et pourquoi
+
+**Contexte**
+
+Session 4 avait révélé que les CGV existantes étaient inadaptées aux projets applicatifs. Session 5 a construit le système CGV complet depuis zéro.
+
+**Architecture CGV — tronc commun + conditions particulières par modèle**
+
+Trois types de prestations → trois jeux de conditions particulières :
+- **M1 — Développement sur mesure** : cession de PI complète (L131-3 CPI) après paiement intégral ; maintenance corrective + écosystème incluse sans facturation ; casse client exclue ; accès Git maintenu post-mission ; hébergement/DB/services retirés à la fin de mission
+- **M2 — SaaS** : licence d'accès non exclusive ; SLA défini ; réversibilité + portabilité des données (Data Act) ; DPA si données personnelles traitées ; abonnement mensuel
+- **M3 — Notion** : droit d'usage non exclusif (Medwin peut vendre le même système à d'autres clients) ; réversibilité export CSV/JSON ; pas de cession de PI
+
+M4 écarté : M3 couvre déjà les marketplace Notion (licence non exclusive = multi-clients possible).
+
+**Tronc commun (cgv.cg.md) — 18 articles**
+
+Couverture : identification des parties, objet, durée, prix, facturation, délai de paiement, PI (renvoi aux CP), accès, obligations réciproques, confidentialité, force majeure, responsabilité, résiliation, litiges, loi applicable. Stable pour tous les modèles — seule la section PI varie via les CP.
+
+**Skill `/cgv` — assemblage automatique**
+
+Claude lit `[projet].brief.md` + `[projet].proposition.md`, identifie le modèle M1/M2/M3, assemble CG + CP correspondants, personnalise les variables (parties, objet, durée, prix, jalons), génère `[projet].cgv.md`.
+
+**Refonte `/brief` — domaine 6 ajouté**
+
+L'architecture légère et le modèle de prestation (M1/M2/M3) doivent être clarifiés au brief — avant le devis, pas pendant. Ajouté en domaine 6 : stack, services tiers, coûts récurrents estimés.
+
+Quality gate enrichie pour couvrir le nouveau domaine.
+
+#### Décisions prises
+
+- **CGV = CG tronc commun + CP par modèle** — la variabilité est localisée, les 18 articles communs n'ont pas à être rediscutés à chaque projet
+- **M1 maintenance incluse sans facturation** — bugs + dépendances + sécurité + plateforme ; casse client exclue ; coûts récurrents (hébergement, DB, services) restent clients
+- **Redistribution commerciale M1** — App Store, marketplace : client doit obtenir accord préalable du Prestataire
+- **Devis ≠ proposition commerciale** — deux documents distincts. CGV partent avec les deux, jamais l'un sans l'autre.
+- **Réserve de propriété M1** — PI ne passe pas tant que tout le prix n'est pas payé
+
+#### Difficultés
+
+Aucune difficulté technique. La complexité était juridique : distinguer les trois modèles de prestation, comprendre les implications de "cession" vs "licence" vs "droit d'usage".
+
+---
+
+## Jour 1 — 2026-05-18 — /devis estimation complète + calibration rétrospective + Notion
+
+### Session 6 — /devis étape 3a+3b + /phase-retrospective C0b + guide workflow + Notion
+
+#### Ce qu'on a fait et pourquoi
+
+**Contexte — trois lacunes identifiées**
+
+1. `/devis` ne produisait pas de récapitulatif utilisable pour remplir le devis PDF formel
+2. `/devis` n'estimait pas les phases du workflow — seulement les blocs de dev
+3. `/phase-retrospective` ne capturait pas le temps réel par phase de manière fiable
+
+**Récapitulatif devis (`proposition.md` en deux parties)**
+
+En tête du fichier, avant la proposition narrative :
+- **Tableau 1** : lignes de devis client (Désignation | Qté | Prix unitaire | Total HT). Lignes "Inclus" et "Récurrents" exclues du Total HT.
+- **Tableau 2** : détail par phase (à supprimer avant envoi PDF).
+
+Décision clé : le développement = N jours × TJM pour le client, pas de décomposition en blocs. Les blocs sont l'outil d'estimation interne (étape 3b), pas un livrable client.
+
+**Étape 3 scindée en 3a (workflow) + 3b (dev)**
+
+3a : calibration des phases workflow depuis les paramètres du brief — modèle M1/M2/M3, sécurité, nombre de features, stack, distribution, RGPD. Chaque phase avec base + ajustements + incertitude concrète (pas de "Y" générique). 12 phases couvertes.
+
+3b : blocs de développement depuis une table de référence par pattern. 5 catégories (auth, CRUD, temps réel, UI, intégrations) × Supabase vs Convex. Mobile Expo × 1,5 à 2. Grille P/M/G en fallback pour patterns non listés.
+
+Ce découpage répond à une question critique posée en session : "sur quoi tu t'appuies pour estimer ?". Réponse honnête : les patterns dev sont des durées connues (données réelles) ; les phases workflow sont des educated guesses qui seront calibrés par la boucle rétrospective.
+
+**`/phase-retrospective` — C0b (analyse des logs)**
+
+Mode Léger conservé intact (4 questions, journal 4 lignes). Mode Complet enrichi :
+- C0b ajouté : lecture de `[projet].log.md` session par session, identification de la phase depuis le sujet de chaque session, cumul des durées par phase.
+- Cross-référence avec `[projet].proposition.md` pour la colonne Estimé (ou "—" si absent).
+- Session couvrant deux phases → les deux comptées (c'est la réalité du travail).
+- Tableau calibration présenté à Medwin pour correction avant écriture.
+- Section "Calibration — Estimé vs Réel" ajoutée dans le template C5.
+
+Raisonnement : les dates de Rmap sont fragiles (elles bougent dès qu'on prend du retard). Les logs contiennent le sujet travaillé → c'est un ancrage robuste pour la phase.
+
+**Mise à jour du guide workflow**
+
+`VIBE-METHOD — GUIDE COMPLET DU WORKFLOW.md` mis à jour : chaîne enrichie (/devis + /cgv), PARTIE 1 à 8 skills, /brief 9 domaines, sections /devis et /cgv insérées complètes, /phase-retrospective Mode Léger vs Complet + C0b.
+
+**Mise à jour Notion**
+
+Page `Vibe-Method.WORKFLOW` synchronisée via API Notion directe (Python + requests). La mise à jour via le MCP `notion-local` a échoué : le tool `update-a-block` envoie `{"type": {"heading_4": {...}}}` au lieu de `{"heading_4": {...}}` — incompatibilité avec l'API Notion (bug de mapping MCP). Contourné en appelant l'API directement avec le token du `mcp.json`.
+
+#### Décisions prises
+
+- **Incertitude concrète par phase** : "±Y j" générique remplacé par des valeurs réelles (0 à 2j) par phase
+- **Mode Léger conservé** : ne pas tout reporter sur l'analyse des logs — les 4 questions rapides capturent l'immédiat pendant que c'est frais
+- **Logs comme source de vérité calibration** : plus robuste que les dates de planning
+- **API Notion directe si MCP échoue** : token dans `~/.claude/mcp.json`, appel via Python+requests
+
+#### Difficultés
+
+- "Y" non défini dans la grille de calibration → signalé par Medwin, corrigé avec valeurs concrètes
+- MCP update-a-block incompatible Notion → bug identifié, contournement via API directe
+- Boucle de calibration encore théorique : aucun projet n'a encore fait un cycle complet /devis → code → /phase-retrospective. Le vrai test sera sur un projet réel.
+
+---
+
 ## Jour 1 — 2026-05-18 — Enrichissement méthode + refactoring Notion
 
 ### Session 1 — Intégration skills externes + suppression complète de Notion

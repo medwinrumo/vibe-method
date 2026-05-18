@@ -117,6 +117,8 @@ Si l'une de ces conditions est vraie, proposer un Design Thinking rapide (20 min
 Si oui → 5 phases : Empathize (qui est l'utilisateur, quelles frustrations), Define (phrase-problème), Ideate (10+ idées), Prototype (hypothèse à valider), Synthèse.
 Si non → continuer directement à l'étape 3.
 
+Si plusieurs directions visuelles radicalement différentes semblent possibles mais qu'il est difficile de choisir sans les voir → `/prototype` (branche UI) génère des variations concrètes switchables avant de s'engager dans le design system complet.
+
 ---
 
 ### Étape 3 — Écrans principaux et parcours clés

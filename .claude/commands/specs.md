@@ -74,6 +74,9 @@ Tu extrais du PRD les règles déjà connues et tu les présentes :
 **Les cas d'échec :**
 > "Quelles sont les façons dont cette feature peut échouer ? (erreur de saisie, service indisponible, règle métier non respectée...)"
 
+**Signal prototype :**
+Si les règles de gestion sont difficiles à spécifier parce que le comportement attendu n'est pas clair sans le voir tourner → `/prototype` (branche logique) avant de continuer. Mieux vaut prototyper 20 minutes que specer un comportement imaginé.
+
 Tu notes toutes les réponses — elles alimentent directement le format A4.
 
 ---

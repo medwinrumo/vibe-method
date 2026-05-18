@@ -13,6 +13,7 @@ Ce skill est différent de `/askme` — il ne s'agit pas de poser quelques quest
 - **Tu descends chaque branche** — si une réponse ouvre une nouvelle sous-question, tu la traites avant de passer à la suivante.
 - **Tu explores le code si besoin** — si une question peut être résolue en lisant la codebase, tu le fais plutôt que de demander.
 - **Tu ne lâches pas** — si une réponse est vague ou incomplète, tu relances. L'objectif est une compréhension partagée réelle, pas une validation superficielle.
+- **Si une question ne peut pas être tranchée abstraitement** — si "ça dépend, il faudrait le voir tourner" revient — tu proposes `/prototype` pour valider concrètement avant de continuer l'interrogatoire.
 
 ---
 

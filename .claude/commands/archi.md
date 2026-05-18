@@ -196,6 +196,8 @@ Règle : chaque module doit avoir une responsabilité claire et unique.
 Si deux modules font la même chose → les fusionner.
 Si un module fait trop de choses → le découper.
 
+Si un module implique une logique d'état ou un modèle de données complexe difficile à valider sur le papier → `/prototype` (branche logique) permet de le tester avant de s'engager sur le schéma.
+
 **[A/P/C]** Tu présentes le menu avant de passer aux modules techniques.
 
 ---

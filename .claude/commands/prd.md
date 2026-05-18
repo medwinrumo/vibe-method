@@ -108,6 +108,7 @@ Points de friction potentiels : [ce qui peut bloquer ou surprendre]
 
 Si le journey révèle des règles métier manquantes → retour en étape 2.
 Si le journey révèle qu'une feature est trop large → proposition de découpage.
+Si un journey révèle une logique ou un flux difficile à valider abstraitement → `/prototype` permet de le tester concrètement avant de finaliser (branche logique pour la logique d'état, branche UI pour visualiser le parcours).
 
 ---
 

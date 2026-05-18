@@ -38,7 +38,7 @@ Mode A de /design et /archi se construisent en aller-retour. Les écrans révèl
 | Skill | Rôle | Output |
 |---|---|---|
 | `/contexte` | Contexte projet — écosystème, client, contraintes, notes de réunions | `[projet].context.md` |
-| `/devis` | Du brief à la proposition commerciale — qualification client (exa:search), archi légère, estimation blocs, calibrage valeur, conditions | `[projet].proposition.md` |
+| `/devis` | Du brief à la proposition commerciale — qualification client (exa:search), estimation complète en deux parties : phases workflow calibrées depuis les paramètres du brief (modèle, sécurité, stack, features, distribution) + blocs dev par table de référence patterns Supabase/Convex — récapitulatif devis + détail par phase en tête de fichier | `[projet].proposition.md` |
 | `/cgv` | Génère les CGV (Conditions Générales + Conditions Particulières M1/M2/M3) à partir du brief et du contexte | `[projet].cgv.md` |
 | `/brief` | De l'intention au brief structuré | `[projet].brief.md` |
 | `/charte` | Charte graphique — couleurs, typo, logo, ambiance | `[projet].charte.md` |
@@ -68,7 +68,7 @@ Mode A de /design et /archi se construisent en aller-retour. Les écrans révèl
 | `/recette` | Génère Gherkin depuis User Stories + validation manuelle | `[projet].recette.md` |
 | `/debug` | Diagnostic et résolution de bug (déclenché par `/recette`) | — |
 | `/diagnose` | Diagnostic approfondi pour bugs difficiles — boucle de feedback + hypothèses falsifiables (escalade de `/debug`) | — |
-| `/phase-retrospective` | Rétrospective de fin de phase — analyse, dette, action items, preview phase suivante | `[projet]-retrospective.md` |
+| `/phase-retrospective` | Rétrospective Mode Léger (fin de phase) + Mode Complet (fin d'ensemble) — analyse des logs pour calibration estimé vs réel par phase, dette, action items, preview phase suivante | `[projet]-retrospective.md` |
 | `/refacto` | Refactoring guidé — diagnostic + exécution étape par étape. Déclenché avant une feature sur module dégradé, fin de phase, ou on-demand. Exige une session dédiée. | — |
 | `/party` | Multi-perspectives sur une décision (sous-agents parallèles) | — |
 | `/grill-me` | Interrogatoire approfondi d'un plan — une question à la fois, recommandation incluse, chaque branche résolue | — |

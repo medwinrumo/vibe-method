@@ -109,8 +109,21 @@ Tu présentes le fichier avant de le sauvegarder :
 
 Si Medwin valide → tu sauvegardes `[projet].regles.md` dans le repo projet.
 
-Puis :
-> "Project context sauvegardé. À inclure dans ton CLAUDE.md de projet si tu veux qu'il soit chargé automatiquement en début de session."
+**Mise à jour CLAUDE.md** — upsert de la section `## Règles & pièges` :
+- Section existante → remplacer intégralement
+- Section absente → ajouter en fin de fichier
+
+Condenser les 5-8 règles les plus critiques depuis `[projet].regles.md` :
+
+```markdown
+## Règles & pièges
+_→ Détails : `[projet].regles.md`_
+
+- [Règle critique 1]
+- [Règle critique 2]
+- ❌ [Pattern interdit — raison courte]
+- ✅ [Pattern obligatoire — raison courte]
+```
 
 ---
 

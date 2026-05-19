@@ -79,6 +79,19 @@ Produire une liste courte et priorisée des points de sécurité à intégrer da
 >
 > Ces points sont transmis à `/archi` pour intégration dans les décisions d'architecture."
 
+**Mise à jour CLAUDE.md** — upsert de la section `## Sécurité projet` :
+- Section existante → remplacer intégralement
+- Section absente → ajouter en fin de fichier
+
+```markdown
+## Sécurité projet
+_→ Détails : `securite.md` · `[projet].archi.md §Sécurité`_
+
+Niveau : [Bas / Moyen / Élevé]
+Bloquants : [point 1] · [point 2]
+Importants : [point 3] · [point 4]
+```
+
 ---
 
 ## Mode `check` — `/securite check`

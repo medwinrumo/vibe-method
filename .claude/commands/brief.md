@@ -240,6 +240,20 @@ Une fois le brief validé par Medwin :
 
 Confirmer : "Brief sauvegardé → `[projet].brief.md`"
 
+**Mise à jour CLAUDE.md** — upsert de la section `## Projet` :
+- Section existante → remplacer intégralement
+- Section absente → ajouter en fin de fichier
+
+```markdown
+## Projet
+_→ Détails : `[projet].brief.md`_
+
+[Nom provisoire] — [problème résolu en 1 phrase]
+Modèle : [M1 / M2 / M3] — Stack : [A Convex / B Supabase / à confirmer]
+Distribution : [web / native iOS+Android / PWA]
+Niveau de risque : [Bas / Moyen / Élevé]
+```
+
 ---
 
 ## Prochaine étape

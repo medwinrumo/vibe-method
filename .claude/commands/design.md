@@ -292,6 +292,20 @@ Confirmer :
 > Instruction à donner à Claude Design : 'Voici le design system en markdown — construis-le en respectant chaque composant et état défini.'
 > Une fois Claude Design terminé, reviens avec le code produit → Mode B."
 
+**Mise à jour CLAUDE.md** — upsert de la section `## Design — grandes lignes` :
+- Section existante → remplacer intégralement
+- Section absente → ajouter en fin de fichier
+
+```markdown
+## Design — grandes lignes
+_→ Détails : `[projet].design.md`_
+
+- Approche : [one-shot / two-step]
+- Écrans V1 : [N] — [liste courte des écrans principaux]
+- Composants clés : [liste courte]
+- Librairie UI : [shadcn/ui / autre / à confirmer en Mode B]
+```
+
 ---
 
 ## MODE B — Intégration du code Claude Design
@@ -400,6 +414,21 @@ Tu mets à jour `[projet].design.md` en ajoutant une section Mode B :
 ```
 
 Confirmer : "Mode B terminé → `[projet].design.md` mis à jour. La config est prête. Tu peux démarrer le code métier."
+
+**Mise à jour CLAUDE.md** — upsert de la section `## Identité visuelle` (enrichissement Mode B) :
+- Section existante → remplacer intégralement en ajoutant les tokens Tailwind aux valeurs hex
+- Section absente → créer (la charte aurait dû la créer — signaler si absente)
+
+```markdown
+## Identité visuelle
+_→ Détails : `[projet].charte.md` · `[projet].design.md`_
+
+- Principale : [hex] — classe : `[token Tailwind]`
+- Secondaire : [hex] — classe : `[token Tailwind]`
+- Typo : [police] — classe : `[token Tailwind]`
+- Arrondis : [valeur]px — `[classe Tailwind]`
+- Dark mode : `class` strategy — Librairie : [shadcn/ui v[version] / autre]
+```
 
 ---
 

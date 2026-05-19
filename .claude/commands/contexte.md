@@ -124,6 +124,20 @@ Confirmer :
 > Ce fichier sera lu par `/brief`, `/archi`, et `/roadmap` au démarrage de chaque skill.
 > Il peut être mis à jour à tout moment — relancer `/contexte` pour enrichir ou réviser."
 
+**Mise à jour CLAUDE.md** — upsert de la section `## Contexte client` :
+- Section existante → remplacer intégralement
+- Section absente → ajouter en fin de fichier
+
+```markdown
+## Contexte client
+_→ Détails : `[projet].context.md`_
+
+- Client : [nom] — [nature de la relation]
+- Deadline : [date] — [raison ou "non définie"]
+- Contraintes : [budget, dépendances — ou "aucune identifiée"]
+- Risques : [1-2 points ou "aucun identifié"]
+```
+
 ---
 
 ## Règles

@@ -25,7 +25,10 @@ Avant le commit Git, mettre à jour les fichiers de documentation. Ces fichiers 
 
 ### Fichier `CLAUDE.md`
 
-Mettre à jour si la session a produit des décisions d'architecture, des changements d'implémentation, des corrections de spec, ou tout élément qui modifie la compréhension du projet. C'est une source de vérité — elle doit refléter la réalité du code, pas une version périmée.
+Chaque skill est responsable de sa propre section (upsert). Le rôle de `/maj` est de vérifier la cohérence :
+1. Lire `CLAUDE.md` — identifier les sections présentes
+2. Pour chaque section, vérifier que le contenu correspond à l'état actuel de l'artefact référencé
+3. Si une section est manifestement périmée → la mettre à jour silencieusement
 
 **Sync sécurité automatique :**
 Si `[projet].archi.md` existe et contient une section `## Sécurité` :
@@ -98,7 +101,7 @@ Pour chaque paire concernée :
 - [ ] `[projet].doc.md` mis à jour si nécessaire
 - [ ] `[projet].spec-global.md` mis à jour si nécessaire
 - [ ] Tout commité et poussé sur GitHub
-- [ ] `CLAUDE.md` mis à jour si nécessaire
+- [ ] `CLAUDE.md` — sections vérifiées et cohérentes avec leurs artefacts
 - [ ] Bloc sécurité du `CLAUDE.md` synchronisé avec `archi.md` (si projet avec archi)
 - [ ] GitHub Projects mis à jour (tâches terminées + nouvelles tâches)
 - [ ] Cohérence skills / doctrine vérifiée si applicable

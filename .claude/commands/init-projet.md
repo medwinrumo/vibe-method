@@ -38,10 +38,20 @@ gh repo create [nom_projet] --private --source=. --remote=origin
 ```
 
 3. Créer les fichiers de base :
-   - `CLAUDE.md` — vide, à remplir au fil des skills
+   - `CLAUDE.md` — créé avec un template minimal (voir ci-dessous)
    - `[nom_projet].todo.md` — vide, alimenté par `/majtodo`
    - `[nom_projet].log.md` — vide, alimenté par `/log`
    - `[nom_projet].context.md` — pré-rempli avec les sections (voir ci-dessous)
+
+**Contenu de `CLAUDE.md` à la création :**
+
+```markdown
+# CLAUDE.md — [nom_projet]
+_Contexte projet — mis à jour progressivement par les skills_
+
+<!-- Sections ajoutées automatiquement : /contexte → /brief → /charte → /prd → /securite → /design → /archi → /regles → /stack → /adr -->
+<!-- Chaque section renvoie vers son artefact pour les détails complets. -->
+```
 
 **Contenu de `[nom_projet].context.md` à la création :**
 

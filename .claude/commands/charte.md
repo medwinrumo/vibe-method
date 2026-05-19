@@ -170,6 +170,21 @@ Ce qu'on évite : [description]
 
 Confirmer : "Charte sauvegardée → `[projet].charte.md`. Cette charte servira de fondation au design system dans `/design`."
 
+**Mise à jour CLAUDE.md** — upsert de la section `## Identité visuelle` :
+- Section existante → remplacer intégralement
+- Section absente → ajouter en fin de fichier
+
+```markdown
+## Identité visuelle
+_→ Détails : `[projet].charte.md` · `[projet].design.md`_
+
+- Principale : [hex] — Secondaire : [hex]
+- Typo : [police] — Arrondis : [valeur]px — Dark mode : [oui / non / système]
+- Ambiance : [description courte]
+```
+
+_Note : `/design` Mode B enrichira cette section avec les classes Tailwind et la librairie de composants._
+
 ---
 
 ## Règles

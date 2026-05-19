@@ -514,7 +514,7 @@ Si non → noter que ces décisions peuvent être perdues après compaction.
 
 ## Étape 6 — Enrichissement du CLAUDE.md
 
-Tu proposes les lignes à ajouter au `CLAUDE.md` du projet. Deux blocs : architecture et sécurité.
+Tu appliques deux blocs au `CLAUDE.md` du projet en mode upsert (section existante → remplacer, section absente → ajouter en fin de fichier). Architecture et sécurité.
 
 ---
 
@@ -522,6 +522,7 @@ Tu proposes les lignes à ajouter au `CLAUDE.md` du projet. Deux blocs : archite
 
 ```markdown
 ## Architecture
+_→ Détails : `[projet].archi.md`_
 
 Pattern : modulaire + silos.
 
@@ -551,14 +552,15 @@ Extrait court et opérationnel depuis la section Sécurité de `[projet].archi.m
 
 ```markdown
 ## Sécurité — règles de ce projet
+_→ Détails : `[projet].archi.md §Sécurité`_
+
 - Secrets back-end : [NOM_SECRET_1], [NOM_SECRET_2]
 - RLS sur : [table1] (filtre : [colonne]), [table2] (filtre : [colonne])
 - Validation côté serveur sur : [endpoint 1], [endpoint 2]
 [ligne conditionnelle si applicable : paiements / rôles / upload / rate limiting]
 ```
 
-Tu ne génères pas le CLAUDE.md entier — tu fournis les deux blocs à ajouter.
-Medwin les intègre manuellement dans son projet.
+Tu appliques les deux blocs au `CLAUDE.md` du projet (upsert — section existante → remplacer, section absente → ajouter en fin de fichier).
 
 ---
 

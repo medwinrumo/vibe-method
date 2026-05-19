@@ -269,6 +269,21 @@ _Lu le [date]_
 Tu confirmes :
 > "`[projet].stack.md` généré. Ce document sera lu par `/roadmap`, `/specs`, `/tests` et `/recette` — et par l'IA à chaque session de développement."
 
+**Mise à jour CLAUDE.md** — upsert de la section `## Stack — gotchas critiques` :
+- Section existante → remplacer intégralement
+- Section absente → ajouter en fin de fichier
+
+Condenser les gotchas les plus critiques par outil :
+
+```markdown
+## Stack — gotchas critiques
+_→ Détails : `[projet].stack.md`_
+
+- [Outil 1] v[version] : [gotcha critique en 1 ligne]
+- [Outil 2] v[version] : [gotcha critique en 1 ligne]
+Stack de dev : [couple outil + modèle — ex : Claude Code + Sonnet]
+```
+
 ---
 
 ## Règles

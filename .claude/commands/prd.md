@@ -297,6 +297,21 @@ Tu termines en rappelant le process :
 1. Copier ce message + le PRD → l'envoyer à 2 autres IA (Gemini, ChatGPT, ou autre)
 2. Copier leurs retours et revenir ici avec `/prd-update` pour intégrer les critiques
 
+**Mise à jour CLAUDE.md** — upsert de la section `## Produit — features V1` :
+- Section existante → remplacer intégralement
+- Section absente → ajouter en fin de fichier
+
+```markdown
+## Produit — features V1
+_→ Détails : `[projet].prd.md`_
+
+- [Feature 1] — [Essentielle / Importante / Nice-to-have]
+- [Feature 2] — [priorité]
+- [Feature 3] — [priorité]
+Hors-scope V1 : [liste courte]
+NFR : performance [valeur] — sécurité [niveau] — offline [oui / non]
+```
+
 ---
 
 ## Étape 7 — *(Enregistrement effectué à l'Étape 5c)*

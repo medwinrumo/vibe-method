@@ -74,6 +74,17 @@ _Architectural Decision Records — appendé à chaque décision, jamais écras�
 
 Tu attribues le numéro suivant (ADR-1, ADR-2...) en comptant les entrées existantes.
 
+**Mise à jour CLAUDE.md** — upsert de la section `## Décisions clés` :
+- Section existante → remplacer intégralement (conserver les ADR précédents, ajouter le nouveau)
+- Section absente → créer avec ce premier ADR
+
+```markdown
+## Décisions clés
+_→ Détails : `[projet].adr.md`_
+
+- ADR-[N] : [titre] — [décision en 1 ligne]
+```
+
 ---
 
 ## Règles

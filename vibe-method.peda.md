@@ -329,3 +329,55 @@ Résultat : non disponible. Les hooks n'exposent pas de métrique de contexte. M
 #### Difficultés
 
 - **Hallucination du sous-agent** : le claude-code-guide a inventé une issue GitHub #34340 avec des détails très convaincants. Medwin a vérifié et signalé l'erreur. C'est une illustration importante : la précision des détails n'est pas un indicateur de vérité — c'est parfois l'inverse.
+
+---
+
+## Jour 2 — 2026-05-19 — CLAUDE.md : correction structurelle
+
+### Session 7 — CLAUDE.md ownership par skill + GitHub Projects dans /init-projet
+
+#### Ce qu'on a fait et pourquoi
+
+**Déclencheur**
+
+Ouverture d'une session HYGEIA : CLAUDE.md était vide malgré deux /maj effectués. Le diagnostic a révélé un gap structurel dans la méthode : /init-projet crée CLAUDE.md comme stub vide, /maj le met à jour de manière conditionnelle ("si décisions d'architecture"), aucun skill n'a la charge du premier remplissage. Résultat : le fichier reste vide indéfiniment. Correctif immédiat : HYGEIA.CLAUDE.md rempli manuellement et commité.
+
+**GitHub Projects setup : /todo → /init-projet**
+
+Le setup (création projet GH, colonnes Todo/In Progress/Done/Late, champs Début+Fin, récupération des IDs internes, .gh-project.local, .gitignore) était documenté dans /todo sous un titre "Setup (une fois par projet)". C'est logiquement dans /init-projet que ça appartient — tâche d'initialisation, pas de session. /todo ne garde qu'un pointeur d'une ligne.
+
+**Nature du CLAUDE.md**
+
+Clarification structurante issue de la discussion avec Medwin : CLAUDE.md est une convention Anthropic native. Sa vocation d'origine : fournir un contexte de démarrage rapide, pas une documentation exhaustive. Anthropic a conçu ce fichier pour être court et dense — chargé automatiquement en début de session.
+
+Ce qu'on ajoute dans la vibe-method : la couche de navigation via le pointeur `→ Détails : [artefact]`. Le principe "résumé + contexte, pas source exhaustive" était déjà là. La vibe-method avait le fichier mais ne le remplissait pas — c'est le vrai problème corrigé.
+
+**Architecture retenue : upsert incrémental sans stubs**
+
+Trois options évaluées :
+- A — /init-projet crée tous les stubs → sections vides non informatives, bruit
+- B — chaque skill ajoute sa section → ordre imprévisible, risque doublons
+- C (retenue) — upsert : section existante → remplacer, section absente → ajouter en fin de fichier
+
+L'upsert donne des sections dans l'ordre naturel d'exécution de la chaîne (la première fois que chaque skill tourne), et les relectures mettent la section à jour sans doublon.
+
+**Section /charte et Mode B de /design**
+
+/charte : estimé trop volumineux au premier réflexe. Conclusion inverse retenue — le contenu est compact (hex, polices, border-radius, dark mode) et Claude Code en a besoin à chaque génération de composant Tailwind. Section `## Identité visuelle` créée.
+
+Mode B de /design ne produit pas de nouvelle connaissance de design — il traduit en code. Il enrichit `## Identité visuelle` (créée par /charte) en ajoutant les tokens Tailwind et la librairie choisie. Un seul endroit, deux niveaux de lecture (design intent → implémentation code).
+
+#### Décisions prises
+
+- **GitHub Projects setup dans /init-projet** — Étape 2, entre Git init et la confirmation finale
+- **CLAUDE.md = résumé + index de navigation** — chaque section renvoie vers son artefact via `→ Détails`
+- **Upsert incrémental sans stubs** — pas de section vide, sections dans l'ordre de la chaîne
+- **/charte alimente CLAUDE.md** — section `## Identité visuelle`, enrichie par Mode B (tokens Tailwind)
+- **/archi : upsert automatique** — plus "Medwin les intègre manuellement dans son projet"
+- **/regles : upsert automatique** — plus "À inclure dans ton CLAUDE.md si tu veux"
+- **/maj : rôle de cohérence** — vérification que les sections correspondent à leurs artefacts, plus condition vague "si la session a produit des décisions d'architecture"
+
+#### Difficultés
+
+- Les fichiers de commandes sont des symlinks (`~/.claude/commands/` → `vibe-method/.claude/commands/`). L'Edit tool refuse d'écrire via symlink — il faut toujours passer par le chemin réel dans vibe-method.
+- CLAUDE.md HYGEIA rempli manuellement (session précédente n'a pas laissé de trace dans le fichier). La correction structurelle dans vibe-method s'appliquera aux prochains projets depuis /init-projet.

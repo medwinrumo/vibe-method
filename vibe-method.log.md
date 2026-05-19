@@ -86,3 +86,17 @@
 - Hooks Claude Code : % de contexte non exposé aux hooks — fonctionnalité manquante, mémoire créée
 - Hallucination sub-agent : issue GitHub #34340 inventée avec détails précis — corrigée
 - Commits : `2087d5e`, `2dab863`, `5b36a0e`, `8c297b9`, `a098913`
+
+---
+
+## Jour 2 — 2026-05-19
+
+### Session 7 — CLAUDE.md ownership par skill + GitHub Projects dans /init-projet
+
+- Diagnostiqué : CLAUDE.md vide après /init-projet + /maj → gap structurel (aucun skill n'avait la charge du remplissage)
+- HYGEIA.CLAUDE.md rempli manuellement en correctif immédiat (commit `docs:`)
+- GitHub Projects setup : déplacé de /todo (renvoi) vers /init-projet (Étape 2 complète — création projet GH, colonnes Todo/In Progress/Done/Late, champs Début+Fin, IDs internes, .gh-project.local, .gitignore)
+- CLAUDE.md : convention Anthropic native — contexte démarrage rapide, pas documentation. Ajout vibe-method : pointeur `→ Détails : [artefact]` vers les fichiers détaillés.
+- Pattern upsert défini : section existante → remplacer, section absente → ajouter en fin de fichier
+- 12 skills modifiés : /init-projet (template minimal), /contexte, /brief, /charte, /prd, /securite, /design Mode A + Mode B, /archi (upsert auto — plus "Medwin intègre manuellement"), /regles (plus "à inclure si tu veux"), /stack, /adr, /maj (checklist mise à jour)
+- Commits pushés : `4fd4c07`, `b6eedd9`

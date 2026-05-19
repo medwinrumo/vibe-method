@@ -72,34 +72,7 @@ Si `.todo.md` a été modifié :
     git add [projet].todo.md && git commit -m "chore: sync todo from gh projects" && git push
 
 Si `.gh-project.local` absent → ignorer silencieusement, continuer avec le fichier local.
-
----
-
-### Setup GitHub Projects (une fois par projet)
-
-    # 1. Activer le scope nécessaire (une fois par machine)
-    gh auth refresh -h github.com -s read:project,project
-
-    # 2. Récupérer le numéro du projet
-    gh project list --owner medwinrumo
-
-    # 3. Récupérer les IDs des champs
-    gh project field-list [N] --owner medwinrumo --format json
-
-Créer `.gh-project.local` dans le repo :
-
-    project_number=N
-    owner=medwinrumo
-    project_id=PVT_xxx
-    field_status_id=PVTSSF_xxx
-    option_todo_id=xxx
-    option_in_progress_id=xxx
-    option_done_id=xxx
-    option_late_id=xxx
-    field_debut_id=PVTF_xxx
-    field_fin_id=PVTF_xxx
-
-Ajouter `.gh-project.local` au `.gitignore`.
+_Le setup GitHub Projects se fait via `/init-projet` — Étape 2._
 
 ---
 

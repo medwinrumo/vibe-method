@@ -76,7 +76,73 @@ Confirmer : "Repo GitHub créé et pushé → `github.com/medwinrumo/[nom_projet
 
 ---
 
-## Étape 2 — Confirmation et prochaine étape
+## Étape 2 — GitHub Projects
+
+Créer et configurer le kanban du projet.
+
+### 2a — Vérifier les scopes (une fois par machine)
+
+```bash
+gh auth refresh -h github.com -s read:project,project
+```
+
+### 2b — Créer le projet
+
+```bash
+gh project create --owner medwinrumo --title "[nom_projet]"
+```
+
+Récupérer le numéro **N** retourné par la commande.
+
+### 2c — Configurer les colonnes de statut
+
+Le champ "Status" est créé automatiquement avec Todo / In Progress / Done.  
+Ajouter l'option **Late** manuellement :  
+→ `https://github.com/users/medwinrumo/projects/[N]/settings` → champ Status → "Add an option" → "Late"
+
+### 2d — Ajouter les champs date
+
+Dans les settings du projet (`/settings`), ajouter :
+- Champ `Début` (type : Date)
+- Champ `Fin` (type : Date)
+
+### 2e — Récupérer les IDs internes
+
+```bash
+gh project field-list [N] --owner medwinrumo --format json
+```
+
+### 2f — Créer `.gh-project.local`
+
+Créer le fichier dans le repo du projet avec les valeurs récupérées :
+
+```
+project_number=N
+owner=medwinrumo
+project_id=PVT_xxx
+field_status_id=PVTSSF_xxx
+option_todo_id=xxx
+option_in_progress_id=xxx
+option_done_id=xxx
+option_late_id=xxx
+field_debut_id=PVTF_xxx
+field_fin_id=PVTF_xxx
+```
+
+### 2g — Protéger le fichier
+
+```bash
+echo ".gh-project.local" >> .gitignore
+git add .gitignore
+git commit -m "chore: add .gh-project.local to gitignore"
+git push
+```
+
+Confirmer : "GitHub Projects configuré → `https://github.com/users/medwinrumo/projects/[N]`"
+
+---
+
+## Étape 3 — Confirmation et prochaine étape
 
 Afficher le récapitulatif :
 

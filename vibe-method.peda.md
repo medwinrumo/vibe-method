@@ -381,3 +381,74 @@ Mode B de /design ne produit pas de nouvelle connaissance de design — il tradu
 
 - Les fichiers de commandes sont des symlinks (`~/.claude/commands/` → `vibe-method/.claude/commands/`). L'Edit tool refuse d'écrire via symlink — il faut toujours passer par le chemin réel dans vibe-method.
 - CLAUDE.md HYGEIA rempli manuellement (session précédente n'a pas laissé de trace dans le fichier). La correction structurelle dans vibe-method s'appliquera aux prochains projets depuis /init-projet.
+
+---
+
+## Jour 3 — 2026-05-21 — Deep research RGPD : Supabase + Vercel + alternatives EU pour RAMrezo
+
+### Session 8 — Doctrine RGPD : état des lieux + research Exa + task de mise à jour
+
+#### Ce qu'on a fait et pourquoi
+
+**Déclencheur**
+
+Medwin a apporté deux fichiers de checklists RGPD (Vercel en 12 points, Supabase en 10 points) et posé la question centrale : peut-on travailler avec Supabase + Vercel dans un cadre RGPD propre pour RAMrezo ? Et les alternatives européennes souveraines sont-elles réalistement équivalentes ?
+
+**Deep research avec exa:search**
+
+Première utilisation structurée d'exa:search comme orchestrateur de recherche multi-angles. Pattern appris :
+
+- L'orchestrateur analyse la complexité (Extremely Simple / Moderate / Advanced / Complex) avant d'agir
+- Pour une requête Complex (multiple entités légales, dimension réglementaire, comparative), il dispatche des subagents Haiku en parallèle — chacun couvre un territoire distinct
+- Chaque subagent reçoit un prompt avec : les fichiers de référence Exa à lire, les requêtes précises à exécuter, le format de sortie attendu, et l'instruction `sources_reviewed: N`
+- L'orchestrateur compile ensuite et déduplique
+
+**Ce qui a bien fonctionné :** 3 subagents sur 5 ont produit des recherches réelles avec 78+ sources examinées (Supabase RGPD : 31 sources, CNIL/transferts : 35 sources, RAMrezo spécifique : 47 sources).
+
+**Ce qui a échoué :** 2 subagents ont dérapé — au lieu de lancer les recherches directement, ils ont lancé des méta-analyses de la tâche. Cause probable : les outils MCP Exa n'étaient pas disponibles dans leur contexte de subagent. Relancés, ils ont répondu sur training knowledge (non sourcées Exa) — utiles mais de confiance inférieure.
+
+**Leçon Exa :** la disponibilité des outils MCP dans les subagents n'est pas garantie. Si un subagent décroche, le relancer avec une instruction encore plus directe ("run the searches yourself, do NOT spawn subagents") améliore mais ne garantit pas. Pour les requêtes critiques, mieux vaut faire les recherches soi-même dans le contexte principal.
+
+**Résultats substantiels de la research**
+
+Quatre enseignements clés retenus :
+
+1. **Supabase (région Frankfurt) + Vercel = légal pour RAMrezo**, sous conditions documentées. Pas automatique — dossier à construire.
+
+2. **Vercel et Supabase ne sont pas au même niveau RGPD :**
+   - Vercel est **certifié DPF** (Data Privacy Framework EU-US) → base légale directe, plus simple
+   - Supabase **n'est pas certifié DPF** → régime SCC + TIA obligatoire. Mais il fournit un DPA (mars 2025) et un TIA (mars 2025) prêts à l'emploi
+
+3. **Le DPF est juridiquement fragile.** Premier recours rejeté (Cour UE, septembre 2025), mais appel devant la CJUE en attente. Le Privacy Shield avait été invalidé en 2020 dans les mêmes conditions.
+
+4. **Pas d'alternative EU souveraine clé en main.** Appwrite (Zurich) est la meilleure option BaaS souveraine — mais self-host obligatoire = overhead ops significatif. Scaleway/OVH couvrent l'infra mais pas le BaaS. Pour RAMrezo avec deadline au 4 juin 2026, changer de stack pour de la souveraineté théorique serait un risque d'exécution injustifiable.
+
+**Concept appris : résidence ≠ souveraineté**
+
+Choisir la région Frankfurt pour Supabase garantit que les données restent physiquement en UE (résidence). Ça ne garantit pas que le gouvernement américain ne peut pas y accéder via le CLOUD Act/FISA (souveraineté). Supabase est une Delaware C-corp — le CLOUD Act s'applique. Pour des données sensibles (santé, judiciaire) : problème réel. Pour RAMrezo (annuaire d'entrepreneurs, événements) : risque théorique, pas un blocage pratique.
+
+**Vérification de la doctrine existante**
+
+`rgpd.md` existe — 12 sections, complète. Elle couvrait déjà le modèle SaaS B2B avec RAMrezo en exemple. Trois points inexacts après la research :
+- Vercel marqué "à vérifier DPF" → il est certifié
+- DPF présenté comme stable depuis 2023 → il est sous pression judiciaire
+- URLs DPA/TIA Supabase absentes
+
+**Artefact produit**
+
+`rgpd-research-2026-05-21.md` — intégralité de la research mot à mot (5 sections, ~83 sources). Sert de base à la mise à jour de `rgpd.md` lors de la prochaine session dédiée.
+
+**Task créée**
+
+Task #1 — mise à jour `rgpd.md` avec 3 corrections + 2 ajouts (checklists Vercel/Supabase + section argumentaire cloud US). À traiter lors d'une prochaine session.
+
+#### Décisions prises
+
+- **Supabase Frankfurt + Vercel = stack RAMrezo validée côté RGPD** — avec DPA Supabase signé + TIA joint + DPA Vercel signé + registre des traitements
+- **Le dossier RGPD se construit, il ne s'achète pas** — aucun des deux outils ne rend l'app conforme automatiquement. C'est la combinaison DPA + TIA + région EU + implémentation dans l'app (droits utilisateurs) qui constitue la conformité
+- **Argumentaire client prêt** — formulation disponible dans `rgpd-research-2026-05-21.md` section 5 pour répondre à un client qui questionne le choix de stack non-souverain
+
+#### Difficultés
+
+- 2 subagents Exa sur 5 ont échoué à exécuter les recherches (dérapé en méta-analyse). Relancés, ils ont répondu sur training knowledge sans accès Exa réel.
+- La distinction résidence/souveraineté est contre-intuitive — on pense naïvement que "données en Europe" = "hors de portée des USA". C'est faux dès qu'il y a une société mère américaine.

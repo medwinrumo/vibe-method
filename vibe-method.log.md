@@ -100,3 +100,22 @@
 - Pattern upsert défini : section existante → remplacer, section absente → ajouter en fin de fichier
 - 12 skills modifiés : /init-projet (template minimal), /contexte, /brief, /charte, /prd, /securite, /design Mode A + Mode B, /archi (upsert auto — plus "Medwin intègre manuellement"), /regles (plus "à inclure si tu veux"), /stack, /adr, /maj (checklist mise à jour)
 - Commits pushés : `4fd4c07`, `b6eedd9`
+
+---
+
+## Jour 3 — 2026-05-21
+
+### Session 8 — Deep research RGPD pour RAMrezo + doctrine vibe-method
+
+- Apport de deux fichiers RGPD par Medwin : `Checklist Vercel vs RGPD.md` (12 points) + `Checklist-RGPD-en-10-points.md` (Supabase)
+- Deep research exa:search lancée sur 5 angles : Supabase RGPD, Vercel RGPD, alternatives EU souveraines, CNIL/transferts hors UE, RAMrezo spécifique
+- 3 subagents avec résultats Exa réels (~83 sources), 2 subagents en échec (training knowledge uniquement)
+- Findings clés :
+  - Vercel certifié DPF (Data Privacy Framework EU-US) — base légale directe
+  - Supabase non certifié DPF mais DPA mars 2025 + TIA mars 2025 disponibles — région Frankfurt obligatoire
+  - DPF valide juridiquement (mai 2026) mais fragile — appel CJUE en attente depuis sept. 2025
+  - Pas d'alternative EU souveraine clé en main équivalente à Supabase (Appwrite = meilleur candidat, self-host requis)
+  - Stack RAMrezo Supabase Frankfurt + Vercel = légal et défendable avec dossier documenté
+- Vérifié : `rgpd.md` existe, complète (12 sections), 3 points inexacts identifiés
+- Produit : `rgpd-research-2026-05-21.md` — intégralité de la research (5 sections)
+- Créé : Task #1 — mise à jour `rgpd.md` (3 corrections + 2 ajouts)

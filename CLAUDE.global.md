@@ -104,6 +104,24 @@ Tous les artefacts sont des fichiers `.md` dans le repo du projet. Source de vé
 
 ---
 
+## 2Brain — Second cerveau
+
+Repo : `~/dev/2Brain/`
+
+Vault de connaissance vivant et plat. Accessible depuis Claude Code (natif) et Claude Desktop Chat + Cowork (MCP filesystem configuré sur `~/dev/`).
+
+**Règle fondamentale :** avant d'aller sur le web, chercher dans le 2Brain.
+- 2Brain répond → utiliser en priorité
+- 2Brain incomplet → web, puis enrichir le 2Brain avec les découvertes
+
+**Règles d'écriture :**
+- Toujours lire `index.md` avant de créer un fichier
+- Enrichir et fusionner plutôt que dupliquer
+- Logger chaque opération dans `log.md`
+- Tagger en cohérence avec les tags canoniques de `index.md`
+
+---
+
 ## Système vibe-method
 
 Repo : `~/dev/vibe-method/` (GitHub : medwinrumo/vibe-method)

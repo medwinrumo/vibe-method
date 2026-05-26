@@ -12,6 +12,13 @@ Format : `## [YYYY-MM-DD] opération | détail`
 
 ---
 
+## [2026-05-26] ingest | Nouveau skill `/lint` → `skills/lint.md`
+
+Skill créé : contrôle qualité du 2Brain (modes quick et complet).
+Artefacts mis à jour : `index.md` (entrée ajoutée), `CLAUDE.md` vibe-method (tableau + liste transversaux).
+
+---
+
 ## [2026-05-26] init | Création complète du wiki vibe-method
 
 Première ingestion du repo `~/dev/vibe-method/`.

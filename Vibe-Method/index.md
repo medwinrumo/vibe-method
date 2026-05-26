@@ -132,6 +132,7 @@ Catalogue de toutes les pages. Mis à jour à chaque ingest ou nouvelle page wik
 | [[skills/prototype]] | Code jetable pour valider une décision |
 | [[skills/askme]] | Questions contextuelles rapides |
 | [[skills/refacto]] | Refactoring guidé — session dédiée |
+| [[skills/lint]] | Contrôle qualité du 2Brain — modes quick et complet |
 
 ## Skills — Gestion de session
 

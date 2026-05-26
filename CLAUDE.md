@@ -30,7 +30,7 @@ vibe-method/
 /contexte → /brief → /devis (si projet client) → /cgv → [validation client] → /charte → /prd → /prd-update → /prd-validate → /gherkin (Mode PRD) → [/design Mode A ↔ /archi itératif] → /regles → /stack → [/design Mode B] → /roadmap → /specs → /gherkin (Mode Specs) → /readyTo-code → /setup → /prp → /avancement (init) → /sessionCode → [code] → /code-review → /code-review-edge-cases → /repair-edge-cases → /code-review-hostil → /tests → /securite → /doc-tech (Mode B) → /recette ↔ /debug → [fin de phase] /phase-retrospective → /doc-tech (Mode A)
 ```
 
-Skills transversaux (invocables à tout moment) : `/party`, `/impact`, `/avancement`, `/grill-me`, `/zoom-out`, `/prototype`
+Skills transversaux (invocables à tout moment) : `/party`, `/impact`, `/avancement`, `/grill-me`, `/zoom-out`, `/prototype`, `/lint`
 
 **Note sur la phase itérative /design ↔ /archi :**
 Mode A de /design et /archi se construisent en aller-retour. Les écrans révèlent des modules manquants dans l'archi ; l'archi précise les états des composants. La phase se termine quand les deux sont cohérents. Output : `[projet].design.md` complet → donné à Claude Design pour exécution. Mode B intègre le code produit par Claude Design dans Tailwind (web) ou NativeWind (native).
@@ -75,6 +75,7 @@ Mode A de /design et /archi se construisent en aller-retour. Les écrans révèl
 | `/zoom-out` | Carte du module courant — responsabilité, callers, contrat public, termes du domaine. Pour se réorienter dans un fichier peu familier | — |
 | `/prototype` | Code jetable pour valider une décision — branche logique (terminal interactif) ou branche UI (variations switchables). Déclenché par Claude quand une décision ne peut pas être tranchée sans la voir tourner | — |
 | `/adr` | Capture d'une décision architecturale — filtre 3 conditions obligatoire avant création | `[projet].adr.md` |
+| `/lint` | Contrôle qualité du 2Brain — deux modes : quick (orphelines + obsolètes via frontmatter) et complet (contradictions, trous, orphelines, obsolètes). Logger les corrections dans `~/dev/2Brain/log.md` | — |
 
 **Règle de stockage :** tous les outputs sont des fichiers `.md` dans le repo du projet — pas dans Notion. Notion est une copie pour la lecture, mise à jour en fin de session via `/maj`.
 

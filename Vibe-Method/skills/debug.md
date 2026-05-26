@@ -1,7 +1,7 @@
 ---
 type: skill
 source: ../.claude/commands/debug.md
-source_modified: 2026-05-18
+source_modified: 2026-05-26
 wiki_updated: 2026-05-26
 tags: [phase-7, debug, bug]
 phase: 7
@@ -24,6 +24,9 @@ RÉSULTAT → ce qui s'est passé
 ATTENDU  → ce qui aurait dû se passer
 + message d'erreur complet (console)
 ```
+
+## 2Brain
+- **Écriture** (si résolution via web search) : propose de noter le bug pattern dans `~/dev/2Brain/bugs-patterns.md` — tags `[retours, debug]`
 
 **Déclenché par :** [[skills/recette]] | **Escalade :** [[skills/diagnose]]
 **Doctrine :** [[doctrines/methode]]

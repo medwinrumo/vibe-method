@@ -1,7 +1,7 @@
 ---
 type: skill
 source: ../.claude/commands/archi.md
-source_modified: 2026-05-19
+source_modified: 2026-05-26
 wiki_updated: 2026-05-26
 tags: [phase-3, architecture, modules, silos, stack, mcp]
 phase: 3
@@ -37,6 +37,10 @@ Définit les modules et leurs responsabilités, les règles silo, la stack (Conv
 
 ## WebSearch obligatoire
 Avant confirmation de la stack native (version Expo actuelle) et du back-end (free tier Supabase/Convex actuel).
+
+## 2Brain
+- **Lecture** : lit les patterns d'archi existants dans le 2Brain avant les décisions
+- **Écriture** : propose d'écrire les patterns génériques validés dans `~/dev/2Brain/` — tags `[patterns]`
 
 **Précédent :** [[skills/design]] Mode A (aller-retour) | **Suivant :** [[skills/regles]]
 **Doctrine :** [[doctrines/architecture]] | [[doctrines/securite]]

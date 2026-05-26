@@ -1,6 +1,12 @@
 # Config locale GitHub Projects (IDs privés)
 .gh-project.local
 
+# Obsidian — fichiers d'état UI (non versionnés)
+Vibe-Method/.obsidian/workspace.json
+Vibe-Method/.obsidian/graph.json
+Vibe-Method/.obsidian/bookmarks.json
+Vibe-Method/*.canvas
+
 # Documents sources (binaires)
 *.epub
 *.pdf

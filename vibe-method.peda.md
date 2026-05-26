@@ -2,6 +2,44 @@
 
 ---
 
+## 2026-05-26 — Wiki LLM + 2Brain
+
+### Ce qu'on a fait et pourquoi
+
+**Wiki LLM vibe-method**
+
+Constat : la vibe-method est riche mais difficile à naviguer. 55+ skills, 8 doctrines, pas de vue d'ensemble navigable. Solution : un vault Obsidian `Vibe-Method/` comme couche de navigation dérivée des sources — les fichiers sources restent la vérité, le wiki est une projection navigable avec les liens `[[]]` et la vue graphe.
+
+Décision clé : "vue dérivée" (pas de modification directe dans Obsidian). Le wiki est mis à jour automatiquement quand une source change en session.
+
+Structure créée : CLAUDE.md (schéma + 4 opérations), index.md (catalogue), log.md, _vue-ensemble.md, flux/chaine-complete.md, 8 doctrines, 55+ skills.
+
+**2Brain — second cerveau**
+
+Constat : le savoir accumulé sur les outils (gotchas Supabase, patterns Convex, etc.) reste enterré dans les fichiers projet qu'on ne rouvre jamais. Il n'y a pas de capitalisation cross-projets.
+
+Concept : `~/dev/2Brain/` — vault plat, bidirectionnel (les skills lisent ET écrivent dedans), accessible depuis Claude Code (natif), Claude Desktop Chat + Cowork (MCP filesystem).
+
+Règle fondamentale : enrichir plutôt que dupliquer. Avant d'aller sur le web, chercher dans le 2Brain.
+
+Leçon sur l'architecture : la vibe-method porte les règles (comment faire), le 2Brain porte le savoir (ce qu'on sait). Ligne de partage claire.
+
+**MCP filesystem**
+
+Configuré dans Claude Desktop pour `~/dev/` — couvre tous les projets et le 2Brain. Claude Chat et Cowork peuvent lire/écrire dans le 2Brain sans configuration supplémentaire après redémarrage.
+
+**Skills producteurs**
+
+6 skills modifiés pour écrire dans le 2Brain : `/stack` (lecture avant spike + Étape 6 enrichissement), `/archi`, `/regles`, `/deploy`, `/debug` (si résolution via web search), `/phase-retrospective` (Mode Complet — C7).
+
+Principe : chaque skill propose d'enrichir le 2Brain, Medwin valide. Pas d'écriture automatique sans validation.
+
+**Obsidian — problème découvert**
+
+Obsidian modifie les fichiers `.md` quand il les affiche (reformatage YAML, changement de type). `chaine-complete.md` a été corrompu (`flux` → `infrastructure`). Solution : fichiers UI Obsidian ajoutés au `.gitignore`, git utilisé comme garde-fou pour détecter et annuler les modifications parasites.
+
+---
+
 ## Jour 1 — 2026-05-18 — Création du skill /devis + intégration Exa
 
 ### Session 4 — /devis : du brief à la proposition commerciale

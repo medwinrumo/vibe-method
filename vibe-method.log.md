@@ -2,6 +2,22 @@
 
 ---
 
+## 2026-05-26 — Sessions wiki + 2Brain
+
+- Wiki LLM vibe-method créé dans `Vibe-Method/` (vault Obsidian) : CLAUDE.md, index.md, log.md, _vue-ensemble.md, flux/chaine-complete.md, 8 doctrines, 55+ skills
+- Frontmatters corrigés : `type: concept` → `type: infrastructure` (index.md, _vue-ensemble.md, log.md) + type `infrastructure` ajouté au schéma
+- Lint wiki intégré dans `/maj` étape 5 (déclenché par git diff si sources modifiées)
+- 2Brain conçu et créé : `~/dev/2Brain/` repo git + vault plat + CLAUDE.md (règles enrichir/fusionner/logger/tagger), index.md (12 tags canoniques), log.md
+- MCP filesystem configuré dans Claude Desktop (`~/dev/`) — accès Chat + Cowork
+- Repo GitHub 2Brain créé (privé) et pushé
+- 6 skills modifiés pour intégrer 2Brain : `/stack` (lecture avant spike + écriture après), `/archi`, `/regles`, `/deploy`, `/debug`, `/phase-retrospective`
+- Pages wiki des 6 skills mises à jour
+- `/init-projet` modifié : vault Obsidian `Wiki-[projet]/` créé à l'init + section 2Brain injectée dans CLAUDE.md projet
+- `CLAUDE.global.md` : lecture automatique `~/dev/2Brain/index.md` à l'ouverture de session (silencieux)
+- `.gitignore` : fichiers UI Obsidian exclus (workspace.json, graph.json, bookmarks.json, *.canvas)
+
+---
+
 ## Jour 1 — 2026-05-18 (suite — session 4)
 
 ### Session 4 — Skill /devis + intégration Exa

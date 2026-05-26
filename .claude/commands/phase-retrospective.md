@@ -239,6 +239,23 @@ Pour chaque élément de dette identifié (journaux + Q4) :
 
 ---
 
+### C7 — Enrichissement du 2Brain
+
+Extraire les leçons réutilisables cross-projets vers le 2Brain.
+
+Pour chaque signal des journaux et chaque action item :
+1. Demander : "Cette leçon s'applique-t-elle à d'autres projets ou est-elle spécifique à [projet] ?"
+2. Pour chaque leçon réutilisable → identifier le fichier 2Brain pertinent :
+   - Estimation, planning → `~/dev/2Brain/estimation.md`
+   - Bug pattern → `~/dev/2Brain/bugs-patterns.md`
+   - Pattern d'archi → fichier outil ou pattern concerné
+   - Autre → créer le fichier le plus naturel
+3. Lire le fichier existant s'il existe → fusionner, ne pas dupliquer
+4. Logger dans `~/dev/2Brain/log.md` :
+   `## [date] update | [fichier(s)] | /phase-retrospective — [projet]`
+
+---
+
 > "Rétrospective ensemble '[nom]' terminée ✅
 > [N] action items.
 > Lance `/readyTo-code` avant de démarrer le prochain ensemble."

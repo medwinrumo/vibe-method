@@ -19,6 +19,19 @@ Obligatoire si :
 
 ---
 
+## Étape 0ter — Consultation du 2Brain
+
+Avant de lancer le spike, vérifier ce qu'on sait déjà.
+
+1. Lire `~/dev/2Brain/index.md` — identifier les fichiers pertinents pour la stack de ce projet
+2. Pour chaque outil de la stack → si un fichier existe dans le 2Brain, le lire
+3. Présenter un résumé :
+   > "2Brain consulté. Voici ce qu'on sait déjà sur [outils] : [synthèse]. Je vais compléter et mettre à jour ces connaissances pendant le spike."
+
+Si aucun fichier pertinent → continuer directement au spike.
+
+---
+
 ## Étape 0bis — Stack de dev : quel outil + modèle pour ce projet ?
 
 **Avant d'investiguer la stack applicative**, évaluer la stack de dev nécessaire.
@@ -283,6 +296,31 @@ _→ Détails : `[projet].stack.md`_
 - [Outil 2] v[version] : [gotcha critique en 1 ligne]
 Stack de dev : [couple outil + modèle — ex : Claude Code + Sonnet]
 ```
+
+---
+
+## Étape 6 — Enrichissement du 2Brain
+
+Après génération de `[projet].stack.md`, extraire le savoir réutilisable vers le 2Brain.
+
+Pour chaque outil investigué :
+1. Lire le fichier 2Brain de cet outil s'il existe (`~/dev/2Brain/[outil].md`)
+2. Identifier ce qui est **nouveau ou contredit l'existant**
+3. Fusionner dans le fichier existant — ou créer un nouveau fichier si absent
+4. Frontmatter obligatoire :
+   ```yaml
+   ---
+   tags: [stack, [outil], ...]
+   created: YYYY-MM-DD
+   updated: YYYY-MM-DD
+   sources: [[projet]]
+   ---
+   ```
+5. Mettre à jour `~/dev/2Brain/index.md` si nouveau fichier créé
+6. Logger dans `~/dev/2Brain/log.md` :
+   `## [date] update | [outil].md | /stack — [projet]`
+
+**Ne pas dupliquer** ce qui est déjà dans le 2Brain — enrichir uniquement.
 
 ---
 

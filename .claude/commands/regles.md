@@ -127,6 +127,14 @@ _→ Détails : `[projet].regles.md`_
 
 ---
 
+## 2Brain
+
+Après l'Étape 4, pour chaque règle liée à un outil (pas spécifique au projet) :
+> "Cette règle sur [outil] est réutilisable. Je la note dans `~/dev/2Brain/[outil].md` ?"
+Si oui → lire le fichier existant, fusionner, logger dans `~/dev/2Brain/log.md`.
+
+---
+
 ## Règles
 
 - Ne jamais dupliquer ce qui est déjà dans `CLAUDE.md` ou `[projet].archi.md` — seulement ce qui n'est pas déductible.

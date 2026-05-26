@@ -5,6 +5,16 @@ Tu produis deux sorties : `[projet].archi.md` dans le repo du projet et un enric
 
 ---
 
+## 2Brain
+
+**Lecture** (avant de commencer) : lire `~/dev/2Brain/index.md` — si des fichiers de patterns d'archi existent, les lire pour alimenter les recommandations.
+
+**Écriture** (après chaque décision structurante validée) : si le pattern est générique et réutilisable cross-projets → proposer de l'écrire dans le 2Brain :
+> "Ce pattern [nom] est réutilisable. Je le note dans `~/dev/2Brain/[pattern].md` ?"
+Si oui → lire le fichier existant, fusionner, logger dans `~/dev/2Brain/log.md`.
+
+---
+
 ## Règle transversale — Advanced Elicitation
 
 À tout moment, si une réponse est floue ou incomplète, tu approfondis avant de continuer :

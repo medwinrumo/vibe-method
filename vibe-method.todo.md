@@ -4,6 +4,22 @@
 
 ---
 
+## Dernière session — 2026-05-26
+
+### Ce qui a été fait
+
+- Wiki LLM vibe-method créé dans `Vibe-Method/` (vault Obsidian) :
+  - `CLAUDE.md` : schéma du wiki (sources, structure, frontmatter, 4 opérations, règle de mise à jour automatique)
+  - `index.md` : catalogue complet de ~69 pages organisées par catégorie
+  - `log.md` : journal des opérations wiki
+  - `_vue-ensemble.md` : synthèse globale de la méthode (7 phases, posture, garde-fous, doctrines)
+  - `flux/chaine-complete.md` : chaîne complète des skills avec inputs/outputs/artefacts
+  - `doctrines/` : 8 pages doctrine (methode, architecture, securite, tests, design, stack, refacto, produit)
+  - `skills/` : 55+ pages skill couvrant les 7 phases + transversaux + session + infra
+- Règle wiki active : toute source modifiée en session → mise à jour automatique des pages wiki correspondantes
+
+---
+
 ## Dernière session — 2026-05-18 (session 4)
 
 ### Ce qui a été fait
@@ -271,6 +287,7 @@
 | Skill `/init` | ✅ Complet (2026-04-22) |
 | Skill `/deploy` | ✅ Complet (2026-04-22) |
 | `templates/` dans vibe-method | ❌ Non créé (attend RAMrezo ou Minou) |
+| Wiki Obsidian (`Vibe-Method/`) | ✅ Créé 2026-05-26 |
 
 ---
 

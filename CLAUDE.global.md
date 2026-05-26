@@ -110,6 +110,8 @@ Repo : `~/dev/2Brain/`
 
 Vault de connaissance vivant et plat. Accessible depuis Claude Code (natif) et Claude Desktop Chat + Cowork (MCP filesystem configuré sur `~/dev/`).
 
+**Démarrage de session automatique :** lire `~/dev/2Brain/index.md` en silence à l'ouverture de chaque session. Ne pas le mentionner sauf si le contenu est directement pertinent pour la demande en cours.
+
 **Règle fondamentale :** avant d'aller sur le web, chercher dans le 2Brain.
 - 2Brain répond → utiliser en priorité
 - 2Brain incomplet → web, puis enrichir le 2Brain avec les découvertes

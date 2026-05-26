@@ -43,7 +43,7 @@ Vibe-Method/
 
 ```yaml
 ---
-type: skill | doctrine | concept | flux
+type: skill | doctrine | concept | flux | infrastructure
 source: [chemin relatif vers le fichier source]
 source_modified: YYYY-MM-DD
 wiki_updated: YYYY-MM-DD

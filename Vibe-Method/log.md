@@ -1,3 +1,10 @@
+---
+type: infrastructure
+source: ../CLAUDE.md
+wiki_updated: 2026-05-26
+tags: [journal, log]
+---
+
 # log.md — Journal du wiki vibe-method
 
 Journal chronologique append-only des opérations wiki.

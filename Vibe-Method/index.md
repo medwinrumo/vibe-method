@@ -1,9 +1,12 @@
 ---
-type: concept
+type: infrastructure
 source: ../CLAUDE.md
 source_modified: 2026-05-18
 wiki_updated: 2026-05-26
-tags: [index, catalogue]
+tags:
+  - index
+  - catalogue
+  - overview
 ---
 
 # Index — Wiki vibe-method

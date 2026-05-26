@@ -1,21 +1,30 @@
 ---
 type: skill
 source: ../.claude/commands/init-projet.md
-source_modified: 2026-05-19
+source_modified: 2026-05-26
 wiki_updated: 2026-05-26
-tags: [infrastructure, git, notion, bootstrap]
+tags: [infrastructure, git, bootstrap, obsidian, 2brain]
 phase: infrastructure
 ---
 
 ## Rôle
-**`/init-projet`** — Initialisation d'un nouveau projet : Git + Notion (page `.run` + 9 sous-pages).
+**`/init-projet`** — Initialisation d'un nouveau projet : Git + GitHub + vault Obsidian + règles 2Brain.
 
 ## En résumé
-Bootstrap de l'infrastructure d'un nouveau projet : création du repo Git, structure de dossiers initiale, page projet Notion avec les 9 sous-pages standard (brief, prd, archi, roadmap, specs, peda, log, doc, todo). Point de départ avant `/brief`.
+Bootstrap complet d'un nouveau projet en 3 étapes : repo Git local + GitHub (privé), fichiers de base (`CLAUDE.md` avec section 2Brain, `.todo.md`, `.log.md`, `.context.md`), vault Obsidian `Wiki-[projet]/` prêt à être ouvert dans Obsidian, kanban GitHub Projects configuré. Point de départ avant `/brief`.
+
+## Ce que crée /init-projet
+- `CLAUDE.md` — avec section 2Brain (règles lecture/écriture, skills concernés)
+- `[projet].todo.md` / `.log.md` / `.context.md`
+- `Wiki-[projet]/` — vault Obsidian local (CLAUDE.md schéma, index.md, log.md)
+- `.gh-project.local` — config kanban (gitignorée)
+
+## 2Brain
+- Injecte les règles d'accès au 2Brain dans le `CLAUDE.md` du projet dès la création
 
 ## Workflow projet
-1. Création manuelle de la page projet dans Notion
-2. `/init-projet` → structure Git + Notion
+1. `/init-projet` → infrastructure complète
+2. Ouvrir `Wiki-[projet]/` comme vault dans Obsidian
 3. `/brief` → début du workflow
 
 **Précédent :** (début de projet) | **Suivant :** [[skills/brief]]

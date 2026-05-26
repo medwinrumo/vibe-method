@@ -51,6 +51,17 @@ _Contexte projet — mis à jour progressivement par les skills_
 
 <!-- Sections ajoutées automatiquement : /contexte → /brief → /charte → /prd → /securite → /design → /archi → /regles → /stack → /adr -->
 <!-- Chaque section renvoie vers son artefact pour les détails complets. -->
+
+## 2Brain
+
+Chemin : `~/dev/2Brain/`
+
+**Règle fondamentale :** avant d'aller sur le web, chercher dans le 2Brain.
+- 2Brain répond → utiliser en priorité
+- 2Brain incomplet → web, puis enrichir le 2Brain avec les découvertes
+
+**Skills qui lisent le 2Brain :** `/stack` (outils), `/archi` (patterns), `/deploy` (déploiement)
+**Skills qui enrichissent le 2Brain :** `/stack`, `/archi`, `/regles`, `/deploy`, `/debug`, `/phase-retrospective`
 ```
 
 **Contenu de `[nom_projet].context.md` à la création :**
@@ -75,7 +86,50 @@ _Créé le [date] — à compléter avant de lancer /context_
 <!-- Ce qui pourrait bloquer ou compliquer le projet. -->
 ```
 
-4. Premier commit et push :
+4. Créer le vault Obsidian du projet :
+
+```bash
+mkdir Wiki-[nom_projet]
+```
+
+Créer `Wiki-[nom_projet]/CLAUDE.md` :
+
+```markdown
+# CLAUDE.md — Wiki [nom_projet]
+
+Vue dérivée et navigable des fichiers sources du projet.
+Sources : `[nom_projet].brief.md`, `[nom_projet].prd.md`, `[nom_projet].archi.md`, `[nom_projet].spec.*.md`, etc.
+
+## Règle
+Les pages wiki ne se modifient jamais directement. Toute modification passe par le fichier source — le wiki est mis à jour dans la foulée.
+
+## Structure
+Wiki-[nom_projet]/
+├── CLAUDE.md     ← ce fichier
+├── index.md      ← catalogue des pages
+└── log.md        ← journal des mises à jour
+```
+
+Créer `Wiki-[nom_projet]/index.md` :
+
+```markdown
+# Index — Wiki [nom_projet]
+
+Catalogue des pages wiki du projet. Mis à jour à chaque nouvel artefact produit.
+
+## Pages
+_Vide — les pages sont créées au fur et à mesure des skills._
+```
+
+Créer `Wiki-[nom_projet]/log.md` :
+
+```markdown
+# Log — Wiki [nom_projet]
+
+## [date] init | Création du vault Obsidian du projet
+```
+
+5. Premier commit et push :
 ```bash
 git add .
 git commit -m "init: scaffold projet [nom_projet]"
@@ -164,10 +218,11 @@ Git :
   — github.com/medwinrumo/[nom_projet]
 
 Fichiers créés :
-  — CLAUDE.md
+  — CLAUDE.md               ← avec section 2Brain
   — [nom_projet].todo.md
   — [nom_projet].log.md
   — [nom_projet].context.md  ← à remplir avant /context
+  — Wiki-[nom_projet]/       ← vault Obsidian (ouvrir comme vault dans Obsidian)
 ```
 
 Puis suggérer la suite :

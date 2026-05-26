@@ -77,7 +77,27 @@ Si `.gh-project.local` existe :
 
 Si `.gh-project.local` absent → ignorer cette étape silencieusement.
 
-## Étape 5 — Cohérence skills / doctrine (si projet vibe-method ou si un skill a été modifié)
+## Étape 5 — Lint wiki (si projet vibe-method)
+
+Si le répertoire courant est `vibe-method/` :
+
+1. Détecter les sources modifiées depuis le dernier commit :
+   ```
+   git diff --name-only HEAD
+   ```
+2. Si au moins un fichier source wiki a changé (doctrines `*.md`, skills `.claude/commands/*.md`, `CLAUDE.md`) → lancer le lint wiki :
+   - **Liens orphelins** : chaque `[[lien]]` dans le wiki pointe vers une page qui existe sur le disque
+   - **Pages stales** : `source_modified` > `wiki_updated` dans le frontmatter — la source a changé mais le wiki n'a pas été mis à jour
+   - **Pages sans frontmatter** : toute page wiki sans `type:` ou `source:`
+   - **Pages manquantes** : un skill ou doctrine existe dans les sources mais n'a pas de page wiki
+
+3. Signaler les problèmes trouvés. Pour chaque page stale → proposer la mise à jour immédiatement.
+
+Si aucune source n'a changé → ignorer cette étape silencieusement.
+
+---
+
+## Étape 6 — Cohérence skills / doctrine (si projet vibe-method ou si un skill a été modifié)
 
 Si la session a modifié un skill ou un fichier de doctrine (`produit.md`, `methode.md`, `architecture.md`, `securite.md`) :
 
@@ -104,4 +124,5 @@ Pour chaque paire concernée :
 - [ ] `CLAUDE.md` — sections vérifiées et cohérentes avec leurs artefacts
 - [ ] Bloc sécurité du `CLAUDE.md` synchronisé avec `archi.md` (si projet avec archi)
 - [ ] GitHub Projects mis à jour (tâches terminées + nouvelles tâches)
+- [ ] Lint wiki passé (si projet vibe-method et sources modifiées)
 - [ ] Cohérence skills / doctrine vérifiée si applicable

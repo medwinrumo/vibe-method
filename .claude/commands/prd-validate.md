@@ -78,7 +78,7 @@ Verdict : GO / BLOCKERS
 **Si BLOCKERS** → arrêt, retour à `/prd` ou `/prd-update`. Ne pas passer à `/archi` avec un PRD incomplet.
 
 **Si GO** :
-> "PRD validé. Lance `/gherkin` en Mode PRD pour vérifier que chaque feature peut s'écrire en scénarios clairs — puis `/archi`. Les Warnings sont à traiter comme 'Points ouverts' dans `[projet].archi.md`."
+> "PRD validé. Lance `/angles-morts` sur le PRD pour identifier les zones d'ombre avant de construire l'architecture — puis `/gherkin` Mode PRD — puis `/archi`. Les Warnings sont à traiter comme 'Points ouverts' dans `[projet].archi.md`."
 
 ---
 
@@ -92,5 +92,5 @@ Verdict : GO / BLOCKERS
 
 ## Prochaine étape
 
-**Si GO** : `/gherkin` Mode PRD — vérifier que chaque feature peut s'écrire en scénarios clairs, puis `/archi`.
+**Si GO** : `/angles-morts` sur le PRD → `/gherkin` Mode PRD → `/archi`.
 **Si BLOCKERS** : `/prd` ou `/prd-update` pour corriger avant de continuer.

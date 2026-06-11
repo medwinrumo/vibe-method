@@ -163,14 +163,9 @@ Quand toutes les recettes sont ✅ :
 
 Tu mets à jour `[projet].recette.md` avec les résultats finaux (✅/❌ + notes).
 
-Puis, pour chaque feature de la phase validée, tu guides Medwin vers le commit propre sur sa branche :
+Puis, pour chaque feature de la phase validée :
 
-> "Phase [N] validée. Pour chaque feature, un commit propre avant le merge :
-> ```
-> git add .
-> git commit -m "feat: [nom-feature] — validée recette phase [N]"
-> ```
-> Une feature = un commit. On ne merge pas avant d'avoir commité."
+> "Phase [N] validée. Pour chaque feature, un commit propre avant le merge. Lance `/commit` pour générer le message au bon format et exécuter le commit. Une feature = un commit. On ne merge pas avant d'avoir commité."
 
 ### Sprint status
 

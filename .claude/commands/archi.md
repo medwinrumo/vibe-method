@@ -654,4 +654,4 @@ Tu proposes, tu expliques, tu signales les risques — Medwin valide chaque déc
 > "Cette mise à jour d'architecture modifie des modules existants. Lance `/impact` pour mesurer les conséquences sur les specs, les tests et la roadmap avant de continuer."
 
 **Si c'est une première définition :**
-`/regles` — l'architecture est définie, extraire les règles non-évidentes pour le LLM.
+`/angles-morts` sur l'architecture — identifier les zones d'ombre avant d'extraire les règles — puis `/regles`.

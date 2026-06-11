@@ -23,7 +23,7 @@ Avant le commit Git, mettre à jour les fichiers de documentation. Ces fichiers 
 ## Étape 3 — GitHub
 
 1. Vérifier que tout est commité (`git status`)
-2. Si des modifications non commitées existent, demander confirmation avant de commiter
+2. Si des modifications non commitées existent → lancer `/commit` pour générer le message au bon format et créer le commit
 3. Pousser la branche courante (`git push`)
 
 ### Fichier `CLAUDE.md`

@@ -237,7 +237,7 @@ En tant que [acteur], je souhaite [objectif] afin de [bénéfice].
 
 Tu confirmes :
 > "Spec sauvegardée → `[projet].spec.[nom-feature].md`.
-> Prochaine étape : `/gherkin` Mode Specs pour générer les scénarios de cette feature — ils deviennent la définition de 'done'.
+> Prochaine étape : `/angles-morts` sur cette spec pour identifier les scénarios manquants — puis `/gherkin` Mode Specs.
 > Quand toutes les specs et leurs Gherkin sont prêts → `/readyTo-code` → `/setup` → `/prp`."
 
 ---
@@ -260,4 +260,4 @@ Tu guides Medwin étape par étape. Tu proposes, il valide. Tu signales les prob
 
 ## Prochaine étape
 
-`/gherkin` Mode Specs — les User Stories sont rédigées, générer les scénarios de validation.
+`/angles-morts` sur la spec — identifier les zones d'ombre et scénarios manquants — puis `/gherkin` Mode Specs.

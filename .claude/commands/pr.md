@@ -66,6 +66,19 @@ Confirmer :
 
 ---
 
+## Étape 4 — Merge sur GitHub
+
+Après l'ouverture de la PR, le merge ne se fait pas automatiquement. Il se fait manuellement sur GitHub :
+
+1. Ouvrir l'URL de la PR retournée à l'étape 3
+2. Relire le diff — GitHub affiche tous les changements fichier par fichier
+3. Si tout est bon : cliquer sur **Merge pull request** → **Confirm merge**
+4. Cliquer sur **Delete branch** — la branche `feat/[feature]` a fait son travail, `main` contient maintenant tout son contenu
+
+La feature est dans `main`. Le cycle est terminé.
+
+---
+
 ## Prochaine étape
 
-Merge dans `main` après validation. La branche `feat/[feature]` peut être supprimée après merge.
+Démarrer la feature suivante : créer une nouvelle branche depuis `main` et relancer `/sessionCode`.

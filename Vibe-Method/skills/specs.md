@@ -1,8 +1,8 @@
 ---
 type: skill
 source: ../.claude/commands/specs.md
-source_modified: 2026-05-19
-wiki_updated: 2026-05-26
+source_modified: 2026-06-11
+wiki_updated: 2026-06-11
 tags: [phase-5, specs, user-story, a4]
 phase: 5
 ---
@@ -28,5 +28,5 @@ Produit une user story auto-contenue qui tient sur une A4 : qui fait quoi dans q
 ## Déclenche /adr automatiquement
 Après toute décision structurante identifiée dans la spec → `/adr` proposé.
 
-**Précédent :** [[skills/roadmap]] | **Suivant :** [[skills/gherkin]] (Mode Specs)
+**Précédent :** [[skills/roadmap]] | **Suivant :** [[skills/angles-morts]] (spec) → [[skills/gherkin]] (Mode Specs)
 **Doctrine :** [[doctrines/produit]]

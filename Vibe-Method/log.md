@@ -19,6 +19,30 @@ Artefacts mis à jour : `index.md` (entrée ajoutée), `CLAUDE.md` vibe-method (
 
 ---
 
+## [2026-06-11] update + ingest | Intégration AIDD — 4 nouveaux skills
+
+**Sources modifiées :**
+- `.claude/commands/angles-morts.md`, `commit.md`, `pr.md`, `condense.md` (créés)
+- `.claude/commands/archi.md`, `prd-validate.md`, `recette.md`, `specs.md`, `maj.md` (Fin/chaîne mis à jour)
+- `CLAUDE.md` (chaîne, table skills, transversaux)
+
+**Pages créées :**
+- `skills/angles-morts.md`, `skills/commit.md`, `skills/pr.md`, `skills/condense.md`
+
+**Pages mises à jour (stales) :**
+- `skills/archi.md` — Suivant : ajout /angles-morts
+- `skills/prd-validate.md` — Suivant : ajout /angles-morts
+- `skills/recette.md` — Suivant : ajout /commit → /pr
+- `skills/specs.md` — Suivant : ajout /angles-morts
+- `skills/maj.md` — mention T1 Haiku
+
+**Index mis à jour :**
+- Phase 1 : /angles-morts ajouté
+- Phase 7 : /commit + /pr ajoutés
+- Transversaux : /condense ajouté
+
+---
+
 ## [2026-05-26] init | Création complète du wiki vibe-method
 
 Première ingestion du repo `~/dev/vibe-method/`.

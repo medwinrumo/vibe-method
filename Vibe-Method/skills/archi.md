@@ -1,8 +1,8 @@
 ---
 type: skill
 source: ../.claude/commands/archi.md
-source_modified: 2026-05-26
-wiki_updated: 2026-05-26
+source_modified: 2026-06-11
+wiki_updated: 2026-06-11
 tags: [phase-3, architecture, modules, silos, stack, mcp]
 phase: 3
 ---
@@ -42,5 +42,5 @@ Avant confirmation de la stack native (version Expo actuelle) et du back-end (fr
 - **Lecture** : lit les patterns d'archi existants dans le 2Brain avant les décisions
 - **Écriture** : propose d'écrire les patterns génériques validés dans `~/dev/2Brain/` — tags `[patterns]`
 
-**Précédent :** [[skills/design]] Mode A (aller-retour) | **Suivant :** [[skills/regles]]
+**Précédent :** [[skills/design]] Mode A (aller-retour) | **Suivant :** [[skills/angles-morts]] (archi) → [[skills/regles]]
 **Doctrine :** [[doctrines/architecture]] | [[doctrines/securite]]

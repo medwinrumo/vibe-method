@@ -1,8 +1,8 @@
 ---
 type: skill
 source: ../.claude/commands/recette.md
-source_modified: 2026-05-19
-wiki_updated: 2026-05-26
+source_modified: 2026-06-11
+wiki_updated: 2026-06-11
 tags: [phase-7, recette, gherkin, validation-manuelle]
 phase: 7
 ---
@@ -26,5 +26,5 @@ La feature est Done uniquement quand le cahier de recette est validé manuelleme
 ## Propose la mise à jour de doc-user.md
 Après validation de phase → `/recette` (étape 6) propose de mettre à jour `[projet].doc-user.md`.
 
-**Précédent :** [[skills/doc-tech]] (Mode B) | **Suivant :** [[skills/debug]] (si bug) ou [[skills/phase-retrospective]] (si phase terminée)
+**Précédent :** [[skills/doc-tech]] (Mode B) | **Suivant :** [[skills/debug]] (si bug) → [[skills/commit]] → [[skills/pr]] → [[skills/phase-retrospective]] (si phase terminée)
 **Doctrine :** [[doctrines/tests]]

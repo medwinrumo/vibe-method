@@ -52,6 +52,7 @@ Catalogue de toutes les pages. Mis à jour à chaque ingest ou nouvelle page wik
 | [[skills/prd]] | Du brief au PRD V1 | `[projet].prd.md` |
 | [[skills/prd-update]] | Intégration retours cross-pollination → PRD V2 | `[projet].prd.md` |
 | [[skills/prd-validate]] | Gate PRD — 8 zones à valider | Rapport GO/BLOCKERS |
+| [[skills/angles-morts]] | Zones d'ombre sur un doc (3 gates) — T3 Opus | Rapport (pas de fichier) |
 | [[skills/gherkin]] | Révèle zones floues PRD (Mode PRD) / scénarios specs (Mode Specs) | `[projet].gherkin.[feature].md` |
 
 ## Skills — Commercial (projets client)
@@ -119,6 +120,8 @@ Catalogue de toutes les pages. Mis à jour à chaque ingest ou nouvelle page wik
 | [[skills/recette]] | Cahier de recettes + validation manuelle | `[projet].recette.md` |
 | [[skills/debug]] | Diagnostic et résolution de bug | — |
 | [[skills/diagnose]] | Diagnostic approfondi (escalade de /debug) | — |
+| [[skills/commit]] | Commit Conventional Commits depuis diff Git — T1 Haiku opt. | Commit Git |
+| [[skills/pr]] | Pull Request depuis la spec — `gh pr create` — T1 Haiku opt. | PR GitHub |
 | [[skills/phase-retrospective]] | Rétrospective fin de phase | `[projet]-retrospective.md` |
 
 ## Skills — Transversaux
@@ -132,6 +135,7 @@ Catalogue de toutes les pages. Mis à jour à chaque ingest ou nouvelle page wik
 | [[skills/prototype]] | Code jetable pour valider une décision |
 | [[skills/askme]] | Questions contextuelles rapides |
 | [[skills/refacto]] | Refactoring guidé — session dédiée |
+| [[skills/condense]] | Condensation d'un document long en inputs exploitables — T2 Sonnet |
 | [[skills/lint]] | Contrôle qualité du 2Brain — modes quick et complet |
 
 ## Skills — Gestion de session

@@ -1,8 +1,8 @@
 ---
 type: skill
 source: ../.claude/commands/prd-validate.md
-source_modified: 2026-05-14
-wiki_updated: 2026-05-26
+source_modified: 2026-06-11
+wiki_updated: 2026-06-11
 tags: [phase-1, produit, gate, prd]
 phase: 1
 ---
@@ -22,5 +22,5 @@ Vérifie la complétude, la traçabilité et la cohérence du PRD avant de passe
 ## 8 zones vérifiées
 Complétude, traçabilité des features, cohérence, définitions claires, hors-scope explicite, critères d'acceptation mesurables, niveau de risque sécurité défini, RGPD identifié.
 
-**Précédent :** [[skills/prd-update]] | **Suivant :** [[skills/charte]] / [[skills/archi]]
+**Précédent :** [[skills/prd-update]] | **Suivant :** [[skills/angles-morts]] (PRD) → [[skills/charte]] / [[skills/archi]]
 **Doctrine :** [[doctrines/produit]]

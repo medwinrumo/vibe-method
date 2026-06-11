@@ -2,6 +2,17 @@
 
 ---
 
+## 2026-06-11 — Lint 2Brain + /pr enrichi
+
+- Lint complet 2Brain : 5 problèmes corrigés (contradiction firecrawl summary, llm-wiki déplacé vers racine, firecrawl-configs reclassé procédure, lien fantôme seo retiré, notion-developer-platform mis à jour)
+- Webhooks workers Notion confirmés sortis (vérifié docs.notion.com) — note mise à jour avec date
+- External Agent API toujours introuvable dans la doc officielle au 2026-06-11
+- `/pr` skill : étape 4 merge ajoutée (ouvrir PR, relire diff, Merge pull request, Delete branch)
+- Sync `/todo` : "Synchronisation guide + Notion — 4 skills AIDD" ajouté aux Réalisées depuis GH Projects
+- Commit `66ca23f` pushé
+
+---
+
 ## 2026-05-26 — Sessions wiki + 2Brain
 
 - Wiki LLM vibe-method créé dans `Vibe-Method/` (vault Obsidian) : CLAUDE.md, index.md, log.md, _vue-ensemble.md, flux/chaine-complete.md, 8 doctrines, 55+ skills

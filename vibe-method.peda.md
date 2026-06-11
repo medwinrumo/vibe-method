@@ -492,6 +492,59 @@ Task #1 — mise à jour `rgpd.md` avec 3 corrections + 2 ajouts (checklists Ver
 
 ---
 
+## 2026-06-11 — Lint 2Brain complet + /pr enrichi + pédagogie Git
+
+### Session — Hygiène du 2Brain + complétion du workflow Git
+
+#### Ce qu'on a fait et pourquoi
+
+**Lint complet du 2Brain**
+
+Premier lint depuis la création massive du vault en mai (55+ pages wiki). La règle `/maj` étape 5 prévoit un lint quand des sources sont modifiées — mais le lint de mai avait eu lieu pendant la création du wiki, pas après. Ce backlog a été soldé aujourd'hui.
+
+5 problèmes trouvés et corrigés :
+
+1. **Contradiction firecrawl** : `firecrawl-outil.md` classait `summary` dans les formats LLM (+4 crédits). `firecrawl-parametres.md` le donnait à 0 crédit. Vérification sur docs.firecrawl.dev : la doc liste explicitement `json`, `question`, `highlights` comme formats +4 crédits — `summary` n'y figure pas. Correction dans `firecrawl-outil.md`.
+
+2. **Structure violée** : `llm-wiki.md` était dans `Clippings/` au lieu de la racine. Le CLAUDE.md du 2Brain dit explicitement "vault plat". De plus son frontmatter utilisait des champs non-canoniques (`title`, `source`, `author`, `description` au lieu de `tags`, `sources`). Déplacé, frontmatter corrigé, `Clippings/` supprimé, index mis à jour.
+
+3. **Type invalide** : `firecrawl-configs.md` utilisait `type: référence` — absent du schéma `source | concept | procédure`. Reclassé en `procédure`.
+
+4. **Lien fantôme externe** : `seo-google-search.md` contenait `[[plug-in-seo/Google search central - Documentation]]` pointant vers un dossier hors vault. Supprimé — seul le champ `cerveau-detail:` du frontmatter est conservé comme pointeur.
+
+5. **Affirmations "à venir" vérifiées** : `notion-developer-platform.md` mentionnait deux features annoncées "dans les prochains mois" (webhooks workers, External Agent API). Vérification sur developers.notion.com : les webhooks workers sont sortis (doc officielle avec guide complet). L'External Agent API reste introuvable. Note mise à jour avec date de vérification.
+
+**Leçon sur le lint** : les contradictions naissent quand deux fichiers du même cluster sont rédigés lors de sessions différentes. Le cluster firecrawl (5 fichiers) a été créé en plusieurs passes — la source (firecrawl-outil) et la procédure (firecrawl-parametres) ne se sont pas vérifiées l'une l'autre. Le lint est le seul filet.
+
+**Enrichissement du skill `/pr` — étape 4 merge**
+
+Constat lors d'une question de Medwin : le workflow `/commit → /pr` se terminait sur l'ouverture de la PR sans expliquer ce qui vient ensuite. Le merge n'était mentionné qu'en une ligne vague ("Merge dans main après validation"). Or pour quelqu'un qui apprend, "merge" sans mode d'emploi concret est un trou dans le workflow.
+
+Étape 4 ajoutée : ouvrir l'URL de la PR, relire le diff, cliquer Merge pull request → Confirm merge, cliquer Delete branch. Mention explicite que le merge n'est pas automatique — c'est un acte de validation humaine intentionnel.
+
+**Pédagogie Git**
+
+Quatre concepts expliqués à la demande de Medwin, à partir de questions concrètes :
+
+- **Pull Request** : pas une modification de l'existant — une demande de fusionner une branche dans une autre. Peut être du code 100% nouveau.
+- **Diff** : GitHub compare l'état de `main` avec ce que `main` deviendrait après merge. Nouveau code = tout en vert. "Diff" ≠ "modification de l'existant".
+- **Commit** : photo de l'état du code à un instant T, sauvegardée dans l'historique. Sauvegarde ≠ commit — il faut stager puis commiter explicitement.
+- **Push** : envoyer les commits locaux vers GitHub. Le commit existe sur la machine, le push le met en ligne. Pull = opération inverse.
+
+Ces explications ont été fournies sous forme de texte structuré pour copier-coller dans Notion — à la demande de Medwin qui préfère les intégrer lui-même.
+
+#### Décisions prises
+
+- **Lint = pratique de maintenance obligatoire** : après toute session de création massive dans le 2Brain, ne pas attendre `/maj` — planifier un lint dédié.
+- **Merge = acte humain explicite dans `/pr`** : jamais automatisé, jamais implicite. L'étape 4 le formalise.
+- **Pédagogie Git** : les explications Git ont été données en langage utilisateur (pas développeur) et validées par les questions de Medwin. Format "copier-coller dans Notion" retenu pour ce type de contenu.
+
+#### Difficultés
+
+Aucune difficulté technique. La vérification de `summary` dans Firecrawl a nécessité 4 appels WebFetch avant de trouver la page qui tranchait — la tarification n'est pas centralisée dans un seul endroit de la doc.
+
+---
+
 ## 2026-06-11 — Intégration AIDD : 4 nouveaux skills + mise à jour guide + Notion
 
 ### Session — 4 skills issus de la session AIDD + synchronisation docs

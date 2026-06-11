@@ -218,6 +218,7 @@
 
 ### Réalisées
 
+- ✅ Synchronisation guide + Notion — 4 skills AIDD (angles-morts, commit, pr, condense)
 - ✅ 3 — Test Claude Design (TeamTasks) : 4 lacunes identifiées, `ui-vocabulary.md` créé, `/design` Mode A + Mode B enrichis, guide mis à jour. (2026-05-15)
 - ✅ 26 — Les 9 gestes du kung fu : noms intégrés dans `methode.md`, `/sessionCode`, `/debug`. (2026-05-15)
 - ✅ 21-25 — 5 skills BMAD manquants : `/prd-validate`, `/readyTo-code`, `/regles`, `/phase-retrospective`, `/code-review-hostil`. Symlinks créés. CLAUDE.md chaîne + table mises à jour. (2026-05-14)

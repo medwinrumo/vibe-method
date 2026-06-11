@@ -27,10 +27,10 @@ vibe-method/
 ## Chaîne de skills — workflow complet
 
 ```
-/contexte → /brief → /devis (si projet client) → /cgv → [validation client] → /charte → /prd → /prd-update → /prd-validate → /gherkin (Mode PRD) → [/design Mode A ↔ /archi itératif] → /regles → /stack → [/design Mode B] → /roadmap → /specs → /gherkin (Mode Specs) → /readyTo-code → /setup → /prp → /avancement (init) → /sessionCode → [code] → /code-review → /code-review-edge-cases → /repair-edge-cases → /code-review-hostil → /tests → /securite → /doc-tech (Mode B) → /recette ↔ /debug → [fin de phase] /phase-retrospective → /doc-tech (Mode A)
+/contexte → /brief → /devis (si projet client) → /cgv → [validation client] → /charte → /prd → /prd-update → /prd-validate → /angles-morts (PRD) → /gherkin (Mode PRD) → [/design Mode A ↔ /archi itératif] → /angles-morts (archi) → /regles → /stack → [/design Mode B] → /roadmap → /specs → /angles-morts (spec) → /gherkin (Mode Specs) → /readyTo-code → /setup → /prp → /avancement (init) → /sessionCode → [code] → /code-review → /code-review-edge-cases → /repair-edge-cases → /code-review-hostil → /tests → /securite → /doc-tech (Mode B) → /recette ↔ /debug → /commit → /pr → [fin de phase] /phase-retrospective → /doc-tech (Mode A)
 ```
 
-Skills transversaux (invocables à tout moment) : `/party`, `/impact`, `/avancement`, `/grill-me`, `/zoom-out`, `/prototype`, `/lint`
+Skills transversaux (invocables à tout moment) : `/party`, `/impact`, `/avancement`, `/grill-me`, `/zoom-out`, `/prototype`, `/lint`, `/condense`
 
 **Note sur la phase itérative /design ↔ /archi :**
 Mode A de /design et /archi se construisent en aller-retour. Les écrans révèlent des modules manquants dans l'archi ; l'archi précise les états des composants. La phase se termine quand les deux sont cohérents. Output : `[projet].design.md` complet → donné à Claude Design pour exécution. Mode B intègre le code produit par Claude Design dans Tailwind (web) ou NativeWind (native).
@@ -76,6 +76,10 @@ Mode A de /design et /archi se construisent en aller-retour. Les écrans révèl
 | `/prototype` | Code jetable pour valider une décision — branche logique (terminal interactif) ou branche UI (variations switchables). Déclenché par Claude quand une décision ne peut pas être tranchée sans la voir tourner | — |
 | `/adr` | Capture d'une décision architecturale — filtre 3 conditions obligatoire avant création | `[projet].adr.md` |
 | `/lint` | Contrôle qualité du 2Brain — deux modes : quick (orphelines + obsolètes via frontmatter) et complet (contradictions, trous, orphelines, obsolètes). Logger les corrections dans `~/dev/2Brain/log.md` | — |
+| `/angles-morts` | Chasse aux zones d'ombre sur un document (PRD, archi, spec) — hypothèses implicites, scénarios non couverts, décisions non prises, risques non nommés, dépendances cachées. T3 — Opus | — |
+| `/condense` | Condensation d'un document long en inputs exploitables — compte-rendu, email, doc externe, retour client. 4 modes de sortie : brief/contexte, prd-update, context.md, brut. T2 — Sonnet | — |
+| `/commit` | Commit propre au format Conventional Commits depuis le diff Git — soumet le message à validation avant d'exécuter. T1 — Haiku opt. | — |
+| `/pr` | Pull Request générée depuis la spec de la feature — titre + corps formatés, exécution via `gh pr create`. T1 — Haiku opt. | — |
 
 **Règle de stockage :** tous les outputs sont des fichiers `.md` dans le repo du projet — pas dans Notion. Notion est une copie pour la lecture, mise à jour en fin de session via `/maj`.
 

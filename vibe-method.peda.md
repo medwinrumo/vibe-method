@@ -489,4 +489,57 @@ Task #1 — mise à jour `rgpd.md` avec 3 corrections + 2 ajouts (checklists Ver
 #### Difficultés
 
 - 2 subagents Exa sur 5 ont échoué à exécuter les recherches (dérapé en méta-analyse). Relancés, ils ont répondu sur training knowledge sans accès Exa réel.
+
+---
+
+## 2026-06-11 — Intégration AIDD : 4 nouveaux skills + mise à jour guide + Notion
+
+### Session — 4 skills issus de la session AIDD + synchronisation docs
+
+#### Ce qu'on a fait et pourquoi
+
+**Contexte**
+
+Session précédente (non documentée ici, dans le transcript) : session AIDD (AI-Driven Development) qui avait produit 4 nouveaux skills — `/angles-morts`, `/condense`, `/commit`, `/pr` — et avait introduit le système de tiers T1/T2/T3 pour orienter le choix de modèle. Cette session a documenté et synchronisé ces changements dans tous les supports.
+
+**Guide `VIBE-METHOD — GUIDE COMPLET DU WORKFLOW.md`**
+
+Le guide était la source de vérité principale à mettre à jour. Modifications apportées :
+- Date mise à jour : 14 mai 2026 → 11 juin 2026
+- Chaînes PARTIE 1/2/3 : `/angles-morts` ajouté à ses 3 gates (après /prd-validate, /archi, /specs)
+- Chaîne PARTIE 6 : `→ /commit → /pr` ajouté après /recette
+- Transversaux : `/condense` ajouté
+- Compteurs mis à jour : "8 skills" → "9 skills" (PARTIE 1), "25 skills + 5 transversaux" → "28 skills + 6 transversaux"
+- Blocs Fin mis à jour pour /prd-validate, /archi, /specs (ils pointent maintenant vers /angles-morts), /recette (mentionne /commit → /pr)
+- 4 nouvelles fiches insérées aux bons endroits dans le document (avec mention du tier recommandé)
+
+**Système de tiers T1/T2/T3**
+
+Introduit dans chaque nouvelle fiche skill pour orienter le choix de modèle sans imposer :
+- T1 — Haiku : tâches mécaniques (/commit, /pr)
+- T2 — Sonnet : défaut (/condense et la majorité des skills)
+- T3 — Opus : raisonnement profond requis (/angles-morts, /party)
+
+La formulation retenue est "Modèle recommandé : T2 — Sonnet (par défaut)" — pas une contrainte, une indication.
+
+**Mise à jour Notion (page Vibe-Method.WORKFLOW)**
+
+17 opérations API Notion pour synchroniser la page avec le guide .md :
+- 11 `update-a-block` : textes des chaînes Vue d'ensemble, headers de section, blocs Fin
+- 6 `patch-block-children` : ajout des items de chaîne manquants + sections détaillées des 4 nouveaux skills
+
+Rappel technique important appris lors d'une session précédente : `update-a-block` exige le type du bloc comme paramètre direct (`heading_4: {...}`) et non enveloppé dans `{"type": {...}}` — la Notion API rejette la deuxième forme avec "body.type should be not present".
+
+`patch-block-children` ne supporte que `paragraph` et `bulleted_list_item` pour les nouveaux blocs — pas de `heading_4`. Les titres de sections ont donc été insérés en `paragraph` (visuellement différent des heading_4 existants dans la page, mais seule option disponible via MCP).
+
+#### Décisions prises
+
+- **Option B pour les tiers** : mention du tier uniquement dans la fiche de chaque nouveau skill, pas de tableau récapitulatif global ni de refonte des fiches existantes. Pragmatique — les anciens skills fonctionnent bien, inutile de les toucher.
+- **Nouveau format Fin pour /angles-morts** : "invoqu é à 3 gates" — la fiche explique les 3 positions dans le flow (PRD, archi, spec) plutôt que de pointer vers un skill suivant fixe.
+- **Commits Conventional Commits** : la session a elle-même utilisé le format introduit par /commit (`docs:` pour le guide).
+
+#### Difficultés
+
+- Les réponses `patch-block-children` retournaient > 100 000 caractères (la page entière est renvoyée). Cela dépassait la limite de tokens du contexte — les 5 premiers appels ont été enregistrés dans des fichiers temporaires. Vérification par grep sur `"object":"error"` : aucun échec.
+- La compaction de contexte entre les deux sessions de la conversation a nécessité un `handoff` pour reprendre l'état exact des blocs à modifier (IDs, blocs déjà mis à jour, blocs encore à insérer).
 - La distinction résidence/souveraineté est contre-intuitive — on pense naïvement que "données en Europe" = "hors de portée des USA". C'est faux dès qu'il y a une société mère américaine.

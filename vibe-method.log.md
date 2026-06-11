@@ -134,4 +134,15 @@
   - Stack RAMrezo Supabase Frankfurt + Vercel = légal et défendable avec dossier documenté
 - Vérifié : `rgpd.md` existe, complète (12 sections), 3 points inexacts identifiés
 - Produit : `rgpd-research-2026-05-21.md` — intégralité de la research (5 sections)
+
+---
+
+## 2026-06-11
+
+### Session — Intégration AIDD : 4 nouveaux skills + guide + Notion
+
+- `VIBE-METHOD — GUIDE COMPLET DU WORKFLOW.md` mis à jour : 4 fiches ajoutées (/angles-morts, /commit, /pr, /condense), chaînes PARTIE 1/2/3/6 mises à jour, compteurs 25→28 skills + 5→6 transversaux, tiers T1/T2/T3 mentionnés dans chaque nouvelle fiche
+- Blocs Fin mis à jour : /prd-validate, /archi, /specs pointent vers /angles-morts ; /recette mentionne /commit → /pr
+- Notion page `325a67fe703a80a2bfebc8cf62187bc2` synchronisée : 11 update-a-block + 6 patch-block-children (17 opérations)
+- Commit `b7eaa51` pushé sur main
 - Créé : Task #1 — mise à jour `rgpd.md` (3 corrections + 2 ajouts)

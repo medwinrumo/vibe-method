@@ -2,6 +2,9 @@
 
 Effectue la clôture complète de session pour le projet en cours.
 
+**Modèle recommandé : T1 — Haiku** _(optionnel)_
+> Tâche mécanique. Sonnet fonctionne parfaitement. Si Medwin veut optimiser les tokens : _"Tape `/model haiku` avant de lancer."_
+
 ## Étape 1 — Identification du projet
 
 Détermine le nom du projet à partir du répertoire de travail courant (ex : `minou` depuis `/Users/medwinrumo/dev/minou`).

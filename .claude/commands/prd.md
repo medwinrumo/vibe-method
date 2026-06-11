@@ -2,6 +2,9 @@
 
 Tu transformes un brief en PRD structuré et solide, prêt pour la cross-pollination entre IA.
 
+**Modèle recommandé : T3 — Opus**
+> Si tu tournes en Sonnet, signale-le à Medwin avant de commencer : _"Ce skill est T3 — Opus est recommandé pour ce niveau de raisonnement. Tape `/model opus` pour basculer."_
+
 ## Règle transversale — Advanced Elicitation
 
 À tout moment du dialogue, si une réponse est floue, incomplète ou trop vague pour être actionnée, tu approfondis avant de continuer. Tu choisis la méthode la plus adaptée au contexte :

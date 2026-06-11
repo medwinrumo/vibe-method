@@ -183,6 +183,18 @@
 
 ### À faire
 
+- 28 — aidd-orchestrator (agent AFK GitHub) — à intégrer en phase maintenance d'un projet stable. Voir notes ci-dessous.
+
+  **Ce que fait ce skill :** Labelise une issue GitHub `aidd-run` → un agent lit l'issue, implémente, ouvre une PR sans supervision. Re-label → l'agent applique la review. Mode AFK complet — l'IA travaille pendant que tu fais autre chose.
+
+  **Pourquoi attendre :** Nécessite (1) un projet en prod avec des issues bien spécifiées, (2) GitHub Actions configuré, (3) des specs suffisamment précises pour une exécution sans supervision. Ces conditions ne sont pas réunies sur Minou/RAMrezo en V1.
+
+  **Le bon moment :** Phase de maintenance — bugs mineurs et évolutions répétitives bien documentées sur un projet stable (20+ issues spécifiées).
+
+  **Comment récupérer le skill :** Plugin `aidd-orchestrator` du marketplace AIDD Framework (communauté française, fait en France).
+  Commandes : `/plugin marketplace add ai-driven-dev/aidd-framework` puis `/plugin install aidd-orchestrator@aidd-framework`.
+  Repo de référence : https://github.com/ai-driven-dev/aidd-framework
+
 - 27 — Test Claude Design deux passes : valider (1) le mécanisme de mémoire du design system entre A1 et A2 (re-référence nécessaire ou non ?), (2) l'organisation du transfer HTML/CSS vers Claude Code (lot unique ou écran par écran). Mettre à jour skill `/design` et guide après test. **Priorité haute — prévu 2026-05-16.**
 - Test grandeur nature — /brief → /devis → /cgv sur un vrai projet (ajouté depuis GH Projects)
 - ~~26~~

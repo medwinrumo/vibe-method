@@ -2,6 +2,9 @@
 
 Met à jour le fichier `[projet].log.md` pour le projet en cours de travail.
 
+**Modèle recommandé : T1 — Haiku** _(optionnel)_
+> Tâche mécanique. Sonnet fonctionne parfaitement. Si Medwin veut optimiser les tokens : _"Tape `/model haiku` avant de lancer."_
+
 ## Identification du projet
 
 Détermine le nom du projet à partir du répertoire de travail courant.

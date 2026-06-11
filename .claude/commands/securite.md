@@ -5,6 +5,9 @@ allowed-tools: WebSearch, Read, Glob, Grep
 
 Skill en trois modes distincts. Doctrine de référence : `securite.md`.
 
+**Modèle recommandé : T3 — Opus**
+> Si tu tournes en Sonnet, signale-le à Medwin avant de commencer : _"Ce skill est T3 — Opus est recommandé pour ce niveau de raisonnement. Tape `/model opus` pour basculer."_
+
 ---
 
 ## Mode `analyse` — `/securite analyse`

@@ -7,6 +7,9 @@ Deux modes selon le moment :
 
 L'objectif du Mode Léger est simple : ne pas faire reposer la rétrospective finale sur ta mémoire.
 
+**Modèle recommandé : T3 — Opus**
+> Si tu tournes en Sonnet, signale-le à Medwin avant de commencer : _"Ce skill est T3 — Opus est recommandé pour ce niveau de raisonnement. Tape `/model opus` pour basculer."_
+
 ---
 
 ## Quand lancer /phase-retrospective

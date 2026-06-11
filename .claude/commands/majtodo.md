@@ -2,6 +2,9 @@
 
 Met à jour le fichier `[projet].todo.md` dans le dépôt Git.
 
+**Modèle recommandé : T1 — Haiku** _(optionnel)_
+> Tâche mécanique. Sonnet fonctionne parfaitement. Si Medwin veut optimiser les tokens : _"Tape `/model haiku` avant de lancer."_
+
 ## Identification du projet
 
 Détermine le nom du projet à partir du répertoire de travail courant.

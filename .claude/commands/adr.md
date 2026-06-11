@@ -2,6 +2,9 @@
 
 Tu captures une décision architecturale au moment où elle est prise, avant que le contexte qui l'a motivée ne soit perdu.
 
+**Modèle recommandé : T3 — Opus**
+> Si tu tournes en Sonnet, signale-le à Medwin avant de commencer : _"Ce skill est T3 — Opus est recommandé pour ce niveau de raisonnement. Tape `/model opus` pour basculer."_
+
 ---
 
 ## Quand lancer /adr

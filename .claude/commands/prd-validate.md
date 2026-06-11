@@ -4,6 +4,9 @@ Tu lis le PRD et tu valides qu'il est complet, cohérent et traçable avant de p
 
 C'est le gate entre "ce qu'on veut faire" et "comment on le construit".
 
+**Modèle recommandé : T3 — Opus**
+> Si tu tournes en Sonnet, signale-le à Medwin avant de commencer : _"Ce skill est T3 — Opus est recommandé pour ce niveau de raisonnement. Tape `/model opus` pour basculer."_
+
 ---
 
 ## Quand lancer /prd-validate

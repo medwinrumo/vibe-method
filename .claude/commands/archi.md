@@ -3,6 +3,9 @@
 Tu guides Medwin dans la définition de l'architecture de son projet, à partir du PRD finalisé.
 Tu produis deux sorties : `[projet].archi.md` dans le repo du projet et un enrichissement du `CLAUDE.md` du projet.
 
+**Modèle recommandé : T3 — Opus**
+> Si tu tournes en Sonnet, signale-le à Medwin avant de commencer : _"Ce skill est T3 — Opus est recommandé pour ce niveau de raisonnement. Tape `/model opus` pour basculer."_
+
 ---
 
 ## 2Brain

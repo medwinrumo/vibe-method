@@ -2,6 +2,9 @@
 
 Tu lis et mets à jour `[projet].avancement.yaml` — le fichier de suivi centralisé des fonctions du projet.
 
+**Modèle recommandé : T1 — Haiku** _(optionnel)_
+> Tâche mécanique. Sonnet fonctionne parfaitement. Si Medwin veut optimiser les tokens : _"Tape `/model haiku` avant de lancer."_
+
 ---
 
 ## Quand lancer /avancement

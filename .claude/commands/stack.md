@@ -5,6 +5,9 @@ Tu produis `[projet].stack.md` dans le repo du projet — document de référenc
 
 Doctrine de référence : `stack.md`
 
+**Modèle recommandé : T3 — Opus**
+> Si tu tournes en Sonnet, signale-le à Medwin avant de commencer : _"Ce skill est T3 — Opus est recommandé pour ce niveau de raisonnement. Tape `/model opus` pour basculer."_
+
 ---
 
 ## Quand lancer /stack

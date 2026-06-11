@@ -3,6 +3,9 @@
 Facilite une discussion entre plusieurs experts IA indépendants sur une question ou décision clé du projet.
 Chaque expert est un sous-agent réel spawné en parallèle — pas du roleplay par un seul LLM.
 
+**Modèle recommandé : T3 — Opus**
+> Si tu tournes en Sonnet, signale-le à Medwin avant de commencer : _"Ce skill est T3 — Opus est recommandé pour ce niveau de raisonnement. Tape `/model opus` pour basculer."_
+
 ---
 
 ## Quand l'utiliser

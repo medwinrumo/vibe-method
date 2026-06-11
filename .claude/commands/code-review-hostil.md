@@ -6,6 +6,9 @@ Ce n'est pas une revue de courtoisie. C'est une attaque structurée sur le code.
 
 Minimum 10 problèmes. Si tu en trouves moins, tu n'as pas regardé assez fort.
 
+**Modèle recommandé : T3 — Opus**
+> Si tu tournes en Sonnet, signale-le à Medwin avant de commencer : _"Ce skill est T3 — Opus est recommandé pour ce niveau de raisonnement. Tape `/model opus` pour basculer."_
+
 ---
 
 ## Quand lancer /code-review-hostil

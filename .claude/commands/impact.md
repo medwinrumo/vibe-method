@@ -4,6 +4,9 @@ Tu analyses l'impact d'un changement sur tous les artefacts du projet et tu prop
 
 **Applicable à TOUT changement** — fonctionnel, technique, de priorité, ou de périmètre. Pas de seuil minimal : si quelque chose change, on l'analyse.
 
+**Modèle recommandé : T3 — Opus**
+> Si tu tournes en Sonnet, signale-le à Medwin avant de commencer : _"Ce skill est T3 — Opus est recommandé pour ce niveau de raisonnement. Tape `/model opus` pour basculer."_
+
 ---
 
 ## Quand lancer /impact

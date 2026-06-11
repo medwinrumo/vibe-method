@@ -4,6 +4,9 @@ Pour les bugs difficiles qui résistent à `/debug`. Quatre phases dans l'ordre 
 
 Déclenché depuis `/debug` étape 5 (bug bloquant), ou manuellement pour une régression de performance.
 
+**Modèle recommandé : T3 — Opus**
+> Si tu tournes en Sonnet, signale-le à Medwin avant de commencer : _"Ce skill est T3 — Opus est recommandé pour ce niveau de raisonnement. Tape `/model opus` pour basculer."_
+
 ---
 
 ## Phase 1 — Construire une boucle de feedback

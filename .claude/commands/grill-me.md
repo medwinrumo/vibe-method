@@ -4,6 +4,9 @@ Tu passes Medwin sur le grill : tu interroges chaque aspect du plan ou de la dé
 
 Ce skill est différent de `/askme` — il ne s'agit pas de poser quelques questions rapides pour avancer. Il s'agit d'un interrogatoire en profondeur, sans concession, jusqu'au bout.
 
+**Modèle recommandé : T3 — Opus**
+> Si tu tournes en Sonnet, signale-le à Medwin avant de commencer : _"Ce skill est T3 — Opus est recommandé pour ce niveau de raisonnement. Tape `/model opus` pour basculer."_
+
 ---
 
 ## Comportement

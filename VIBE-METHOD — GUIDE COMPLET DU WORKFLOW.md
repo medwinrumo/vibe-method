@@ -1,5 +1,5 @@
 VIBE-METHOD — GUIDE COMPLET DU WORKFLOW
-Mis à jour le 14 mai 2026. Ce guide explique chaque skill de la méthode : ce qu'il fait, qui fait quoi (toi ou Claude), quels fichiers il produit, et comment il se termine.
+Mis à jour le 11 juin 2026. Ce guide explique chaque skill de la méthode : ce qu'il fait, qui fait quoi (toi ou Claude), quels fichiers il produit, et comment il se termine.
  
 LA RÈGLE DE BASE — QUI FAIT QUOI ?
 TOI (User) : tu décides, tu valides les propositions de Claude, tu réponds aux questions, tu exécutes les commandes dans ton terminal.
@@ -7,17 +7,17 @@ CLAUDE : il pose les questions, analyse, génère les documents, écrit les fich
 Chaque skill a des INPUTS (ce dont il a besoin) et des OUTPUTS (ce qu'il produit). Si un input manque, le skill s'arrête et demande de lancer le skill manquant d'abord.
  
 LA CHAÎNE DU WORKFLOW — LES 7 PARTIES
-1. CONCEPTION : /contexte → /brief → /devis (si projet client) → /cgv → /charte → /prd → /prd-update → /prd-validate
-2. ARCHITECTURE & DESIGN : /gherkin (Mode PRD) → /design (Mode A) ↔ /archi → /regles → /stack
-3. PLANIFICATION : /roadmap → /specs → /gherkin (Mode Specs)
+1. CONCEPTION : /contexte → /brief → /devis (si projet client) → /cgv → /charte → /prd → /prd-update → /prd-validate → /angles-morts (PRD)
+2. ARCHITECTURE & DESIGN : /gherkin (Mode PRD) → /design (Mode A) ↔ /archi → /angles-morts (archi) → /regles → /stack
+3. PLANIFICATION : /roadmap → /specs → /angles-morts (spec) → /gherkin (Mode Specs)
 4. AVANT LE CODE : /readyTo-code → /setup → /prp → /avancement → /sessionCode
 5. VÉRIFICATION DU CODE : /code-review → /code-review-edge-cases → /repair-edge-cases → /code-review-hostil
-6. TESTS & VALIDATION : /tests → /securite → /doc-tech (Mode B) → /recette ↔ /debug
+6. TESTS & VALIDATION : /tests → /securite → /doc-tech (Mode B) → /recette ↔ /debug → /commit → /pr
 7. FIN DE PHASE : /phase-retrospective → /doc-tech (Mode A)
-TRANSVERSAUX (invocables à tout moment) : /party, /impact, /avancement, /adr, /refacto
+TRANSVERSAUX (invocables à tout moment) : /party, /impact, /avancement, /adr, /refacto, /condense
  
-═══ PARTIE 1 — CONCEPTION (8 skills) ═══
-Ces 8 skills définissent CE QU'ON VA CONSTRUIRE et POUR QUI, et encadrent l'engagement commercial. On ne touche pas encore au code. On réfléchit, on décide, on documente.
+═══ PARTIE 1 — CONCEPTION (9 skills) ═══
+Ces 9 skills définissent CE QU'ON VA CONSTRUIRE et POUR QUI, et encadrent l'engagement commercial. On ne touche pas encore au code. On réfléchit, on décide, on documente.
  
 ── /contexte — CONTEXTE PROJET ──
 Capture tout ce qui existe AVANT que le projet commence — le client, les réunions préparatoires, les délais imposés, les contraintes héritées. Différent du brief : le context c'est ce qui est IMPOSÉ de l'extérieur. Le brief c'est ce qu'on DÉCIDE de construire.
@@ -81,7 +81,18 @@ Dernier contrôle avant l'architecture. Claude vérifie 3 choses : la complétud
 TOI : tu lis le rapport et décides si tu corriges ou si le PRD est bon
 CLAUDE : lit le PRD, produit un rapport Blockers / Warnings / Verdict GO ou BLOCKERS
 Fichier produit : aucun (c'est une validation, pas un livrable)
-Fin si GO : 'Prochaine étape : /gherkin Mode PRD, puis /archi.' Fin si BLOCKERS : retour à /prd ou /prd-update.
+Fin si GO : 'Prochaine étape : /angles-morts sur le PRD — identifier les zones d'ombre avant de passer en architecture.' Fin si BLOCKERS : retour à /prd ou /prd-update.
+ 
+ 
+── /angles-morts — ZONES D'OMBRE ──
+Examine un document (PRD, architecture, spec) pour en extraire ce qui N'EST PAS écrit — les hypothèses implicites, les scénarios non couverts, les décisions non prises, les risques non nommés, les dépendances cachées. Ce skill part du principe que tout document contient des angles morts que son auteur ne voit pas parce qu'il est trop proche du sujet.
+Exemple : le PRD d'une app de prise de rendez-vous dit 'l'utilisateur peut annuler'. /angles-morts signale : quel délai minimum avant l'annulation ? Le prestataire est-il notifié ? Que se passe-t-il si le créneau est déjà payé ? Ces questions ne sont pas dans le PRD — elles sont dans ses angles morts.
+Modèle recommandé : T3 — Opus (raisonnement profond requis).
+TOI : tu indiques le document à analyser, tu décides pour chaque zone d'ombre : Traiter maintenant / Accepter le risque / Hors scope
+CLAUDE : classe les zones d'ombre en 5 catégories (hypothèses implicites, scénarios non couverts, décisions non prises, risques non nommés, dépendances cachées), produit pour chaque item : Observation / Question à trancher / Impact si ignoré
+Fichier produit : aucun (les décisions alimentent le document source — PRD, archi ou spec)
+Fin : 'Angles morts traités. Prochaine étape : [skill suivant selon la position dans le flow].'
+Note : ce skill est invoqué à 3 gates — après /prd-validate (sur le PRD), après /archi (sur l'architecture), après /specs (sur la spec de la feature).
  
 ═══ PARTIE 2 — ARCHITECTURE & DESIGN (5 skills) ═══
 Ces skills définissent COMMENT on va construire — la structure du code, les modules, les règles, la stack technique, et le design system.
@@ -114,7 +125,7 @@ Exemple app RAM : modules /auth (identité), /membres (réseau), /onboarding (pa
 TOI : tu valides chaque décision (modules, stack, RGPD, backup) via le menu A/P/C
 CLAUDE : lit le PRD, propose les modules, vérifie une Quality Gate de 12 critères, génère l'archi et les blocs à ajouter dans CLAUDE.md
 Fichiers produits : [projet].archi.md + 2 blocs (Architecture + Sécurité) à intégrer dans le CLAUDE.md du projet
-Fin : 'Prochaine étape : /regles — extraire les règles non-évidentes pour le LLM.'
+Fin : 'Prochaine étape : /angles-morts sur l'architecture — identifier les zones d'ombre avant d'extraire les règles — puis /regles.'
  
 ── /regles — RÈGLES NON-ÉVIDENTES POUR LE LLM ──
 Documente les pièges, patterns interdits/obligatoires, et décisions contra-intuitives du projet. Ce fichier est lu par Claude à chaque session de code. Règle d'or : si c'est évident, on ne l'écrit pas. Si ça peut surprendre une IA généraliste, on l'écrit.
@@ -148,7 +159,7 @@ Exemple : feature 'Intégration d'un nouveau RAM' → 'En tant que tuteur, je so
 TOI : tu réponds sur les acteurs, les règles métier, les cas limites et les cas d'échec
 CLAUDE : lit le PRD, l'archi et la roadmap, vérifie la cohérence (feature dans le PRD ? silo respecté ? RGPD ?), génère la spec
 Fichier produit : [projet].spec.[feature].md (un fichier par feature)
-Fin : 'Prochaine étape : /gherkin Mode Specs — générer les scénarios de validation.'
+Fin : 'Prochaine étape : /angles-morts sur la spec — identifier les scénarios manquants — puis /gherkin Mode Specs.'
  
 ── /gherkin (Mode Specs) — LA DÉFINITION DE 'DONE' ──
 Génère les scénarios de test complets pour une feature — happy path (cas nominal), cas limites (frontières), cas d'échec (erreurs attendues). Ces scénarios deviennent LA DÉFINITION DE 'DONE' : la feature est terminée quand tous les scénarios passent. /tests et /recette lisent ce fichier — ils ne le régénèrent pas.
@@ -296,7 +307,7 @@ Scénario Gherkin : Étant donné [contexte] / Lorsque [action] / Alors [résult
 Résultat attendu : ce qui doit se passer exactement (‘Redirection vers /dashboard avec message Bonjour [prénom]’)
 Règle : une seule recette à la fois. User ne passe pas à la suivante tant que la précédente n'est pas validée ou le bug résolu. Aucun saut autorisé.
 Audit sécurité léger : une fois toutes les recettes ✅, Claude propose un audit Mozilla Observatory + securityheaders.com sur l'URL de staging avant de clôturer la phase.
-Comment ça se termine : 'Phase [N] validée — [N] recettes ✅, [N] bugs détectés et corrigés. Lance /phase-retrospective.'
+Comment ça se termine : 'Phase [N] validée — [N] recettes ✅, [N] bugs détectés et corrigés. Lance /commit pour commiter chaque feature validée — une feature = un commit — puis /pr, puis /phase-retrospective.'
 ── /debug ──
 Rôle : diagnostiquer et corriger un bug détecté pendant la recette. Ce skill est déclenché AUTOMATIQUEMENT par /recette dès qu'un ❌ est signalé. On ne le lance pas manuellement.
 Séquence fixée en 3 tentatives :
@@ -306,6 +317,24 @@ Tentative 3 avec web search — si ❌ encore : Claude lance une recherche web s
 Si après 3 tentatives le bug persiste → bug déclaré BLOQUANT. Recette suspendue. User décide : nouvelle approche technique (session dédiée) ou contournement temporaire si non-critique.
 Règle fondamentale : Claude corrige toujours le CODE, jamais les tests ni les recettes. Si la recette 'semble incorrecte', c'est le code qui doit changer pour correspondre à la recette — pas l'inverse.
 Comment ça se termine : 'Bug Recette [N]-[M] résolu ✅. On reprend le cahier à la Recette [N]-[M+1].'
+── /commit — COMMIT PROPRE ──
+Génère un message de commit au format Conventional Commits depuis le diff Git, le soumet à validation, puis exécute le commit. Ce skill est global — il est utilisé dans tous les projets, pas seulement en vibe-method. Claude doit l'utiliser dès qu'un commit est à faire, quel que soit le projet.
+Format Conventional Commits : type(scope): description — types valides : feat, fix, refactor, test, docs, chore, style.
+Exemple : 'feat(auth): ajouter la connexion Google OAuth' plutôt qu'un message vague comme 'update login'.
+Modèle recommandé : T1 — Haiku (optionnel). Tâche mécanique — Sonnet fonctionne parfaitement.
+TOI : tu valides le message proposé, tu confirmes avant exécution
+CLAUDE : lit git status + git diff, lit le contexte depuis la spec ou le fichier avancement, propose un message structuré, attend la validation, exécute le commit
+Fichier produit : aucun (commit dans le dépôt Git)
+Fin : 'Commit créé. Lance /pr si tu veux ouvrir une Pull Request.'
+ 
+── /pr — PULL REQUEST ──
+Génère une Pull Request depuis la spec de la feature et le log Git — titre formaté, corps structuré (description, changements, checklist de tests, référence spec) — puis exécute via gh pr create.
+Exemple : après avoir commité la feature 'Intégration d'un RAM', /pr génère une PR avec le titre 'feat(membres): intégration nouveau RAM' et un corps structuré qui référence la spec correspondante.
+Modèle recommandé : T1 — Haiku (optionnel). Tâche mécanique — Sonnet fonctionne parfaitement.
+TOI : tu valides le titre et le corps de la PR avant envoi
+CLAUDE : lit la spec de la feature + git log, génère le titre et le corps de la PR, attend validation, exécute gh pr create --title --body --base main
+Fichier produit : aucun (Pull Request créée sur GitHub)
+Fin : 'Pull Request créée. Prochaine étape : /phase-retrospective Mode Léger.'
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 PARTIE 7 — CLÔTURE DE PHASE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -354,6 +383,14 @@ Avant de coder une nouvelle feature sur un module dégradé (ajouter sur du code
 En fin de phase, si la dette technique accumulée est trop lourde
 On demand : quand User sent que quelque chose pue
 Séquence : diagnostic → liste des problèmes classés par priorité → exécution étape par étape avec validation entre chaque étape. Jamais de refacto batch.
+── /condense — CONDENSATION DE DOCUMENT ──
+Condense un document long (compte-rendu, email, retour client, doc externe) en un format exploitable pour le workflow. Ce skill est transversal — il peut être lancé sur n'importe quel document, à n'importe quel moment.
+Exemple : tu reçois un email de 3 pages d'un client avec des demandes de modifications. /condense en extrait l'essentiel — les décisions, les contraintes, les chiffres, les acteurs — sans la politesse ni les répétitions.
+Modèle recommandé : T2 — Sonnet (par défaut).
+TOI : tu fournis le document à condenser
+CLAUDE : condense en préservant décisions, contraintes, chiffres et acteurs — supprime politesse, répétitions et digressions — puis demande l'usage : brief/contexte, prd-update, context.md, ou brut
+Fichier produit : dépend du mode choisi (peut alimenter directement un artefact du workflow)
+Fin : le contenu condensé est livré dans le format demandé.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 RÉCAPITULATIF — TOUS LES FICHIERS PRODUITS PAR LE WORKFLOW
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -387,4 +424,4 @@ Structure de dossiers source — selon l'architecture définie dans [projet].arc
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 FIN DU RÉCAP — VIBE METHOD
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-La chaîne complète représente environ 25 skills principaux + 5 transversaux (/party, /impact, /avancement, /adr, /refacto). Chaque skill a une entrée claire (quand le lancer), un processus défini (ce que Claude fait), et une sortie explicite (comment ça se termine, quel fichier est produit, vers quel skill passer ensuite). La méthode est conçue pour que User ne puisse jamais se demander 'qu'est-ce qu'on fait maintenant ?' — le skill en cours répond toujours à cette question.
+La chaîne complète représente environ 28 skills principaux + 6 transversaux (/party, /impact, /avancement, /adr, /refacto, /condense). Chaque skill a une entrée claire (quand le lancer), un processus défini (ce que Claude fait), et une sortie explicite (comment ça se termine, quel fichier est produit, vers quel skill passer ensuite). La méthode est conçue pour que User ne puisse jamais se demander 'qu'est-ce qu'on fait maintenant ?' — le skill en cours répond toujours à cette question.

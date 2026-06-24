@@ -136,7 +136,7 @@ Catalogue de toutes les pages. Mis à jour à chaque ingest ou nouvelle page wik
 | [[skills/askme]] | Questions contextuelles rapides |
 | [[skills/refacto]] | Refactoring guidé — session dédiée |
 | [[skills/condense]] | Condensation d'un document long en inputs exploitables — T2 Sonnet |
-| [[skills/lint]] | Contrôle qualité du 2Brain — modes quick et complet |
+| [[skills/lint]] | Contrôle qualité du Wiki — modes quick et complet |
 
 ## Skills — Gestion de session
 

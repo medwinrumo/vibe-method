@@ -16,8 +16,8 @@ phase: infrastructure
 ## En résumé
 Guide la mise en production selon le niveau défini à l'archi : Niveau 1 (proto — pas de staging), Niveau 2 (app client — staging à la demande, migrations versionnées), Niveau 3 (app critique — rollback auto, validation humaine). Checklist de sécurité obligatoire avant go-live.
 
-## 2Brain
+## Wiki
 - **Lecture** : lit les patterns de déploiement existants pour la stack du projet
-- **Écriture** : gotchas découverts pendant le déploiement → propose de les écrire dans `~/dev/2Brain/[outil]-deploy.md` — tags `[stack, déploiement]`
+- **Écriture** : gotchas découverts pendant le déploiement → propose de les écrire dans `~/dev/wiki/[outil]-deploy.md` — tags `[stack, déploiement]`
 
 **Précédent :** [[skills/recette]] (validation complète) | **Doctrine :** [[doctrines/architecture]]

@@ -242,19 +242,19 @@ Pour chaque élément de dette identifié (journaux + Q4) :
 
 ---
 
-### C7 — Enrichissement du 2Brain
+### C7 — Enrichissement du Wiki
 
-Extraire les leçons réutilisables cross-projets vers le 2Brain.
+Extraire les leçons réutilisables cross-projets vers le Wiki.
 
 Pour chaque signal des journaux et chaque action item :
 1. Demander : "Cette leçon s'applique-t-elle à d'autres projets ou est-elle spécifique à [projet] ?"
-2. Pour chaque leçon réutilisable → identifier le fichier 2Brain pertinent :
-   - Estimation, planning → `~/dev/2Brain/estimation.md`
-   - Bug pattern → `~/dev/2Brain/bugs-patterns.md`
+2. Pour chaque leçon réutilisable → identifier le fichier Wiki pertinent :
+   - Estimation, planning → `~/dev/wiki/estimation.md`
+   - Bug pattern → `~/dev/wiki/bugs-patterns.md`
    - Pattern d'archi → fichier outil ou pattern concerné
    - Autre → créer le fichier le plus naturel
 3. Lire le fichier existant s'il existe → fusionner, ne pas dupliquer
-4. Logger dans `~/dev/2Brain/log.md` :
+4. Logger dans `~/dev/wiki/log.md` :
    `## [date] update | [fichier(s)] | /phase-retrospective — [projet]`
 
 ---

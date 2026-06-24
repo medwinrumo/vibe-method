@@ -5,12 +5,12 @@ allowed-tools: Bash(git *), Bash(gh *), Bash(vercel *), Bash(supabase *), Read, 
 
 Accompagne Medwin dans la mise en production d'un projet, selon le niveau défini lors du `/archi`.
 
-## 2Brain
+## Wiki
 
-**Lecture** : lire `~/dev/2Brain/index.md` — si des fichiers de patterns de déploiement existent pour la stack de ce projet, les lire avant de commencer.
+**Lecture** : lire `~/dev/wiki/index.md` — si des fichiers de patterns de déploiement existent pour la stack de ce projet, les lire avant de commencer.
 
-**Écriture** (après déploiement réussi) : si des gotchas ou patterns utiles ont été découverts → proposer de les écrire dans le 2Brain :
-> "On a découvert [pattern/gotcha] pendant ce déploiement. Je le note dans `~/dev/2Brain/[outil]-deploy.md` ?"
+**Écriture** (après déploiement réussi) : si des gotchas ou patterns utiles ont été découverts → proposer de les écrire dans le Wiki :
+> "On a découvert [pattern/gotcha] pendant ce déploiement. Je le note dans `~/dev/wiki/[outil]-deploy.md` ?"
 
 ---
 

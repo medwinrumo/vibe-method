@@ -25,8 +25,8 @@ ATTENDU  → ce qui aurait dû se passer
 + message d'erreur complet (console)
 ```
 
-## 2Brain
-- **Écriture** (si résolution via web search) : propose de noter le bug pattern dans `~/dev/2Brain/bugs-patterns.md` — tags `[retours, debug]`
+## Wiki
+- **Écriture** (si résolution via web search) : propose de noter le bug pattern dans `~/dev/wiki/bugs-patterns.md` — tags `[retours, debug]`
 
 **Déclenché par :** [[skills/recette]] | **Escalade :** [[skills/diagnose]]
 **Doctrine :** [[doctrines/methode]]

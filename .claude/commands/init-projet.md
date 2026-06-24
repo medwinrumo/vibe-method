@@ -52,16 +52,16 @@ _Contexte projet — mis à jour progressivement par les skills_
 <!-- Sections ajoutées automatiquement : /contexte → /brief → /charte → /prd → /securite → /design → /archi → /regles → /stack → /adr -->
 <!-- Chaque section renvoie vers son artefact pour les détails complets. -->
 
-## 2Brain
+## Wiki
 
-Chemin : `~/dev/2Brain/`
+Chemin : `~/dev/wiki/`
 
-**Règle fondamentale :** avant d'aller sur le web, chercher dans le 2Brain.
-- 2Brain répond → utiliser en priorité
-- 2Brain incomplet → web, puis enrichir le 2Brain avec les découvertes
+**Règle fondamentale :** avant d'aller sur le web, chercher dans le Wiki.
+- Wiki répond → utiliser en priorité
+- Wiki incomplet → web, puis enrichir le Wiki avec les découvertes
 
-**Skills qui lisent le 2Brain :** `/stack` (outils), `/archi` (patterns), `/deploy` (déploiement)
-**Skills qui enrichissent le 2Brain :** `/stack`, `/archi`, `/regles`, `/deploy`, `/debug`, `/phase-retrospective`
+**Skills qui lisent le Wiki :** `/stack` (outils), `/archi` (patterns), `/deploy` (déploiement)
+**Skills qui enrichissent le Wiki :** `/stack`, `/archi`, `/regles`, `/deploy`, `/debug`, `/phase-retrospective`
 ```
 
 **Contenu de `[nom_projet].context.md` à la création :**
@@ -218,7 +218,7 @@ Git :
   — github.com/medwinrumo/[nom_projet]
 
 Fichiers créés :
-  — CLAUDE.md               ← avec section 2Brain
+  — CLAUDE.md               ← avec section Wiki
   — [nom_projet].todo.md
   — [nom_projet].log.md
   — [nom_projet].context.md  ← à remplir avant /context

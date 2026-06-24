@@ -38,9 +38,9 @@ Définit les modules et leurs responsabilités, les règles silo, la stack (Conv
 ## WebSearch obligatoire
 Avant confirmation de la stack native (version Expo actuelle) et du back-end (free tier Supabase/Convex actuel).
 
-## 2Brain
-- **Lecture** : lit les patterns d'archi existants dans le 2Brain avant les décisions
-- **Écriture** : propose d'écrire les patterns génériques validés dans `~/dev/2Brain/` — tags `[patterns]`
+## Wiki
+- **Lecture** : lit les patterns d'archi existants dans le Wiki avant les décisions
+- **Écriture** : propose d'écrire les patterns génériques validés dans `~/dev/wiki/` — tags `[patterns]`
 
 **Précédent :** [[skills/design]] Mode A (aller-retour) | **Suivant :** [[skills/angles-morts]] (archi) → [[skills/regles]]
 **Doctrine :** [[doctrines/architecture]] | [[doctrines/securite]]

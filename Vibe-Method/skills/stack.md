@@ -20,9 +20,9 @@ phase: 4
 ## En résumé
 Pour chaque outil de la stack : version actuelle, limites free tier, gotchas critiques, sécurité spécifique, APIs clés, compatibilité entre outils. Ajoute une section "Risques sécu" par outil. Document vivant — tout gotcha découvert en dev y est ajouté immédiatement.
 
-## 2Brain
-- **Lecture** (Étape 0ter) : lit les fichiers outils existants dans le 2Brain avant le spike
-- **Écriture** (Étape 6) : enrichit ou crée un fichier par outil dans `~/dev/2Brain/` après le spike — tags `[stack, outil]`, source `[projet]`
+## Wiki
+- **Lecture** (Étape 0ter) : lit les fichiers outils existants dans le Wiki avant le spike
+- **Écriture** (Étape 6) : enrichit ou crée un fichier par outil dans `~/dev/wiki/` après le spike — tags `[stack, outil]`, source `[projet]`
 
 ## Ce que les autres skills consomment
 - `/roadmap` → limites free tier (éviter features hors quota en V1)

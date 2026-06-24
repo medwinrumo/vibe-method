@@ -3,14 +3,14 @@ type: skill
 source: ../.claude/commands/lint.md
 source_modified: 2026-05-26
 wiki_updated: 2026-05-26
-tags: [2brain, maintenance, lint]
+tags: [wiki, maintenance, lint]
 ---
 
 ## Rôle
-**`/lint`** — Contrôle qualité du 2Brain. Distinct du lint wiki vibe-method (étape 5 de `/maj`).
+**`/lint`** — Contrôle qualité du Wiki. Distinct du lint wiki vibe-method (étape 5 de `/maj`).
 
 ## Inputs
-- Aucun input requis — opère sur `~/dev/2Brain/` entier
+- Aucun input requis — opère sur `~/dev/wiki/` entier
 
 ## Modes
 
@@ -20,9 +20,9 @@ tags: [2brain, maintenance, lint]
 | `/lint` | Élevé — lit tous les fichiers entiers | Contradictions, pages manquantes, orphelines, obsolètes |
 
 ## En résumé
-Lit le 2Brain et signale 4 types de problèmes : contradictions entre pages, concepts sans leur propre page, pages orphelines, affirmations obsolètes. Chaque correction se fait avec validation de Medwin. Toutes les corrections sont loggées dans `~/dev/2Brain/log.md`.
+Lit le Wiki et signale 4 types de problèmes : contradictions entre pages, concepts sans leur propre page, pages orphelines, affirmations obsolètes. Chaque correction se fait avec validation de Medwin. Toutes les corrections sont loggées dans `~/dev/wiki/log.md`.
 
 ## Liens
-- [[archi]] — pattern de consultation 2Brain avant spike
-- [[phase-retrospective]] — enrichit le 2Brain en fin de projet
+- [[archi]] — pattern de consultation Wiki avant spike
+- [[phase-retrospective]] — enrichit le Wiki en fin de projet
 - [[maj]] — étape 5 : lint wiki vibe-method (distinct)

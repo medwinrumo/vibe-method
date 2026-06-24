@@ -14,7 +14,7 @@ Format : `## [YYYY-MM-DD] opération | détail`
 
 ## [2026-05-26] ingest | Nouveau skill `/lint` → `skills/lint.md`
 
-Skill créé : contrôle qualité du 2Brain (modes quick et complet).
+Skill créé : contrôle qualité du Wiki (modes quick et complet).
 Artefacts mis à jour : `index.md` (entrée ajoutée), `CLAUDE.md` vibe-method (tableau + liste transversaux).
 
 ---

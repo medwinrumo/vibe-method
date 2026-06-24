@@ -75,7 +75,7 @@ Mode A de /design et /archi se construisent en aller-retour. Les écrans révèl
 | `/zoom-out` | Carte du module courant — responsabilité, callers, contrat public, termes du domaine. Pour se réorienter dans un fichier peu familier | — |
 | `/prototype` | Code jetable pour valider une décision — branche logique (terminal interactif) ou branche UI (variations switchables). Déclenché par Claude quand une décision ne peut pas être tranchée sans la voir tourner | — |
 | `/adr` | Capture d'une décision architecturale — filtre 3 conditions obligatoire avant création | `[projet].adr.md` |
-| `/lint` | Contrôle qualité du 2Brain — deux modes : quick (orphelines + obsolètes via frontmatter) et complet (contradictions, trous, orphelines, obsolètes). Logger les corrections dans `~/dev/2Brain/log.md` | — |
+| `/lint` | Contrôle qualité du Wiki — deux modes : quick (orphelines + obsolètes via frontmatter) et complet (contradictions, trous, orphelines, obsolètes). Logger les corrections dans `~/dev/wiki/log.md` | — |
 | `/angles-morts` | Chasse aux zones d'ombre sur un document (PRD, archi, spec) — hypothèses implicites, scénarios non couverts, décisions non prises, risques non nommés, dépendances cachées. T3 — Opus | — |
 | `/condense` | Condensation d'un document long en inputs exploitables — compte-rendu, email, doc externe, retour client. 4 modes de sortie : brief/contexte, prd-update, context.md, brut. T2 — Sonnet | — |
 | `/commit` | Commit propre au format Conventional Commits depuis le diff Git — soumet le message à validation avant d'exécuter. T1 — Haiku opt. | — |

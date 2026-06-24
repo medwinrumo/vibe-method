@@ -24,8 +24,8 @@ phase: 7
 
 **Mode Complet (fin d'ensemble) :** analyse complète des logs, calibration estimé vs réel par phase, dette accumulée, bilan global.
 
-## 2Brain
-- **Écriture** (Mode Complet uniquement — C7) : extrait les leçons cross-projets vers `~/dev/2Brain/` — estimation, bugs-patterns, patterns d'archi — tags `[retours]`
+## Wiki
+- **Écriture** (Mode Complet uniquement — C7) : extrait les leçons cross-projets vers `~/dev/wiki/` — estimation, bugs-patterns, patterns d'archi — tags `[retours]`
 
 **Précédent :** [[skills/recette]] (dernière feature de la phase)
 **Suivant :** [[skills/doc-tech]] (Mode A) ou phase suivante

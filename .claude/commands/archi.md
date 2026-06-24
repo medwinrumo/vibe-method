@@ -8,13 +8,13 @@ Tu produis deux sorties : `[projet].archi.md` dans le repo du projet et un enric
 
 ---
 
-## 2Brain
+## Wiki
 
-**Lecture** (avant de commencer) : lire `~/dev/2Brain/index.md` — si des fichiers de patterns d'archi existent, les lire pour alimenter les recommandations.
+**Lecture** (avant de commencer) : lire `~/dev/wiki/index.md` — si des fichiers de patterns d'archi existent, les lire pour alimenter les recommandations.
 
-**Écriture** (après chaque décision structurante validée) : si le pattern est générique et réutilisable cross-projets → proposer de l'écrire dans le 2Brain :
-> "Ce pattern [nom] est réutilisable. Je le note dans `~/dev/2Brain/[pattern].md` ?"
-Si oui → lire le fichier existant, fusionner, logger dans `~/dev/2Brain/log.md`.
+**Écriture** (après chaque décision structurante validée) : si le pattern est générique et réutilisable cross-projets → proposer de l'écrire dans le Wiki :
+> "Ce pattern [nom] est réutilisable. Je le note dans `~/dev/wiki/[pattern].md` ?"
+Si oui → lire le fichier existant, fusionner, logger dans `~/dev/wiki/log.md`.
 
 ---
 

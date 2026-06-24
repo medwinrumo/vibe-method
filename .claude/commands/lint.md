@@ -1,6 +1,6 @@
-# /lint — Contrôle qualité du 2Brain
+# /lint — Contrôle qualité du Wiki
 
-Vérifie la cohérence et la fraîcheur de `~/dev/2Brain/`. Distinct du lint wiki vibe-method (étape 5 de `/maj`).
+Vérifie la cohérence et la fraîcheur de `~/dev/wiki/`. Distinct du lint wiki vibe-method (étape 5 de `/maj`).
 
 Deux modes selon le coût en tokens acceptable.
 
@@ -22,7 +22,7 @@ Déclarer le mode utilisé en tête de rapport.
 
 ### Étape 1 — Inventaire
 
-Lire `~/dev/2Brain/index.md` pour obtenir la liste complète des fichiers de savoir et leurs métadonnées.
+Lire `~/dev/wiki/index.md` pour obtenir la liste complète des fichiers de savoir et leurs métadonnées.
 
 ### Étape 2 — Frontmatters
 
@@ -35,7 +35,7 @@ Une page est orpheline si son nom de fichier est absent du tableau de `index.md`
 Vérifier aussi les fichiers `.md` présents sur disque mais non listés dans `index.md` :
 
 ```bash
-ls ~/dev/2Brain/*.md
+ls ~/dev/wiki/*.md
 ```
 
 Comparer avec la liste de `index.md`. Toute page présente sur disque mais absente du tableau → orpheline candidate.
@@ -46,7 +46,7 @@ Pour chaque fichier dont `updated:` date de plus de 6 mois → le signaler comme
 
 ### Étape 5 — Rapport quick
 
-> **Lint quick 2Brain — [date]**
+> **Lint quick Wiki — [date]**
 >
 > **Pages orphelines** : [N]
 > - `[fichier].md` — absent du tableau index
@@ -64,7 +64,7 @@ Pour chaque fichier dont `updated:` date de plus de 6 mois → le signaler comme
 
 ### Étape 1 — Inventaire complet
 
-Lire `~/dev/2Brain/index.md`. Puis lire chaque fichier de savoir listé dans son intégralité.
+Lire `~/dev/wiki/index.md`. Puis lire chaque fichier de savoir listé dans son intégralité.
 
 ### Étape 2 — Contradictions
 
@@ -96,7 +96,7 @@ Chercher en secondaire dans le contenu : marqueurs temporels ("à venir", "bêta
 
 ### Étape 6 — Rapport complet
 
-> **Lint complet 2Brain — [date]**
+> **Lint complet Wiki — [date]**
 >
 > **Contradictions** : [N]
 > [liste]
@@ -125,7 +125,7 @@ Pour chaque problème signalé, proposer une action et attendre la validation de
 | Page orpheline | Supprimer ou intégrer à une autre page (si Medwin valide) |
 | Obsolète | Mettre à jour ou supprimer l'information |
 
-Chaque correction → entrée dans `~/dev/2Brain/log.md`.
+Chaque correction → entrée dans `~/dev/wiki/log.md`.
 
 ---
 
@@ -140,4 +140,4 @@ Chaque correction → entrée dans `~/dev/2Brain/log.md`.
 
 ## Prochaine étape
 
-Corrections appliquées → 2Brain plus cohérent.
+Corrections appliquées → Wiki plus cohérent.

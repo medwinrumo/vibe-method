@@ -21,8 +21,8 @@ phase: 3
 ## En résumé
 Dialogue en 7 questions pour capturer ce qu'une IA généraliste raterait sans être prévenue : conventions non-standards, pièges connus du domaine, patterns obligatoires, modules à ne pas toucher. Ce fichier est chargé dans le PRP à chaque session de code.
 
-## 2Brain
-- **Écriture** : pour chaque règle liée à un outil (non spécifique au projet) → propose de l'enrichir dans `~/dev/2Brain/[outil].md` — tags `[stack, outil]`
+## Wiki
+- **Écriture** : pour chaque règle liée à un outil (non spécifique au projet) → propose de l'enrichir dans `~/dev/wiki/[outil].md` — tags `[stack, outil]`
 
 **Précédent :** [[skills/archi]] | **Suivant :** [[skills/stack]]
 **Doctrine :** [[doctrines/architecture]]

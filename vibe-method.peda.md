@@ -2,7 +2,7 @@
 
 ---
 
-## 2026-05-26 — Wiki LLM + 2Brain
+## 2026-05-26 — Wiki LLM + Wiki
 
 ### Ce qu'on a fait et pourquoi
 
@@ -14,25 +14,25 @@ Décision clé : "vue dérivée" (pas de modification directe dans Obsidian). Le
 
 Structure créée : CLAUDE.md (schéma + 4 opérations), index.md (catalogue), log.md, _vue-ensemble.md, flux/chaine-complete.md, 8 doctrines, 55+ skills.
 
-**2Brain — second cerveau**
+**Wiki — second cerveau**
 
 Constat : le savoir accumulé sur les outils (gotchas Supabase, patterns Convex, etc.) reste enterré dans les fichiers projet qu'on ne rouvre jamais. Il n'y a pas de capitalisation cross-projets.
 
-Concept : `~/dev/2Brain/` — vault plat, bidirectionnel (les skills lisent ET écrivent dedans), accessible depuis Claude Code (natif), Claude Desktop Chat + Cowork (MCP filesystem).
+Concept : `~/dev/wiki/` — vault plat, bidirectionnel (les skills lisent ET écrivent dedans), accessible depuis Claude Code (natif), Claude Desktop Chat + Cowork (MCP filesystem).
 
-Règle fondamentale : enrichir plutôt que dupliquer. Avant d'aller sur le web, chercher dans le 2Brain.
+Règle fondamentale : enrichir plutôt que dupliquer. Avant d'aller sur le web, chercher dans le Wiki.
 
-Leçon sur l'architecture : la vibe-method porte les règles (comment faire), le 2Brain porte le savoir (ce qu'on sait). Ligne de partage claire.
+Leçon sur l'architecture : la vibe-method porte les règles (comment faire), le Wiki porte le savoir (ce qu'on sait). Ligne de partage claire.
 
 **MCP filesystem**
 
-Configuré dans Claude Desktop pour `~/dev/` — couvre tous les projets et le 2Brain. Claude Chat et Cowork peuvent lire/écrire dans le 2Brain sans configuration supplémentaire après redémarrage.
+Configuré dans Claude Desktop pour `~/dev/` — couvre tous les projets et le Wiki. Claude Chat et Cowork peuvent lire/écrire dans le Wiki sans configuration supplémentaire après redémarrage.
 
 **Skills producteurs**
 
-6 skills modifiés pour écrire dans le 2Brain : `/stack` (lecture avant spike + Étape 6 enrichissement), `/archi`, `/regles`, `/deploy`, `/debug` (si résolution via web search), `/phase-retrospective` (Mode Complet — C7).
+6 skills modifiés pour écrire dans le Wiki : `/stack` (lecture avant spike + Étape 6 enrichissement), `/archi`, `/regles`, `/deploy`, `/debug` (si résolution via web search), `/phase-retrospective` (Mode Complet — C7).
 
-Principe : chaque skill propose d'enrichir le 2Brain, Medwin valide. Pas d'écriture automatique sans validation.
+Principe : chaque skill propose d'enrichir le Wiki, Medwin valide. Pas d'écriture automatique sans validation.
 
 **Obsidian — problème découvert**
 
@@ -492,13 +492,13 @@ Task #1 — mise à jour `rgpd.md` avec 3 corrections + 2 ajouts (checklists Ver
 
 ---
 
-## 2026-06-11 — Lint 2Brain complet + /pr enrichi + pédagogie Git
+## 2026-06-11 — Lint Wiki complet + /pr enrichi + pédagogie Git
 
-### Session — Hygiène du 2Brain + complétion du workflow Git
+### Session — Hygiène du Wiki + complétion du workflow Git
 
 #### Ce qu'on a fait et pourquoi
 
-**Lint complet du 2Brain**
+**Lint complet du Wiki**
 
 Premier lint depuis la création massive du vault en mai (55+ pages wiki). La règle `/maj` étape 5 prévoit un lint quand des sources sont modifiées — mais le lint de mai avait eu lieu pendant la création du wiki, pas après. Ce backlog a été soldé aujourd'hui.
 
@@ -506,7 +506,7 @@ Premier lint depuis la création massive du vault en mai (55+ pages wiki). La r�
 
 1. **Contradiction firecrawl** : `firecrawl-outil.md` classait `summary` dans les formats LLM (+4 crédits). `firecrawl-parametres.md` le donnait à 0 crédit. Vérification sur docs.firecrawl.dev : la doc liste explicitement `json`, `question`, `highlights` comme formats +4 crédits — `summary` n'y figure pas. Correction dans `firecrawl-outil.md`.
 
-2. **Structure violée** : `llm-wiki.md` était dans `Clippings/` au lieu de la racine. Le CLAUDE.md du 2Brain dit explicitement "vault plat". De plus son frontmatter utilisait des champs non-canoniques (`title`, `source`, `author`, `description` au lieu de `tags`, `sources`). Déplacé, frontmatter corrigé, `Clippings/` supprimé, index mis à jour.
+2. **Structure violée** : `llm-wiki.md` était dans `Clippings/` au lieu de la racine. Le CLAUDE.md du Wiki dit explicitement "vault plat". De plus son frontmatter utilisait des champs non-canoniques (`title`, `source`, `author`, `description` au lieu de `tags`, `sources`). Déplacé, frontmatter corrigé, `Clippings/` supprimé, index mis à jour.
 
 3. **Type invalide** : `firecrawl-configs.md` utilisait `type: référence` — absent du schéma `source | concept | procédure`. Reclassé en `procédure`.
 
@@ -535,7 +535,7 @@ Ces explications ont été fournies sous forme de texte structuré pour copier-c
 
 #### Décisions prises
 
-- **Lint = pratique de maintenance obligatoire** : après toute session de création massive dans le 2Brain, ne pas attendre `/maj` — planifier un lint dédié.
+- **Lint = pratique de maintenance obligatoire** : après toute session de création massive dans le Wiki, ne pas attendre `/maj` — planifier un lint dédié.
 - **Merge = acte humain explicite dans `/pr`** : jamais automatisé, jamais implicite. L'étape 4 le formalise.
 - **Pédagogie Git** : les explications Git ont été données en langage utilisateur (pas développeur) et validées par les questions de Medwin. Format "copier-coller dans Notion" retenu pour ce type de contenu.
 

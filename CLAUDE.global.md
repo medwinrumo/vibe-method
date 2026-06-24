@@ -104,17 +104,17 @@ Tous les artefacts sont des fichiers `.md` dans le repo du projet. Source de vé
 
 ---
 
-## 2Brain — Second cerveau
+## Wiki — Second cerveau
 
-Repo : `~/dev/2Brain/`
+Repo : `~/dev/wiki/`
 
 Vault de connaissance vivant et plat. Accessible depuis Claude Code (natif) et Claude Desktop Chat + Cowork (MCP filesystem configuré sur `~/dev/`).
 
-**Démarrage de session automatique :** lire `~/dev/2Brain/index.md` en silence à l'ouverture de chaque session. Ne pas le mentionner sauf si le contenu est directement pertinent pour la demande en cours.
+**Démarrage de session automatique :** lire `~/dev/wiki/index.md` en silence à l'ouverture de chaque session. Ne pas le mentionner sauf si le contenu est directement pertinent pour la demande en cours.
 
-**Règle fondamentale :** avant d'aller sur le web, chercher dans le 2Brain.
-- 2Brain répond → utiliser en priorité
-- 2Brain incomplet → web, puis enrichir le 2Brain avec les découvertes
+**Règle fondamentale :** avant d'aller sur le web, chercher dans le Wiki.
+- Wiki répond → utiliser en priorité
+- Wiki incomplet → web, puis enrichir le Wiki avec les découvertes
 
 **Règles d'écriture :**
 - Toujours lire `index.md` avant de créer un fichier

@@ -81,9 +81,9 @@ Tu présentes ce que tu as trouvé et tu proposes une troisième correction bas�
 Tu attends le retour de Medwin.
 
 **Si ✅ :** bug résolu → tu le confirmes et tu signales à `/recette` de reprendre.
-Proposer d'enrichir le 2Brain :
-> "La web search a trouvé un pattern documenté. Je note ce bug et sa solution dans `~/dev/2Brain/bugs-patterns.md` ?"
-Si oui → lire le fichier existant, fusionner, logger dans `~/dev/2Brain/log.md`.
+Proposer d'enrichir le Wiki :
+> "La web search a trouvé un pattern documenté. Je note ce bug et sa solution dans `~/dev/wiki/bugs-patterns.md` ?"
+Si oui → lire le fichier existant, fusionner, logger dans `~/dev/wiki/log.md`.
 **Si ❌ :** bug déclaré bloquant.
 
 ---

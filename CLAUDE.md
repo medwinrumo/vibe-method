@@ -30,7 +30,7 @@ vibe-method/
 /contexte → /brief → /devis (si projet client) → /cgv → [validation client] → /charte → /prd → /prd-update → /prd-validate → /angles-morts (PRD) → /gherkin (Mode PRD) → [/design Mode A ↔ /archi itératif] → /angles-morts (archi) → /regles → /stack → [/design Mode B] → /roadmap → /specs → /angles-morts (spec) → /gherkin (Mode Specs) → /readyTo-code → /setup → /prp → /avancement (init) → /sessionCode → [code] → /code-review → /code-review-edge-cases → /repair-edge-cases → /code-review-hostil → /tests → /securite → /doc-tech (Mode B) → /recette ↔ /debug → /commit → /pr → [fin de phase] /phase-retrospective → /doc-tech (Mode A)
 ```
 
-Skills transversaux (invocables à tout moment) : `/party`, `/impact`, `/avancement`, `/grill-me`, `/zoom-out`, `/prototype`, `/lint`, `/condense`
+Skills transversaux (invocables à tout moment) : `/party`, `/impact`, `/avancement`, `/grill-me`, `/zoom-out`, `/prototype`, `/lint`, `/condense`, `/wiki`
 
 **Note sur la phase itérative /design ↔ /archi :**
 Mode A de /design et /archi se construisent en aller-retour. Les écrans révèlent des modules manquants dans l'archi ; l'archi précise les états des composants. La phase se termine quand les deux sont cohérents. Output : `[projet].design.md` complet → donné à Claude Design pour exécution. Mode B intègre le code produit par Claude Design dans Tailwind (web) ou NativeWind (native).
@@ -76,6 +76,7 @@ Mode A de /design et /archi se construisent en aller-retour. Les écrans révèl
 | `/prototype` | Code jetable pour valider une décision — branche logique (terminal interactif) ou branche UI (variations switchables). Déclenché par Claude quand une décision ne peut pas être tranchée sans la voir tourner | — |
 | `/adr` | Capture d'une décision architecturale — filtre 3 conditions obligatoire avant création | `[projet].adr.md` |
 | `/lint` | Contrôle qualité du Wiki — deux modes : quick (orphelines + obsolètes via frontmatter) et complet (contradictions, trous, orphelines, obsolètes). Logger les corrections dans `~/dev/wiki/log.md` | — |
+| `/wiki` | Enrichir le Wiki depuis n'importe quel dossier de travail — lit `~/dev/wiki/CLAUDE.md` en entier avant d'écrire, garantit le workflow git pull/push (règle 6) même hors du dossier wiki | — |
 | `/angles-morts` | Chasse aux zones d'ombre sur un document (PRD, archi, spec) — hypothèses implicites, scénarios non couverts, décisions non prises, risques non nommés, dépendances cachées. T3 — Opus | — |
 | `/condense` | Condensation d'un document long en inputs exploitables — compte-rendu, email, doc externe, retour client. 4 modes de sortie : brief/contexte, prd-update, context.md, brut. T2 — Sonnet | — |
 | `/commit` | Commit propre au format Conventional Commits depuis le diff Git — soumet le message à validation avant d'exécuter. T1 — Haiku opt. | — |

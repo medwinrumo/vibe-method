@@ -157,3 +157,17 @@
 - Notion page `325a67fe703a80a2bfebc8cf62187bc2` synchronisée : 11 update-a-block + 6 patch-block-children (17 opérations)
 - Commit `b7eaa51` pushé sur main
 - Créé : Task #1 — mise à jour `rgpd.md` (3 corrections + 2 ajouts)
+
+---
+
+## 2026-07-05
+
+### Session — Skill /wiki créé (enrichir le Wiki depuis n'importe quel dossier)
+
+- Angle mort identifié : `~/dev/wiki/CLAUDE.md` ne se charge automatiquement que si la session travaille sous `~/dev/` — aucun accès depuis un autre projet
+- Skill `/wiki` créé (`.claude/commands/wiki.md`) : pointe vers `~/dev/wiki/CLAUDE.md` comme source de vérité, n'en duplique pas le contenu
+- Intègre le workflow git `pull`/`push` (règle 6 du wiki) — le wiki est maintenant partagé avec Hermes via repo GitHub `medwinrumo/wiki`
+- Étape 0 ajoutée : clarifier la source du contenu à intégrer (conversation, doc externe, crawl, portion ciblée) avant de lancer la procédure
+- `CLAUDE.md` mis à jour : table des skills + liste des skills transversaux
+- Commits pushés : `c806689`, `317c952`
+- Contexte complet du projet wiki partagé (abandon Syncthing/Karpathy, repo GitHub, gouvernance, Hermes) documenté dans `~/dev/wiki/log.md`, pas ici

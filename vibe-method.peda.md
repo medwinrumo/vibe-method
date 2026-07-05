@@ -596,3 +596,40 @@ Rappel technique important appris lors d'une session précédente : `update-a-bl
 - Les réponses `patch-block-children` retournaient > 100 000 caractères (la page entière est renvoyée). Cela dépassait la limite de tokens du contexte — les 5 premiers appels ont été enregistrés dans des fichiers temporaires. Vérification par grep sur `"object":"error"` : aucun échec.
 - La compaction de contexte entre les deux sessions de la conversation a nécessité un `handoff` pour reprendre l'état exact des blocs à modifier (IDs, blocs déjà mis à jour, blocs encore à insérer).
 - La distinction résidence/souveraineté est contre-intuitive — on pense naïvement que "données en Europe" = "hors de portée des USA". C'est faux dès qu'il y a une société mère américaine.
+
+---
+
+## 2026-07-05 — Skill /wiki : enrichir le Wiki depuis n'importe quel dossier
+
+### Session — Création du skill /wiki suite à un angle mort identifié pendant la mise en place du wiki partagé Hermes
+
+#### Ce qu'on a fait et pourquoi
+
+**Contexte**
+
+Session longue et distincte, centrée sur le projet `~/dev/wiki` (second cerveau partagé entre Claude et Hermes via repo GitHub `medwinrumo/wiki`) — cette partie est intégralement documentée dans `~/dev/wiki/log.md`, pas dupliquée ici. Un sous-produit de cette session concerne directement vibe-method : la création d'un nouveau skill transversal.
+
+**Le problème identifié**
+
+Medwin a fait remarquer que `~/dev/wiki/CLAUDE.md` (14 règles d'écriture du wiki) n'est chargé automatiquement par Claude Code que si la session travaille dans `~/dev/wiki/` ou un de ses ancêtres (`~/dev/`). Si une session travaille dans un autre dossier (ex. un projet Notion) et que Medwin demande d'enrichir le wiki avec une découverte, Claude Code n'a alors aucun accès automatique aux règles complètes (frontmatter, wikilinks, structure) — risque d'écriture incohérente.
+
+**La solution retenue : un skill plutôt qu'une mémoire ou un renvoi CLAUDE.md**
+
+Options envisagées :
+- Mémoire persistante (mais dépend du jugement de rappel, pas garanti)
+- Renvoi dans `~/dev/CLAUDE.md` global (mais ne se charge que sous `~/dev/`, pas hors de cette arborescence)
+- **Skill dédié** (retenu) — la liste des skills est visible dans **toutes** les sessions, indépendamment du dossier de travail, avec une invocation quasi automatique dès que la description matche la demande
+
+**Skill `/wiki` créé** (`.claude/commands/wiki.md`) :
+- Ne duplique pas les 14 règles — pointe vers `~/dev/wiki/CLAUDE.md` comme source de vérité unique (éviter de recréer le problème de redondance identifié et nettoyé ailleurs dans la session, sur le wiki lui-même)
+- Intègre le workflow git (`pull` avant / `push` après) car le wiki est maintenant partagé avec Hermes (VPS) via ce même repo GitHub
+- Étape 0 ajoutée sur suggestion de Medwin : clarifier la source du contenu à intégrer (conversation entière, document externe, résultat de crawl, portion ciblée des échanges) avant de lancer la procédure — évite l'ambiguïté de périmètre
+
+#### Décisions prises
+
+- Skill créé dans `vibe-method/.claude/commands/wiki.md`, symlinké globalement, documenté dans la table des skills de `CLAUDE.md` et ajouté aux "skills transversaux"
+- Le contenu détaillé (frontmatter, format, règles) reste uniquement dans `~/dev/wiki/CLAUDE.md` — le skill est un déclencheur + renvoi, pas une duplication
+
+#### Difficultés
+
+Aucune difficulté technique. Point de vigilance identifié mais non résolu dans cette session : un skill équivalent côté Hermes (miroir de `/wiki`) est envisagé en fonction du résultat d'une clarification demandée à Hermes sur son propre mécanisme de chargement de `CLAUDE.md`. Tâches créées sur le board Kanban `wiki` (`t_d197d6a9`, `t_ab99f7d9`, `t_c4ff0f26`) — à suivre côté Hermes, hors périmètre vibe-method.

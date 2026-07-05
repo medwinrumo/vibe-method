@@ -8,10 +8,17 @@ Garantit que les règles de `~/dev/wiki/CLAUDE.md` sont appliquées, même quand
 
 ## Procédure
 
+0. **Clarifier la source du contenu — étape obligatoire**, sauf si Medwin l'a déjà rendue explicite dans sa demande. Demander : *« Que veux-tu ajouter au wiki ? »*. Le contenu peut être :
+   - la conversation entière en cours
+   - un document externe, transmis via son chemin d'accès
+   - le résultat d'un crawl/scraping déjà commandé
+   - une portion ciblée de la conversation (derniers échanges, échanges relatifs à une question précise, ou seulement la dernière réponse)
+
+   Ne pas lancer la suite tant que la source n'est pas précisée.
 1. `cd ~/dev/wiki && git pull` — se mettre à jour avant de lire ou écrire (règle 6 de `CLAUDE.md`, risque de collision avec Hermes)
 2. Lire `~/dev/wiki/CLAUDE.md` en entier (source de vérité unique), si pas déjà lu dans cette session
 3. Lire `~/dev/wiki/index.md` pour voir ce qui existe déjà
-4. Appliquer les règles telles quelles (frontmatter, dédoublonnage, wikilinks, tags canoniques)
+4. Appliquer les règles telles quelles (frontmatter, dédoublonnage, wikilinks, tags canoniques) au contenu précisé à l'étape 0
 5. Logger l'opération dans `log.md`
 6. `git add` + commit + `git push` — sans attendre (règle 6)
 7. Confirmer à Medwin ce qui a été ajouté/modifié, avec le(s) fichier(s) concerné(s) et le commit

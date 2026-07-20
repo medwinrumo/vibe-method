@@ -633,3 +633,56 @@ Options envisagées :
 #### Difficultés
 
 Aucune difficulté technique. Point de vigilance identifié mais non résolu dans cette session : un skill équivalent côté Hermes (miroir de `/wiki`) est envisagé en fonction du résultat d'une clarification demandée à Hermes sur son propre mécanisme de chargement de `CLAUDE.md`. Tâches créées sur le board Kanban `wiki` (`t_d197d6a9`, `t_ab99f7d9`, `t_c4ff0f26`) — à suivre côté Hermes, hors périmètre vibe-method.
+
+## 2026-07-20
+
+### Session — Élimination de la double source de vérité CGV/CGP/propal
+
+**Le point de départ**
+
+Medwin a demandé de retrouver les fichiers sources ayant servi à construire CGV/CGP/propal pour le projet client HYGEIA. Trouvés dans `~/dev/vibe-method/` (`cgv.cg.md`, `cgv.cp-m1/m2/m3.md`, `# **Proposition commerciale**.md`) — mais ce dossier n'est accessible ni à Hermes (VPS) ni à un futur Notion, uniquement à Claude Code sur ce Mac. Dispersion des fichiers de référence identifiée comme le vrai problème.
+
+**Migration vers le wiki**
+
+Décision : migrer ces gabarits vers `~/dev/wiki/` (repo GitHub partagé Mac ↔ Hermes), en conservant le contenu verbatim (règle 14 du wiki — contenu légal/référence, jamais de synthèse qui perdrait une clause). Chaque fichier a reçu un frontmatter `type: source`, `sujet: contrats-medwin`, et une section "Fiches liées" vers les autres pièces du cluster.
+
+Deux exclusions décidées avec Medwin :
+- Vieux fichier CGV mono-bloc (pré-modularisation, spécifique Notion) — jugé obsolète, non migré
+- RGPD (`rgpd.md`, recherche, checklists) — reporté dans un premier temps par prudence doublon avec le contenu RGPD déjà présent dans le wiki (cluster `notion-rgpd`)
+
+**Le problème découvert après la migration**
+
+Medwin a fait remarquer, à raison, qu'on venait de créer une **double source de vérité** : les fichiers wiki nouvellement créés coexistaient avec les fichiers originaux vibe-method, et le skill `/cgv` (étape 3) lisait toujours ces derniers en dur. Toute future modification d'un côté sans l'autre aurait silencieusement divergé.
+
+Correction : `.claude/commands/cgv.md` repointé pour lire `~/dev/wiki/cgv-*.md`. Les 4 fichiers `cgv.*.md` de vibe-method supprimés (`git rm`, plus dans l'historique Git mais plus dans l'arbre de travail). Le gabarit propal, qui n'était même pas versionné dans vibe-method, supprimé directement (`rm`).
+
+**Le cas RGPD — pourquoi il n'a pas suivi le même chemin**
+
+Question posée : fallait-il migrer aussi `rgpd.md` vers le wiki, puisque les CGP y font référence ? Vérification : `rgpd.md` n'a **aucun lien textuel direct** avec les CGV, mais il est lu en dur par deux autres skills (`/archi` sections 2/3/4, `/deploy` sections 3/12) — c'est une doctrine active du même type que `securite.md`/`tests.md`/`stack.md`, appliquée à chaque nouveau projet, pas un gabarit contractuel figé comme une CGV. Le migrer aurait cassé `/archi` et `/deploy` sans bénéfice réel, et sorti du périmètre "doctrine vibe-method" que le `CLAUDE.md` du repo lui assigne explicitement.
+
+Décision finale : `rgpd.md` reste dans vibe-method. Les CGP wiki (CP.10/CP.12) reçoivent chacune une note pointant vers `~/dev/vibe-method/rgpd.md` en texte simple (pas de `[[wikilink]]`, hors vault — aurait créé un lien mort dans Obsidian) — pas de duplication de contenu, pour ne pas recréer le même problème une deuxième fois.
+
+**L'étape suivante — logique de sélection et d'assemblage**
+
+Une fois la source unifiée, Medwin a demandé : comment Hermes fait-il, lui, pour générer un CGV/une propal ? Réponse : cette logique existe déjà côté Claude Code — c'est justement ce que fait `/cgv` (détermination du modèle M1/M2/M3, collecte des variables, assemblage) et `/devis` (qualification client, estimation, calibrage tarifaire). Mais rien d'équivalent côté Hermes.
+
+**Décision — skills miroirs plutôt que partage de code**
+
+Claude Code lit `.claude/commands/`, Hermes lit `/opt/data/skills/` — deux runtimes sans mécanisme de partage direct. Pattern déjà validé sur ce projet pour `/lint` (Claude Code) ↔ `wiki-lint` (Hermes) : deux fichiers de procédure séparés qui appliquent la même logique sur les mêmes données.
+
+Deux skills Hermes créés en miroir, déployés sur le VPS via SSH direct (`/docker/hermes-agent-8b0z/data/skills/productivity/`) :
+- `cgv-generation` — miroir de `/cgv`, lit `/opt/data/wiki/cgv-*.md`
+- `devis-generation` — miroir de `/devis`, différence notable : utilise le MCP Exa d'Hermes, déjà actif en permanence, alors que la version Claude Code doit demander à Medwin de connecter Exa via `/mcp` avant de lancer la recherche
+
+Références croisées ajoutées dans les quatre fichiers (`related_skills` côté Hermes, note en tête de fichier côté vibe-method) pour rappeler que toute évolution de la logique doit être répercutée manuellement dans le miroir — pas de synchronisation automatique.
+
+#### Décisions prises
+
+- Wiki devient l'unique source de vérité pour CGV/CGP/propal — vibe-method ne conserve plus de copie
+- `rgpd.md` reste hors wiki, référencé par pointeur texte depuis les CGP
+- Skills Hermes `cgv-generation` et `devis-generation` créés en miroir strict de `/cgv` et `/devis`
+- Synchro entre les paires de skills documentée comme manuelle, à vérifier à chaque modification de l'un des deux côtés
+
+#### Difficultés
+
+Le principal écueil de la session n'était pas technique mais méthodologique : la première migration (fichiers vers le wiki) a été faite sans vérifier si la logique de lecture des skills concernés devait être mise à jour en même temps — d'où la double source de vérité créée puis corrigée. Point de vigilance pour les prochaines migrations de fichiers référencés par un skill : toujours vérifier *qui lit ce fichier en dur* avant de le déplacer, pas seulement où le déplacer.

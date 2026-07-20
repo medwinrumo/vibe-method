@@ -171,3 +171,16 @@
 - `CLAUDE.md` mis à jour : table des skills + liste des skills transversaux
 - Commits pushés : `c806689`, `317c952`
 - Contexte complet du projet wiki partagé (abandon Syncthing/Karpathy, repo GitHub, gouvernance, Hermes) documenté dans `~/dev/wiki/log.md`, pas ici
+
+## 2026-07-20
+
+### Session — Élimination de la double source de vérité CGV/CGP/propal : migration wiki + miroirs Hermes
+
+- Migration des gabarits contrats depuis `vibe-method/` vers `~/dev/wiki/` (repo partagé Mac/Hermes) : `cgv-conditions-generales.md`, `cgv-cp-m1-dev-sur-mesure.md`, `cgv-cp-m2-saas-multiclients.md`, `cgv-cp-m3-notion.md`, `propal-template.md` — objectif : source unique accessible à Hermes et futur Notion, pas seulement Claude Code
+- Vieux fichier CGV mono-bloc pré-modularisation (Notion only) laissé de côté — obsolète, superseded par cgv-conditions-generales + cgv-cp-m3-notion
+- RGPD (`rgpd.md`) volontairement **non migré** — reste dans vibe-method, doctrine active lue par `/archi` et `/deploy`, pas un gabarit contractuel statique. Pointeur texte ajouté dans les CP wiki (CP.10/CP.12) au lieu de dupliquer le contenu
+- **Double source de vérité découverte a posteriori** : `/cgv` lisait encore `~/dev/vibe-method/cgv.cg.md` etc. en dur — corrigé : `.claude/commands/cgv.md` repointé vers `~/dev/wiki/cgv-*.md`, fichiers vibe-method doublons supprimés (`git rm`, commit `32849cb`)
+- Skill Hermes `cgv-generation` créé (`/opt/data/skills/productivity/cgv-generation/SKILL.md`, déployé via SSH) — miroir de `/cgv`, lit `/opt/data/wiki/cgv-*.md`
+- Skill Hermes `devis-generation` créé en miroir de `/devis` — qualification client via MCP Exa d'Hermes (déjà actif, pas de préambule `/mcp`), estimation, calibrage, propal
+- Références croisées ajoutées : `/cgv` ↔ `cgv-generation`, `/devis` ↔ `devis-generation` — synchro manuelle documentée (pas de mécanisme automatique entre les deux runtimes)
+- Commits vibe-method : `32849cb` (suppression doublons + repointage `/cgv`), `7a977cd` (référence croisée `/cgv`), `7957f14` (référence croisée `/devis`)

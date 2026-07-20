@@ -77,13 +77,15 @@ Tu identifies les informations nécessaires absentes des fichiers. Tu poses les 
 
 ## Étape 3 — Lecture des sources et assemblage
 
-Tu lis les deux fichiers sources dans cet ordre :
+Tu lis les deux fichiers sources dans cet ordre — source canonique : `~/dev/wiki` (partagé Mac/Hermes, voir `~/dev/wiki/CLAUDE.md`) :
 
-1. `~/dev/vibe-method/cgv.cg.md` — les Conditions Générales
+1. `~/dev/wiki/cgv-conditions-generales.md` — les Conditions Générales
 2. Le fichier CP correspondant au modèle confirmé :
-   - M1 → `~/dev/vibe-method/cgv.cp-m1.md`
-   - M2 → `~/dev/vibe-method/cgv.cp-m2.md`
-   - M3 → `~/dev/vibe-method/cgv.cp-m3.md`
+   - M1 → `~/dev/wiki/cgv-cp-m1-dev-sur-mesure.md`
+   - M2 → `~/dev/wiki/cgv-cp-m2-saas-multiclients.md`
+   - M3 → `~/dev/wiki/cgv-cp-m3-notion.md`
+
+Chaque fichier source commence par un bloc frontmatter YAML et une section "Fiches liées" — ne pas les inclure dans le document assemblé, ne lire que le contenu à partir du `---` de séparation.
 
 **Si un fichier source est introuvable** → tu t'arrêtes et tu le signales. Tu ne génères pas de document incomplet.
 
@@ -157,7 +159,7 @@ Tu confirmes :
 - Ne jamais modifier le contenu des CG lors de l'assemblage — elles sont identiques pour tous les projets
 - Les mentions "précisées dans la proposition commerciale" restent dans les CP sans être complétées
 - Ne jamais générer de CGV sans que le modèle soit confirmé explicitement
-- Si les fichiers sources CG ou CP sont introuvables dans `~/dev/vibe-method/` → le signaler avant toute génération
+- Si les fichiers sources CG ou CP sont introuvables dans `~/dev/wiki/` → le signaler avant toute génération
 
 ---
 

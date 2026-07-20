@@ -1,5 +1,7 @@
 # /cgv — Génération des Conditions Générales de Vente
 
+**Miroir côté Hermes** : `cgv-generation` (`/opt/data/skills/productivity/cgv-generation/SKILL.md`, VPS) reproduit cette même logique pour que Hermes puisse générer un CGV sans passer par Claude Code. Même source (`~/dev/wiki/cgv-*.md`), deux fichiers de procédure séparés — pas de synchro automatique. Toute évolution de la logique ci-dessous doit être répercutée dans le skill Hermes.
+
 Tu génères `[projet].cgv.md` — le document CGV complet, prêt à être joint à la proposition commerciale.
 
 Le document est composé de deux blocs : les **Conditions Générales (CG)**, identiques pour tous les projets, et les **Conditions Particulières (CP)**, spécifiques au modèle de prestation.

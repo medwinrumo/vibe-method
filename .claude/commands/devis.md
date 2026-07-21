@@ -615,6 +615,17 @@ Pénalités de retard et indemnité forfaitaire de 40€ conformément aux CGV.
 - Évolutions par devis complémentaire (Change Request)
 - Les Conditions Générales et Conditions Particulières [M1 / M2 / M3] sont jointes à cette proposition et en font partie intégrante
 
+### Engagements RGPD
+
+Dans le cadre de la présente mission, le Prestataire intervient en tant que [sous-traitant au sens de l'article 28 du RGPD / prestataire technique sans accès aux données opérationnelles — selon modèle M1/M2/M3]. À ce titre :
+
+- **Destruction des fichiers sources** — les documents et exports transmis par le Client sont détruits des systèmes du Prestataire à l'issue de la mission, avec attestation sur demande.
+- **Sécurité** — poste de travail chiffré (FileVault), accès restreints, authentification forte.
+- **Notification** — information du Client dans les 72 heures suivant la détection d'une violation de données.
+- **Outils certifiés DPF** — les outils tiers utilisés (notamment Notion Labs, Inc.) sont certifiés Data Privacy Framework, garantie de transfert conforme pour les données hébergées hors UE.
+- **Politique de confidentialité** — disponible sur demande.
+- **Registre des traitements** — tenu conformément à l'article 30.2 du RGPD, à disposition sur demande.
+
 ## Prochaine étape
 
 Pour démarrer :
@@ -665,3 +676,9 @@ Confirmer :
 
 `/cgv` — générer les CGV (CG + CP adaptées au modèle M1/M2/M3). Proposition et CGV partent ensemble au client.
 Après validation client : `/prd`.
+
+---
+
+## Contexte RGPD
+
+La section « Engagements RGPD » ci-dessus reflète les clauses désormais présentes dans les gabarits CGV/CP. Pour le détail des connaissances RGPD (statut sous-traitant vs prestataire technique, DPA, DPF), voir `vibe-method/rgpd.md`.

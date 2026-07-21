@@ -1,9 +1,9 @@
 ---
 type: skill
 source: ../.claude/commands/devis.md
-source_modified: 2026-05-19
-wiki_updated: 2026-05-26
-tags: [commercial, devis, qualification, scoring]
+source_modified: 2026-07-21
+wiki_updated: 2026-07-21
+tags: [commercial, devis, qualification, scoring, rgpd]
 phase: commercial
 ---
 
@@ -26,6 +26,7 @@ Qualification client en 6 dimensions + scoring (via exa:search — 8 angles), es
 3. Blocs dev (table de référence patterns)
 4. Récapitulatif commercial
 5. Grille de décision (profil acheteur, prix, arguments)
+6. Engagements RGPD (destruction fichiers sources, sécurité, notification 72h, DPF, registre des traitements) — backporté depuis le miroir Hermes `devis-generation` le 2026-07-21, référence `vibe-method/rgpd.md` (hors vault, pas de wikilink — même convention que les CGP wiki)
 
 **Précédent :** [[skills/brief]] | **Suivant :** [[skills/cgv]]
 **Doctrine :** [[doctrines/produit]]

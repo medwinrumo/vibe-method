@@ -184,3 +184,15 @@
 - Skill Hermes `devis-generation` créé en miroir de `/devis` — qualification client via MCP Exa d'Hermes (déjà actif, pas de préambule `/mcp`), estimation, calibrage, propal
 - Références croisées ajoutées : `/cgv` ↔ `cgv-generation`, `/devis` ↔ `devis-generation` — synchro manuelle documentée (pas de mécanisme automatique entre les deux runtimes)
 - Commits vibe-method : `32849cb` (suppression doublons + repointage `/cgv`), `7a977cd` (référence croisée `/cgv`), `7957f14` (référence croisée `/devis`)
+
+---
+
+## 2026-07-21
+
+### Session — Transmission skill caveman à Hermes + backport RGPD dans /devis
+
+- Contenu du `SKILL.md` caveman (plugin `JuliusBrussee/caveman`, installé côté Mac) transmis à Hermes via `hermes_exchange.md` (`/opt/data/hermes_exchange.md` côté conteneur) — demande : construire un skill similaire adapté à son propre fonctionnement
+- Vérification de l'état du skill Hermes `devis-generation` (miroir de `/devis`, créé le 2026-07-20) avant d'y transmettre quoi que ce soit — déjà à jour et quasi identique ligne pour ligne
+- Écart détecté dans l'autre sens : `devis-generation` contenait une section "Engagements RGPD" (sous-traitance art. 28, destruction fichiers sources, DPF, registre des traitements) absente du `/devis` source sur Mac
+- Backport de cette section dans `.claude/commands/devis.md` (§ Proposition financière + note de contexte en fin de skill, référence `rgpd.md`) — commit `e0016c0`
+- Page wiki `Vibe-Method/skills/devis.md` mise à jour en conséquence (frontmatter + point 6 structure proposition)

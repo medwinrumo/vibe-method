@@ -686,3 +686,31 @@ Références croisées ajoutées dans les quatre fichiers (`related_skills` côt
 #### Difficultés
 
 Le principal écueil de la session n'était pas technique mais méthodologique : la première migration (fichiers vers le wiki) a été faite sans vérifier si la logique de lecture des skills concernés devait être mise à jour en même temps — d'où la double source de vérité créée puis corrigée. Point de vigilance pour les prochaines migrations de fichiers référencés par un skill : toujours vérifier *qui lit ce fichier en dur* avant de le déplacer, pas seulement où le déplacer.
+
+---
+
+## 2026-07-21
+
+### Session — Skill caveman transmis à Hermes + un cas concret de dérive de miroir détecté et corrigé
+
+**Point de départ**
+
+Medwin a demandé de transmettre à Hermes le contenu du skill `caveman` (mode de communication ultra-compressé, plugin `JuliusBrussee/caveman` installé côté Claude Code) pour qu'Hermes construise l'équivalent pour lui-même. Transmission faite via le canal fichier `hermes_exchange.md` déjà en place — Hermes le lira au prochain "check claude" que Medwin lui donnera.
+
+**Le devis, ensuite**
+
+Question suivante de Medwin : est-ce qu'un skill équivalent à `/devis` existe ? Réponse à partir de la doctrine et de la page wiki : oui, et il fait plus que générer un document — qualification client en 6 dimensions via `exa:search` (8 angles de recherche), estimation en deux blocs (phases workflow calibrées + blocs dev par patterns Supabase/Convex), calibrage tarifaire interne (jamais montré au client), et grille de décision commerciale.
+
+**Le réflexe qui a évité une duplication inutile**
+
+Medwin a ensuite demandé de transmettre aussi ce skill à Hermes. Avant d'exécuter, vérification de l'état du skill Hermes `devis-generation` (créé la veille, 2026-07-20, en miroir de `/devis`) — déjà présent, à jour, quasi identique ligne pour ligne. Envoyer le contenu aurait été redondant.
+
+Mieux : la comparaison fine des deux fichiers a révélé un écart dans le sens inverse de celui attendu. Le miroir Hermes contenait une section "Engagements RGPD" (statut sous-traitant art. 28, destruction des fichiers sources en fin de mission, certification DPF des outils tiers, registre des traitements) totalement absente de la version source `/devis` sur Mac. Cette section avait dû être ajoutée à Hermes à un moment non documenté dans le log vibe-method — signe que la synchro manuelle entre les deux miroirs (actée la veille comme "à vérifier à chaque modification") a un angle mort : elle suppose que les modifications partent toujours du côté Mac, alors qu'ici l'évolution est venue du côté Hermes sans être remontée.
+
+**Décision et correction**
+
+Plutôt que d'écraser le skill Hermes avec la version Mac (ce qui aurait fait perdre la section RGPD), la section a été backportée dans `.claude/commands/devis.md` — les deux miroirs sont maintenant réalignés, dans le sens Hermes → Mac cette fois. Un pointeur texte vers `rgpd.md` a été ajouté en fin de skill, cohérent avec la convention actée la veille (pas de wikilink vers une doctrine hors vault).
+
+**Ce qui reste ouvert**
+
+La synchro manuelle entre `/devis` et `devis-generation` (et entre `/cgv` et `cgv-generation`) n'a toujours pas de garde-fou automatique dans les deux sens. Si Hermes continue à évoluer ses skills de façon autonome sans que ça remonte au log vibe-method, ce type d'écart silencieux se reproduira. Pas de solution actée pour l'instant — juste le constat.

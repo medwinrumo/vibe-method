@@ -714,3 +714,25 @@ Plutôt que d'écraser le skill Hermes avec la version Mac (ce qui aurait fait p
 **Ce qui reste ouvert**
 
 La synchro manuelle entre `/devis` et `devis-generation` (et entre `/cgv` et `cgv-generation`) n'a toujours pas de garde-fou automatique dans les deux sens. Si Hermes continue à évoluer ses skills de façon autonome sans que ça remonte au log vibe-method, ce type d'écart silencieux se reproduira. Pas de solution actée pour l'instant — juste le constat.
+
+---
+
+## 2026-07-24
+
+### Session — État des lieux vibe-method
+
+**Constat de départ**
+
+Medwin a demandé où en était la vibe-method et si elle était "finie". Réponse : ce n'est pas un projet avec une ligne d'arrivée, c'est une méthode vivante — enrichie session après session. Ce qu'on peut mesurer, c'est l'état de fonctionnement (chaîne de skills complète, 39 skills opérationnels) et l'écart entre `vibe-method.todo.md` et les commits réels.
+
+**L'écart trouvé**
+
+`git log` a montré 6 commits après la dernière mise à jour du todo (2026-05-26) : la migration des gabarits CGV/CGP vers le wiki, la création des miroirs Hermes, le backport RGPD — tout ce travail des sessions du 2026-07-20 et 2026-07-21 documenté dans `.peda`/`.log` mais jamais reporté dans `.todo`. Rappel du rôle de `.todo.md` : ce n'est pas un journal (ça c'est `.log`), c'est une photo de l'état courant pour se réorienter vite en début de session — un écart de deux mois entre les deux le rend trompeur.
+
+**Tâche 28 détaillée**
+
+Medwin a demandé ce qu'était `aidd-orchestrator` (tâche 28, en attente). Explication depuis le `.todo.md` : plugin tiers du marketplace AIDD Framework, agent AFK qui lit une issue GitHub labellisée, implémente, ouvre une PR sans supervision. Point soulevé au passage, pas encore tranché : la règle mémoire "plugins officiels seulement" (`claude-plugins-official`) entre en tension avec ce plugin tiers — à trancher explicitement le jour où la tâche sort de l'attente, pas avant.
+
+**Action**
+
+`/majtodo` lancé pour combler l'écart : nouvelle section "Dernière session" avec le résumé factuel des deux sessions manquantes, tableau d'état enrichi de 2 lignes (CGV/CGP source unique, miroirs Hermes en synchro manuelle). Commit `49fc35c`.

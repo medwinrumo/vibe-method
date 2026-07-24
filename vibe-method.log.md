@@ -196,3 +196,13 @@
 - Écart détecté dans l'autre sens : `devis-generation` contenait une section "Engagements RGPD" (sous-traitance art. 28, destruction fichiers sources, DPF, registre des traitements) absente du `/devis` source sur Mac
 - Backport de cette section dans `.claude/commands/devis.md` (§ Proposition financière + note de contexte en fin de skill, référence `rgpd.md`) — commit `e0016c0`
 - Page wiki `Vibe-Method/skills/devis.md` mise à jour en conséquence (frontmatter + point 6 structure proposition)
+
+---
+
+## 2026-07-24
+
+### Session — État des lieux vibe-method + resync todo
+
+- Point d'avancement demandé par Medwin : chaîne de skills complète et fonctionnelle, `vibe-method.todo.md` en retard de 6 commits (sessions 2026-07-20/21 non reflétées)
+- Détail tâche 28 (aidd-orchestrator) donné — reste en attente, conflit noté avec la règle mémoire "plugins officiels seulement" (aidd-framework est un marketplace tiers), à trancher le jour venu
+- `/majtodo` exécuté : section "Dernière session" mise à jour (migration CGV/CGP vers wiki, miroirs Hermes, backport RGPD), tableau d'état enrichi de 2 lignes — commit `49fc35c`

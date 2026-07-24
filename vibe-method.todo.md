@@ -4,7 +4,18 @@
 
 ---
 
-## Dernière session — 2026-05-26
+## Dernière session — 2026-07-21
+
+### Ce qui a été fait
+
+- Double source de vérité CGV/CGP/propal corrigée : gabarits `cgv.cg.md`, `cgv.cp-m1.md`, `cgv.cp-m2.md`, `cgv.cp-m3.md` supprimés du repo — `/cgv` lit désormais directement `~/dev/wiki/cgv-*.md`. Gabarit propal non versionné supprimé, remplacé par `~/dev/wiki/propal-template.md`
+- Skills miroirs Hermes créés : `cgv-generation` et `devis-generation` — répliquent `/cgv` et `/devis` côté VPS Hermes, doivent évoluer en synchro manuelle (référence ajoutée dans les deux skills Claude Code)
+- Écart RGPD détecté entre `/devis` et son miroir Hermes `devis-generation` : section "Engagements RGPD" présente côté Hermes, absente ici — backportée dans `.claude/commands/devis.md`
+- Skill caveman transmis à Hermes
+
+---
+
+## Session précédente — 2026-05-26
 
 ### Ce qui a été fait
 
@@ -302,6 +313,8 @@
 | Skill `/deploy` | ✅ Complet (2026-04-22) |
 | `templates/` dans vibe-method | ❌ Non créé (attend RAMrezo ou Minou) |
 | Wiki Obsidian (`Vibe-Method/`) | ✅ Créé 2026-05-26 |
+| CGV/CGP — source unique wiki | ✅ Fait 2026-07-20 (élimine double source de vérité) |
+| Skills miroirs Hermes (cgv-generation, devis-generation) | 🔧 En synchro manuelle |
 
 ---
 

@@ -10,9 +10,62 @@ La première question est toujours :
 Ce nom sera utilisé pour nommer toutes les pages Notion associées (`[projet].brief`, `[projet].prd`, etc.).
 Tu le retiens pour toute la session.
 
-Tu cherches ensuite `[projet].context.md` dans le répertoire du projet :
+### 0.1 — Protection d'un brief existant
+
+**Avant toute chose**, tu vérifies la présence de `[projet].brief.md` dans le répertoire du projet.
+
+Si `[projet].brief.md` existe **et** que `[projet].context.md` est absent :
+> ⚠️ Ce skill **remplace** `[projet].brief.md` à la fin. Un brief existant serait détruit.
+
+Tu t'arrêtes et tu proposes :
+> "Un `[projet].brief.md` existe déjà. Ce skill l'écrasera en fin de session. Je te propose de le renommer en `[projet].context.md` : il deviendra la base de départ que je lirai pour ne pas te reposer les questions déjà tranchées, et il sera protégé. Je le renomme ?"
+
+Tu ne démarres pas le dialogue sans réponse. Si Medwin refuse le renommage, tu le préviens explicitement que le contenu actuel sera perdu.
+
+### 0.2 — Reprise d'une session interrompue
+
+Tu vérifies la présence de `[projet].brief-wip.md` :
+- **Si le fichier existe** → une session précédente a été interrompue. Tu le lis, tu annonces à quel domaine elle s'est arrêtée, et tu reprends **au domaine suivant**. Tu ne reposes pas les questions des domaines déjà validés.
+- **Si le fichier est absent** → session neuve, tu démarres au domaine 1.
+
+### 0.3 — Lecture du contexte
+
+Tu cherches `[projet].context.md` dans le répertoire du projet :
 - **Si le fichier existe** → tu le lis avant de démarrer. Tu en extrais les éléments qui informent le brief (écosystème, contraintes, client) et tu les intègres dans les questions — inutile de redemander ce qui est déjà documenté.
 - **Si le fichier est absent** → tu continues normalement.
+
+---
+
+## Sauvegarde d'état — après chaque domaine validé
+
+**Règle absolue :** un `/brief` de projet réel ne tient pas en une séance. Dès qu'un domaine est validé par Medwin, tu écris l'incrément dans `[projet].brief-wip.md` **avant** de passer au domaine suivant.
+
+Structure du fichier :
+
+```markdown
+# [projet].brief — TRAVAIL EN COURS
+
+> Session `/brief` du [date]. Dernier domaine validé : [N].
+> Reprise au domaine [N+1]. Base de départ : `[projet].context.md`.
+
+## Domaine 1 — Le problème *(validé)*
+[contenu]
+
+## Domaine 2 — Les utilisateurs *(validé)*
+[contenu]
+
+...
+
+## Reste à faire
+- [ ] Domaines [N+1] à 9
+- [ ] Quality gate
+- [ ] Génération de `[projet].brief.md`
+- [ ] Mise à jour de la section `## Projet` dans `CLAUDE.md`
+```
+
+Tu y consignes non seulement les décisions, mais aussi **le raisonnement qui y a mené** et les questions restées ouvertes — c'est ce qui permet de reprendre sans rejouer la discussion.
+
+Une fois `[projet].brief.md` généré et validé, tu supprimes `[projet].brief-wip.md`.
 
 ---
 
@@ -93,6 +146,16 @@ Question de départ : "Ce projet est développé pour qui — uniquement pour ce
 - **M3** — système Notion, pour ce client uniquement
 
 Cette réponse détermine les CGV applicables et la structure contractuelle.
+
+**Traitements automatiques — à poser systématiquement, avant la question de la stack :**
+
+Question : "Y a-t-il des choses qui doivent se déclencher toutes seules, sans personne devant l'écran — rappels, relances, envois périodiques, expirations, changements de statut à une date, alertes d'échéance ?"
+
+Ce point n'est pas un détail d'implémentation : c'est souvent **le critère le plus discriminant pour choisir le backend**, plus que n'importe quelle comparaison de fonctionnalités. Certaines solutions gèrent nativement les traitements programmés, d'autres exigent un service supplémentaire.
+
+Pour chaque traitement identifié, noter : le déclencheur (date fixe, date relative, condition), la fréquence, et le canal de sortie (notification, email, changement d'état en base).
+
+Si au moins un traitement est identifié → le remonter explicitement comme critère d'évaluation pour le `/stack`.
 
 **Stack (si M1 ou M2) :**
 Question : "Pour la stack, on part sur Convex (real-time fort — chat, collaboration) ou Supabase (projets standards) ?"
@@ -190,6 +253,10 @@ Si niveau Bas et aucune donnée personnelle → section RGPD : "Non applicable".
   | Service | Coût / mois | À la charge de |
   |---|---|---|
   | [service] | [montant] | [Prestataire / Client] |
+- Traitements automatiques (critère de choix pour `/stack`) :
+  | Traitement | Déclencheur | Fréquence | Canal de sortie |
+  |---|---|---|---|
+  | [nom] | [date fixe / relative / condition] | [fréquence] | [notification / email / état en base] |
 
 ## Règles métier
 - [Logiques spécifiques au domaine — ou "aucune règle particulière identifiée"]
@@ -223,6 +290,7 @@ Avant de sauvegarder, tu vérifies que le brief est complet et prêt pour `/prd`
 - [ ] La stack est choisie ou notée "à confirmer dans /archi"
 - [ ] Les services tiers sont listés ou notés "aucun identifié"
 - [ ] La table des coûts récurrents estimés est documentée
+- [ ] Les traitements automatiques sont listés ou notés "aucun" — et remontés au `/stack` s'il y en a
 - [ ] Les règles métier sont notées ou explicitement "aucune"
 - [ ] Le niveau de risque sécurité est défini (Bas / Moyen / Élevé) et justifié
 - [ ] Le type de données personnelles collectées est identifié (ou "aucune" explicitement)
@@ -237,6 +305,10 @@ Si une case est vide → tu poses la question manquante avant de continuer. Tu n
 Une fois le brief validé par Medwin :
 
 Écrire le brief dans `[projet].brief.md` dans le répertoire courant du projet. Si le fichier n'existe pas → le créer. Si il existe → le remplacer.
+
+> Le risque d'écrasement a normalement été traité à l'étape 0.1. Si ce n'est pas le cas — brief existant, pas de `context.md`, renommage non proposé — tu t'arrêtes et tu le proposes avant d'écrire.
+
+Puis supprimer `[projet].brief-wip.md` s'il existe : son contenu est désormais dans le brief final.
 
 Confirmer : "Brief sauvegardé → `[projet].brief.md`"
 

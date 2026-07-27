@@ -64,3 +64,12 @@ Première ingestion du repo `~/dev/vibe-method/`.
 - Synthèse : `_vue-ensemble.md`, `flux/chaine-complete.md`
 - Doctrines (8) : `doctrines/methode.md`, `doctrines/architecture.md`, `doctrines/securite.md`, `doctrines/tests.md`, `doctrines/design.md`, `doctrines/stack.md`, `doctrines/refacto.md`, `doctrines/produit.md`
 - Skills (55) : toute la chaîne + transversaux + session management
+
+## [2026-07-27] update | .claude/commands/brief.md → skills/brief.md
+
+Source `/brief` modifiée (3 observations task-observer issues de la session RAMrezo, validées par Medwin) :
+- Étape 0.1 — protection d'un `[projet].brief.md` existant : proposer le renommage en `.context.md` avant d'écraser
+- Étape 0.2 + section « Sauvegarde d'état » — écriture incrémentale dans `[projet].brief-wip.md` après chaque domaine validé, reprise possible d'une session interrompue
+- Domaine 6 — nouvelle question sur les traitements automatiques (cron, rappels, expirations), remontée comme critère de choix pour `/stack`. Ajoutée au format du brief et à la quality gate (16 → 17 cases).
+
+Page wiki `skills/brief.md` resynchronisée (frontmatter `source_modified` et `wiki_updated` au 2026-07-27).

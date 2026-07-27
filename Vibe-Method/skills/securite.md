@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/securite.md
+source: ../../.claude/commands/securite.md
 source_modified: 2026-05-19
 wiki_updated: 2026-05-26
 tags: [phase-7, sécurité, audit, transversal]

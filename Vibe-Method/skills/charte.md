@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/charte.md
+source: ../../.claude/commands/charte.md
 source_modified: 2026-05-19
 wiki_updated: 2026-05-26
 tags: [phase-2, design, charte, identité-visuelle]

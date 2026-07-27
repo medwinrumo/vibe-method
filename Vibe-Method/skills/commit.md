@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/commit.md
+source: ../../.claude/commands/commit.md
 source_modified: 2026-06-11
 wiki_updated: 2026-06-11
 tags: [phase-6, git, conventional-commits, t1]

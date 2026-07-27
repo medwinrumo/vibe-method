@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/code-review-hostil.md
+source: ../../.claude/commands/code-review-hostil.md
 source_modified: 2026-05-14
 wiki_updated: 2026-05-26
 tags: [phase-7, code-review, hostile, cynique]

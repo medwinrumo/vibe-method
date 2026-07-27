@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/to-issues.md
+source: ../../.claude/commands/to-issues.md
 source_modified: 2026-05-18
 wiki_updated: 2026-05-26
 tags: [phase-5, github, issues, hitl, afk]

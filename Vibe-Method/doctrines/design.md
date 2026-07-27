@@ -1,6 +1,6 @@
 ---
 type: doctrine
-source: ../design.md
+source: ../../design.md
 source_modified: 2026-05-15
 wiki_updated: 2026-05-26
 tags: [design, ui, claude-design, tailwind, nativewind]

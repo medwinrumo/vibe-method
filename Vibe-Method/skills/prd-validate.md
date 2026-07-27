@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/prd-validate.md
+source: ../../.claude/commands/prd-validate.md
 source_modified: 2026-06-11
 wiki_updated: 2026-06-11
 tags: [phase-1, produit, gate, prd]

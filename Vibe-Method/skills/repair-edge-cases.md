@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/repair-edge-cases.md
+source: ../../.claude/commands/repair-edge-cases.md
 source_modified: 2026-05-14
 wiki_updated: 2026-05-26
 tags: [phase-7, code-review, edge-cases, correction]

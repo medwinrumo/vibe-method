@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/lint.md
+source: ../../.claude/commands/lint.md
 source_modified: 2026-05-26
 wiki_updated: 2026-05-26
 tags: [wiki, maintenance, lint]
@@ -23,6 +23,6 @@ tags: [wiki, maintenance, lint]
 Lit le Wiki et signale 4 types de problèmes : contradictions entre pages, concepts sans leur propre page, pages orphelines, affirmations obsolètes. Chaque correction se fait avec validation de Medwin. Toutes les corrections sont loggées dans `~/dev/wiki/log.md`.
 
 ## Liens
-- [[archi]] — pattern de consultation Wiki avant spike
-- [[phase-retrospective]] — enrichit le Wiki en fin de projet
-- [[maj]] — étape 5 : lint wiki vibe-method (distinct)
+- [[skills/archi]] — pattern de consultation Wiki avant spike
+- [[skills/phase-retrospective]] — enrichit le Wiki en fin de projet
+- [[skills/maj]] — étape 5 : lint wiki vibe-method (distinct)

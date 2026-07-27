@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/impact.md
+source: ../../.claude/commands/impact.md
 source_modified: 2026-05-14
 wiki_updated: 2026-05-26
 tags: [transversal, impact, changement, artefacts]

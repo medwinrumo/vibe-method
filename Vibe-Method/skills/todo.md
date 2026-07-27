@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/todo.md
+source: ../../.claude/commands/todo.md
 source_modified: 2026-05-19
 wiki_updated: 2026-05-26
 tags: [session, démarrage, github-projects]

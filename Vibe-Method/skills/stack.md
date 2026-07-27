@@ -1,9 +1,9 @@
 ---
 type: skill
-source: ../.claude/commands/stack.md
-source_modified: 2026-05-26
-wiki_updated: 2026-05-26
-tags: [phase-4, stack, spike, investigation]
+source: ../../.claude/commands/stack.md
+source_modified: 2026-07-27
+wiki_updated: 2026-07-27
+tags: [phase-4, stack, spike, investigation, couts-caches]
 phase: 4
 ---
 
@@ -19,6 +19,8 @@ phase: 4
 
 ## En résumé
 Pour chaque outil de la stack : version actuelle, limites free tier, gotchas critiques, sécurité spécifique, APIs clés, compatibilité entre outils. Ajoute une section "Risques sécu" par outil. Document vivant — tout gotcha découvert en dev y est ajouté immédiatement.
+
+**Étape 2bis — Coûts cachés transverses** : une fois les outils investigués individuellement, vérifier systématiquement emailing transactionnel, monitoring d'erreurs, limites de collaboration multi-utilisateurs, rappel plafond de prélèvement CB. Voir [[doctrines/stack]] section Coûts cachés.
 
 ## Wiki
 - **Lecture** (Étape 0ter) : lit les fichiers outils existants dans le Wiki avant le spike

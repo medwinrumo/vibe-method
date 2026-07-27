@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/gherkin.md
+source: ../../.claude/commands/gherkin.md
 source_modified: 2026-05-19
 wiki_updated: 2026-05-26
 tags: [phase-1, phase-5, tests, gherkin, specs]

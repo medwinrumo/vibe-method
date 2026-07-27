@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/avancement.md
+source: ../../.claude/commands/avancement.md
 source_modified: 2026-05-14
 wiki_updated: 2026-05-26
 tags: [suivi, tracker, yaml, sprint]

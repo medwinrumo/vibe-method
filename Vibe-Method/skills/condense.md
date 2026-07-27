@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/condense.md
+source: ../../.claude/commands/condense.md
 source_modified: 2026-06-11
 wiki_updated: 2026-06-11
 tags: [transversal, condensation, t2]

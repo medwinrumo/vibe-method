@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/doc-tech.md
+source: ../../.claude/commands/doc-tech.md
 source_modified: 2026-05-13
 wiki_updated: 2026-05-26
 tags: [phase-7, documentation, jsdoc, tsdoc]

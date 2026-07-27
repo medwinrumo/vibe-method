@@ -1,9 +1,9 @@
 ---
 type: doctrine
-source: ../methode.md
-source_modified: 2026-05-15
-wiki_updated: 2026-05-26
-tags: [méthode, phases, pilotage, reflex]
+source: ../../methode.md
+source_modified: 2026-07-27
+wiki_updated: 2026-07-27
+tags: [méthode, phases, pilotage, reflex, effort, tiers-modeles]
 ---
 
 # Doctrine — Méthode
@@ -41,12 +41,26 @@ APRÈS :  Phase 7 (Vérification)
 
 ## Protocole d'escalade (si bloqué)
 
-1. L'œil de l'aigle — analyse globale
+1. L'œil de l'aigle — analyse globale. Pour bug difficile à cerner sans preuve technique (perf, réseau, rendu) : Chrome DevTools MCP en complément — inspection réseau live, traces LCP/INP/CLS. Outil de debug uniquement, ne remplace pas Playwright (référence tests E2E et non-régression CI/CD, voir [[doctrines/tests]])
 2. Le bond du tigre — git reset + contraintes négatives
 3. Le singe change de branche — autre modèle
 4. Le faucon en chasse — web search
 5. Le souffle neuf — nouvelle conversation
 6. Si rien ne débloque → reporter, continuer
+
+---
+
+## Niveau d'effort par tier
+
+En dessous de "medium", le modèle est dégradé. Au-dessus de "high", risque de sur-réflexion (invente des problèmes, refactorise sans demande, sur-anticipe des cas qui n'arriveront jamais).
+
+| Tier | Modèle | Effort |
+|---|---|---|
+| T1 — Haiku | Tâche mécanique | Bas |
+| T2 — Sonnet (défaut) | Implémentation standard | Medium — High si feature complexe |
+| T3 — Opus | Raisonnement structurant | High — jamais extra-high |
+
+**Règle** : fixer l'effort une fois par tâche selon sa complexité, pas au coup par coup pendant la session.
 
 ---
 

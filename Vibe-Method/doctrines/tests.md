@@ -1,6 +1,6 @@
 ---
 type: doctrine
-source: ../tests.md
+source: ../../tests.md
 source_modified: 2026-05-13
 wiki_updated: 2026-05-26
 tags: [tests, tdd, vitest, playwright, gherkin]

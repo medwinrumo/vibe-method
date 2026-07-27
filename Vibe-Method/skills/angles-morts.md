@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/angles-morts.md
+source: ../../.claude/commands/angles-morts.md
 source_modified: 2026-06-11
 wiki_updated: 2026-06-11
 tags: [transversal, gate, prd, architecture, specs, t3]

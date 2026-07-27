@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/debug.md
+source: ../../.claude/commands/debug.md
 source_modified: 2026-05-26
 wiki_updated: 2026-05-26
 tags: [phase-7, debug, bug]

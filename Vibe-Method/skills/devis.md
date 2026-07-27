@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/devis.md
+source: ../../.claude/commands/devis.md
 source_modified: 2026-07-21
 wiki_updated: 2026-07-21
 tags: [commercial, devis, qualification, scoring, rgpd]

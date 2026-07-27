@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/phase-retrospective.md
+source: ../../.claude/commands/phase-retrospective.md
 source_modified: 2026-05-26
 wiki_updated: 2026-05-26
 tags: [phase-7, rétrospective, fin-de-phase]

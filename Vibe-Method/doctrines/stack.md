@@ -1,9 +1,9 @@
 ---
 type: doctrine
-source: ../stack.md
-source_modified: 2026-03-27
-wiki_updated: 2026-05-26
-tags: [stack, spike, investigation, free-tier, gotchas]
+source: ../../stack.md
+source_modified: 2026-07-27
+wiki_updated: 2026-07-27
+tags: [stack, spike, investigation, free-tier, gotchas, dependances, couts-caches]
 ---
 
 # Doctrine — Stack
@@ -61,6 +61,27 @@ Sans investigation préalable, 3 risques coûteux :
 - Barrel files → importer directement, pas depuis `index.ts`
 - Libraries CommonJS → préférer les versions ESM
 - Ne jamais désactiver le caching Vite
+
+---
+
+## Dépendances — coder ou importer
+
+Pas de règle figée : le LLM juge au cas par cas.
+- Fonction triviale → la coder soi-même, pas de lib
+- Complexe/standardisée/à risque (dates, crypto, parsing) → importer une lib reconnue
+- **Scan régulier obligatoire** (`depcheck`) : repérer les dépendances mortes ou peu utilisées, les retirer
+
+---
+
+## Coûts cachés — au-delà du free tier technique
+
+Outils indispensables en prod, oubliés au moment du `/stack` initial :
+- **Emailing transactionnel** (Resend, Brevo, Mailjet) — vérifier le quota gratuit exact
+- **Monitoring d'erreurs** (Sentry) — quota basé sur le volume d'erreurs remontées
+- **Limites de collaboration** — Vercel/Netlify facturent dès qu'on déploie depuis une org GitHub ou qu'on ajoute des utilisateurs
+- **Limite de prélèvement CB** — à configurer dès l'ajout d'une carte sur une plateforme cloud, avant le premier dépassement de plan gratuit (voir [[doctrines/securite]])
+
+À documenter dans `[projet].stack.md` section "Coûts cachés" — investigué systématiquement par `/stack` (étape 2bis).
 
 ---
 

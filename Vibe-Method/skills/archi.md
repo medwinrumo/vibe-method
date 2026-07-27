@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/archi.md
+source: ../../.claude/commands/archi.md
 source_modified: 2026-06-11
 wiki_updated: 2026-06-11
 tags: [phase-3, architecture, modules, silos, stack, mcp]

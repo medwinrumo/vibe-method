@@ -1,9 +1,9 @@
 ---
 type: doctrine
-source: ../securite.md
-source_modified: 2026-05-14
-wiki_updated: 2026-05-26
-tags: [sécurité, owasp, zero-trust, rls, auth]
+source: ../../securite.md
+source_modified: 2026-07-27
+wiki_updated: 2026-07-27
+tags: [sécurité, owasp, zero-trust, rls, auth, couts-caches]
 ---
 
 # Doctrine — Sécurité
@@ -58,6 +58,7 @@ Pièges courants générés par les IA :
 - Mozilla Observatory + securityheaders.com + OWASP ZAP
 - Audit croisé double LLM (Claude + second modèle)
 - Pentest si niveau de risque Élevé
+- **Limite de prélèvement CB configurée dès l'ajout d'une carte** sur toute plateforme cloud (Vercel, Cloudflare...) — avant le premier dépassement de plan gratuit, pas après (voir [[doctrines/stack]] section Coûts cachés)
 
 ---
 

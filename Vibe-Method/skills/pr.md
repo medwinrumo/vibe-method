@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/pr.md
+source: ../../.claude/commands/pr.md
 source_modified: 2026-06-11
 wiki_updated: 2026-06-11
 tags: [phase-6, git, github, pull-request, t1]

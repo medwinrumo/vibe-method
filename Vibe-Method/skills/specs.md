@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/specs.md
+source: ../../.claude/commands/specs.md
 source_modified: 2026-06-11
 wiki_updated: 2026-06-11
 tags: [phase-5, specs, user-story, a4]

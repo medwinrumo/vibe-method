@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/pdf.md
+source: ../../.claude/commands/pdf.md
 source_modified: 2026-05-21
 wiki_updated: 2026-05-26
 tags: [utilitaire, pdf, document]

@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/prd-update.md
+source: ../../.claude/commands/prd-update.md
 source_modified: 2026-05-15
 wiki_updated: 2026-05-26
 tags: [phase-1, produit, prd, cross-pollination]

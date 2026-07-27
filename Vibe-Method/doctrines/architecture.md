@@ -1,6 +1,6 @@
 ---
 type: doctrine
-source: ../architecture.md
+source: ../../architecture.md
 source_modified: 2026-05-14
 wiki_updated: 2026-05-26
 tags: [architecture, modules, silos, stack, backup]

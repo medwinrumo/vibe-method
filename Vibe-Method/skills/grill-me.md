@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/grill-me.md
+source: ../../.claude/commands/grill-me.md
 source_modified: 2026-05-18
 wiki_updated: 2026-05-26
 tags: [transversal, interrogatoire, plan, décision]

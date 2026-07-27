@@ -1,6 +1,6 @@
 ---
 type: doctrine
-source: ../refacto.md
+source: ../../refacto.md
 source_modified: 2026-05-13
 wiki_updated: 2026-05-26
 tags: [refacto, dette-technique, session, tdd]

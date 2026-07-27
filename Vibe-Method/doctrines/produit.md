@@ -1,6 +1,6 @@
 ---
 type: doctrine
-source: ../produit.md
+source: ../../produit.md
 source_modified: 2026-05-13
 wiki_updated: 2026-05-26
 tags: [produit, brief, prd, user-story, backlog]

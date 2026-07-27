@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/sessionCode.md
+source: ../../.claude/commands/sessionCode.md
 source_modified: 2026-05-13
 wiki_updated: 2026-05-26
 tags: [phase-6, code, session, sas, prp]

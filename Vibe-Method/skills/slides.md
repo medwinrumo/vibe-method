@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/slides.md
+source: ../../.claude/commands/slides.md
 source_modified: 2026-05-06
 wiki_updated: 2026-05-26
 tags: [utilitaire, présentation, marp]

@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/refacto.md
+source: ../../.claude/commands/refacto.md
 source_modified: 2026-05-18
 wiki_updated: 2026-05-26
 tags: [refacto, session-dédiée, dette]

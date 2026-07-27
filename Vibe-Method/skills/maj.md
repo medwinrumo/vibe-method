@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/maj.md
+source: ../../.claude/commands/maj.md
 source_modified: 2026-06-11
 wiki_updated: 2026-06-11
 tags: [session, clôture, git, github-projects]

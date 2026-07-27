@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/party.md
+source: ../../.claude/commands/party.md
 source_modified: 2026-05-08
 wiki_updated: 2026-05-26
 tags: [transversal, décision, multi-perspectives, sous-agents]

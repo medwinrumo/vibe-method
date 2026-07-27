@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/design.md
+source: ../../.claude/commands/design.md
 source_modified: 2026-05-19
 wiki_updated: 2026-05-26
 tags: [phase-2, design, claude-design, tailwind, nativewind]

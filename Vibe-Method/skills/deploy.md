@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/deploy.md
+source: ../../.claude/commands/deploy.md
 source_modified: 2026-05-26
 wiki_updated: 2026-05-26
 tags: [infrastructure, déploiement, prod, vercel]

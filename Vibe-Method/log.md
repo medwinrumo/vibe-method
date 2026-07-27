@@ -12,6 +12,13 @@ Format : `## [YYYY-MM-DD] opération | détail`
 
 ---
 
+## [2026-07-27] lint | Étape 5 /maj — 4 problèmes corrigés
+
+- **Pages stales** : `doctrines/stack.md`, `doctrines/securite.md`, `doctrines/methode.md`, `skills/stack.md` mises à jour suite aux modifs de session (dépendances, coûts cachés, limite CB, effort par tier, Chrome DevTools MCP) — `source_modified`/`wiki_updated` remis à 2026-07-27
+- **Chemins `source:` cassés** : bug structurel présent depuis l'init (2026-05-26) sur les 68 pages doctrines+skills — chaque chemin avait un `../` manquant. Corrigé en masse (`../x.md` → `../../x.md` pour doctrines, `../.claude` → `../../.claude` pour skills)
+- **Liens orphelins** : `skills/lint.md` — `[[archi]]`, `[[maj]]`, `[[phase-retrospective]]` non qualifiés corrigés en `[[skills/archi]]`, `[[skills/maj]]`, `[[skills/phase-retrospective]]`
+- **Page manquante** : `skills/wiki.md` créée (skill `/wiki` existait en source sans page wiki) + entrée ajoutée dans `index.md`
+
 ## [2026-05-26] ingest | Nouveau skill `/lint` → `skills/lint.md`
 
 Skill créé : contrôle qualité du Wiki (modes quick et complet).

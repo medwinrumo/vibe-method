@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/askme.md
+source: ../../.claude/commands/askme.md
 source_modified: 2026-05-15
 wiki_updated: 2026-05-26
 tags: [transversal, questions, contexte, raccourci]

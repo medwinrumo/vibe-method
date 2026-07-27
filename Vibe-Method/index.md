@@ -137,6 +137,7 @@ Catalogue de toutes les pages. Mis à jour à chaque ingest ou nouvelle page wik
 | [[skills/refacto]] | Refactoring guidé — session dédiée |
 | [[skills/condense]] | Condensation d'un document long en inputs exploitables — T2 Sonnet |
 | [[skills/lint]] | Contrôle qualité du Wiki — modes quick et complet |
+| [[skills/wiki]] | Enrichir `~/dev/wiki/` depuis n'importe quel dossier de travail |
 
 ## Skills — Gestion de session
 

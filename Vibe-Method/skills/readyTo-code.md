@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/readyTo-code.md
+source: ../../.claude/commands/readyTo-code.md
 source_modified: 2026-05-14
 wiki_updated: 2026-05-26
 tags: [gate, démarrage, prp, archi, specs]

@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/spec.md
+source: ../../.claude/commands/spec.md
 source_modified: 2026-05-18
 wiki_updated: 2026-05-26
 tags: [session, documentation, spec-globale]

@@ -1,6 +1,6 @@
 ---
 type: skill
-source: ../.claude/commands/recette.md
+source: ../../.claude/commands/recette.md
 source_modified: 2026-06-11
 wiki_updated: 2026-06-11
 tags: [phase-7, recette, gherkin, validation-manuelle]

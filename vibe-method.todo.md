@@ -4,7 +4,20 @@
 
 ---
 
-## Dernière session — 2026-07-21
+## Dernière session — 2026-07-27
+
+### Ce qui a été fait
+
+- Skill `/brief` amélioré sur trois points, à partir d'observations `task-observer` issues de la première utilisation sur un projet client réel (RAMrezo) :
+  - **Étape 0.1** — protection contre l'écrasement d'un `[projet].brief.md` existant : proposition de renommage en `.context.md` avant de démarrer le dialogue
+  - **Étape 0.2 + sauvegarde d'état** — écriture incrémentale dans `[projet].brief-wip.md` après chaque domaine validé, reprise possible d'une session interrompue
+  - **Domaine 6** — question sur les traitements automatiques (rappels, relances, envois périodiques, expirations), posée avant le choix de stack, remontée au `/stack`. Quality gate 16 → 17 cases.
+- Page wiki `Vibe-Method/skills/brief.md` resynchronisée + entrée dans `Vibe-Method/log.md`
+- Commit `b0c68e4` poussé
+
+---
+
+## Session précédente — 2026-07-21
 
 ### Ce qui a été fait
 

@@ -2,6 +2,15 @@
 
 ---
 
+## 2026-07-27 — /brief : protection, reprise de session, traitements automatiques
+
+- Trois observations `task-observer` issues de la session RAMrezo, validées par Medwin, appliquées à `.claude/commands/brief.md`
+- **Étape 0.1** — protection contre l'écrasement : détection d'un `[projet].brief.md` existant sans `[projet].context.md`, proposition de renommage avant tout dialogue. Rappel de sécurité ajouté à l'étape d'enregistrement.
+- **Étape 0.2 + section « Sauvegarde d'état »** — écriture incrémentale dans `[projet].brief-wip.md` après chaque domaine validé, détection au démarrage pour reprendre au bon domaine, suppression du fichier une fois le brief généré
+- **Domaine 6** — nouvelle question sur les traitements automatiques (rappels, relances, envois périodiques, expirations), posée avant le choix de stack. Table ajoutée au format du brief, quality gate 16 → 17 cases, remontée explicite au `/stack`
+- Page wiki `Vibe-Method/skills/brief.md` resynchronisée (frontmatter `source_modified` et `wiki_updated` au 2026-07-27) + entrée dans `Vibe-Method/log.md`
+- Commit `b0c68e4` poussé
+
 ## 2026-06-11 — Lint Wiki + /pr enrichi
 
 - Lint complet Wiki : 5 problèmes corrigés (contradiction firecrawl summary, llm-wiki déplacé vers racine, firecrawl-configs reclassé procédure, lien fantôme seo retiré, notion-developer-platform mis à jour)

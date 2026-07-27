@@ -2,6 +2,44 @@
 
 ---
 
+## 2026-07-27 — Ce qu'un projet réel révèle d'un skill
+
+### Le contexte
+
+Première utilisation de `/brief` sur un projet client réel et volumineux (RAMrezo). Trois manques sont apparus — aucun n'était visible en lisant le skill, tous se sont révélés à l'usage.
+
+### Manque 1 — Un skill qui détruit le travail qu'il est censé produire
+
+L'étape d'enregistrement disait : *« Si le fichier existe → le remplacer. »* Sans garde-fou. Medwin venait de passer une session à compiler un `RAMrezo.brief.md` de 280 lignes depuis sept sources : lancer `/brief` l'aurait effacé.
+
+C'est **Medwin qui a repéré le danger** en posant la question, et qui a trouvé la parade : renommer en `.context.md`, puisque le skill lit déjà ce fichier à l'étape 0 pour éviter de reposer les questions tranchées.
+
+**La leçon générale.** Tout skill qui écrit un fichier doit se demander ce qu'il fait d'un fichier existant du même nom. « Remplacer » et « compléter » sont deux comportements très différents, et le premier est destructeur par nature. La parade était déjà présente dans le skill — elle n'était simplement pas automatisée.
+
+### Manque 2 — Un dialogue conçu pour une seule séance
+
+Le skill enchaîne neuf domaines et n'écrit qu'à la toute fin. Sur RAMrezo, la séance s'est interrompue au domaine 7 après plusieurs heures de décisions structurantes — modèle de prestation, distribution, architecture. Tout cela n'existait que dans le fil de conversation.
+
+Il a fallu improviser un fichier de reprise hors process.
+
+**La leçon générale.** Un artefact qui ne s'écrit qu'à la fin d'un long processus est un pari sur la continuité de la session. Sur un projet sérieux, ce pari est perdant. La règle retenue : écrire l'incrément après chaque étape validée, et prévoir la détection de cet incrément au démarrage.
+
+### Manque 3 — Le meilleur critère de choix technique était invisible
+
+En listant les règles métier de RAMrezo, cinq mécanismes sont apparus qui doivent tourner sans personne devant l'écran : décochage de cotisations à échéance, liste mensuelle envoyée au trésorier, rappels, relances, alertes d'échéance.
+
+Ce n'était pas un détail d'implémentation. C'est devenu **le critère le plus discriminant pour choisir le backend** — plus parlant que n'importe quelle comparaison de fonctionnalités entre Convex et Supabase. Certaines solutions gèrent nativement les traitements programmés, d'autres exigent un service supplémentaire.
+
+Or le skill ne posait jamais la question. Le critère est apparu par hasard, tard, au détour d'une règle métier.
+
+**La leçon générale.** Les meilleurs critères de choix technique ne viennent pas des comparatifs d'outils, ils émergent quand on décrit précisément ce que le produit doit faire. Un skill de cadrage doit aller les chercher activement — d'où la question désormais posée systématiquement au domaine 6, avant le choix de stack.
+
+### Ce que cette session dit du dispositif `task-observer`
+
+Les trois manques ont été détectés en une seule session d'usage réel. Aucun n'aurait été trouvé en relisant le skill à froid.
+
+À noter cependant : `task-observer` n'avait **pas** été invoqué au démarrage, contrairement à la règle. Les observations ont été saisies rétroactivement en fin de séance, et seulement parce que Medwin a demandé si `/maj` avait été fait. Le dispositif ne vaut que s'il est déclenché — deux observations restent ouvertes sur ce sujet précis.
+
 ## 2026-05-26 — Wiki LLM + Wiki
 
 ### Ce qu'on a fait et pourquoi

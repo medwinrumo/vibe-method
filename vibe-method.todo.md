@@ -4,6 +4,33 @@
 
 ---
 
+## Questions ouvertes — ouvertes le 2026-07-27
+
+### Faut-il conserver le wiki `Vibe-Method/` ?
+
+`Vibe-Method/` est une **vue dérivée** : elle ne contient rien qui n'existe pas déjà dans `~/dev/vibe-method/`. Sa seule valeur ajoutée est le graphe Obsidian.
+
+Trois options :
+1. **Le conserver tel quel** — coût : une seconde base à maintenir et à synchroniser, risque de confusion avec `~/dev/wiki`
+2. **Le fusionner dans `~/dev/wiki`** — ⚠️ `~/dev/wiki` est synchronisé avec le VPS Hermes via GitHub : cela pousserait toute la méthode sur le VPS. À décider, pas à subir.
+3. **Le supprimer** — si la consultation se fait en pratique par Claude Code plutôt que dans Obsidian, la projection ne gagne pas son coût. Aucun risque pour la source, qui reste canonique.
+
+Point de vigilance soulevé par Medwin : la vibe-method est trop importante pour être « perdue, dilapidée, abîmée, mélangée ». Toute option retenue doit préserver le statut canonique des fichiers sources.
+
+### Hooks de session — `SessionStart` et `Stop`
+
+Trois rituels documentés dans le `CLAUDE.md` global échouent de la même façon : ils sont écrits, non appliqués, et leur non-respect est invisible tant que Medwin ne pose pas la question.
+
+- `task-observer` au démarrage
+- lecture de `~/dev/wiki/index.md` au démarrage
+- `/maj` en fin de session
+
+Piste : un hook `SessionStart` pour les deux premiers, un hook `Stop` pour le troisième. Le mécanisme existe déjà (le mode caveman s'active ainsi). Skill `update-config` prévu pour ça.
+
+Voir les observations 4 et 6 de `~/.claude/observations/log.md`.
+
+---
+
 ## Dernière session — 2026-07-27
 
 ### Ce qui a été fait

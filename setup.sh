@@ -18,3 +18,10 @@ ln -sf ~/dev/vibe-method/CLAUDE.global.md ~/dev/CLAUDE.md
 echo "CLAUDE.md global → symlink créé"
 
 echo "Setup terminé — $(ls $TARGET | wc -l | tr -d ' ') skills liés."
+
+# --- Hooks de session (ajout 2026-07-27) ---
+mkdir -p ~/.claude/hooks
+for f in session-start.sh track-repo.sh stop-cloture.sh; do
+  ln -sf ~/dev/vibe-method/.claude/hooks/$f ~/.claude/hooks/$f
+done
+echo "Hooks de session liés."

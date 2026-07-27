@@ -17,15 +17,19 @@ Trois options :
 
 Point de vigilance soulevé par Medwin : la vibe-method est trop importante pour être « perdue, dilapidée, abîmée, mélangée ». Toute option retenue doit préserver le statut canonique des fichiers sources.
 
-### Hooks de session — `SessionStart` et `Stop`
+### ~~Hooks de session~~ — **fait le 2026-07-27**
 
-Trois rituels documentés dans le `CLAUDE.md` global échouent de la même façon : ils sont écrits, non appliqués, et leur non-respect est invisible tant que Medwin ne pose pas la question.
+Trois rituels documentés dans le `CLAUDE.md` global échouaient de la même façon : écrits, non appliqués, et leur non-respect invisible tant que Medwin ne posait pas la question.
 
-- `task-observer` au démarrage
-- lecture de `~/dev/wiki/index.md` au démarrage
-- `/maj` en fin de session
+**Mis en place dans `~/.claude/settings.json`**, scripts dans `~/.claude/hooks/` :
 
-Piste : un hook `SessionStart` pour les deux premiers, un hook `Stop` pour le troisième. Le mécanisme existe déjà (le mode caveman s'active ainsi). Skill `update-config` prévu pour ça.
+| Hook | Script | Rôle |
+|---|---|---|
+| `SessionStart` | `session-start.sh` | Injecte le rappel des deux rituels de démarrage : lire `~/dev/wiki/index.md`, invoquer `task-observer`. Ajoute la consigne de **dire à voix haute** toute règle qu'on choisit de ne pas appliquer. |
+| `PostToolUse` (`Write\|Edit`) | `track-repo.sh` | Note la racine du repo git de chaque fichier écrit, par session, dans `/tmp/claude-repos-<session_id>`. |
+| `Stop` | `stop-cloture.sh` | Si un repo touché a du travail non commité ou non poussé → message à Medwin. Throttle de 20 minutes. |
+
+**Choix de conception.** Un scan de tous les repos de `~/dev` a été écarté : 1,1 seconde par tour, et cinq repos déjà sales en permanence — le rappel serait devenu du bruit dès le lendemain. En ne surveillant que les repos réellement touchés dans la session, le hook tombe à 67 ms et ne parle que de ce qui vient d'être fait.
 
 Voir les observations 4 et 6 de `~/.claude/observations/log.md`.
 

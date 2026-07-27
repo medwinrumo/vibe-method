@@ -117,6 +117,23 @@ Pour chaque paire concernée :
 3. Identifier les divergences
 4. Proposer la mise à jour à Medwin — ne jamais modifier sans validation explicite
 
+## Étape 7 — Review task-observer
+
+Lire `~/.claude/observations/log.md`.
+
+1. Si aucune observation au statut OUVERT → passer à la checklist finale.
+2. Pour chaque observation OUVERTE, identifier le skill concerné (fichier
+   `~/.claude/commands/[skill].md`, ou skill dans `~/.claude/skills/`) et
+   le lire.
+3. Regrouper par skill : présenter à Medwin (numéro, titre, une phrase de
+   constat, suggestion concrète). Nouveaux skills candidats à part.
+4. Attendre validation de Medwin avant de modifier quoi que ce soit — ne
+   jamais toucher un skill sans accord explicite.
+5. Pour chaque observation validée et appliquée : marquer
+   `**Statut :** ACTIONNÉ (date) — [ce qui a été fait]` dans le log.
+6. Pour chaque observation refusée : marquer
+   `**Statut :** REFUSÉ (date) — [raison]`.
+
 ## Checklist finale
 
 - [ ] `[projet].peda.md` complété
@@ -129,3 +146,4 @@ Pour chaque paire concernée :
 - [ ] GitHub Projects mis à jour (tâches terminées + nouvelles tâches)
 - [ ] Lint wiki passé (si projet vibe-method et sources modifiées)
 - [ ] Cohérence skills / doctrine vérifiée si applicable
+- [ ] Review task-observer effectuée (observations traitées ou reportées)

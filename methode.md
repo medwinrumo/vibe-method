@@ -158,7 +158,7 @@ La fenêtre de contexte d'un LLM est limitée. Quand une conversation s'allonge,
 **Quand on est bloqué — protocole d'escalade**
 Ne jamais s'entêter au-delà de deux essais sur le même problème. Escalade en 5 étapes :
 
-1. **L'œil de l'aigle — Analyse globale** — "Relis tout le code lié à cette feature. Analyse le problème dans son ensemble. Propose des hypothèses avant de modifier quoi que ce soit." Passe l'IA du mode correction locale au mode diagnostic global.
+1. **L'œil de l'aigle — Analyse globale** — "Relis tout le code lié à cette feature. Analyse le problème dans son ensemble. Propose des hypothèses avant de modifier quoi que ce soit." Passe l'IA du mode correction locale au mode diagnostic global. Pour un bug difficile à cerner sans preuve technique (perf, réseau, rendu) : Chrome DevTools MCP en complément — inspection réseau live, traces de performance (LCP/INP/CLS). Outil de débogage uniquement, ne remplace pas Playwright — qui reste la référence pour la suite de tests et la non-régression CI/CD (`tests.md`).
 2. **Le bond du tigre — Revenir en arrière + contraintes négatives** — Git reset au dernier commit propre. Relancer en précisant ce que l'IA ne doit PAS faire ("ne touche pas à X", "ne passe pas par Y"). Contraindre par le négatif est souvent plus efficace que prescrire le positif.
 3. **Le singe change de branche — Changer de modèle** — chaque modèle a été entraîné différemment. Ce qui est insoluble pour Claude peut être trivial pour GPT ou Gemini.
 4. **Le faucon en chasse — Recherche web** — les modèles ont une date de péremption. Demander à l'IA de chercher les bonnes pratiques actuelles, les incompatibilités de versions connues. S'applique aussi en préventif : avant d'intégrer un service externe, chercher la documentation à jour avant de coder.
@@ -341,6 +341,20 @@ Chaque skill est assigné à un tier. Le tier indique le niveau de raisonnement 
 **Règle :** T2 — Sonnet est le modèle par défaut. Les skills T3 te signalent de basculer en Opus au démarrage. Les skills T1 sont optionnels — Sonnet fonctionne, Haiku économise des tokens sur les tâches mécaniques.
 
 **Basculer de modèle dans Claude Code :** `/model opus`, `/model sonnet`, `/model haiku`.
+
+---
+
+## Niveau d'effort par tier
+
+En dessous de l'effort "medium", un modèle est nettement dégradé. Au-dessus de "high", le risque de sur-réflexion augmente (le modèle invente des problèmes, refactorise sans demande, sur-anticipe des cas qui n'arriveront jamais) — l'effort supplémentaire ne se traduit pas par un meilleur résultat.
+
+| Tier | Modèle | Effort |
+|---|---|---|
+| T1 — Haiku | Tâche mécanique, résultat prévisible | Bas |
+| T2 — Sonnet | Implémentation, génération standard | Medium par défaut — High si feature complexe ou critique |
+| T3 — Opus | Raisonnement structurant | High — jamais extra-high |
+
+**Règle :** ne pas jouer avec l'effort au coup par coup pendant une session — le fixer une fois par tâche selon sa complexité, puis le laisser stable.
 
 ---
 

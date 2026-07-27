@@ -250,6 +250,31 @@ _Investigué le [date]_
 
 ---
 
+## Dépendances — coder ou importer
+
+Pour toute fonctionnalité candidate à une lib externe (npm, etc.), le LLM juge au cas par cas :
+- Si la fonction est triviale à écrire soi-même → la coder directement, pas de lib
+- Si c'est complexe, standardisé, ou à fort risque d'erreur (dates, crypto, parsing) → importer une lib reconnue
+- Pas de règle figée — décision projet par projet, mais toujours motivée
+
+**Scan régulier obligatoire** : passer un outil de type `depcheck` périodiquement pour repérer les dépendances mortes ou quasi jamais utilisées, et les retirer (recoder à la main si le volume d'usage est faible). Complète le suivi sécurité déjà prévu dans `securite.md` §2.2 (`npm audit`, Dependabot).
+
+---
+
+## Coûts cachés — au-delà du free tier de la stack technique
+
+Certains outils indispensables à un projet en production ne font pas partie de la stack applicative (Convex/Supabase) ni de la stack de dev — ils sont oubliés au moment du `/stack` initial et découverts à l'usage.
+
+À vérifier systématiquement pour tout projet destiné à la prod :
+- **Emailing transactionnel** (confirmation de compte, réinitialisation de mot de passe...) — aucun backend ne le fournit nativement en illimité. Options : Resend, Brevo, Mailjet — vérifier le quota gratuit exact (nombre d'emails/mois) avant de compter dessus.
+- **Monitoring d'erreurs production** (Sentry ou équivalent) — quota gratuit basé sur le volume d'erreurs remontées, peut être consommé vite par une erreur récurrente non corrigée.
+- **Limites de collaboration** — Vercel/Netlify facturent dès qu'on déploie depuis une organisation GitHub (pas un compte perso) ou dès qu'on ajoute des utilisateurs. À anticiper si le projet passe de solo à équipe.
+- **Limite de prélèvement carte bancaire** — dès qu'une CB est ajoutée sur une plateforme cloud (Vercel, Cloudflare, etc.), configurer immédiatement un plafond de prélèvement. Voir `securite.md` §4.
+
+À documenter dans `[projet].stack.md` sous une section "Coûts cachés" dès l'investigation initiale.
+
+---
+
 ## Règles de conduite
 
 1. **Le spike est time-boxé** — 2 à 4 heures max. Si la question n'est pas résolue, documenter ce qu'on sait, noter ce qui reste ouvert, continuer.

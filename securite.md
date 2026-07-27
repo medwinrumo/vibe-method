@@ -785,6 +785,7 @@ Benchmark : Snyk Code : 97 % de vrais positifs (OWASP Benchmark). Semgrep : 87 %
 - [ ] Dependabot activé sur le repo GitHub
 - [ ] `service_role` key Supabase absente de tout repo Git (y compris les configs CI)
 - [ ] Variables d'environnement de prod déclarées dans Vercel Dashboard — pas dans `.env` commité
+- [ ] Limite de prélèvement configurée dès l'ajout d'une carte bancaire sur toute plateforme cloud (Vercel, Cloudflare, etc.) — avant le premier dépassement de plan gratuit, pas après
 
 ### Audit de sécurité léger (avant chaque mise en production)
 

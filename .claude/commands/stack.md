@@ -180,6 +180,20 @@ Pour chaque outil de la stack, tu mènes une investigation en 7 points. **Lance 
 
 ---
 
+## Étape 2bis — Coûts cachés transverses
+
+Une fois les outils de la stack investigués individuellement, vérifier les coûts récurrents souvent oubliés — ils ne font partie d'aucun outil de la stack applicative mais sont nécessaires en prod. Voir `stack.md` section "Coûts cachés".
+
+Points à vérifier systématiquement :
+- Le projet a-t-il besoin d'emailing transactionnel (confirmation compte, reset mot de passe) ? Si oui, quel outil (Resend, Brevo, Mailjet) et quel quota gratuit exact ?
+- Le projet aura-t-il un monitoring d'erreurs (Sentry ou équivalent) ? Quel quota gratuit ?
+- Le projet va-t-il passer par une organisation GitHub ou accueillir plusieurs collaborateurs sur Vercel/Netlify ? → vérifier si ça déclenche un plan payant
+- Une carte bancaire sera-t-elle ajoutée sur une plateforme cloud pendant le projet ? → noter comme rappel de configurer un plafond de prélèvement dès l'ajout
+
+Documenter les réponses dans `[projet].stack.md` section "Coûts cachés".
+
+---
+
 ## Étape 3 — Présentation des findings
 
 Pour chaque outil investigué, tu présentes les findings critiques :

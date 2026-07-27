@@ -206,3 +206,21 @@
 - Point d'avancement demandé par Medwin : chaîne de skills complète et fonctionnelle, `vibe-method.todo.md` en retard de 6 commits (sessions 2026-07-20/21 non reflétées)
 - Détail tâche 28 (aidd-orchestrator) donné — reste en attente, conflit noté avec la règle mémoire "plugins officiels seulement" (aidd-framework est un marketplace tiers), à trancher le jour venu
 - `/majtodo` exécuté : section "Dernière session" mise à jour (migration CGV/CGP vers wiki, miroirs Hermes, backport RGPD), tableau d'état enrichi de 2 lignes — commit `49fc35c`
+
+---
+
+## 2026-07-27
+
+### Session — Intégration Radio vibe-method #10 + lint wiki + corrections diverses
+
+- Analyse `Radio vibe-method #10.md` : items classés contre la doctrine réelle (nouveau / déjà couvert / contradiction). 4 ajouts actés : coûts cachés + dépendances (`stack.md` + skill `/stack` étape 2bis), limite prélèvement CB (`securite.md`), effort par tier + Chrome DevTools MCP en complément debug (`methode.md`) — commit `b9be180`
+- Tailwind conditionnel et branches en solo : contradictions identifiées avec le podcast, doctrine gardée telle quelle après analyse
+- Lint wiki vibe-method (`Vibe-Method/`) : 4 pages stales rafraîchies, chemins `source:` cassés sur 68 pages corrigés en masse (bug présent depuis la création du wiki, 2026-05-26), 3 liens orphelins fixés, page manquante `skills/wiki.md` créée — commit `5b80fd7`
+- Page Notion "Vibe-Method.WORKFLOW" mise à jour aux mêmes endroits (coûts cachés, dépendances, effort par tier, Chrome DevTools)
+- Bug `.gitignore` trouvé : règle `*backup*` bloquait le skill `/backup` (source + page wiki) depuis sa création le 9 mai — jamais poussé sur GitHub. Corrigé (`*-backup`/`*_backup`), fichiers ajoutés — commit `9572d0a`. Fichier transcript orphelin "#8 vibe method - backup" supprimé (jamais commité)
+- Doctrine recherche web à 3 paliers d'Hermes (Tavily/Exa+Firecrawl/Sonar) comparée et adoptée en mémoire, mapping ajusté à mes outils
+- Tavily + Perplexity ajoutés en MCP scope `user` (clés Hermes réutilisées telles quelles — rotation en attente depuis mai, jamais faite, tâche supprimée sur décision de Medwin, commit `b395ef8` côté repo hermes) ; Exa authentifié (était non-authentifié sans jamais avoir été signalé)
+- IDs de modèles périmés trouvés dans `methode.md` (`claude-sonnet-4-6`, `claude-opus-4-8` — génération 4.x) et corrigés en `claude-sonnet-5`/`claude-opus-5`
+- Recherche "quel modèle pour `/brief`" reprise 3 fois avant résultat fiable — requête trop vague, puis scope limité aux IA US, puis benchmarks académiques périmés non filtrés. Recherche finale via `perplexity_research` avec consigne de fraîcheur explicite (juin-juillet 2026 uniquement) : Claude Opus 5 en tête pour l'élicitation de besoins — recommandation ponctuelle pour RAMrezo, pas actée en doctrine
+- Graphify (outil knowledge-graph codebase) évalué à la demande de Medwin — jugé prématuré pour RAMrezo, pas encore démarré
+- Ouvert : `/brief` toujours sans tier assigné dans `methode.md`

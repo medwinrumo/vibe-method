@@ -736,3 +736,60 @@ Medwin a demandé ce qu'était `aidd-orchestrator` (tâche 28, en attente). Expl
 **Action**
 
 `/majtodo` lancé pour combler l'écart : nouvelle section "Dernière session" avec le résumé factuel des deux sessions manquantes, tableau d'état enrichi de 2 lignes (CGV/CGP source unique, miroirs Hermes en synchro manuelle). Commit `49fc35c`.
+
+---
+
+## 2026-07-27
+
+### Session — Intégration Radio vibe-method #10 + lint wiki + corrections diverses
+
+**Point de départ**
+
+Medwin a demandé d'analyser un nouveau fichier `Radio vibe-method #10.md` (transcript podcast) pour en extraire ce qui est utile à la méthode. Premier jet d'analyse jugé "brouillon" par Medwin — items présentés sans dire clairement lesquels étaient nouveaux, déjà couverts, ou en contradiction avec la doctrine existante. Leçon : comparer explicitement contre le contenu réel des fichiers avant de proposer, pas juste résumer ce qu'on vient de lire.
+
+**Reprise méthodique**
+
+Relecture de `stack.md`, `securite.md`, `tests.md`, `methode.md`, `design.md` pour classer chaque item du podcast : Tailwind conditionnel (contradiction avec `design.md` — tranché : pas de changement, le workflow `/design` fournit toujours une référence de style donc le cas d'usage du podcast ne se pose pas chez nous), dépendances (précision ajoutée à `stack.md`), coûts cachés (nouveau — ajouté à `stack.md` + étape 2bis du skill `/stack`), limite de prélèvement CB (ajouté à `securite.md`), niveau d'effort par tier (nouveau, absent partout — ajouté à `methode.md`), Chrome DevTools MCP (recherche web faite : ne remplace pas Playwright, complémentaire pour le debug — ajouté au protocole d'escalade), branches en solo (contradiction confirmée, doctrine gardée telle quelle).
+
+**Lint du wiki vibe-method**
+
+Question de Medwin : le wiki vibe-method est-il à jour ? Vérification factuelle plutôt que supposition : les 4 pages wiki correspondant aux fichiers modifiés (`doctrines/stack`, `doctrines/securite`, `doctrines/methode`, `skills/stack`) affichaient encore `wiki_updated: 2026-05-26`. Découverte plus large en creusant : **chaque page doctrine et skill du wiki (68 au total) avait un chemin `source:` cassé** — un `../` manquant depuis la création du wiki, jamais détecté jusqu'ici. Corrigé en masse, plus 3 liens orphelins non qualifiés et une page manquante (`skills/wiki.md`, le skill `/wiki` n'avait jamais eu sa page).
+
+**Synchronisation Notion**
+
+La page Notion "Vibe-Method.WORKFLOW" (guide résumant chaque skill) mise à jour aux mêmes endroits — chemins `source:` non concernés (page Notion, pas de frontmatter fichier), mais ajout des points coûts cachés/dépendances/effort/Chrome DevTools au bon endroit dans la structure existante.
+
+**Bug `.gitignore` découvert par ricochet**
+
+En vérifiant si le wiki était bien sur GitHub (Medwin pensait que non — vérifié faux via `gh api`, il y était depuis le début), découverte que le skill `backup.md` n'était lui, jamais poussé : la règle `*backup*` du `.gitignore` (prévue pour des fichiers de sauvegarde temporaires) matchait par coïncidence le nom du skill. Ni la source (`.claude/commands/backup.md`) ni sa page wiki n'avaient jamais atteint GitHub depuis leur création. Règle resserrée à `*-backup`/`*_backup`, les deux fichiers ajoutés. Un fichier transcript "#8 vibe method - backup" traînait aussi dans le repo pour la même raison — supprimé sur demande de Medwin (jamais commité).
+
+**Paliers de recherche web — doctrine Hermes adoptée**
+
+Medwin a demandé si j'avais accès à la doctrine de recherche d'Hermes (3 niveaux avec mots déclencheurs — Tavily/Exa+Firecrawl/Sonar, trouvée dans `~/dev/hermes/hermes.log.md`). Comparaison faite avec mes propres outils, mapping proposé et validé, sauvegardé en mémoire. Correction en cours de route : première proposition substituait tout par Firecrawl sans vérifier — Medwin l'a relevé, Exa était en fait disponible via skill (`exa:search`/`exa:agent`), pas besoin de tout réinventer.
+
+**Configuration Tavily + Perplexity + Exa**
+
+Medwin a demandé d'ajouter Tavily et Sonar/Perplexity en MCP pour compléter le mapping. Étape bloquante trouvée avant d'agir : les clés `TAVILY_API_KEY` et `PERPLEXITY_API_KEY` d'Hermes étaient marquées comme exposées dans une session Claude Code du 2026-05-27, tâche de rotation jamais faite (`hermes.todo.md`). Signalé explicitement à Medwin avant toute action — décision de sa part : réutiliser les clés telles quelles, supprimer la tâche de rotation. Fait, commité côté `hermes`. Tavily et Perplexity ajoutés en scope `user` (dispo dans toutes les sessions, pas juste le dossier courant — erreur initiale corrigée après un premier essai en scope `local`). Exa authentifié dans la foulée (jusque-là listé comme "needs authentication" dans `claude mcp list`, jamais signalé à Medwin malgré l'avoir vu — reconnu comme un oubli, pas un problème caché).
+
+**IDs de modèles Claude périmés dans la doctrine**
+
+Medwin a demandé si mes données sur les modèles étaient à jour. Réponse honnête : cutoff d'entraînement janvier 2026, on est en juillet. Vérification immédiate contre le tableau des tiers de `methode.md` : `claude-sonnet-4-6` et `claude-opus-4-8` référencés — génération 4.x, alors que la gamme actuelle (donnée fiable, injectée par le système) est la 5. Corrigé en `claude-sonnet-5`/`claude-opus-5`.
+
+**Recherche sur le meilleur modèle pour `/brief` — deux ratés avant la bonne méthode**
+
+Question de Medwin : quel modèle pour faire un `/brief` sur RAMrezo ? Trois itérations avant une réponse solide :
+1. Recherche `WebSearch` générique ("meilleurs modèles LLM juillet 2026") — jugée décevante par Medwin à raison : trop vague, ne répond pas à la vraie question (élicitation de besoins, pas benchmark général), et palier pas monté malgré un résultat pourri.
+2. Reprise avec `exa:search` (palier 2, 2 sous-agents) — mais scope limité aux IA américaines. Medwin a relevé l'angle mort : la doctrine `/stack` mentionne déjà Kimi K2.5, le podcast du jour parle de DeepSeek/GLM/Qwen — pas les inclure était une vraie lacune, pas un détail.
+3. Reprise élargie (DeepSeek, Qwen, GLM, Kimi K2.5 inclus) — mais les benchmarks académiques remontés (ClarifyMT-Bench, ClarQ-LLM) testaient des générations de modèles déjà périmées (GPT-4.1, Claude-Sonnet-4.5, Qwen-2.5). Medwin l'a relevé une seconde fois, plus sec cette fois : j'aurais dû filtrer la fraîcheur moi-même avant de présenter, pas le laisser détecter le problème.
+
+Correction finale : `perplexity_research` (Sonar Deep Research, palier 3) avec consigne explicite de ne garder que juin-juillet 2026 et de flaguer toute source parlant d'une génération périmée. Résultat vérifié par un sous-agent dédié (fraîcheur 9/10, seule source ancienne explicitement écartée par Perplexity lui-même). Verdict final : **Claude Opus 5** en tête pour la clarification proactive de besoins flous (pas Sonnet comme dit initialement) — recommandation ajustée en conséquence pour `/brief` sur RAMrezo : Opus 5, effort high. Pas écrit dans la doctrine — c'était une recommandation ponctuelle pour ce lancement de projet, pas une règle générale actée.
+
+**Leçon retenue sur la méthode de recherche**
+
+Le fil conducteur des trois ratés : je n'ai filtré la fraîcheur et la portée qu'après que Medwin l'ait signalé, jamais avant de présenter un résultat. À appliquer désormais dès la formulation de la requête — nommer explicitement les générations de modèles voulues, pas laisser une recherche générique remonter du contenu daté sans le vérifier moi-même en premier.
+
+**Ce qui reste ouvert**
+
+- Graphify (outil de knowledge graph pour codebase) discuté à la demande de Medwin — jugé prématuré pour RAMrezo (utile au-delà de 100 fichiers, projet pas encore démarré), à ressortir en cours de projet si la complexité le justifie. Rien écrit dans la doctrine, juste une conversation.
+- Noms d'outils exacts exposés par les MCP `tavily-remote-mcp` et `perplexity` pas encore vérifiés au moment de leur ajout (nécessitait un redémarrage de session) — confirmés disponibles plus tard dans la session (`mcp__perplexity__*`, `mcp__tavily-remote-mcp__*`).
+- `/brief` n'a toujours pas de tier assigné explicitement dans le tableau de `methode.md` — gap identifié, pas comblé (proposé à Medwin, pas encore tranché).

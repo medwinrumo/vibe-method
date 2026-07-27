@@ -335,8 +335,8 @@ Chaque skill est assigné à un tier. Le tier indique le niveau de raisonnement 
 | Tier | Modèle | Quand | Skills |
 |---|---|---|---|
 | **T1 — Haiku** | `claude-haiku-4-5-20251001` | Tâche mécanique, résultat prévisible | `/commit`, `/pr`, `/maj`, `/log`, `/majtodo`, `/avancement` |
-| **T2 — Sonnet** | `claude-sonnet-4-6` _(par défaut)_ | Implémentation, génération structurée, analyse standard | `/specs`, `/roadmap`, `/tests`, `/code-review`, `/code-review-edge-cases`, `/repair-edge-cases`, `/sessionCode`, `/debug`, `/recette`, `/doc-tech`, `/refacto`, `/setup`, `/prp`, `/condense`, `/zoom-out`, `/prototype` |
-| **T3 — Opus** | `claude-opus-4-8` | Raisonnement profond, décisions structurantes | `/archi`, `/prd`, `/prd-validate`, `/gherkin`, `/securite`, `/stack`, `/code-review-hostil`, `/diagnose`, `/phase-retrospective`, `/party`, `/grill-me`, `/impact`, `/adr`, `/angles-morts` |
+| **T2 — Sonnet** | `claude-sonnet-5` _(par défaut)_ | Implémentation, génération structurée, analyse standard | `/specs`, `/roadmap`, `/tests`, `/code-review`, `/code-review-edge-cases`, `/repair-edge-cases`, `/sessionCode`, `/debug`, `/recette`, `/doc-tech`, `/refacto`, `/setup`, `/prp`, `/condense`, `/zoom-out`, `/prototype` |
+| **T3 — Opus** | `claude-opus-5` | Raisonnement profond, décisions structurantes | `/archi`, `/prd`, `/prd-validate`, `/gherkin`, `/securite`, `/stack`, `/code-review-hostil`, `/diagnose`, `/phase-retrospective`, `/party`, `/grill-me`, `/impact`, `/adr`, `/angles-morts` |
 
 **Règle :** T2 — Sonnet est le modèle par défaut. Les skills T3 te signalent de basculer en Opus au démarrage. Les skills T1 sont optionnels — Sonnet fonctionne, Haiku économise des tokens sur les tâches mécaniques.
 

@@ -465,6 +465,12 @@ export const updateUser = mutation({
 - Limiter la taille des payloads (body-parser limits en Express) — empêche les attaques par payload massif
 - Quotas sur les appels aux APIs externes (OpenAI, Anthropic, etc.) avec alertes de coût configurées
 
+**Endpoints d'authentification — au-delà de la limite générique :**
+- Limiter par IP **et** par compte séparément (bloquer un compte ciblé ne doit pas nécessiter de bloquer toute une IP partagée, et inversement)
+- Délai progressif entre tentatives (1s, 2s, 4s...) plutôt qu'un simple compteur dur
+- Verrouillage temporaire du compte après un seuil (ex : 5 échecs → 15 min de blocage), jamais un blocage définitif silencieux
+- Ne jamais révéler si c'est l'email ou le mot de passe qui est incorrect (message générique)
+
 ### 2.7 Principe du moindre privilège — base de données
 
 Au-delà du RLS, deux axes souvent oubliés.
@@ -617,6 +623,18 @@ Protection :
 - Utiliser `JSON.parse(JSON.stringify(input))` pour cloner les objets issus d'entrées utilisateur
 - `npm audit` détecte les CVE connus sur les dépendances vulnérables
 
+### 2.13 Sécurité des fonctionnalités IA/LLM (si le projet en expose)
+
+Distinct du §7 (le fait que Claude *génère* le code) — ici, le projet lui-même **expose** une fonctionnalité IA à l'utilisateur (chat, agent, génération de contenu). Concerne Minou et tout projet avec un LLM en fonctionnalité produit.
+
+- **Output du modèle = non fiable.** Jamais injecté directement dans `eval`, une requête SQL, un shell, `innerHTML`, ou un chemin de fichier — mêmes règles que pour un input utilisateur classique.
+- **Le system prompt n'est pas une frontière de sécurité.** Ne jamais compter dessus pour empêcher une action — les permissions réelles se codent, pas se demandent poliment au modèle (risque de prompt injection).
+- **Contexte isolé par tenant.** Jamais de secret, de donnée cross-tenant, ou du system prompt complet dans une fenêtre de contexte accessible à l'utilisateur.
+- **Permissions d'outils/agents scopées.** Si le projet donne à un LLM la capacité d'agir (function calling, agent), chaque outil a un périmètre explicite ; toute action destructive (suppression, paiement, envoi) demande confirmation humaine.
+- **Limites de tokens, de débit, de récursion.** Un agent qui boucle ou qui consomme sans borne est un vecteur de déni de service et de facture incontrôlée — voir aussi §2.6 quotas API.
+
+Base minimum : OWASP Top 10 for LLM Applications. Grille appliquée en revue ad hoc par `agents/security-auditor.md` (point 6 de son périmètre).
+
 ---
 
 ## 2bis — Gestion des ressources
@@ -698,6 +716,7 @@ Les bases de données SQL sont mal faites pour le scaling horizontal (multiplier
 - Ne sélectionner que les colonnes utilisées (pas de `SELECT *` systématique)
 - Toujours filtrer (ne pas récupérer 10 000 lignes pour n'en afficher que 10)
 - Paginer les listes longues
+- **Activer le logging des requêtes lentes** (`log_min_duration_statement` sur Postgres, ou équivalent selon la stack) dès le niveau 2 de déploiement — sans ça, une requête qui se dégrade progressivement reste invisible jusqu'à ce qu'un utilisateur se plaigne
 
 **Dans `/specs` :** documenter ce que chaque requête doit retourner exactement. Pas "les messages", mais "les 20 derniers messages du canal, avec auteur et timestamp uniquement".
 
@@ -867,6 +886,15 @@ C'est la phase la plus critique pour la sécurité — les décisions d'architec
 3. L'app est-elle multi-tenant ? (Si oui : `organization_id` sur chaque table dès le schéma)
 4. Y a-t-il des webhooks entrants ? (Si oui : stratégie de vérification HMAC-SHA256)
 5. Y a-t-il des appels à des URLs fournies par l'utilisateur ? (Si oui : whitelist de domaines)
+6. **Threat modeling STRIDE** sur chaque frontière de confiance identifiée (où une donnée non fiable entre dans le système) :
+   - **S**poofing — peut-on usurper une identité ?
+   - **T**ampering — peut-on modifier une donnée en transit ou au repos ?
+   - **R**epudiation — une action peut-elle être niée faute de trace ?
+   - **I**nformation disclosure — une donnée peut-elle fuiter ?
+   - **D**enial of service — le service peut-il être saturé ?
+   - **E**levation of privilege — peut-on obtenir plus de droits que prévu ?
+
+   Un passage systématique, pas juste "on verra à l'usage" — comparer contre la doctrine `agents/security-auditor.md` qui applique cette grille en revue ad hoc.
 
 **Livrable dans `[projet].archi.md` — section Sécurité :**
 - Schéma des rôles et permissions

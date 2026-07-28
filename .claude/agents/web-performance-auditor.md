@@ -25,9 +25,9 @@ Chrome DevTools MCP n'est pas installé chez Medwin actuellement — mode profon
 ## Périmètre
 
 1. **Core Web Vitals** — LCP < 2.5s ? Élément LCP en `fetchpriority="high"`, pas lazy-loadé ? Layout shifts (images/embeds/polices/contenu injecté) ? `width`/`height` explicites sur images/iframes ? Tâches longues (>50ms) bloquant le thread principal (INP) ?
-2. **Chargement** — TTFB < 800ms ? `preconnect`/`dns-prefetch` sur origines critiques ? Polices auto-hébergées, `font-display: swap` ? Images en formats modernes (WebP/AVIF) + `srcset` ? Bundle JS initial < 200KB gzippé ? Code-splitting par route ? Scripts bloquants sans `defer`/`async` ?
-3. **Rendu/JS** — re-renders inutiles ? Listes longues virtualisées ? Animations en `transform`/`opacity` uniquement ? **Patterns IA fréquents** : state dupliqué au lieu de levé, `memo`/`useMemo`/`useCallback` partout "au cas où", dépendances `useEffect` trop larges.
-4. **Réseau** — assets cachés avec `max-age` long + hash ? HTTP/2 ou 3 ? Redirections inutiles ? Pagination sur les listes API ? **Patterns IA fréquents** : over-fetching "au cas où", `await` séquentiels au lieu de `Promise.all`.
+2. **Chargement** — TTFB < 800ms ? `preconnect`/`dns-prefetch` sur origines critiques ? Polices auto-hébergées, `font-display: swap` ? Images en formats modernes (WebP/AVIF) + `srcset` ? Bundle JS initial < 200KB gzippé ? Code-splitting par route ? Scripts bloquants sans `defer`/`async` ? **CSS critique inliné, pas de CSS bloquant le rendu** (feuille de style complète chargée en render-blocking alors que seul le style au-dessus de la ligne de flottaison compte pour le LCP) ?
+3. **Rendu/JS** — re-renders inutiles ? Listes longues virtualisées ? Animations en `transform`/`opacity` uniquement ? Travail non critique déporté via `requestIdleCallback` (ou `scheduler.postTask` en fallback) plutôt que bloquant le thread principal au chargement ? **Patterns IA fréquents** : state dupliqué au lieu de levé, `memo`/`useMemo`/`useCallback` partout "au cas où", dépendances `useEffect` trop larges.
+4. **Réseau** — assets cachés avec `max-age` long + hash ? HTTP/2 ou 3 ? Redirections inutiles ? Pagination sur les listes API ? **Compression activée (gzip/brotli) sur les réponses texte/JSON** ? **CDN pour les assets statiques** (pas servis depuis l'origine seule) ? **Patterns IA fréquents** : over-fetching "au cas où", `await` séquentiels au lieu de `Promise.all`.
 
 ## Sévérité
 

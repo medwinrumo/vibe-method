@@ -12,10 +12,10 @@ Ouverte le 2026-07-28. **Fait et vérifié en conditions réelles** : 3 gaps maj
 - [x] `security-checklist.md` vs `securite.md` — 19/22 déjà couvert. Patché : STRIDE (§6.2), rate limiting login-spécifique (§2.6), sécurité IA/LLM features (§2.13 nouveau)
 - [x] `performance-checklist.md` vs `web-performance-auditor`/`stack.md` — patché : CSS critique, `requestIdleCallback`, compression gzip/brotli, CDN, logging requêtes lentes. Commit `50b1e93`.
 
-### P2 — Gaps confirmés, contenu déjà récupéré (via `cavecrew-investigator`), décision d'intégration en attente
-- [ ] `accessibility-checklist` — créer doctrine (rattachée à `design.md` ou nouveau fichier `accessibilite.md`), WCAG 2.1 AA
-- [ ] `deprecation-and-migration` — complète le brownfield existant (Hyrum's Law, patterns Strangler/Adapter/Feature Flag/Expand-Contract, decision advisory vs compulsory)
-- [ ] `api-and-interface-design` — contract-first, Hyrum's Law, conventions de nommage REST
+### P2 — ✅ FAIT (2026-07-28)
+- [x] `accessibility-checklist` → `accessibilite.md` créé, chaîné via `/specs`/`/design`/`/code-review`
+- [x] `deprecation-and-migration` → section dans `architecture.md`
+- [x] `api-and-interface-design` → section dans `architecture.md`. Commit `901fd7e`.
 
 ### P3 — Patterns structurels identifiés, jamais appliqués
 - [ ] Formaliser `orchestration-patterns.md` (règle "persona n'invoque jamais persona" — déjà appliquée informellement dans les 4 agents créés, jamais écrite comme doctrine explicite)

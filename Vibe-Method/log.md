@@ -73,3 +73,15 @@ Source `/brief` modifiée (3 observations task-observer issues de la session RAM
 - Domaine 6 — nouvelle question sur les traitements automatiques (cron, rappels, expirations), remontée comme critère de choix pour `/stack`. Ajoutée au format du brief et à la quality gate (16 → 17 cases).
 
 Page wiki `skills/brief.md` resynchronisée (frontmatter `source_modified` et `wiki_updated` au 2026-07-27).
+
+## [2026-07-28] update | methode.md, stack.md, observabilite.md (nouveau), .claude/commands/specs.md, .claude/commands/deploy.md, .claude/commands/maj.md → doctrines/methode.md, doctrines/stack.md, doctrines/observabilite.md (ingest), skills/specs.md, skills/deploy.md, skills/maj.md, index.md
+
+Comparaison `addyosmani/agent-skills` vs vibe-method (session Medwin) — 3 gaps intégrés :
+- `doctrines/methode.md` : 10e geste « Le juge impartial » (doubt-driven-development, process CLAIM/EXTRACT/DOUBT/RECONCILE/STOP), note sur le hook `PreToolUse` non confirmé fonctionnel au moment de l'écriture
+- `doctrines/stack.md` : section « Vérification documentaire par feature (source-driven) », 8e point d'investigation (observabilité)
+- `doctrines/observabilite.md` (nouvelle page, ingest) : doctrine d'instrumentation, chaînage `/specs` → Code → `/deploy`
+- `skills/specs.md`, `skills/deploy.md` : Étape 4c-ter / Pre-Launch Gate observabilité
+- `skills/maj.md` : resynchronisé après dérive détectée (page décrivait 6 étapes, la source en a 7 depuis l'ajout de la review task-observer — jamais répercuté avant aujourd'hui)
+- `index.md` : ligne `doctrines/observabilite` ajoutée, `doctrines/methode` mise à jour (9 → 10 gestes)
+
+Rappel de la règle de mise à jour automatique (`CLAUDE.md` du vault) : appliqué en rattrapage lors du `/maj` de clôture, pas en temps réel pendant la session — écart à corriger la prochaine fois (mettre à jour le wiki au fil de l'eau, pas seulement à la clôture).

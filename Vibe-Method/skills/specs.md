@@ -1,9 +1,9 @@
 ---
 type: skill
 source: ../../.claude/commands/specs.md
-source_modified: 2026-06-11
-wiki_updated: 2026-06-11
-tags: [phase-5, specs, user-story, a4]
+source_modified: 2026-07-28
+wiki_updated: 2026-07-28
+tags: [phase-5, specs, user-story, a4, observabilite]
 phase: 5
 ---
 
@@ -28,5 +28,8 @@ Produit une user story auto-contenue qui tient sur une A4 : qui fait quoi dans q
 ## Déclenche /adr automatiquement
 Après toute décision structurante identifiée dans la spec → `/adr` proposé.
 
+## Vérification observabilité (Étape 4c-ter)
+Si la feature est prod-critique (vrais utilisateurs, pas un `/prototype`) : 2-4 questions on-call + section "Signaux à instrumenter" obligatoire dans la spec, champ "Observabilité : Requise/Non requise". Vérifié mécaniquement par `/deploy` via `scripts/lint-observabilite.py`. Voir [[doctrines/observabilite]].
+
 **Précédent :** [[skills/roadmap]] | **Suivant :** [[skills/angles-morts]] (spec) → [[skills/gherkin]] (Mode Specs)
-**Doctrine :** [[doctrines/produit]]
+**Doctrine :** [[doctrines/produit]] | [[doctrines/observabilite]]

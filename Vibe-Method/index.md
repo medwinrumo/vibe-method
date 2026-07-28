@@ -2,7 +2,7 @@
 type: infrastructure
 source: ../CLAUDE.md
 source_modified: 2026-05-18
-wiki_updated: 2026-05-26
+wiki_updated: 2026-07-28
 tags:
   - index
   - catalogue
@@ -32,12 +32,13 @@ Catalogue de toutes les pages. Mis à jour à chaque ingest ou nouvelle page wik
 
 | Page | Principe fondateur |
 |---|---|
-| [[doctrines/methode]] | Chef d'orchestre — 7 phases, 9 gestes, protocole d'escalade |
+| [[doctrines/methode]] | Chef d'orchestre — 7 phases, 10 gestes, protocole d'escalade |
 | [[doctrines/architecture]] | Contexte minimal = IA performante — modulaire + silos |
 | [[doctrines/securite]] | Zero Trust — code IA = 2× plus de vulnérabilités |
 | [[doctrines/tests]] | Vérifier fonctionnement ET correction — TDD + 3 niveaux |
 | [[doctrines/design]] | Interface d'abord, logique ensuite — Claude Design workflow |
-| [[doctrines/stack]] | Anticiper, pas réagir — spike technique time-boxé |
+| [[doctrines/stack]] | Anticiper, pas réagir — spike technique time-boxé + vérification documentaire par feature |
+| [[doctrines/observabilite]] | Code non observable = code non exploitable — instrumenter en même temps que la feature |
 | [[doctrines/refacto]] | Discipline séparée — session dédiée, étapes atomiques |
 | [[doctrines/produit]] | Brief → PRD → Story A4 → Gherkin |
 

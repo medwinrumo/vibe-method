@@ -1,9 +1,9 @@
 ---
 type: doctrine
 source: ../../stack.md
-source_modified: 2026-07-27
-wiki_updated: 2026-07-27
-tags: [stack, spike, investigation, free-tier, gotchas, dependances, couts-caches]
+source_modified: 2026-07-28
+wiki_updated: 2026-07-28
+tags: [stack, spike, investigation, free-tier, gotchas, dependances, couts-caches, source-driven, observabilite]
 ---
 
 # Doctrine — Stack
@@ -40,6 +40,17 @@ Sans investigation préalable, 3 risques coûteux :
 5. APIs et SDK clés — rate limiting, patterns recommandés
 6. Compatibilité entre outils — incompatibilités de versions connues
 7. Compatibilité avec Claude Code — l'IA connaît-elle bien cet outil ?
+8. Observabilité — outillage logs/métriques/alerting, voir [[doctrines/observabilite]]
+
+---
+
+## Vérification documentaire par feature (source-driven)
+
+Complète le spike : le spike lève l'incertitude une fois par outil (Phase 4), ceci se rejoue à chaque feature qui touche un pattern framework-spécifique nouveau — pas seulement en cas de blocage (contrairement au "faucon en chasse" réactif de [[doctrines/methode]]).
+
+**Process** : DETECT (version exacte depuis le fichier de dépendances) → FETCH (doc officielle précise, jamais Stack Overflow/blog/mémoire seule) → IMPLEMENT (signaler les contradictions avec le code existant plutôt que trancher silencieusement) → CITE (URL précise par décision non triviale, ou "non vérifié" explicite).
+
+**Pas de mécanique de forçage** — heuristique de "domaine de doc officielle" jugée trop fragile (faux positifs/négatifs). Surveillance via `task-observer`, seuil de 3 sauts sans raison valable avant de reconsidérer un hook `PostToolUse` sur `Edit`/`Write`.
 
 ---
 

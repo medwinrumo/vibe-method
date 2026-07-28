@@ -1,9 +1,9 @@
 ---
 type: doctrine
 source: ../../methode.md
-source_modified: 2026-07-27
-wiki_updated: 2026-07-27
-tags: [méthode, phases, pilotage, reflex, effort, tiers-modeles]
+source_modified: 2026-07-28
+wiki_updated: 2026-07-28
+tags: [méthode, phases, pilotage, reflex, effort, tiers-modeles, doubt-driven]
 ---
 
 # Doctrine — Méthode
@@ -23,19 +23,24 @@ APRÈS :  Phase 7 (Vérification)
 
 ---
 
-## Les 9 gestes — réflexes de la Phase 6
+## Les 10 gestes — réflexes de la Phase 6
 
 | Geste | Ce que c'est | Quand |
 |---|---|---|
 | L'archer immobile | Plan avant code — discuter, pas écrire | Avant chaque feature |
 | Le tranchant de la main | Interrompre l'IA dès qu'elle dérive | Pendant le code |
 | La mue du serpent | Recommencer depuis zéro, ne pas corriger | Première itération ratée |
+| Le juge impartial | CLAIM → EXTRACT → DOUBT (sous-agent adversarial) → RECONCILE → STOP | Décision non triviale, avant qu'elle se fixe |
 | Le kiai | Dicter les prompts complexes | Prompts longs ou techniques |
 | Le souffle neuf | Nouvelle conversation = contexte propre | Contexte saturé |
 | L'œil de l'aigle | Analyse globale avant correction | Bloqué après 2 essais |
 | Le bond du tigre | Git reset + contraintes négatives | Bloqué après analyse |
 | Le singe change de branche | Changer de modèle (Claude → GPT → Gemini) | Insoluble après reset |
 | Le faucon en chasse | Recherche web — doc à jour | Avant d'intégrer un service |
+
+**Le juge impartial** — pas `/code-review-hostil` (verdict a posteriori sur du code fini) : ici en cours de route, pendant que la correction est encore bon marché. Décision non triviale = introduit/modifie une logique conditionnelle, traverse une frontière de module, affirme une propriété non vérifiable par le compilateur, ou a un rayon d'impact irréversible. Filet de rattrapage prévu : hook `PreToolUse` sur `git commit` — non confirmé fonctionnel au 2026-07-28 (détail dans `vibe-method.peda.md`, session du jour, hors vault), fallback en cours : bloc CLAIM écrit directement dans la réponse de l'agent avant tout commit non trivial.
+
+**Version préventive du faucon en chasse** — vérification documentaire par feature (pas seulement en cas de blocage), voir [[doctrines/stack]] section "Vérification documentaire par feature".
 
 ---
 
@@ -97,4 +102,4 @@ En dessous de "medium", le modèle est dégradé. Au-dessus de "high", risque de
 - Rien n'entre dans le système sans validation explicite de Medwin
 
 ## Liens
-[[_vue-ensemble]] | [[flux/chaine-complete]] | [[doctrines/tests]] | [[doctrines/refacto]]
+[[_vue-ensemble]] | [[flux/chaine-complete]] | [[doctrines/tests]] | [[doctrines/refacto]] | [[doctrines/observabilite]] | [[doctrines/stack]]

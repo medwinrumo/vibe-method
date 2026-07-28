@@ -24,8 +24,10 @@ Ouverte le 2026-07-28. **Fait et vérifié en conditions réelles** : 3 gaps maj
 ### P4 — ✅ FAIT (2026-07-28)
 Diff des 14 skills fait via 3 sous-agents en parallèle. 6 gaps réels patchés : real>mock (`tests.md`), feature flags + rollout progressif (`deploy.md`), taille de commit (`commit.md`), state management + breakpoints + anti-esthétique-IA (`ui-vocabulary.md`), Three-Tier Boundary portable (`securite.md` §0bis). Le reste : différences philosophiques déjà couvertes ou hors scope (code-simplification = built-in Claude Code, ci-cd-and-automation = scope minimal assumé, spec-driven-development = déjà plus complet chez nous). Commit `ed3e665`.
 
-### P5 — Décision différée
-- [ ] `browser-testing-with-devtools` — installer le MCP `chrome-devtools` ou pas ? (nécessaire pour le mode profond de `web-performance-auditor`)
+### P5 — ✅ FAIT (2026-07-28)
+- [x] MCP `chrome-devtools` installé (scope user, `claude mcp add`). Mode profond de `web-performance-auditor` référencé en conséquence — à vérifier en session fraîche (MCP chargés au démarrage, pas à chaud). Commit `2c5fb44`.
+
+**Roadmap agent-skills : CLOSE.** P1 à P5 tous faits, 5 commits + 5 cartes kanban Done (Tâches 30-34), en plus des 3 gaps majeurs et 4 personas du début de chantier.
 
 ---
 

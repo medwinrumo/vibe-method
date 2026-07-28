@@ -17,9 +17,9 @@ Ouverte le 2026-07-28. **Fait et vérifié en conditions réelles** : 3 gaps maj
 - [x] `deprecation-and-migration` → section dans `architecture.md`
 - [x] `api-and-interface-design` → section dans `architecture.md`. Commit `901fd7e`.
 
-### P3 — Patterns structurels identifiés, jamais appliqués
-- [ ] Formaliser `orchestration-patterns.md` (règle "persona n'invoque jamais persona" — déjà appliquée informellement dans les 4 agents créés, jamais écrite comme doctrine explicite)
-- [ ] Évaluer le pattern "anti-rationalisation table" (excuse courante → contre-argument, présent dans chaque skill Osmani) — décider où l'appliquer chez nous (`securite.md` ? `observabilite.md` ? `methode.md` ?)
+### P3 — ✅ FAIT (2026-07-28)
+- [x] `orchestration-patterns.md` formalisé dans `methode.md` (Doctrine Agents IA) — règle confirmée platform-enforced par Claude Code, pas juste convention
+- [x] Anti-rationalisation table ajoutée à `methode.md` (Le juge impartial) et `securite.md` (§0). Commit `7ddb58b`.
 
 ### P4 — Diff systématique des skills Osmani restants (mis en correspondance par nom seulement, jamais vérifié ligne à ligne contre l'équivalent vibe-method)
 - [ ] `code-review-and-quality` vs `/code-review` + `/code-review-hostil`

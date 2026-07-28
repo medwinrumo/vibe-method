@@ -160,6 +160,16 @@ Différent de `/code-review-hostil` : celui-ci est un verdict a posteriori sur d
 
 Ne s'applique pas aux opérations mécaniques (renommage, formatage), aux instructions claires de Medwin, ou à un changement d'une ligne évident. Douter de chaque frappe = ne rien livrer.
 
+**Rationalisations courantes pour sauter ce cycle — table anti-rationalisation (pattern `addyosmani/agent-skills`, 2026-07-28) :**
+
+| Rationalisation | Réalité |
+|---|---|
+| "Je suis confiant, je saute le doute" | La confiance corrèle mal avec la justesse sur un problème nouveau — les angles morts se cachent justement dans les moments de certitude |
+| "Invoquer un sous-agent coûte cher" | Déboguer un mauvais commit en prod coûte plus cher — le check est borné (max 3 cycles), le bug ne l'est pas |
+| "Le reviewer va juste chipoter" | Seulement si le prompt n'est pas cadré — contraindre à "problèmes qui feraient échouer le contrat", pas "est-ce que c'est bien ?" |
+| "Je ferai le doute à la fin avec /code-review-hostil" | `/code-review-hostil` est un verdict final, sur du code déjà écrit. Le juge impartial attrape la mauvaise direction tôt, quand corriger est encore bon marché — trop tard une fois au commit |
+| "Si je doute de chaque étape, je ne livre jamais rien" | S'applique aux décisions non triviales telles que définies ci-dessus, pas à chaque frappe — relire "ne s'applique pas à" |
+
 **Mécanisme retenu :** un hook `PreToolUse` sur `git commit` a été testé (2026-07-28) — ni `systemMessage`/exit 0 ni `stderr`/exit 1 ne s'affichent pour cet événement dans ce build de Claude Code, vérifié 2 fois en session courante et 2 fois en session fraîche. Retiré de `settings.json`, script conservé en archive (`.claude/hooks/doubt-commit-reminder.sh`) pour réactivation si un futur build corrige ce point. **Filet de rattrapage réel : l'agent écrit le bloc CLAIM directement dans sa réponse chat avant tout commit non trivial** — visible par Medwin sans dépendre d'une infrastructure de hook.
 
 **Vérifier les modifications non demandées**
@@ -308,6 +318,27 @@ Si oui :
 - Un agent co-construit avec Medwin doit avoir une checklist de vérification définie avant lancement
 - Claude vérifie le résultat de chaque agent avant de valider
 - Pour les sous-agents spawned par Claude : modèle choisi selon la complexité (Haiku / Sonnet / Opus), retour en Sonnet après la sous-tâche
+
+### Personas (subagents) — patterns d'orchestration
+
+Comparaison `addyosmani/agent-skills` vs vibe-method (2026-07-28, P3 de la roadmap). À ne pas confondre avec les "agents" ci-dessus (tâche autonome transverse type migration/audit) : une **persona** est un subagent à contexte isolé, review ad hoc, portée par `.claude/agents/*.md` (`code-reviewer`, `security-auditor`, `test-engineer`, `web-performance-auditor`) ou par cavecrew.
+
+**Règle qui gouverne tout le reste : l'utilisateur (ou un skill) est l'orchestrateur. Une persona n'invoque jamais une autre persona.** Pas juste une convention chez nous — c'est une règle appliquée par Claude Code lui-même : *"Subagents cannot spawn other subagents"*, verbatim de la doc. Personne ne peut construire l'anti-pattern par accident.
+
+**Patterns qu'on utilise déjà, sans les avoir nommés :**
+
+- **Invocation directe** — un persona, une perspective, un artefact. `code-reviewer` sur un fichier précis. Le cas par défaut, le moins cher.
+- **Isolation de recherche** — `cavecrew-investigator` : quand une tâche demande de lire beaucoup de matière sans polluer le contexte principal, un sous-agent isolé renvoie un digest compressé. Déjà notre pattern depuis la création de cavecrew.
+- **Pipeline séquentiel piloté par l'utilisateur** — toute la chaîne `/brief → /prd → /archi → ... → /deploy`. Pas d'orchestrateur agent : Medwin (ou Claude en son nom) enchaîne les skills, chaque étape garde le jugement humain. C'est le design déjà en place, confirmé comme le bon choix par cette comparaison — ne pas automatiser la chaîne complète en un seul agent orchestrateur (perte de nuance aux points de passage, saute les points de contrôle humains, double le coût en tokens).
+
+**Anti-patterns à ne jamais construire :**
+
+- **Persona routeur** — une persona dont le seul travail est de décider quelle autre persona appeler. Pure couche de routage, zéro valeur métier, double le coût en paraphrase. Si le besoin apparaît : ajouter ou préciser un skill, pas un routeur.
+- **Persona qui appelle une persona** — bloqué par construction sur Claude Code (voir règle ci-dessus). Si une persona identifie qu'un audit complémentaire serait utile → elle le **recommande** dans son rapport, l'utilisateur ou un skill lance la seconde passe.
+- **Orchestrateur séquentiel qui paraphrase** — un agent qui enchaîne `/specs` puis `/tests` puis... à la place de Medwin. Perd les points de contrôle humains, chaque relais résume et dérive. Garder Medwin comme orchestrateur, documenter la séquence recommandée, pas l'automatiser.
+- **Arbres de personas profonds** — persona A appelle persona B qui appelle persona C. Profondeur d'orchestration max = 1 (skill → personas). La fusion se fait dans le contexte principal.
+
+**Agent Teams (expérimental, pas activé) :** existe côté Claude Code pour un cas précis — plusieurs personas qui se contredisent activement pour trancher entre hypothèses concurrentes (ex : bug intermittent avec plusieurs causes plausibles). Différent du fan-out parallèle (rapports indépendants fusionnés) : ici les personas se parlent et se contestent. Pas de cas d'usage chez nous aujourd'hui — à activer (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`) seulement si un vrai cas de debug à hypothèses multiples se présente, pas avant.
 
 ---
 

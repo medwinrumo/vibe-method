@@ -12,6 +12,16 @@ La sécurité est aussi solide que son maillon le plus faible. Un seul point né
 
 **Loi du code généré par IA :** les LLMs génèrent du code fonctionnel mais rarement sécurisé par défaut. Étude Apiiro (40 000+ repos Fortune 50, 2025) : le code généré par IA contient 2× plus de vulnérabilités que le code humain. Étude Pearce et al. (CACM 2023) : 40 % du code généré contient des vulnérabilités de sécurité actives. Ce n'est pas un défaut de l'IA — c'est sa nature. La sécurité doit être demandée explicitement à chaque étape.
 
+**Rationalisations courantes pour contourner une règle de sécurité — table anti-rationalisation (pattern `addyosmani/agent-skills`, 2026-07-28) :**
+
+| Rationalisation | Réalité |
+|---|---|
+| "`service_role` key côté client, juste pour que ça marche en dev" | Elle bypass tout le RLS — un accès complet à la base de tous les utilisateurs, pas un raccourci temporaire (§2.1) |
+| "Je désactiverai le contrôle de sécurité juste pour ce test" | Jamais recommandé comme "fix" — un contrôle désactivé pour tester reste désactivé en prod si personne ne s'en souvient |
+| "Cette route est interne, pas besoin de valider l'input" | Toute frontière où une donnée non fiable entre est une frontière de confiance, interne ou pas (voir STRIDE §6.2) |
+| "Le message d'erreur détaillé aide au debug, on le retirera avant prod" | Un détail exposé en dev fuite en prod dès qu'on oublie une branche de code (§1.13) |
+| "RLS activée, ça doit suffire, pas besoin de tester chaque policy" | RLS sans policy testée = résultats vides silencieux, pas une erreur qui alerte (§1.1) |
+
 ---
 
 ## 1 — Phase 1 : Avant de coder (à décider à la conception)

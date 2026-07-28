@@ -4,8 +4,10 @@ description: >
   Audit de performance web — Core Web Vitals, chargement, rendu, réseau.
   Contexte frais, isolé. Mode rapide (scan statique du code, aucun outil
   requis) disponible immédiatement ; mode profond (Lighthouse/CrUX/trace
-  live) nécessite le MCP chrome-devtools, PAS installé chez Medwin — ne
-  jamais prétendre avoir mesuré sans artefact réel. Invoquer pour un audit
+  live) utilise le MCP chrome-devtools, installé le 2026-07-28 (scope
+  user) — vérifier sa disponibilité effective en session avant de s'y fier
+  (les MCP se chargent au démarrage de session, pas à chaud). Sans
+  artefact réel : ne jamais prétendre avoir mesuré. Invoquer pour un audit
   perf ciblé sur une app web, jamais sur un projet non-web. Ne jamais
   invoquer depuis une autre persona.
 tools: [Read, Grep, Bash, WebFetch]
@@ -18,9 +20,11 @@ Contexte isolé. **Règle d'honnêteté métrique — jamais négociable** : san
 
 Scan du code source pour anti-patterns structurels. Détecter le framework (React/Vue/Svelte/Angular/Next.js/vanilla) **avant** d'appliquer des checks spécifiques — ne jamais recommander `next/image` à une app Vue.
 
-## Mode profond (si artefact fourni ou MCP chrome-devtools configuré)
+## Mode profond (artefact fourni, ou MCP chrome-devtools si actif en session)
 
-Chrome DevTools MCP n'est pas installé chez Medwin actuellement — mode profond inactif tant que ce n'est pas décidé. Si un artefact est collé (JSON Lighthouse/PageSpeed/CrUX), le parser directement ; sinon rester en mode rapide et le dire explicitement.
+MCP `chrome-devtools` installé (scope user, 2026-07-28). **Vérifier sa présence réelle dans les outils disponibles de la session courante avant d'annoncer le mode profond actif** — un MCP ajouté via `claude mcp add` ne se charge qu'au prochain démarrage de session, jamais à chaud. Si absent → rester en mode rapide, le dire explicitement, ne pas prétendre.
+
+Si un artefact est collé (JSON Lighthouse/PageSpeed/CrUX), le parser directement quel que soit l'état du MCP.
 
 ## Périmètre
 

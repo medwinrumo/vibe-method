@@ -264,3 +264,18 @@ CLAUDE.global.md, section "Exigence de rigueur professionnelle" : nouvelle règl
 - Correction Medwin sur les personas : fonction/moment/manière différents des skills existants, pas redondant — rôle de reviewer adversarial pour l'étape DOUBT. 4 agents construits (pas 2) : `code-reviewer`, `security-auditor`, `test-engineer`, `web-performance-auditor` — commit `875862d`
 - Test d'invocation `code-reviewer` échoué (`Agent type not found`) — même défaut de chargement que le hook, vérification en session fraîche reportée
 - Obs. 11 loguée : catégorie "Agents" absente du schéma wiki interne
+
+---
+
+### Session — Roadmap P1-P5 : clôture complète du chantier agent-skills
+
+- 4 agents confirmés chargés en session fraîche. Test réel `code-reviewer` sur `scripts/lint-observabilite.py` → 4 cas de fail-open trouvés et corrigés (parsing structuré, fail-closed), 8 tests fixtures committés — commit `bc3cf43`
+- Feuille de route créée (`vibe-method.todo.md` + kanban Tâches 30-34) suite à demande de Medwin
+- P1 : checklists security/performance Osmani vérifiées contre `securite.md`/`stack.md` — 8 gaps patchés (STRIDE, rate limiting login, IA/LLM §2.13, logging requêtes lentes, CSS critique, requestIdleCallback, compression, CDN) — commit `50b1e93`
+- P2 : `accessibilite.md` créé (WCAG 2.1 AA) + `architecture.md` enrichi (API/interfaces, deprecation/migration) — commit `901fd7e`
+- P3 : `orchestration-patterns` formalisé dans `methode.md` (règle confirmée platform-enforced par Claude Code) + anti-rationalisation tables (`methode.md`, `securite.md`) — commit `7ddb58b`
+- P4 : diff des 14 skills restants via 3 sous-agents parallèles — 6 gaps patchés (real>mock, feature flags/rollout, taille commit, state management/breakpoints/anti-esthétique-IA, Three-Tier Boundary). Correction Medwin en cours de route : Three-Tier Boundary écrit en doctrine portable, pas dépendant du système de permissions Claude Code — commit `ed3e665`
+- P5 : décision MCP chrome-devtools — installé (`claude mcp add`, scope user) — commit `2c5fb44`
+- Roadmap officiellement close, confirmé à Medwin : amélioration réelle de vibe-method, pas juste comparatif
+- `handoff.md` vidé (contenu périmé) sur demande de Medwin
+- gh auth a perdu ses scopes en cours de session, `gh auth refresh` (device code validé par Medwin) — repris normalement

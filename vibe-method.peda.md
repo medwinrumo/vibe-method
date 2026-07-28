@@ -925,3 +925,49 @@ Test d'invocation immédiat de `code-reviewer` sur `scripts/lint-observabilite.p
 - Pattern "anti-rationalisation table" (transversal, un tableau excuse→contre-argument par skill sensible) — identifié, pas encore appliqué à aucune doctrine.
 - `deprecation-and-migration` et `api-and-interface-design` — contenu déjà récupéré (voir output `cavecrew-investigator` de cette session), pas encore intégré à vibe-method, décision de Medwin en attente.
 - Catégorie "Agents" absente de la structure du wiki interne (`Vibe-Method/CLAUDE.md` ne liste que Doctrines/Skills/Méthode comme sources) — les 4 nouveaux fichiers `.claude/agents/*.md` n'ont pas d'équivalent wiki. Pas traité cette session, à trancher (créer la catégorie, ou assumer que les agents restent hors wiki).
+
+---
+
+### Session — Vérification agents + roadmap P1-P5 (clôture du chantier agent-skills)
+
+**Vérification en session fraîche**
+
+Les 4 agents (`code-reviewer`, `security-auditor`, `test-engineer`, `web-performance-auditor`) apparaissent bien dans la liste des agent types disponibles au démarrage — confirmé, contrairement au hook doubt-driven qui lui reste cassé. Test réel : `code-reviewer` lancé sur `scripts/lint-observabilite.py`. Verdict DEMANDE DE CHANGEMENTS — a trouvé 4 cas de fail-open réels (la regex de détection du champ `Observabilité` faisait un match de proximité au lieu de parser la vraie valeur, laissant passer des specs où la décision n'avait jamais été prise). Corrigé : parsing structuré + fail-closed sur valeur indéterminée/absente, 8 tests fixtures committés (`scripts/test_lint_observabilite.py`, jamais existant avant — l'affirmation "testé sur 4 cas" du jour précédent n'était qu'une note en prose, pas un test reproductible, l'agent l'a relevé). Commit `bc3cf43`.
+
+**Feuille de route demandée par Medwin**
+
+Vu l'ampleur du travail restant sur le comparatif (identifié en fin de session précédente), Medwin a demandé une feuille de route plutôt que de tout enchaîner à l'aveugle. Créée à deux endroits : `vibe-method.todo.md` (document, 5 priorités P1-P5) et kanban GitHub (Tâches 30-34, statut Todo). Gh auth a perdu ses scopes en cours de route (`gh auth refresh` avec device code, Medwin a validé dans son navigateur) — repris normalement après.
+
+**P1 — Checklists security/performance Osmani, jamais vérifiées avant**
+
+`cavecrew-investigator` comparé `security-checklist.md`/`performance-checklist.md` contre `securite.md` (950 lignes) et `stack.md`/`web-performance-auditor.md`. Sécurité : 19/22 déjà couvert. Performance : le rapport du sous-agent contenait plusieurs faux négatifs (TTFB, `font-display`, HTTP/2/3, redirections — tous en fait déjà couverts dans `web-performance-auditor.md`, vérifié moi-même avant de faire confiance au rapport). Après correction, 8 vrais manques patchés : STRIDE (`securite.md` §6.2), rate limiting login-spécifique (§2.6), sécurité IA/LLM features (§2.13 nouveau), logging requêtes lentes (§2bis.5), CSS critique, `requestIdleCallback`, compression, CDN (`web-performance-auditor.md`). Commit `50b1e93`.
+
+**P2 — accessibility-checklist, deprecation-and-migration, api-and-interface-design**
+
+`accessibilite.md` créé (doctrine WCAG 2.1 AA, 5 catégories), chaîné via `/specs` (nouvelle Étape 4c-quater), `/design` (vérif contraste/focus dès le design system), `/code-review` (nouvelle dimension). `architecture.md` enrichi de 2 sections : "Conception d'API et d'interfaces" (loi de Hyrum, contract-first, nommage REST) et "Deprecation et migration" (5 questions de décision, advisory vs compulsory, patterns Strangler/Adapter/Feature Flag/Expand-Contract) — complète le brownfield existant sans le remplacer. Commit `901fd7e`.
+
+**P3 — orchestration-patterns + anti-rationalisation table**
+
+Lecture intégrale de `orchestration-patterns.md` d'Osmani (pas juste le résumé du tout début) — révèle que "persona n'invoque jamais persona" est une règle **appliquée par Claude Code lui-même** ("subagents cannot spawn other subagents", verbatim de la doc), pas juste notre convention. Formalisé dans `methode.md` (Doctrine Agents IA), avec les 3 patterns déjà en usage sans les avoir nommés (invocation directe, isolation de recherche = `cavecrew-investigator`, pipeline séquentiel = toute la chaîne de skills) et 4 anti-patterns à éviter. Table anti-rationalisation ajoutée à 2 endroits à fort effet de levier : `methode.md` (Le juge impartial, 5 excuses pour sauter le cycle de doute) et `securite.md` §0 (5 excuses pour contourner une règle de sécurité). Commit `7ddb58b`.
+
+**P4 — diff des 14 skills Osmani restants**
+
+3 sous-agents `cavecrew-investigator` lancés en parallèle (5+4+5 skills), chacun comparant un lot contre les fichiers vibe-method réels. Beaucoup de bruit dans les rapports (différences philosophiques présentées comme des trous — ex. Osmani formalise des taxonomies que vibe-method couvre autrement). Filtré à 6 gaps réels : implémentation réelle > mock (`tests.md`), feature flags + rollout progressif avec seuils de décision (`deploy.md`, niveau 3), taille de commit indicative (`commit.md`), échelle de state management + breakpoints + table anti-esthétique-IA (`ui-vocabulary.md`). Le 6e a été **corrigé en cours de route par Medwin** : j'avais écarté le "Three-Tier Boundary System" (Always/Ask/Never) en disant "déjà couvert par le système de permissions Claude Code" — Medwin a demandé "et si demain je code plus avec Claude Code mais avec opencode ou kilocode ?". Correction reconnue : confusion entre mécanisme (comment Claude Code applique ça aujourd'hui) et doctrine (la règle en soi, indépendante de l'outil). Ajouté en prose portable dans `securite.md` §0bis. Commit `ed3e665`.
+
+**P5 — décision MCP chrome-devtools**
+
+Présenté le vrai calcul à Medwin plutôt qu'un choix binaire simpliste : `claude-in-chrome` déjà installé couvre console/network/DOM ; ce qui manque précisément c'est Lighthouse/CWV, et il existe déjà un filet zéro-install (CLI manuelle + coller le JSON dans `web-performance-auditor`). Question posée via `AskUserQuestion` — Medwin a choisi d'installer. `claude mcp add chrome-devtools -s user -- npx -y chrome-devtools-mcp@latest`, connecté. `web-performance-auditor.md` mis à jour avec garde-fou explicite (MCP ajouté ne se charge qu'au prochain démarrage de session, à vérifier avant de s'y fier — même défaut déjà rencontré 2 fois cette session pour les hooks et les agents). Commit `2c5fb44`.
+
+**Clôture de la roadmap**
+
+Medwin a demandé confirmation explicite : "on n'a pas juste fait une comparaison, on a amélioré la vibe-method en prenant le meilleur d'Osmani ?" — confirmé avec la liste complète des artefacts touchés (2 doctrines créées, 6 doctrines enrichies, 5 skills modifiés, 4 agents, script de lint + tests, hooks de surveillance, MCP installé). Le comparatif était le prétexte, l'amélioration réelle est le résultat.
+
+**Handoff vidé**
+
+`handoff.md` contenait une entrée périmée (chantier de vérification des agents, déjà résolu depuis). Sur demande de Medwin : vidé et remplacé par une entrée propre reflétant l'état réel (roadmap close, rien en suspens, RAMrezo en attente).
+
+**Ce qui reste ouvert**
+
+- MCP `chrome-devtools` installé mais jamais testé en usage réel (chargement au démarrage — probable mais pas vérifié, comme pour le hook et les 4 agents avant eux).
+- `browser-testing-with-devtools` (skill Osmani complet, pas juste la persona perf) — jamais intégré, maintenant que le MCP existe ça redevient pertinent si Medwin veut creuser.
+- RAMrezo reste la priorité déclarée, deadline 2026-09-04, à démarrer depuis `/brief`.

@@ -177,6 +177,25 @@ Tu ajoutes ces deux éléments dans la spec sous "Contexte d'implémentation".
 
 ---
 
+## Étape 4c-ter — Vérification observabilité
+
+Tu vérifies si cette feature est **prod-critique** : elle tourne en prod avec de vrais utilisateurs (pas un prototype `/prototype`, pas une feature interne sans enjeu).
+
+**Si oui :**
+
+> "Cette feature tourne en prod avec de vrais utilisateurs. Avant de finaliser la spec, 2 à 4 questions qu'on se poserait en découvrant un problème dessus — voir `observabilite.md` :
+> 1. [question métier 1]
+> 2. [question métier 2]"
+
+Tu ajoutes dans la spec une section **"Signaux à instrumenter"** listant ces questions et, pour chacune, le signal (log/métrique) qui y répondrait.
+Tu ajoutes dans "Contexte d'implémentation" : **Observabilité : Requise**.
+
+**Si non (prototype, feature interne, pas d'enjeu prod)** :
+Tu ajoutes dans "Contexte d'implémentation" : **Observabilité : Non requise (prototype ou hors prod)**.
+Continuer sans bloquer.
+
+---
+
 ## Étape 4d — Décision architecturale révélée → /adr
 
 Si la spec a révélé une décision architecturale nouvelle (nouveau module identifié, contrainte technique structurante, approche d'implémentation qui engage l'avenir) :
@@ -206,6 +225,7 @@ _[date]_
 - **Contrainte de sécurité** : [règle applicable depuis la section Sécurité de [projet].archi.md, ou "aucune spécifique"]
 - **Contrainte de plateforme** : [App Store / Android / web / aucune — avec référence à appstore.md si applicable]
 - **Mode d'exécution** : [Standard / Agent]
+- **Observabilité** : [Requise / Non requise (prototype ou hors prod)]
 
 ## User Story — [Titre]
 
@@ -224,11 +244,17 @@ En tant que [acteur], je souhaite [objectif] afin de [bénéfice].
 - [cas d'échec 1]
 - [cas d'échec 2]
 
+## Signaux à instrumenter
+_(uniquement si Observabilité : Requise)_
+- [question métier 1] → [signal : log/métrique correspondant]
+- [question métier 2] → [signal : log/métrique correspondant]
+
 ## Definition of Done
 
 - [ ] Tests unitaires et intégration passants (Vitest)
 - [ ] Non-régression Playwright verte
 - [ ] /securite check validé
+- [ ] Si Observabilité : Requise → signaux de la section "Signaux à instrumenter" codés et vérifiés
 - [ ] Recette manuelle validée par Medwin
 - [ ] Aucune valeur hardcodée
 - [ ] Code sur branche feat/[feature], prêt à merger

@@ -134,7 +134,7 @@ Règle de contexte :
 - Exécution (code) : contexte minimal — CLAUDE.md + module ciblé + specs de la feature
 Ces deux modes ne se mélangent pas dans la même session.
 
-Fichiers de référence : `securite.md`, `architecture.md`, `tests.md`
+Fichiers de référence : `securite.md`, `architecture.md`, `tests.md`, `observabilite.md`
 
 ### Pilotage de la session de code
 
@@ -149,6 +149,19 @@ Pendant que l'IA travaille, surveiller ce qu'elle fait. Si elle modifie des fich
 **La mue du serpent — Si la première itération est mauvaise, recommencer, ne pas corriger**
 Quand une première itération va dans la mauvaise direction, résister à la tentation de corriger. Le code bancal reste dans le contexte et l'IA s'appuie dessus pour la suite — chaque correction s'appuie sur une base défaillante. Recommencer depuis zéro avec un prompt amélioré. Deux ou trois tentatives pour trouver le bon point de départ, c'est un investissement, pas une perte.
 
+**Le juge impartial — Douter avant qu'une décision non triviale ne se fixe**
+Différent de `/code-review-hostil` : celui-ci est un verdict a posteriori sur du code fini. Ici, c'est en cours de route, pendant que la correction est encore bon marché. Une décision est non triviale si au moins un critère : introduit ou modifie une logique conditionnelle, traverse une frontière de module, affirme une propriété que le compilateur ne peut pas vérifier (thread-safety, idempotence, ordre), ou a un rayon d'impact irréversible (prod, migration, API publique). Dans ce cas, avant de la valider :
+
+1. **CLAIM** — écrire la décision en 2-3 lignes + pourquoi elle compte.
+2. **EXTRACT** — isoler l'artefact (le diff, la fonction) et le contrat qu'il doit satisfaire, sans la justification.
+3. **DOUBT** — invoquer un sous-agent frais avec un prompt adversarial ("trouve ce qui cloche, ne valide pas") sur l'artefact + le contrat seuls — jamais le CLAIM, ça biaise vers l'accord.
+4. **RECONCILE** — relire chaque retour contre le texte de l'artefact, classer : contrat mal formulé / vrai problème à corriger / compromis assumé à documenter / bruit.
+5. **STOP** — arrêter si retours triviaux, si 3 cycles faits, ou sur décision explicite de continuer sans plus creuser.
+
+Ne s'applique pas aux opérations mécaniques (renommage, formatage), aux instructions claires de Medwin, ou à un changement d'une ligne évident. Douter de chaque frappe = ne rien livrer.
+
+**Filet de rattrapage automatique :** un hook rappelle ce cycle à chaque `git commit` (`doubt-commit-reminder.sh`) — au cas où le réflexe ne se déclenche pas de lui-même en cours de session.
+
 **Vérifier les modifications non demandées**
 Après chaque session, demander à l'IA : "Liste tous les fichiers que tu viens de modifier et ce que tu y as changé." L'IA modifie régulièrement des fichiers hors scope sans le signaler — c'est la seule façon de le détecter. Si une modification non demandée est trouvée → la faire annuler avant de continuer.
 
@@ -161,7 +174,7 @@ Ne jamais s'entêter au-delà de deux essais sur le même problème. Escalade en
 1. **L'œil de l'aigle — Analyse globale** — "Relis tout le code lié à cette feature. Analyse le problème dans son ensemble. Propose des hypothèses avant de modifier quoi que ce soit." Passe l'IA du mode correction locale au mode diagnostic global. Pour un bug difficile à cerner sans preuve technique (perf, réseau, rendu) : Chrome DevTools MCP en complément — inspection réseau live, traces de performance (LCP/INP/CLS). Outil de débogage uniquement, ne remplace pas Playwright — qui reste la référence pour la suite de tests et la non-régression CI/CD (`tests.md`).
 2. **Le bond du tigre — Revenir en arrière + contraintes négatives** — Git reset au dernier commit propre. Relancer en précisant ce que l'IA ne doit PAS faire ("ne touche pas à X", "ne passe pas par Y"). Contraindre par le négatif est souvent plus efficace que prescrire le positif.
 3. **Le singe change de branche — Changer de modèle** — chaque modèle a été entraîné différemment. Ce qui est insoluble pour Claude peut être trivial pour GPT ou Gemini.
-4. **Le faucon en chasse — Recherche web** — les modèles ont une date de péremption. Demander à l'IA de chercher les bonnes pratiques actuelles, les incompatibilités de versions connues. S'applique aussi en préventif : avant d'intégrer un service externe, chercher la documentation à jour avant de coder.
+4. **Le faucon en chasse — Recherche web** — les modèles ont une date de péremption. Demander à l'IA de chercher les bonnes pratiques actuelles, les incompatibilités de versions connues. **Version préventive (pas seulement en cas de blocage) : voir `stack.md`, section "Vérification documentaire par feature" — toute décision de code framework-spécifique se vérifie contre la doc officielle avant d'être écrite, pas seulement après un échec.**
 5. **Le souffle neuf — Nouvelle conversation** — contexte propre, redémarrer avec le PRD, l'état du projet, et le problème rencontré + ce qui n'a pas fonctionné.
 
 Si aucune étape ne débloque → reporter la feature et continuer. Ce n'est pas un échec, c'est du pragmatisme.
@@ -169,13 +182,14 @@ Si aucune étape ne débloque → reporter la feature et continuer. Ce n'est pas
 **Le kiai — Dicter les prompts complexes**
 Pour les sujets complexes, dicter le prompt plutôt que le taper. Les prompts dictés sont naturellement plus riches : on développe, on donne du contexte, on explique le pourquoi en plus du quoi.
 
-**Référence rapide — Les 9 gestes**
+**Référence rapide — Les 10 gestes**
 
 | Geste | Ce que c'est | Quand |
 |---|---|---|
 | L'archer immobile | Plan avant code — discuter, pas écrire | Avant chaque feature |
 | Le tranchant de la main | Interrompre l'IA dès qu'elle dérive | Pendant le code |
 | La mue du serpent | Recommencer depuis zéro, ne pas corriger | Première itération ratée |
+| Le juge impartial | CLAIM → EXTRACT → DOUBT → RECONCILE → STOP | Décision non triviale, avant qu'elle se fixe |
 | Le kiai | Dicter les prompts complexes | Prompts longs ou techniques |
 | Le souffle neuf | Nouvelle conversation = contexte propre | Contexte saturé ou feature terminée |
 | L'œil de l'aigle | Analyse globale avant toute correction | Bloqué après 2 essais |

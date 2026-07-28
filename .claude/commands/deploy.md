@@ -171,6 +171,20 @@ Appliquer la procédure selon le niveau du projet.
 
 ---
 
+## Étape 5bis — Vérification observabilité (Pre-Launch Gate)
+
+Avant toute mise en prod, exécuter :
+
+```
+python3 ~/dev/vibe-method/scripts/lint-observabilite.py [chemin-projet]
+```
+
+Le script vérifie que chaque `[projet].spec.*.md` marqué **Observabilité : Requise** contient bien une section "Signaux à instrumenter" non vide. C'est la vérification mécanique de la doctrine `observabilite.md` — pas une relecture manuelle.
+
+Si le lint signale une spec incomplète → bloquant, ne pas déployer avant correction (même logique que `/securite audit`).
+
+---
+
 ## Checklist finale
 
 **Déploiement web**
@@ -181,6 +195,7 @@ Appliquer la procédure selon le niveau du projet.
 - [ ] Si site vitrine : pages publiques accessibles sans authentification vérifiées
 - [ ] Migration BDD appliquée selon le niveau
 - [ ] Monitoring configuré selon le niveau
+- [ ] `scripts/lint-observabilite.py` passé sans erreur (Pre-Launch Gate observabilité)
 - [ ] Alertes de facturation configurées sur tous les services cloud (seuil à définir selon le projet)
 
 **Sécurité — avant go-live**

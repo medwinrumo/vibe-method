@@ -110,6 +110,8 @@ Si la session a modifié un skill ou un fichier de doctrine (`produit.md`, `meth
 | `architecture.md` | `/archi` |
 | `securite.md` | `/securite` |
 | `methode.md` | `/roadmap` `/tests` `/recette` |
+| `stack.md` | `/stack` `/specs` |
+| `observabilite.md` | `/specs` `/deploy` |
 
 Pour chaque paire concernée :
 1. Lire la doctrine modifiée

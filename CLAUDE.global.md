@@ -139,7 +139,8 @@ Claude Web enrichit ces fichiers depuis GitHub. En début de session, faire `git
 | `architecture.md` | Patterns d'architecture |
 | `securite.md` | Règles de sécurité à appliquer |
 | `tests.md` | Doctrine de test (niveaux, Gherkin, Playwright, anti-auto-validation) |
-| `stack.md` | Doctrine de reconnaissance technique (spike, investigation stack, free tier, gotchas) |
+| `stack.md` | Doctrine de reconnaissance technique (spike, investigation stack, free tier, gotchas, vérification documentaire par feature — source-driven) |
+| `observabilite.md` | Doctrine d'instrumentation — quoi logger, mesurer, alerter, et quand |
 
 **Règle absolue :** rien n'entre dans ces fichiers sans discussion et validation explicite de Medwin.
 

@@ -79,6 +79,29 @@ Pour chaque outil ou service de la stack, investiguer dans cet ordre :
 - L'IA connaît-elle bien cet outil ou a-t-elle tendance à halluciner des APIs ?
 - Y a-t-il des patterns TypeScript spécifiques à fournir dans le contexte ?
 
+### 8. Observabilité
+- Quel outillage de logs/métriques/alerting pour ce projet, à quel niveau de déploiement (voir `observabilite.md`) ?
+- Documenté dans `[projet].stack.md` section observabilité.
+
+---
+
+## Vérification documentaire par feature (source-driven)
+
+Comparaison externe (pack `addyosmani/agent-skills`), validée le 2026-07-28. Complète le spike technique : le spike lève l'incertitude une fois par outil en Phase 4, ceci se rejoue à chaque feature qui touche un pattern framework-spécifique nouveau — pas seulement en cas de blocage (voir `methode.md`, "Le faucon en chasse").
+
+**Principe :** ne jamais coder un pattern spécifique à un framework depuis la mémoire de l'IA sans l'avoir vérifié contre la doc officielle. Les données d'entraînement se périment, les APIs changent, ce qui avait l'air correct casse en silence.
+
+**Process, à chaque fois qu'un pattern framework-spécifique nouveau est écrit :**
+
+1. **DETECT** — lire le fichier de dépendances du projet (`package.json`, `requirements.txt`...) pour connaître la version exacte en jeu.
+2. **FETCH** — aller chercher la page de doc officielle précise (pas la page d'accueil, pas une recherche générale). Hiérarchie de confiance : doc officielle > blog/changelog officiel > standards (MDN) > jamais Stack Overflow, jamais un blog tiers, jamais la mémoire de l'IA seule.
+3. **IMPLEMENT** — suivre le pattern documenté, signaler si la doc contredit le code existant du projet plutôt que trancher silencieusement.
+4. **CITE** — une citation (URL précise, avec ancre) pour chaque décision framework-spécifique non triviale. Si rien n'est trouvé → le dire explicitement ("non vérifié"), jamais faire semblant.
+
+**Quand ne pas s'embêter :** renommage, formatage, logique pure indépendante de version, ou demande explicite de vitesse plutôt que de vérification.
+
+**Pas encore de mécanique de forçage** (hook ou lint) — évalué comme trop fragile pour l'instant (détection de domaine de doc "officielle" par heuristique = faux positifs/négatifs). À la place : surveillance via `task-observer`. Toute application ou tout saut de cette doctrine pendant une session framework-spécifique se log comme observation. **Seuil : après 3 sauts sans raison valable, revenir discuter d'un mécanisme de forçage (hook `PostToolUse` sur `Edit`/`Write` de fichiers de code, avec heuristique de domaines officiels par stack).**
+
 ---
 
 ## Format de `[projet].stack.md`

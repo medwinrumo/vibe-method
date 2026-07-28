@@ -23,3 +23,7 @@ handoff.md
 .DS_Store?
 *.swp
 *.swo
+
+# Python
+__pycache__/
+*.pyc

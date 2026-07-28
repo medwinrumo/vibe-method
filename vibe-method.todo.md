@@ -4,6 +4,44 @@
 
 ---
 
+## Roadmap — comparaison agent-skills vs vibe-method (reste à faire)
+
+Ouverte le 2026-07-28. **Fait et vérifié en conditions réelles** : 3 gaps majeurs (observabilité, doubt-driven-development, source-driven-development) intégrés à `observabilite.md`/`methode.md`/`stack.md` + 4 personas (`code-reviewer`, `security-auditor`, `test-engineer`, `web-performance-auditor`) créées, testées, un bug réel trouvé et corrigé au passage (`lint-observabilite.py`). Voir `vibe-method.peda.md` du 2026-07-28 pour le détail. Reste, par priorité — miroir des cartes GitHub Projects Tâches 30-34 :
+
+### P1 — Vérifications jamais faites
+- [ ] Lire `references/security-checklist.md` (Osmani) vs `securite.md` (950 lignes) — trouver les trous réels, ne pas supposer que c'est déjà couvert
+- [ ] Lire `references/performance-checklist.md` (Osmani) vs `web-performance-auditor` + `stack.md` — idem
+
+### P2 — Gaps confirmés, contenu déjà récupéré (via `cavecrew-investigator`), décision d'intégration en attente
+- [ ] `accessibility-checklist` — créer doctrine (rattachée à `design.md` ou nouveau fichier `accessibilite.md`), WCAG 2.1 AA
+- [ ] `deprecation-and-migration` — complète le brownfield existant (Hyrum's Law, patterns Strangler/Adapter/Feature Flag/Expand-Contract, decision advisory vs compulsory)
+- [ ] `api-and-interface-design` — contract-first, Hyrum's Law, conventions de nommage REST
+
+### P3 — Patterns structurels identifiés, jamais appliqués
+- [ ] Formaliser `orchestration-patterns.md` (règle "persona n'invoque jamais persona" — déjà appliquée informellement dans les 4 agents créés, jamais écrite comme doctrine explicite)
+- [ ] Évaluer le pattern "anti-rationalisation table" (excuse courante → contre-argument, présent dans chaque skill Osmani) — décider où l'appliquer chez nous (`securite.md` ? `observabilite.md` ? `methode.md` ?)
+
+### P4 — Diff systématique des skills Osmani restants (mis en correspondance par nom seulement, jamais vérifié ligne à ligne contre l'équivalent vibe-method)
+- [ ] `code-review-and-quality` vs `/code-review` + `/code-review-hostil`
+- [ ] `security-and-hardening` vs `securite.md`
+- [ ] `test-driven-development` vs `tests.md` + `/tests`
+- [ ] `shipping-and-launch` vs `deploy.md` + `/deploy`
+- [ ] `ci-cd-and-automation` vs mention GitHub Actions dans `methode.md`
+- [ ] `planning-and-task-breakdown` vs `/roadmap`
+- [ ] `frontend-ui-engineering` vs `design.md` + `ui-vocabulary.md`
+- [ ] `debugging-and-error-recovery` vs `/debug` + `/diagnose`
+- [ ] `incremental-implementation` vs Phase 6 de `methode.md`
+- [ ] `spec-driven-development` vs `/specs`
+- [ ] `git-workflow-and-versioning` vs `/commit` + `/pr`
+- [ ] `code-simplification` vs le skill built-in Claude Code `simplify`
+- [ ] `idea-refine` / `interview-me` vs `/brief`
+- [ ] `context-engineering` vs la hiérarchie CLAUDE.md déjà en place
+
+### P5 — Décision différée
+- [ ] `browser-testing-with-devtools` — installer le MCP `chrome-devtools` ou pas ? (nécessaire pour le mode profond de `web-performance-auditor`)
+
+---
+
 ## Questions ouvertes — ouvertes le 2026-07-27
 
 ### Faut-il conserver le wiki `Vibe-Method/` ?

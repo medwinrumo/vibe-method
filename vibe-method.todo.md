@@ -8,9 +8,9 @@
 
 Ouverte le 2026-07-28. **Fait et vérifié en conditions réelles** : 3 gaps majeurs (observabilité, doubt-driven-development, source-driven-development) intégrés à `observabilite.md`/`methode.md`/`stack.md` + 4 personas (`code-reviewer`, `security-auditor`, `test-engineer`, `web-performance-auditor`) créées, testées, un bug réel trouvé et corrigé au passage (`lint-observabilite.py`). Voir `vibe-method.peda.md` du 2026-07-28 pour le détail. Reste, par priorité — miroir des cartes GitHub Projects Tâches 30-34 :
 
-### P1 — Vérifications jamais faites
-- [ ] Lire `references/security-checklist.md` (Osmani) vs `securite.md` (950 lignes) — trouver les trous réels, ne pas supposer que c'est déjà couvert
-- [ ] Lire `references/performance-checklist.md` (Osmani) vs `web-performance-auditor` + `stack.md` — idem
+### P1 — Vérifications jamais faites — ✅ FAIT (2026-07-28)
+- [x] `security-checklist.md` vs `securite.md` — 19/22 déjà couvert. Patché : STRIDE (§6.2), rate limiting login-spécifique (§2.6), sécurité IA/LLM features (§2.13 nouveau)
+- [x] `performance-checklist.md` vs `web-performance-auditor`/`stack.md` — patché : CSS critique, `requestIdleCallback`, compression gzip/brotli, CDN, logging requêtes lentes. Commit `50b1e93`.
 
 ### P2 — Gaps confirmés, contenu déjà récupéré (via `cavecrew-investigator`), décision d'intégration en attente
 - [ ] `accessibility-checklist` — créer doctrine (rattachée à `design.md` ou nouveau fichier `accessibilite.md`), WCAG 2.1 AA

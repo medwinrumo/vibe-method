@@ -53,16 +53,18 @@ tags: [tag1, tag2]
 
 ---
 
-## Règle de mise à jour automatique
+## Règle de mise à jour — synchronisée à `/maj`, pas en temps réel
 
-**Quand une source est modifiée dans la session courante, automatiquement et dans la foulée :**
-1. Identifier les pages wiki qui dérivent de cette source (via le champ `source:` dans le frontmatter)
-2. Relire la source modifiée
+**Constat (2026-07-28, task-observer obs. 8) :** la version précédente de cette règle prétendait un déclenchement "automatique en temps réel, sans y penser" pendant la session. En pratique, ça dépend de la mémoire de l'agent en plein milieu d'édition — même défaut que les réflexes non forcés de `doctrines/methode.md`. Corrigé : le point de déclenchement fiable est `/maj` Étape 5 (`.claude/commands/maj.md`), qui tourne à chaque clôture de session sur ce repo et détecte mécaniquement les sources modifiées via `git diff --name-only [dernier commit]`.
+
+**À `/maj`, si le répertoire courant est `vibe-method/` et que des sources ont changé :**
+1. Identifier les pages wiki qui dérivent de ces sources (via le champ `source:` dans le frontmatter)
+2. Relire chaque source modifiée
 3. Mettre à jour les pages wiki concernées pour refléter les changements
 4. Mettre à jour `source_modified` et `wiki_updated` dans le frontmatter
 5. Ajouter une entrée dans `log.md` : `## [date] update | [source] → [pages mises à jour]`
 
-Cette règle est active sans avoir besoin de la demander.
+Une mise à jour spontanée en cours de session reste bienvenue si elle vient naturellement — mais `/maj` est le filet qui garantit que ça se fait, pas une option de secours.
 
 ---
 

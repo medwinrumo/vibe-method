@@ -24,6 +24,37 @@ La sécurité est aussi solide que son maillon le plus faible. Un seul point né
 
 ---
 
+## 0bis — Les 3 paliers : Toujours / Demander / Jamais
+
+Comparaison `addyosmani/agent-skills` vs vibe-method (2026-07-28, P4). **Doctrine écrite en prose, indépendante de l'outil.** Le système de permissions de Claude Code (`settings.json`) applique mécaniquement une partie de ces règles aujourd'hui — mais c'est un bonus d'enforcement propre à cet outil, pas la source de vérité. Si l'IA change (opencode, kilocode, autre), ces règles doivent rester lisibles et applicables depuis ce fichier seul.
+
+**Toujours (sans exception, aucune confirmation à demander) :**
+- Valider tout input externe à la frontière (route API, formulaire)
+- Requêtes paramétrées, jamais de concaténation SQL
+- Encoder l'output pour prévenir le XSS
+- HTTPS pour toute communication externe
+- Mots de passe hashés (bcrypt/scrypt/argon2)
+- Cookies de session en `httpOnly`, `secure`, `sameSite`
+
+**Demander (confirmation humaine avant d'agir) :**
+- Ajouter ou modifier un flux d'authentification
+- Stocker une nouvelle catégorie de donnée sensible (PII, paiement)
+- Ajouter une intégration à un service externe
+- Modifier la configuration CORS
+- Ajouter un gestionnaire d'upload de fichier
+- Accorder des permissions ou rôles élevés
+
+**Jamais (interdit, quel que soit l'outil) :**
+- Committer un secret dans le contrôle de version
+- Logger une donnée sensible (mot de passe, token, numéro de carte complet)
+- Désactiver un header de sécurité "pour que ça marche"
+- `eval()` ou `innerHTML` avec une donnée fournie par l'utilisateur
+- Stocker un token de session dans un espace accessible côté client (`localStorage`)
+- Exposer une stack trace ou un détail d'erreur interne à l'utilisateur
+- Force-push sur `main`, suppression d'une base de données de production
+
+---
+
 ## 1 — Phase 1 : Avant de coder (à décider à la conception)
 
 ### 1.1 Identifiants

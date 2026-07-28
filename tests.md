@@ -74,6 +74,8 @@ Outil de référence : **Vitest** (projets Vite/React).
 
 Ces tests sont exécutés via `/tests` immédiatement après le développement d'une feature, avant toute validation manuelle.
 
+**Implémentation réelle plutôt que mock, par défaut.** Un test qui mock la base de données ou le service externe vérifie que le code appelle correctement un mock — pas qu'il fonctionne avec le vrai système. Utiliser une vraie instance (DB de test locale, service en mode sandbox) chaque fois que c'est raisonnablement possible. Mocker uniquement aux frontières système difficiles à reproduire en test (API tierce payante, service externe sans mode sandbox) — jamais entre modules internes du projet.
+
 ### Niveau 2 — Tests automatisés d'interface (E2E)
 
 Un programme simule les actions d'un utilisateur réel dans un navigateur : navigation, clics, saisies, soumissions de formulaires. Le programme prend des captures d'écran et peut enregistrer une vidéo de l'exécution.

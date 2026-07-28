@@ -23,6 +23,8 @@ git diff
 
 Medwin confirme → `git add [fichiers]`
 
+**Taille indicative :** viser ~100 lignes par commit pour rester facilement relisible. Au-delà de ~1000 lignes ou si le diff mélange plusieurs sujets sans rapport, proposer un découpage en plusieurs commits avant de continuer.
+
 ---
 
 ## Étape 2 — Contexte

@@ -171,6 +171,34 @@ Appliquer la procédure selon le niveau du projet.
 
 ---
 
+## Étape 5bis-A — Feature flags et rollout progressif (niveau 3, comparaison agent-skills 2026-07-28)
+
+Pour toute mise en prod niveau 3 (app critique, vrais utilisateurs, rollback coûteux si ça casse). Découple le déploiement de l'activation — le code est en prod avant d'être visible.
+
+**Cycle de vie d'un feature flag :**
+```
+1. DEPLOY, flag OFF        → code en prod, inactif
+2. ACTIVER équipe/beta     → test interne en conditions réelles
+3. ROLLOUT progressif      → 5% → 25% → 50% → 100% des utilisateurs
+4. SURVEILLER à chaque palier → taux d'erreur, perf, retours utilisateur
+5. NETTOYER                → retirer le flag et le code mort sous 2 semaines après rollout complet
+```
+
+Règles : chaque flag a un propriétaire et une date d'expiration. Ne jamais imbriquer des flags (combinatoire exponentielle). Tester les deux états (ON et OFF) avant d'activer.
+
+**Seuils de décision à chaque palier :**
+
+| Métrique | Avancer | Observer | Rollback |
+|---|---|---|---|
+| Taux d'erreur | Dans les 10% de la baseline | 10-100% au-dessus | > 2× la baseline |
+| Latence p95 | Dans les 20% de la baseline | 20-50% au-dessus | > 50% au-dessus |
+| Erreurs JS client | Aucun nouveau type | Nouvelles erreurs < 0.1% des sessions | Nouvelles erreurs > 0.1% des sessions |
+| Métriques business | Neutre ou positif | Baisse < 5% (peut être du bruit) | Baisse > 5% |
+
+**Rollback immédiat si :** taux d'erreur > 2× baseline, latence p95 > +50%, signalements utilisateur qui explosent, incohérence de données détectée, faille de sécurité découverte.
+
+---
+
 ## Étape 5bis — Vérification observabilité (Pre-Launch Gate)
 
 Avant toute mise en prod, exécuter :
@@ -197,6 +225,7 @@ Si le lint signale une spec incomplète → bloquant, ne pas déployer avant cor
 - [ ] Monitoring configuré selon le niveau
 - [ ] `scripts/lint-observabilite.py` passé sans erreur (Pre-Launch Gate observabilité)
 - [ ] Alertes de facturation configurées sur tous les services cloud (seuil à définir selon le projet)
+- [ ] Si niveau 3 : feature flag en place avec propriétaire + date d'expiration, seuils de rollback définis avant le premier palier de rollout
 
 **Sécurité — avant go-live**
 - [ ] Security headers configurés dans `vercel.json` (X-Frame-Options, X-Content-Type-Options, Referrer-Policy)

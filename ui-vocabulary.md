@@ -244,3 +244,50 @@ Tout composant interactif a plusieurs états. Les spécifier dans le `design.md`
 | **gap** | Espace entre les éléments dans une liste | `8px` entre chaque card |
 | **opacity** | Transparence | `50%` = disabled |
 | **z-index** | Ordre de superposition | Modal au-dessus du contenu |
+
+---
+
+## Échelle de state management
+
+Comparaison `addyosmani/agent-skills` vs vibe-method (2026-07-28, P4). Choisir l'approche la plus simple qui marche — ne pas sauter à un store global par réflexe.
+
+```
+State local (useState)              → état UI propre au composant
+State levé                          → partagé entre 2-3 composants frères
+Context                             → theme, auth, locale (lu souvent, écrit rarement)
+State d'URL (searchParams)          → filtres, pagination, état partageable par lien
+State serveur (React Query, SWR)    → données distantes avec cache
+Store global (Zustand, Redux)       → state client complexe partagé dans toute l'app
+```
+
+**Éviter le prop drilling au-delà de 3 niveaux.** Si des props traversent des composants qui ne les utilisent pas, passer en Context ou restructurer l'arbre.
+
+---
+
+## Breakpoints de test
+
+Tester systématiquement à ces largeurs : **320px, 768px, 1024px, 1440px.**
+
+---
+
+## Éviter l'esthétique IA
+
+Une UI générée par IA a des patterns reconnaissables. Les éviter tous :
+
+| Défaut IA | Pourquoi c'est un problème | Qualité prod |
+|---|---|---|
+| Violet/indigo partout | Palette "sûre" par défaut, rend toutes les apps identiques | Utiliser la charte du projet |
+| Gradients excessifs | Bruit visuel, clash avec la plupart des design systems | Plat ou dégradé subtil cohérent avec la charte |
+| Tout arrondi (`rounded-2xl` partout) | Ignore la hiérarchie de rayons de coin d'un vrai design | Border-radius cohérent avec la charte |
+| Hero sections génériques | Layout template, aucun lien avec le contenu réel | Layout piloté par le contenu |
+| Texte lorem-ipsum | Cache les vrais problèmes de layout (longueur, retour à la ligne, débordement) | Contenu de substitution réaliste |
+| Padding surdimensionné partout | Détruit la hiérarchie visuelle, gaspille l'espace | Échelle d'espacement cohérente |
+| Grilles de cards uniformes | Ignore la priorité de l'information | Layout piloté par la priorité |
+| Ombres partout | Concurrence le contenu, ralentit le rendu sur appareils bas de gamme | Ombre subtile ou absente, sauf si la charte le prévoit |
+
+---
+
+## Chargement et transitions
+
+- **Skeleton loading**, pas de spinner générique pour du contenu qui a une forme connue (liste, carte) — donne une impression de vitesse perçue plus juste
+- **Optimistic updates** — mettre à jour l'UI immédiatement sur une action utilisateur probable (ex : cocher une tâche), annuler silencieusement si le serveur refuse

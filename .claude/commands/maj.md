@@ -107,11 +107,12 @@ Si la session a modifié un skill ou un fichier de doctrine (`produit.md`, `meth
 | Doctrine modifiée | Skill(s) à vérifier |
 |---|---|
 | `produit.md` | `/brief` `/prd` `/prd-update` `/specs` |
-| `architecture.md` | `/archi` |
+| `architecture.md` | `/archi` `/specs` |
 | `securite.md` | `/securite` |
 | `methode.md` | `/roadmap` `/tests` `/recette` |
 | `stack.md` | `/stack` `/specs` |
 | `observabilite.md` | `/specs` `/deploy` |
+| `accessibilite.md` | `/specs` `/design` `/code-review` |
 
 Pour chaque paire concernée :
 1. Lire la doctrine modifiée

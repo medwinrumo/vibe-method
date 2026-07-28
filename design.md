@@ -54,6 +54,8 @@ La phase se termine quand les deux sont cohérents. Output : `[projet].design.md
 - Comportements interactifs (hover, focus, erreur, chargement)
 - Si utile : ASCII art pour les écrans complexes
 
+**Vérifier dès cette étape** (voir `accessibilite.md`) : contraste des couleurs choisies (4.5:1 texte normal), état de focus visible défini pour chaque composant interactif — plus facile à corriger dans le design system que sur l'interface déjà codée.
+
 **One-shot vs two-step :**
 
 Le Mode A commence toujours par une décision de mode de travail avec Claude Design.

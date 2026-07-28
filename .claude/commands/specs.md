@@ -196,6 +196,21 @@ Continuer sans bloquer.
 
 ---
 
+## Étape 4c-quater — Vérification accessibilité
+
+Si la feature a une interface utilisateur (pas un endpoint API pur, pas un traitement en tâche de fond) :
+
+> "Cette feature a une interface. Points d'attention WCAG 2.1 AA — voir `accessibilite.md` :
+> - Navigation clavier complète (aucun élément interactif inatteignable au Tab) ?
+> - Contraste suffisant, la couleur n'est jamais le seul indicateur ?
+> - Labels et messages d'erreur explicites sur les champs de formulaire ?"
+
+Tu ajoutes ces points dans les règles de gestion ou les cas limites de la spec, selon leur nature.
+
+Si non (pas d'interface) → continuer sans bloquer.
+
+---
+
 ## Étape 4d — Décision architecturale révélée → /adr
 
 Si la spec a révélé une décision architecturale nouvelle (nouveau module identifié, contrainte technique structurante, approche d'implémentation qui engage l'avenir) :

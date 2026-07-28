@@ -136,11 +136,12 @@ Claude Web enrichit ces fichiers depuis GitHub. En début de session, faire `git
 |---|---|
 | `produit.md` | Brief → PRD → backlog → user stories → specs |
 | `methode.md` | Phases de travail, roadmap, planning, tests |
-| `architecture.md` | Patterns d'architecture |
+| `architecture.md` | Patterns d'architecture, conception d'API/interfaces (Hyrum's Law, contract-first), deprecation et migration |
 | `securite.md` | Règles de sécurité à appliquer |
 | `tests.md` | Doctrine de test (niveaux, Gherkin, Playwright, anti-auto-validation) |
 | `stack.md` | Doctrine de reconnaissance technique (spike, investigation stack, free tier, gotchas, vérification documentaire par feature — source-driven) |
 | `observabilite.md` | Doctrine d'instrumentation — quoi logger, mesurer, alerter, et quand |
+| `accessibilite.md` | Doctrine WCAG 2.1 AA — 5 catégories, chaînée via /specs, /design, /code-review |
 
 **Règle absolue :** rien n'entre dans ces fichiers sans discussion et validation explicite de Medwin.
 

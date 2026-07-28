@@ -85,6 +85,76 @@ Créé lors du skill `/archi`. Document vivant — mis à jour à chaque nouvell
 
 ---
 
+## Conception d'API et d'interfaces
+
+Comparaison `addyosmani/agent-skills` vs vibe-method (2026-07-28, P2 de la roadmap). S'applique à toute frontière : API REST, contrat entre modules (règle silo ci-dessus), props de composant.
+
+### Loi de Hyrum
+
+> Avec assez d'utilisateurs, tout comportement observable d'un système finit par être utilisé par quelqu'un, quel que soit ce que le contrat promet.
+
+Conséquence directe : chaque comportement observable — y compris les bizarreries non documentées, le texte exact des messages d'erreur, l'ordre de retour — devient un contrat de fait dès qu'un consommateur s'appuie dessus. Ne pas exposer de détail d'implémentation qu'on n'est pas prêt à maintenir indéfiniment.
+
+### Règle de la version unique
+
+Éviter de forcer les consommateurs à choisir entre plusieurs versions d'une même dépendance ou API en simultané. Concevoir pour qu'une seule version existe à un instant T — étendre plutôt que forker.
+
+### Process — contrat d'abord
+
+1. **Contrat avant implémentation** — définir l'interface avant de coder derrière
+2. **Sémantique d'erreur cohérente** — un seul format d'erreur partout (corps structuré + statut HTTP), pas un format par endpoint
+3. **Valider aux frontières** — faire confiance au code interne, valider tout ce qui vient de l'extérieur (voir `securite.md` §2.4)
+4. **Additionner plutôt que modifier** — champs optionnels en plus, ne jamais casser l'existant pour un champ nouveau
+5. **Nommage prévisible** — endpoints REST sans verbe (`/utilisateurs`, pas `/getUtilisateurs`), paramètres et champs en camelCase, booléens préfixés `is`/`has`/`can`, valeurs d'enum en `UPPER_SNAKE`
+
+### Patterns courants
+
+Pagination (`page`/`pageSize`/`totalItems`), filtrage par query params, `PATCH` pour mise à jour partielle, séparation input/output (ex : `CreateTaskInput` distinct de `Task` qui inclut les champs serveur).
+
+---
+
+## Deprecation et migration
+
+Comparaison `addyosmani/agent-skills` vs vibe-method (2026-07-28, P2). Complète le workflow Brownfield de `methode.md` (couverture de régression avant modification) avec la doctrine de retrait propre d'un système existant.
+
+### Principe
+
+**Le code est un passif, pas un actif.** Chaque ligne coûte en maintenance (tests, doc, patchs de sécurité, montée de version, charge mentale pour quiconque travaille à côté). La valeur vient de la fonctionnalité rendue, pas du code lui-même — si la même fonctionnalité peut être obtenue avec moins de code, l'ancien code doit partir.
+
+**La planification de dépréciation commence à la conception.** En construisant un nouveau système : "comment le retirerait-on dans 3 ans ?" Un système à interfaces propres et surface minimale se dépriécie plus facilement qu'un système qui expose ses détails internes partout (voir Loi de Hyrum ci-dessus — c'est pour ça que le retrait est difficile en pratique, pas juste en théorie).
+
+### Décision — avant de déprécier quoi que ce soit
+
+5 questions, dans l'ordre :
+1. Ce système a-t-il encore de la valeur ?
+2. A-t-il encore des utilisateurs actifs ?
+3. Un remplaçant existe-t-il déjà ?
+4. Quel est le coût de la migration ?
+5. Quel est le coût de le maintenir tel quel ?
+
+**Advisory vs Compulsory :**
+
+| | Advisory | Compulsory |
+|---|---|---|
+| Migration | Optionnelle | Obligatoire |
+| Déclencheur | Ancien système encore stable | Faille de sécurité, blocage, deadline dure |
+| Ce qu'on doit à l'utilisateur | Avertissements, documentation | Outillage de migration fourni |
+
+### Process
+
+Annoncer avec un guide de migration → migrer incrémentalement (identifier les points de contact → mettre à jour → vérifier → retirer) → vérifier zéro usage actif → retirer le code. Jamais de renommage/suppression en place — toujours *expand* puis *contract*.
+
+**Règle du churn :** si on possède l'infrastructure, on migre ses propres utilisateurs ou on fournit des mises à jour rétrocompatibles — la charge ne retombe pas sur eux par défaut.
+
+### Patterns
+
+- **Strangler** — router progressivement de l'ancien vers le nouveau, phase par phase
+- **Adapter** — l'ancienne interface enveloppe la nouvelle implémentation
+- **Feature Flag** — bascule par consommateur/tenant
+- **Expand/Contract** (base de données) — ajouter une colonne nullable → double écriture → backfill → basculer les lectures → retirer la colonne, dans un déploiement séparé de l'ajout
+
+---
+
 ## Stacks de référence
 
 ### Distribution — trois options

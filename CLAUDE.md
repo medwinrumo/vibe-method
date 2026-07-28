@@ -18,6 +18,7 @@ vibe-method/
 ├── tests.md            → Doctrine de test (niveaux, Gherkin, Playwright, anti-auto-validation)
 ├── stack.md            → Doctrine de reconnaissance technique (spike, investigation stack, free tier, gotchas, vérification documentaire par feature)
 ├── observabilite.md    → Doctrine d'instrumentation (logs, métriques, alerting) — quoi logger et quand
+├── accessibilite.md    → Doctrine WCAG 2.1 AA — 5 catégories, chaînée via /specs, /design, /code-review
 ├── ui-vocabulary.md    → Lexique de référence UI/UX — zones, composants, états, patterns (avec ASCII art)
 └── .claude/
     └── commands/       → Skills Claude Code (voir liste ci-dessous)

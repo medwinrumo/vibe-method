@@ -237,3 +237,18 @@
 ## 2026-07-28 — Règle : le ton doit refléter la complétude de la preuve
 
 CLAUDE.global.md, section "Exigence de rigueur professionnelle" : nouvelle règle après quatre revirements dans la même conversation (RAMrezo, choix Convex/Supabase) — chaque conclusion honnête au moment T mais présentée avec une assurance disproportionnée par rapport à l'information réellement vérifiée. Toute recommandation technique doit désormais préciser sur combien de critères elle repose et lesquels restent à vérifier.
+
+---
+
+### Session — Comparaison addyosmani/agent-skills : observabilité, doubt-driven, source-driven
+
+- Comparaison faite sur lecture primaire complète (pas résumé) de 24 skills + 4 personas + 7 checklists du pack externe vs fichiers réels vibe-method — 3 gaps retenus : observability, doubt-driven-development, source-driven-development
+- Principe de forçage validé (3 consultations advisor) : artefact + lint mécanique > hook à frontière objective > rappel par tour > prose seule
+- `observabilite.md` créé, `/specs` Étape 4c-ter (filtre prod-critique, section "Signaux à instrumenter"), `scripts/lint-observabilite.py` (testé 4 cas), `/deploy` Étape 5bis (Pre-Launch Gate) — commit `5f96fde`
+- `methode.md` : 10e geste "Le juge impartial" (doubt-driven, process CLAIM/EXTRACT/DOUBT/RECONCILE/STOP) — commit `5f96fde`
+- `stack.md` : section "Vérification documentaire par feature" (source-driven) — pas de mécanique de forçage, surveillance task-observer seuil 3 sauts — commit `5f96fde`
+- `maj.md`, `CLAUDE.md`, `CLAUDE.global.md` mis à jour pour cohérence — commit `5f96fde`
+- Hook `doubt-commit-reminder.sh` (PreToolUse sur `git commit`) : 3 itérations (JSON/exit 0 → pattern élargi → stderr/exit 1), toujours pas confirmé fonctionnel en fin de session malgré doc officielle et sous-agent affirmant tous deux que `systemMessage` s'affiche pour `PreToolUse` — contredit par le menu `/hooks` lui-même ("stdout/stderr not shown" sur exit 0). Test en session fraîche reporté à la prochaine session
+- Fallback `/commit` invalidé par Medwin (jamais invoqué, ni par lui ni par moi) — repli retenu : bloc CLAIM écrit directement dans le chat avant tout commit non trivial, pas encore mis en œuvre
+- 2 commits vides de test créés puis retirés proprement (`git reset --soft HEAD~2`, jamais poussés)
+- `task-observer` : Observation 7 loguée puis marquée ACTIONNÉ

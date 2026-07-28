@@ -831,3 +831,54 @@ Le fil conducteur des trois ratés : je n'ai filtré la fraîcheur et la portée
 - Graphify (outil de knowledge graph pour codebase) discuté à la demande de Medwin — jugé prématuré pour RAMrezo (utile au-delà de 100 fichiers, projet pas encore démarré), à ressortir en cours de projet si la complexité le justifie. Rien écrit dans la doctrine, juste une conversation.
 - Noms d'outils exacts exposés par les MCP `tavily-remote-mcp` et `perplexity` pas encore vérifiés au moment de leur ajout (nécessitait un redémarrage de session) — confirmés disponibles plus tard dans la session (`mcp__perplexity__*`, `mcp__tavily-remote-mcp__*`).
 - `/brief` n'a toujours pas de tier assigné explicitement dans le tableau de `methode.md` — gap identifié, pas comblé (proposé à Medwin, pas encore tranché).
+
+---
+
+## 2026-07-28
+
+### Session — Comparaison addyosmani/agent-skills : observabilité, doubt-driven, source-driven + saga hook
+
+**Point de départ**
+
+Medwin demande de regarder le pack externe `addyosmani/agent-skills` (24 skills, 4 personas, 7 checklists) et de comparer avec vibe-method — pas pour installer, juste pour voir ce qui manque. Consigne explicite : "envisage tout ce qui pourrait nous être précieux, dis-le si tu manques d'outils."
+
+**Méthode de comparaison**
+
+Lecture primaire systématique plutôt que résumé de README : contenu complet de chaque skill candidat récupéré via `gh api` + `curl raw.githubusercontent.com` (24 skills, 4 personas, 7 checklists), comparé fichier réel contre fichier réel côté vibe-method (`methode.md`, `stack.md`, `securite.md`, `design.md`). Trois gaps réels retenus après élimination des faux positifs (beaucoup de skills du pack recoupent déjà `/code-review-hostil`, `/tests`, `/securite`) : `observability-and-instrumentation`, `doubt-driven-development`, `source-driven-development`.
+
+**Discussion approfondie avant toute écriture**
+
+Medwin a explicitement demandé de ralentir ("prenons le temps de parler, je veux comprendre") plutôt que d'enchaîner sur l'implémentation. Trois tours de discussion :
+1. Distinction proposée entre "réflexe continu" (prose, comme les gestes de pilotage de session existants) et "skill/commande déclenchée" (artefact).
+2. Medwin a posé la question qui a fait bouger toute la suite : "le mode réflexe, on est sûr que c'est efficace, ça force vraiment une relecture ?" — vérification faite dans les hooks réels du projet (`~/.claude/hooks/*.sh`) : rien ne force aujourd'hui les 3 gestes existants (archer immobile, tranchant de la main, mue du serpent), ils tournent uniquement si je choisis de les appliquer. Et lecture intégrale des fichiers `doubt-driven-development` et `source-driven-development` d'Osmani : ce ne sont **pas** de simples réflexes en prose, ce sont des process à checklist explicite (CLAIM/EXTRACT/DOUBT/RECONCILE/STOP). Correction actée en direct : ma première réponse était fausse, je l'ai dit.
+3. **advisor consulté 3 fois** dans cette session — a fourni le principe de classement qui a structuré toute la suite : artefact + lint mécanique > hook à frontière objective (ex. `git commit`) > rappel par tour > prose seule. Jamais de marqueur d'auto-certification ("doubt theater" — le concept vient du skill Osmani lui-même, qui nomme le risque).
+
+**Répartition décidée avec Medwin**
+
+- **Observability** → artefact lintable. `/specs` décide (filtre prod-critique, exemption `/prototype`), `/deploy` vérifie mécaniquement.
+- **Doubt-driven** → hook sur `git commit` (frontière objective, faible fréquence, même famille que `stop-cloture.sh` qui marche déjà).
+- **Source-driven** → ni l'un ni l'autre pour l'instant, jugé trop fragile à mécaniser (détection de "domaine de doc officielle" par heuristique = faux positifs/négatifs). Doctrine seule + surveillance via `task-observer`, seuil de 3 sauts avant de reconsidérer.
+
+**Implémentation**
+
+`observabilite.md` créé, `/specs` Étape 4c-ter ajoutée (section "Signaux à instrumenter", champ "Observabilité : Requise/Non requise"), `scripts/lint-observabilite.py` écrit et testé sur 4 cas synthétiques (OK, section manquante, placeholder non rempli, non-requis — les 4 corrects). `/deploy` Étape 5bis ajoutée (Pre-Launch Gate). `methode.md` : 10e geste "Le juge impartial" (doubt-driven). `stack.md` : section "Vérification documentaire par feature" (source-driven). Cohérence répercutée dans `/maj` (table doctrine↔skill) et les deux `CLAUDE.md` (racine + global). Commité et poussé (`5f96fde`).
+
+**La saga du hook — leçon la plus utile de la session**
+
+Le hook `doubt-commit-reminder.sh` (PreToolUse sur `git commit`) a été écrit, testé en local (echo JSON), câblé dans `settings.json`, validé comme syntaxiquement correct par un sous-agent `claude-code-guide` **et** par une lecture directe de la doc officielle (`code.claude.com/docs/en/hooks.md`). Résultat : **rien ne s'affichait chez Medwin**, deux fois de suite, y compris après une première correction (le pattern du script ne matchait pas une commande composée `cd X && git commit`, corrigé en élargissant le match). Troisième test toujours muet.
+
+Diagnostic final trouvé en relisant ce que Medwin avait lui-même collé depuis `/hooks` (menu intégré Claude Code) : la légende affichée dans le menu disait noir sur blanc *"Exit code 0 - stdout/stderr not shown"* pour `PreToolUse` — alors que mon script sortait un `systemMessage` en JSON avec `exit 0`. Deux sources externes (agent + doc officielle) affirmaient toutes les deux que `systemMessage` s'affiche pour tout type de hook — c'était faux pour ce cas précis, contredit par le comportement réel de l'outil que Medwin avait sous les yeux. Script réécrit en `stderr` + `exit 1`. **Statut à la fin de la session : toujours pas confirmé fonctionnel** — Medwin devait rouvrir une session fraîche pour trancher (hypothèse restante : le hot-reload des hooks en cours de session, annoncé par la doc, ne s'applique peut-être pas réellement à `PreToolUse`).
+
+En cours de route, Medwin a aussi corrigé une hypothèse de repli erronée : le fallback proposé ("chaîner doubt-driven dans le skill `/commit`") ne tenait pas — Medwin n'invoque jamais `/commit`, et moi non plus (je fais `git commit` en direct via Bash). Repli retenu à la place, pas encore mis en œuvre : écrire le bloc CLAIM directement dans ma réponse chat avant un commit non trivial — visible par Medwin sans dépendre d'aucune infrastructure de hook.
+
+**Leçon retenue**
+
+Une doc officielle et un sous-agent peuvent tous les deux dire la même chose et se tromper tous les deux sur le même point précis. Le comportement réel observé (ici, le texte affiché par `/hooks` lui-même) prime sur la doc lue, même à deux sources indépendantes. Ne pas s'arrêter à "j'ai vérifié la doc" quand un test empirique répété la contredit.
+
+**Ce qui reste ouvert**
+
+- Verdict final sur le hook `doubt-commit-reminder.sh` — en attente du test de Medwin en session fraîche.
+- Si le hook ne marche pas : documenter dans `methode.md` (section "Le juge impartial") que le mécanisme retenu est le rappel manuel en chat, pas le hook.
+- Ligne `git diff` à ajouter dans `/maj` pour objectiver "modifications non demandées" (proposé par advisor, pas encore fait — RAMrezo non urgent sur ce point précis).
+- Audit complet des réflexes existants (tranchant de la main, mue du serpent, souffle neuf, escalade) explicitement reporté — à laisser remonter via `task-observer` + `/maj` Étape 7, sauf si RAMrezo révèle un problème concret avant.
+- `handoff.md` utilisé en cours de session pour préparer la reprise en session fraîche — consommé au moment de la reprise, contenu résorbé dans cette entrée.

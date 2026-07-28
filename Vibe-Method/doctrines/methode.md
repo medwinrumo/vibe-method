@@ -55,6 +55,16 @@ APRÈS :  Phase 7 (Vérification)
 
 ---
 
+## Personas — patterns d'orchestration
+
+Comparaison `addyosmani/agent-skills` (2026-07-28). Distinct des "agents" (tâche autonome transverse type migration) : une **persona** est un subagent à contexte isolé, review ad hoc ([[agents/code-reviewer]], [[agents/security-auditor]], [[agents/test-engineer]], [[agents/web-performance-auditor]]).
+
+**Règle gouvernante : l'utilisateur/skill orchestre, une persona n'invoque jamais une autre persona.** Confirmé appliqué par Claude Code lui-même ("subagents cannot spawn other subagents"), pas juste notre convention.
+
+Patterns déjà en usage : invocation directe (persona sur un artefact précis), isolation de recherche (`cavecrew-investigator`), pipeline séquentiel piloté par l'utilisateur (toute la chaîne de skills). Anti-patterns à ne jamais construire : persona routeur, persona-appelle-persona, orchestrateur qui paraphrase, arbres de personas profonds.
+
+---
+
 ## Niveau d'effort par tier
 
 En dessous de "medium", le modèle est dégradé. Au-dessus de "high", risque de sur-réflexion (invente des problèmes, refactorise sans demande, sur-anticipe des cas qui n'arriveront jamais).

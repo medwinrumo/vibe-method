@@ -31,5 +31,8 @@ Après toute décision structurante identifiée dans la spec → `/adr` proposé
 ## Vérification observabilité (Étape 4c-ter)
 Si la feature est prod-critique (vrais utilisateurs, pas un `/prototype`) : 2-4 questions on-call + section "Signaux à instrumenter" obligatoire dans la spec, champ "Observabilité : Requise/Non requise". Vérifié mécaniquement par `/deploy` via `scripts/lint-observabilite.py`. Voir [[doctrines/observabilite]].
 
+## Vérification accessibilité (Étape 4c-quater, 2026-07-28)
+Si la feature a une interface : navigation clavier, contraste, labels/erreurs explicites — voir [[doctrines/accessibilite]].
+
 **Précédent :** [[skills/roadmap]] | **Suivant :** [[skills/angles-morts]] (spec) → [[skills/gherkin]] (Mode Specs)
-**Doctrine :** [[doctrines/produit]] | [[doctrines/observabilite]]
+**Doctrine :** [[doctrines/produit]] | [[doctrines/observabilite]] | [[doctrines/accessibilite]]

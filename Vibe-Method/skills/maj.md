@@ -14,7 +14,7 @@ phase: session
 Clôture systématique à la fin de chaque session. 7 étapes : documentation locale → Git (+ sync sécurité CLAUDE.md) → GitHub Projects → lint wiki (si projet vibe-method et sources modifiées) → cohérence skills/doctrine → **review task-observer** (présente les observations OUVERTES groupées par skill, jamais de modification sans validation explicite). Pont Notion retiré — plus d'auto `.peda`/`.log`/`.spec`/`.doc` (depuis 2026-05-12).
 
 ## Table cohérence skills/doctrine (Étape 6)
-`stack.md` → `/stack` `/specs` | `observabilite.md` (nouveau, 2026-07-28) → `/specs` `/deploy`
+`stack.md` → `/stack` `/specs` | `observabilite.md` → `/specs` `/deploy` | `accessibilite.md` (nouveau, 2026-07-28) → `/specs` `/design` `/code-review` | `architecture.md` → `/archi` `/specs`
 
 ## Ce qui NE fait PAS /maj
 - Mettre à jour les fichiers .peda, .log, .spec, .doc (c'est /checkpoint ou les skills dédiés)

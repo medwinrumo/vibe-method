@@ -95,3 +95,16 @@ Deux corrections suite à task-observer :
 ## [2026-07-28] ingest | .claude/agents/{code-reviewer,security-auditor,test-engineer,web-performance-auditor}.md → agents/*.md (nouvelles pages), CLAUDE.md, index.md
 
 **Obs. 11** : nouveau type `agent` créé dans le schéma du wiki (`CLAUDE.md` — type enum, dossier `agents/`, table `## Sources`). 4 pages créées, une par persona déclinée des 4 agents Osmani, chacune documentant la différence avec le skill vibe-method existant le plus proche (`/code-review`, `/securite`, `/tests` — pas d'équivalent pour `web-performance-auditor`, seul vrai gap). `index.md` : nouvelle table "Agents — personas à contexte isolé". Note fusion future ajoutée dans `CLAUDE.md` : `agent` → `procédure` + tag `agent` au moment de fusionner avec le second cerveau (décision Medwin, capturée aussi en mémoire `project_fusion_wiki_vibemethod`).
+
+## [2026-07-28] update | architecture.md, securite.md, methode.md, tests.md, accessibilite.md (nouveau), .claude/commands/{code-review,commit,deploy,specs,maj}.md, .claude/agents/web-performance-auditor.md → doctrines/architecture.md, doctrines/securite.md, doctrines/methode.md, doctrines/tests.md, doctrines/accessibilite.md (ingest), skills/code-review.md, skills/commit.md, skills/deploy.md, skills/specs.md, skills/maj.md, agents/web-performance-auditor.md, index.md, CLAUDE.md
+
+Rattrapage post-roadmap P1-P5 (comparaison agent-skills, voir `vibe-method.todo.md`) :
+- `doctrines/architecture.md` : sections "Conception d'API et d'interfaces" (loi de Hyrum) et "Deprecation et migration" (patterns Strangler/Adapter/Feature Flag/Expand-Contract)
+- `doctrines/securite.md` : section "Les 3 paliers" (Toujours/Demander/Jamais, doctrine portable indépendante de l'outil — correction de Medwin en cours de session), STRIDE, sécurité IA/LLM
+- `doctrines/methode.md` : section "Personas — patterns d'orchestration" (règle confirmée platform-enforced par Claude Code)
+- `doctrines/tests.md` : implémentation réelle > mock
+- `doctrines/accessibilite.md` (nouvelle page, ingest) : WCAG 2.1 AA, 5 catégories
+- Pages skills resynchronisées avec leurs nouvelles étapes/dimensions (accessibilité dans specs/code-review, feature flags dans deploy, taille de commit dans commit)
+- `agents/web-performance-auditor.md` : statut MCP chrome-devtools mis à jour (installé, à vérifier en session)
+- `index.md` : ligne `doctrines/accessibilite` ajoutée
+- `CLAUDE.md` : `accessibilite.md` ajouté à la table Sources

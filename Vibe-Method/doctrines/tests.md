@@ -1,9 +1,9 @@
 ---
 type: doctrine
 source: ../../tests.md
-source_modified: 2026-05-13
-wiki_updated: 2026-05-26
-tags: [tests, tdd, vitest, playwright, gherkin]
+source_modified: 2026-07-28
+wiki_updated: 2026-07-28
+tags: [tests, tdd, vitest, playwright, gherkin, mocks]
 ---
 
 # Doctrine — Tests
@@ -39,6 +39,8 @@ Cycle **Red → Green → Refactor** :
 - Modules techniques (config, api, shared)
 
 **Lien avec /specs** : les règles de gestion du spec → tests unitaires ; les cas d'échec → tests négatifs.
+
+**Implémentation réelle > mock, par défaut** (comparaison agent-skills, 2026-07-28) : un test qui mock la DB vérifie l'appel au mock, pas le vrai fonctionnement. Mocker seulement aux frontières difficiles à reproduire (API tierce payante), jamais entre modules internes.
 
 ---
 

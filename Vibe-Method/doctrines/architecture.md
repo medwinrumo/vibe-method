@@ -1,9 +1,9 @@
 ---
 type: doctrine
 source: ../../architecture.md
-source_modified: 2026-05-14
-wiki_updated: 2026-05-26
-tags: [architecture, modules, silos, stack, backup]
+source_modified: 2026-07-28
+wiki_updated: 2026-07-28
+tags: [architecture, modules, silos, stack, backup, api-design, deprecation]
 ---
 
 # Doctrine — Architecture
@@ -70,6 +70,20 @@ Le choix est documenté et justifié dans `[projet].archi.md`.
 6. Monitoring → Sentry + UptimeRobot (niveau 2+)
 
 **3 niveaux :** Proto (1), App client standard (2), App critique (3)
+
+---
+
+## Conception d'API et d'interfaces
+
+Comparaison `addyosmani/agent-skills` (2026-07-28). **Loi de Hyrum** : avec assez d'utilisateurs, tout comportement observable devient un contrat de fait — ne pas exposer de détail d'implémentation qu'on n'est pas prêt à maintenir. **Règle de la version unique** : ne jamais forcer plusieurs versions d'une même dépendance en simultané.
+
+Process : contrat avant implémentation → sémantique d'erreur cohérente → valider aux frontières → additionner plutôt que modifier → nommage prévisible (REST sans verbe, camelCase, `is`/`has`/`can` pour les booléens).
+
+## Deprecation et migration
+
+Comparaison `addyosmani/agent-skills` (2026-07-28). Complète le Brownfield de [[doctrines/methode]]. **Le code est un passif** — sa valeur vient de la fonctionnalité rendue, pas du code lui-même. 5 questions avant de déprécier : valeur restante ? utilisateurs actifs ? remplaçant existant ? coût de migration ? coût de maintien ?
+
+Advisory (optionnel) vs Compulsory (sécurité/deadline, outillage de migration obligatoire). Patterns : Strangler, Adapter, Feature Flag, Expand/Contract. Jamais de renommage/suppression en place — toujours *expand* puis *contract*.
 
 ---
 

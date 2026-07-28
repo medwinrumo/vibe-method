@@ -1,9 +1,9 @@
 ---
 type: skill
 source: ../../.claude/commands/code-review.md
-source_modified: 2026-05-14
-wiki_updated: 2026-05-26
-tags: [phase-7, code-review, sécurité, qualité]
+source_modified: 2026-07-28
+wiki_updated: 2026-07-28
+tags: [phase-7, code-review, sécurité, qualité, accessibilite]
 phase: 7
 ---
 
@@ -24,5 +24,8 @@ Revue de la qualité structurelle (architecture, silo, conventions) et de la sé
 - Packages nouveaux vérifiés sur npmjs.com
 - `dangerouslySetInnerHTML` → DOMPurify
 
+## Dimension accessibilité (2026-07-28)
+Si le fichier touche une interface : navigation clavier, labels/alt text, couleur jamais seul vecteur d'info. Voir [[doctrines/accessibilite]].
+
 **Précédent :** [code] | **Suivant :** [[skills/code-review-edge-cases]]
-**Doctrine :** [[doctrines/securite]]
+**Doctrine :** [[doctrines/securite]] | [[doctrines/accessibilite]]

@@ -39,6 +39,7 @@ Catalogue de toutes les pages. Mis à jour à chaque ingest ou nouvelle page wik
 | [[doctrines/design]] | Interface d'abord, logique ensuite — Claude Design workflow |
 | [[doctrines/stack]] | Anticiper, pas réagir — spike technique time-boxé + vérification documentaire par feature |
 | [[doctrines/observabilite]] | Code non observable = code non exploitable — instrumenter en même temps que la feature |
+| [[doctrines/accessibilite]] | WCAG 2.1 AA vérifié dès /design, pas en polish de fin de projet |
 | [[doctrines/refacto]] | Discipline séparée — session dédiée, étapes atomiques |
 | [[doctrines/produit]] | Brief → PRD → Story A4 → Gherkin |
 

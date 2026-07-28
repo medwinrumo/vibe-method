@@ -1,9 +1,9 @@
 ---
 type: doctrine
 source: ../../securite.md
-source_modified: 2026-07-27
-wiki_updated: 2026-07-27
-tags: [sécurité, owasp, zero-trust, rls, auth, couts-caches]
+source_modified: 2026-07-28
+wiki_updated: 2026-07-28
+tags: [sécurité, owasp, zero-trust, rls, auth, couts-caches, stride, ia-llm, anti-rationalisation]
 ---
 
 # Doctrine — Sécurité
@@ -61,6 +61,18 @@ Pièges courants générés par les IA :
 - **Limite de prélèvement CB configurée dès l'ajout d'une carte** sur toute plateforme cloud (Vercel, Cloudflare...) — avant le premier dépassement de plan gratuit, pas après (voir [[doctrines/stack]] section Coûts cachés)
 
 ---
+
+## Les 3 paliers — Toujours / Demander / Jamais
+
+Comparaison `addyosmani/agent-skills` (2026-07-28). **Doctrine écrite en prose, indépendante de l'outil** — le système de permissions Claude Code applique une partie de ces règles aujourd'hui, mais c'est un bonus propre à cet outil, pas la source de vérité (survit à un changement d'agent : opencode, kilocode...). Toujours : valider aux frontières, requêtes paramétrées, HTTPS, hash des mots de passe. Demander : nouveau flux d'auth, nouvelle catégorie de donnée sensible, nouvelle intégration externe. Jamais : secret commité, `eval()`/`innerHTML` avec donnée utilisateur, force-push sur `main`.
+
+## Threat modeling STRIDE
+
+Ajouté à la phase `/archi` (6e question obligatoire) : Spoofing, Tampering, Repudiation, Information disclosure, Denial of service, Elevation of privilege — sur chaque frontière de confiance identifiée.
+
+## Sécurité des fonctionnalités IA/LLM
+
+Si le projet expose lui-même une fonctionnalité IA (Minou, agents). Distinct du fait que Claude génère le code. Output du modèle = non fiable, system prompt ≠ frontière de sécurité, permissions d'outils/agents scopées, limites token/rate/récursion. Base : OWASP Top 10 for LLM Applications.
 
 ## Attaques clés à connaître
 

@@ -11,7 +11,7 @@ tags: [agent, performance, web]
 
 ## Modes
 - **Rapide** (actif) : scan statique du code, zéro outil requis, findings étiquetés "impact potentiel" uniquement.
-- **Profond** (inactif) : nécessite le MCP `chrome-devtools` — pas installé chez Medwin. Jamais de mesure inventée sans artefact réel (règle d'honnêteté métrique).
+- **Profond** : MCP `chrome-devtools` installé (2026-07-28, scope user) — vérifier sa présence réelle dans les outils de la session avant de s'y fier (chargement au démarrage, pas à chaud). Jamais de mesure inventée sans artefact réel (règle d'honnêteté métrique).
 
 ## Outils
 Read, Grep, Bash, WebFetch (parsing d'un artefact collé/URL PageSpeed si fourni)

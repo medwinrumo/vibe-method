@@ -23,4 +23,7 @@ Guide la mise en production selon le niveau défini à l'archi : Niveau 1 (proto
 ## Pre-Launch Gate observabilité (Étape 5bis)
 Avant toute mise en prod : `scripts/lint-observabilite.py` — vérifie mécaniquement que chaque spec marquée "Observabilité : Requise" a sa section "Signaux à instrumenter" remplie. Bloquant si incomplet, même logique que `/securite audit`. Voir [[doctrines/observabilite]].
 
+## Feature flags et rollout progressif — niveau 3 (2026-07-28)
+Cycle de vie du flag (deploy OFF → équipe/beta → 5%→25%→50%→100% → nettoyage sous 2 semaines) + table de seuils avancer/observer/rollback (taux d'erreur, latence p95, erreurs JS, métriques business).
+
 **Précédent :** [[skills/recette]] (validation complète) | **Doctrine :** [[doctrines/architecture]] | [[doctrines/observabilite]]

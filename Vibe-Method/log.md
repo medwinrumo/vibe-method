@@ -84,4 +84,10 @@ Comparaison `addyosmani/agent-skills` vs vibe-method (session Medwin) — 3 gaps
 - `skills/maj.md` : resynchronisé après dérive détectée (page décrivait 6 étapes, la source en a 7 depuis l'ajout de la review task-observer — jamais répercuté avant aujourd'hui)
 - `index.md` : ligne `doctrines/observabilite` ajoutée, `doctrines/methode` mise à jour (9 → 10 gestes)
 
-Rappel de la règle de mise à jour automatique (`CLAUDE.md` du vault) : appliqué en rattrapage lors du `/maj` de clôture, pas en temps réel pendant la session — écart à corriger la prochaine fois (mettre à jour le wiki au fil de l'eau, pas seulement à la clôture).
+Rappel de la règle de mise à jour automatique (`CLAUDE.md` du vault) : appliqué en rattrapage lors du `/maj` de clôture, pas en temps réel pendant la session — écart corrigé (voir entrée suivante, la règle a été réécrite pour refléter ça honnêtement).
+
+## [2026-07-28] update | Vibe-Method/CLAUDE.md, methode.md → Vibe-Method/CLAUDE.md, doctrines/methode.md
+
+Deux corrections suite à task-observer :
+- **Obs. 8** : `Vibe-Method/CLAUDE.md` section "Règle de mise à jour" réécrite — ne prétend plus un déclenchement "automatique en temps réel" (qui dépendait en pratique de la mémoire de l'agent, jamais appliqué ainsi). Rattachée explicitement à `/maj` Étape 5, décision de Medwin.
+- **Obs. 9** : hook `PreToolUse` doubt-driven confirmé non fonctionnel après 4 tests (2 sessions). Retiré de `settings.json`, script archivé. `doctrines/methode.md` mis à jour : mécanisme retenu = bloc CLAIM écrit par l'agent dans sa réponse chat avant tout commit non trivial.

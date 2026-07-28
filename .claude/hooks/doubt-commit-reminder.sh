@@ -1,4 +1,10 @@
 #!/bin/bash
+# DÉSACTIVÉ (2026-07-28) — retiré de settings.json PreToolUse : ni systemMessage/exit 0
+# ni stderr/exit 1 ne s'affichent pour PreToolUse dans ce build de Claude Code, testé
+# 2 fois en session courante + 2 fois en session fraîche. Script conservé tel quel
+# pour réactivation si un futur build corrige l'affichage PreToolUse — voir methode.md
+# section "Le juge impartial". Mécanisme retenu à la place : bloc CLAIM écrit par
+# l'agent directement dans sa réponse chat avant tout commit non trivial.
 # Rappel doubt-driven-development avant un git commit — jamais bloquant.
 # Comparaison addyosmani/agent-skills vs vibe-method, validé 2026-07-28.
 input=$(cat)

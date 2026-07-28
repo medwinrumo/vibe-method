@@ -160,7 +160,7 @@ Différent de `/code-review-hostil` : celui-ci est un verdict a posteriori sur d
 
 Ne s'applique pas aux opérations mécaniques (renommage, formatage), aux instructions claires de Medwin, ou à un changement d'une ligne évident. Douter de chaque frappe = ne rien livrer.
 
-**Filet de rattrapage automatique :** un hook rappelle ce cycle à chaque `git commit` (`doubt-commit-reminder.sh`) — au cas où le réflexe ne se déclenche pas de lui-même en cours de session.
+**Mécanisme retenu :** un hook `PreToolUse` sur `git commit` a été testé (2026-07-28) — ni `systemMessage`/exit 0 ni `stderr`/exit 1 ne s'affichent pour cet événement dans ce build de Claude Code, vérifié 2 fois en session courante et 2 fois en session fraîche. Retiré de `settings.json`, script conservé en archive (`.claude/hooks/doubt-commit-reminder.sh`) pour réactivation si un futur build corrige ce point. **Filet de rattrapage réel : l'agent écrit le bloc CLAIM directement dans sa réponse chat avant tout commit non trivial** — visible par Medwin sans dépendre d'une infrastructure de hook.
 
 **Vérifier les modifications non demandées**
 Après chaque session, demander à l'IA : "Liste tous les fichiers que tu viens de modifier et ce que tu y as changé." L'IA modifie régulièrement des fichiers hors scope sans le signaler — c'est la seule façon de le détecter. Si une modification non demandée est trouvée → la faire annuler avant de continuer.

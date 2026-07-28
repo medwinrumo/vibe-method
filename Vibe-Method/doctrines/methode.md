@@ -38,7 +38,7 @@ APRÈS :  Phase 7 (Vérification)
 | Le singe change de branche | Changer de modèle (Claude → GPT → Gemini) | Insoluble après reset |
 | Le faucon en chasse | Recherche web — doc à jour | Avant d'intégrer un service |
 
-**Le juge impartial** — pas `/code-review-hostil` (verdict a posteriori sur du code fini) : ici en cours de route, pendant que la correction est encore bon marché. Décision non triviale = introduit/modifie une logique conditionnelle, traverse une frontière de module, affirme une propriété non vérifiable par le compilateur, ou a un rayon d'impact irréversible. Filet de rattrapage prévu : hook `PreToolUse` sur `git commit` — non confirmé fonctionnel au 2026-07-28 (détail dans `vibe-method.peda.md`, session du jour, hors vault), fallback en cours : bloc CLAIM écrit directement dans la réponse de l'agent avant tout commit non trivial.
+**Le juge impartial** — pas `/code-review-hostil` (verdict a posteriori sur du code fini) : ici en cours de route, pendant que la correction est encore bon marché. Décision non triviale = introduit/modifie une logique conditionnelle, traverse une frontière de module, affirme une propriété non vérifiable par le compilateur, ou a un rayon d'impact irréversible. Hook `PreToolUse` sur `git commit` testé et retiré (2026-07-28) — ni `systemMessage`/exit 0 ni `stderr`/exit 1 ne s'affichent pour cet événement dans ce build de Claude Code (4 tests, dont 2 en session fraîche). Script archivé, pas supprimé. **Mécanisme retenu : bloc CLAIM écrit directement dans la réponse de l'agent avant tout commit non trivial.**
 
 **Version préventive du faucon en chasse** — vérification documentaire par feature (pas seulement en cas de blocage), voir [[doctrines/stack]] section "Vérification documentaire par feature".
 

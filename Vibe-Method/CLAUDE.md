@@ -17,8 +17,9 @@ Un wiki LLM : collection de pages markdown structurées, maintenues par Claude, 
 
 | Catégorie | Localisation source |
 |---|---|
-| Doctrines | `~/dev/vibe-method/methode.md`, `architecture.md`, `securite.md`, `tests.md`, `design.md`, `stack.md`, `refacto.md`, `produit.md` |
+| Doctrines | `~/dev/vibe-method/methode.md`, `architecture.md`, `securite.md`, `tests.md`, `design.md`, `stack.md`, `refacto.md`, `produit.md`, `observabilite.md` |
 | Skills | `~/dev/vibe-method/.claude/commands/*.md` (un fichier par skill) |
+| Agents | `~/dev/vibe-method/.claude/agents/*.md` (un fichier par persona — contexte isolé, invocable ad hoc ou comme reviewer adversarial dans le geste "Le juge impartial") |
 | Méthode | `~/dev/vibe-method/CLAUDE.md`, `CLAUDE.global.md` |
 
 ---
@@ -34,7 +35,8 @@ Vibe-Method/
 ├── flux/
 │   └── chaine-complete.md ← la chaîne de skills avec liens
 ├── doctrines/             ← une page par fichier doctrine source
-└── skills/                ← une page par skill
+├── skills/                ← une page par skill
+└── agents/                ← une page par persona (contexte isolé)
 ```
 
 ---
@@ -43,13 +45,15 @@ Vibe-Method/
 
 ```yaml
 ---
-type: skill | doctrine | concept | flux | infrastructure
+type: skill | doctrine | concept | flux | infrastructure | agent
 source: [chemin relatif vers le fichier source]
 source_modified: YYYY-MM-DD
 wiki_updated: YYYY-MM-DD
 tags: [tag1, tag2]
 ---
 ```
+
+**Note fusion future (voir mémoire `project_fusion_wiki_vibemethod`) :** au moment de fusionner ce wiki avec le second cerveau (`~/dev/wiki/`, 3 types seulement : `source`/`concept`/`procédure`), `agent` deviendra `procédure` + tag `agent` — décidé le 2026-07-28, pas encore appliqué.
 
 ---
 

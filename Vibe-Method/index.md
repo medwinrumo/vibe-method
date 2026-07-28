@@ -165,6 +165,15 @@ Catalogue de toutes les pages. Mis à jour à chaque ingest ou nouvelle page wik
 | [[skills/pdf]] | Génération document PDF professionnel |
 | [[skills/caveman]] | Mode communication compressé |
 
+## Agents — personas à contexte isolé
+
+| Agent | Rôle |
+|---|---|
+| [[agents/code-reviewer]] | Revue 5 dimensions, contexte frais |
+| [[agents/security-auditor]] | Audit sécurité offensif, STRIDE |
+| [[agents/test-engineer]] | Audit couverture, hors flux TDD |
+| [[agents/web-performance-auditor]] | Core Web Vitals, mode rapide sans outil |
+
 ---
 
 ## Concepts

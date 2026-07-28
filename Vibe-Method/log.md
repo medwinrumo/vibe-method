@@ -91,3 +91,7 @@ Rappel de la règle de mise à jour automatique (`CLAUDE.md` du vault) : appliqu
 Deux corrections suite à task-observer :
 - **Obs. 8** : `Vibe-Method/CLAUDE.md` section "Règle de mise à jour" réécrite — ne prétend plus un déclenchement "automatique en temps réel" (qui dépendait en pratique de la mémoire de l'agent, jamais appliqué ainsi). Rattachée explicitement à `/maj` Étape 5, décision de Medwin.
 - **Obs. 9** : hook `PreToolUse` doubt-driven confirmé non fonctionnel après 4 tests (2 sessions). Retiré de `settings.json`, script archivé. `doctrines/methode.md` mis à jour : mécanisme retenu = bloc CLAIM écrit par l'agent dans sa réponse chat avant tout commit non trivial.
+
+## [2026-07-28] ingest | .claude/agents/{code-reviewer,security-auditor,test-engineer,web-performance-auditor}.md → agents/*.md (nouvelles pages), CLAUDE.md, index.md
+
+**Obs. 11** : nouveau type `agent` créé dans le schéma du wiki (`CLAUDE.md` — type enum, dossier `agents/`, table `## Sources`). 4 pages créées, une par persona déclinée des 4 agents Osmani, chacune documentant la différence avec le skill vibe-method existant le plus proche (`/code-review`, `/securite`, `/tests` — pas d'équivalent pour `web-performance-auditor`, seul vrai gap). `index.md` : nouvelle table "Agents — personas à contexte isolé". Note fusion future ajoutée dans `CLAUDE.md` : `agent` → `procédure` + tag `agent` au moment de fusionner avec le second cerveau (décision Medwin, capturée aussi en mémoire `project_fusion_wiki_vibemethod`).

@@ -233,3 +233,7 @@
 - Recherche "quel modèle pour `/brief`" reprise 3 fois avant résultat fiable — requête trop vague, puis scope limité aux IA US, puis benchmarks académiques périmés non filtrés. Recherche finale via `perplexity_research` avec consigne de fraîcheur explicite (juin-juillet 2026 uniquement) : Claude Opus 5 en tête pour l'élicitation de besoins — recommandation ponctuelle pour RAMrezo, pas actée en doctrine
 - Graphify (outil knowledge-graph codebase) évalué à la demande de Medwin — jugé prématuré pour RAMrezo, pas encore démarré
 - Ouvert : `/brief` toujours sans tier assigné dans `methode.md`
+
+## 2026-07-28 — Règle : le ton doit refléter la complétude de la preuve
+
+CLAUDE.global.md, section "Exigence de rigueur professionnelle" : nouvelle règle après quatre revirements dans la même conversation (RAMrezo, choix Convex/Supabase) — chaque conclusion honnête au moment T mais présentée avec une assurance disproportionnée par rapport à l'information réellement vérifiée. Toute recommandation technique doit désormais préciser sur combien de critères elle repose et lesquels restent à vérifier.

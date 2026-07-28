@@ -252,3 +252,15 @@ CLAUDE.global.md, section "Exigence de rigueur professionnelle" : nouvelle règl
 - Fallback `/commit` invalidé par Medwin (jamais invoqué, ni par lui ni par moi) — repli retenu : bloc CLAIM écrit directement dans le chat avant tout commit non trivial, pas encore mis en œuvre
 - 2 commits vides de test créés puis retirés proprement (`git reset --soft HEAD~2`, jamais poussés)
 - `task-observer` : Observation 7 loguée puis marquée ACTIONNÉ
+
+---
+
+### Session — Résolution hook, cavecrew, 4 personas Osmani
+
+- Obs. 8 tranchée (Medwin) : sync wiki interne rattachée à `/maj` Étape 5, pas "temps réel" — `Vibe-Method/CLAUDE.md` réécrit — commit `5582944`
+- Hook doubt-driven confirmé non fonctionnel après 4 tests (2 sessions) — retiré de `settings.json`, script archivé, fallback CLAIM-en-chat documenté dans `methode.md` — obs. 9, commit `216edae`
+- Obs. 10 : cavecrew jamais utilisé (Medwin ni l'agent) — décision Medwin : agent commence à s'en servir. Mécanisme de surveillance construit (`track-agent-usage.sh` + `stop-cloture.sh` étendu, alerte une fois/session si agents sans cavecrew) — testé 3 cas synthétiques, commit `c6a9be1`
+- `cavecrew-investigator` utilisé en réel sur 3 skills Osmani (deprecation-and-migration, api-and-interface-design, accessibility-checklist)
+- Correction Medwin sur les personas : fonction/moment/manière différents des skills existants, pas redondant — rôle de reviewer adversarial pour l'étape DOUBT. 4 agents construits (pas 2) : `code-reviewer`, `security-auditor`, `test-engineer`, `web-performance-auditor` — commit `875862d`
+- Test d'invocation `code-reviewer` échoué (`Agent type not found`) — même défaut de chargement que le hook, vérification en session fraîche reportée
+- Obs. 11 loguée : catégorie "Agents" absente du schéma wiki interne

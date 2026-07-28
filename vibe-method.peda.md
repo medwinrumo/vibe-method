@@ -882,3 +882,46 @@ Une doc officielle et un sous-agent peuvent tous les deux dire la même chose et
 - Ligne `git diff` à ajouter dans `/maj` pour objectiver "modifications non demandées" (proposé par advisor, pas encore fait — RAMrezo non urgent sur ce point précis).
 - Audit complet des réflexes existants (tranchant de la main, mue du serpent, souffle neuf, escalade) explicitement reporté — à laisser remonter via `task-observer` + `/maj` Étape 7, sauf si RAMrezo révèle un problème concret avant.
 - `handoff.md` utilisé en cours de session pour préparer la reprise en session fraîche — consommé au moment de la reprise, contenu résorbé dans cette entrée.
+
+---
+
+### Session — Résolution hook, révélation cavecrew, 4 personas Osmani en subagents
+
+**Résolution définitive du hook doubt-driven**
+
+Après le `/maj` précédent (obs. 8 tranchée : sync wiki rattachée à `/maj`, pas temps réel), Medwin a rouvert une session fraîche pour trancher le hook. Toujours muet, deux tests supplémentaires (dont un avec commit vide réel). Verdict : arrêt du débug, hook retiré de `settings.json`, script archivé (pas supprimé) dans `.claude/hooks/` avec commentaire explicatif. `methode.md` mis à jour : mécanisme retenu = bloc CLAIM écrit par l'agent directement dans sa réponse chat avant tout commit non trivial, plus de dépendance à un hook cassé. Loggé en task-observer obs. 9 avec la leçon générale : une doc officielle et un sous-agent peuvent se tromper tous les deux, de la même façon, sur le même point — la preuve empirique répétée prime.
+
+**Reprise sur le reste du repo Osmani**
+
+Medwin a demandé de reprendre au-delà des 3 gaps majeurs : "il y avait d'autres choses utiles". Passage en revue : personas (4), `orchestration-patterns.md`, pattern anti-rationalisation, `deprecation-and-migration`, `api-and-interface-design`, `accessibility-checklist` (confirmé absent de `design.md`/`ui-vocabulary.md` par grep direct, pas supposé).
+
+**Révélation cavecrew — obs. 10**
+
+En proposant de décliner les personas en subagents "type cavecrew", Medwin a coupé court : *"je ne me sers jamais de cavecrew, je ne sais pas à quoi ça peut servir"*. Vérification : cavecrew n'est pas fait pour être invoqué par Medwin (c'est un guide de décision pour l'agent), mais je ne l'avais moi-même jamais utilisé non plus sur toute la session (recherches faites via `Explore`/`general-purpose` à la place). Expliqué pédagogiquement (3 rôles, économie ~60% de tokens sur ce qui revient en contexte). Medwin a tranché : commencer à s'en servir, "surtout si ça fait économiser des tokens".
+
+**Mécanisme de surveillance cavecrew**
+
+Exigence explicite de Medwin, dans l'esprit "ceinture et bretelles" : *"si pas usité = alerte = correctif"*. Conseil advisor suivi : reprendre l'architecture déjà prouvée fonctionnelle cette session (`track-repo.sh` + `stop-cloture.sh`, PostToolUse silencieux + Stop qui surfacent), pas retenter un `PreToolUse` avec affichage (cause de la saga précédente). Construit : `track-agent-usage.sh` (log une ligne par invocation d'agent), `stop-cloture.sh` étendu (alerte une fois par session si agents invoqués sans jamais passer par `caveman:cavecrew-*`). Champs JSON vérifiés empiriquement sur un vrai payload (`tool_name=Agent`, `tool_input.subagent_type`) avant d'écrire le script — pas de supposition cette fois. Testé sur 3 cas synthétiques (alerte / cavecrew présent / aucun agent) avant activation. `cavecrew-investigator` invoqué pour de vrai dans la foulée sur 3 fichiers Osmani (deprecation-and-migration, api-and-interface-design, accessibility-checklist) — fonctionne, sortie compressée exploitée directement.
+
+**Correction sur les personas — erreur reconnue en direct**
+
+J'ai proposé de ne construire que 2 des 4 personas (`security-auditor`, `test-engineer`), écartant `code-reviewer` et `security-auditor` [sic, code-reviewer et security-auditor] comme "redondants" avec `/code-review`/`/securite`. Medwin a posé la bonne question : *"ce n'est pas la même fonction, moment, manière de faire, mission ?"*. Vérification faite contre le contenu déjà lu en tout début de session : le fichier source `doubt-driven-development.md` d'Osmani dit explicitement que les personas de `agents/` sont conçues pour servir de reviewer adversarial à l'étape DOUBT — exactement le rôle qui manquait pour rendre "Le juge impartial" concret plutôt qu'un vague "invoque un sous-agent frais". Erreur reconnue : j'avais jugé sur le sujet (sécurité, code review) au lieu de la fonction (skill fixe dans un pipeline vs persona ad hoc à contexte isolé, branchable dans DOUBT). Les 4 construits, pas 2 — cohérent avec la préférence "ceinture et bretelles" de Medwin pour cette première expérience.
+
+**4 agents créés**
+
+`.claude/agents/{code-reviewer,security-auditor,test-engineer,web-performance-auditor}.md`, adaptés en français, contexte isolé, jamais d'invocation persona→persona (règle reprise du fichier `orchestration-patterns.md` d'Osmani, appliquée mais pas encore documentée comme doctrine explicite chez nous) :
+- `code-reviewer`, `security-auditor` : Read/Grep/Bash lecture seule, rapport uniquement
+- `test-engineer` : analyse de couverture seulement, n'écrit jamais de test (reste le rôle de `/tests`)
+- `web-performance-auditor` : mode rapide actif (scan statique, zéro outil requis), mode profond noté comme inactif (nécessite chrome-devtools MCP, pas installé)
+
+**Même défaut que le hook — pas de fausse victoire**
+
+Test d'invocation immédiat de `code-reviewer` sur `scripts/lint-observabilite.py` : `Agent type 'code-reviewer' not found`. Chargement des agents custom au démarrage de session, pas à chaud — même catégorie de défaut que le hook `PreToolUse`. Pas déclaré fonctionnel avant vérification réelle. Handoff écrit, Medwin a rouvert une session pour tester.
+
+**Ce qui reste ouvert**
+
+- Vérifier en session fraîche que les 4 agents sont bien reconnus (`code-reviewer` en premier, sur `scripts/lint-observabilite.py`).
+- `orchestration-patterns.md` d'Osmani (règle "user orchestre, persona n'invoque jamais persona") appliquée informellement dans les 4 nouveaux agents mais jamais documentée explicitement comme doctrine vibe-method — à formaliser si Medwin le souhaite.
+- Pattern "anti-rationalisation table" (transversal, un tableau excuse→contre-argument par skill sensible) — identifié, pas encore appliqué à aucune doctrine.
+- `deprecation-and-migration` et `api-and-interface-design` — contenu déjà récupéré (voir output `cavecrew-investigator` de cette session), pas encore intégré à vibe-method, décision de Medwin en attente.
+- Catégorie "Agents" absente de la structure du wiki interne (`Vibe-Method/CLAUDE.md` ne liste que Doctrines/Skills/Méthode comme sources) — les 4 nouveaux fichiers `.claude/agents/*.md` n'ont pas d'équivalent wiki. Pas traité cette session, à trancher (créer la catégorie, ou assumer que les agents restent hors wiki).

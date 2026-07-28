@@ -21,21 +21,8 @@ Ouverte le 2026-07-28. **Fait et vérifié en conditions réelles** : 3 gaps maj
 - [x] `orchestration-patterns.md` formalisé dans `methode.md` (Doctrine Agents IA) — règle confirmée platform-enforced par Claude Code, pas juste convention
 - [x] Anti-rationalisation table ajoutée à `methode.md` (Le juge impartial) et `securite.md` (§0). Commit `7ddb58b`.
 
-### P4 — Diff systématique des skills Osmani restants (mis en correspondance par nom seulement, jamais vérifié ligne à ligne contre l'équivalent vibe-method)
-- [ ] `code-review-and-quality` vs `/code-review` + `/code-review-hostil`
-- [ ] `security-and-hardening` vs `securite.md`
-- [ ] `test-driven-development` vs `tests.md` + `/tests`
-- [ ] `shipping-and-launch` vs `deploy.md` + `/deploy`
-- [ ] `ci-cd-and-automation` vs mention GitHub Actions dans `methode.md`
-- [ ] `planning-and-task-breakdown` vs `/roadmap`
-- [ ] `frontend-ui-engineering` vs `design.md` + `ui-vocabulary.md`
-- [ ] `debugging-and-error-recovery` vs `/debug` + `/diagnose`
-- [ ] `incremental-implementation` vs Phase 6 de `methode.md`
-- [ ] `spec-driven-development` vs `/specs`
-- [ ] `git-workflow-and-versioning` vs `/commit` + `/pr`
-- [ ] `code-simplification` vs le skill built-in Claude Code `simplify`
-- [ ] `idea-refine` / `interview-me` vs `/brief`
-- [ ] `context-engineering` vs la hiérarchie CLAUDE.md déjà en place
+### P4 — ✅ FAIT (2026-07-28)
+Diff des 14 skills fait via 3 sous-agents en parallèle. 6 gaps réels patchés : real>mock (`tests.md`), feature flags + rollout progressif (`deploy.md`), taille de commit (`commit.md`), state management + breakpoints + anti-esthétique-IA (`ui-vocabulary.md`), Three-Tier Boundary portable (`securite.md` §0bis). Le reste : différences philosophiques déjà couvertes ou hors scope (code-simplification = built-in Claude Code, ci-cd-and-automation = scope minimal assumé, spec-driven-development = déjà plus complet chez nous). Commit `ed3e665`.
 
 ### P5 — Décision différée
 - [ ] `browser-testing-with-devtools` — installer le MCP `chrome-devtools` ou pas ? (nécessaire pour le mode profond de `web-performance-auditor`)

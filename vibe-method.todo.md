@@ -68,7 +68,7 @@ Le dépôt porte le nom de la couche 1, mais sa fonction opérationnelle est la 
 |---|---|
 | `~/.claude/skills/task-observer/SKILL.md` | skill |
 | `~/.claude/observations/log.md` | carnet, 22,5 Ko, 13 observations |
-| `~/.claude/commands/grill-me.md`, `firecrawl.md` | skills (fichiers réels, pas des symlinks — vérifier s'ils viennent d'ailleurs) |
+| `~/.claude/commands/firecrawl.md` | skill (fichier réel, seul de son espèce — n'existe pas dans vibe-method, donc à instruire : le rapatrier ou assumer qu'il reste local) |
 | `~/.claude/CLAUDE.md` | instructions globales Claude |
 | `~/.claude/settings.json`, `settings.local.json` | hooks, permissions |
 | `~/.claude/projects/*/memory/` | mémoires par projet |

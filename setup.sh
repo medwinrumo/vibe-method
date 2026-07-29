@@ -63,7 +63,7 @@ echo "Agents liés."
 # Ces fichiers vivent dans ~/.claude/ et ne sont versionnés nulle part :
 #   ~/.claude/skills/task-observer/SKILL.md
 #   ~/.claude/observations/log.md
-#   ~/.claude/commands/grill-me.md, firecrawl.md   (fichiers réels, pas des symlinks)
+#   ~/.claude/commands/firecrawl.md                (fichier réel, absent de vibe-method)
 #   ~/.claude/CLAUDE.md, settings.json, settings.local.json
 #   ~/.claude/projects/*/memory/
 # Une machine neuve ne les récupérera pas. Voir vibe-method.todo.md.

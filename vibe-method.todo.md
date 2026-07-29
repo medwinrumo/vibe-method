@@ -44,6 +44,47 @@ Trois options :
 
 Point de vigilance soulevé par Medwin : la vibe-method est trop importante pour être « perdue, dilapidée, abîmée, mélangée ». Toute option retenue doit préserver le statut canonique des fichiers sources.
 
+### SESSION D'ARCHITECTURE À PROGRAMMER — frontière contenu / infrastructure
+
+Ouverte le 2026-07-29. **À traiter à froid, en session dédiée** (`/archi` ou `/party`). Question englobante de celle ci-dessus sur `Vibe-Method/` — la trancher d'abord, l'autre en découle.
+
+**Le déclencheur.** Medwin remarque pendant une session HERMES que les corrections issues de la review `task-observer` ne sont jamais commitées. Diagnostic : dans `/maj`, l'étape 3 (commit + push) précède les étapes 6 et 7, qui modifient des skills. Réparé le jour même (étape 8, voir plus bas). Mais l'inventaire fait à cette occasion a révélé un problème plus profond.
+
+**La tension, formulée par Medwin.** « Au départ vibe-method est juste un dossier projet, un espace où je voulais ranger simplement les fichiers qui touchent à ce projet de définition d'une vibe-method. Or on dirait que c'est en train de devenir un espace central de la structure Claude Code / GitHub / Hermes. »
+
+C'est structurellement exact. Le dépôt héberge trois natures :
+
+| Couche | Contenu | Destin |
+|---|---|---|
+| Doctrine | `methode.md`, `architecture.md`, `securite.md`, `stack.md`, `tests.md`… (racine) | contenu — candidat au second cerveau |
+| Wiki interne | `Vibe-Method/` (doctrines, skills, agents, flux, index) | fusion actée avec `~/dev/wiki` (mémoire `project_fusion_wiki_vibemethod`, 2026-07-28) |
+| **Infrastructure** | `.claude/commands/` (57 skills), `.claude/agents/` (4), `.claude/hooks/` (4), `setup.sh`, `CLAUDE.global.md` | exécutable — n'ira **jamais** dans un wiki |
+
+Le dépôt porte le nom de la couche 1, mais sa fonction opérationnelle est la couche 3 — via les symlinks vers `~/.claude/`. Ce n'est pas une décision, c'est une dérive par commodité. Le jour où la fusion wiki emporte les couches 1 et 2, il reste un dépôt nommé « vibe-method » qui n'est plus qu'un dossier de configuration Claude Code.
+
+**Ce qui n'est versionné nulle part** (`~/.claude` n'est pas un dépôt git) :
+
+| Fichier | Nature |
+|---|---|
+| `~/.claude/skills/task-observer/SKILL.md` | skill |
+| `~/.claude/observations/log.md` | carnet, 22,5 Ko, 13 observations |
+| `~/.claude/commands/grill-me.md`, `firecrawl.md` | skills (fichiers réels, pas des symlinks — vérifier s'ils viennent d'ailleurs) |
+| `~/.claude/CLAUDE.md` | instructions globales Claude |
+| `~/.claude/settings.json`, `settings.local.json` | hooks, permissions |
+| `~/.claude/projects/*/memory/` | mémoires par projet |
+
+Conséquence concrète : une correction `task-observer` portant sur `settings.json` (cas réel — observation 9, sur un hook) n'a **rien à commiter**, quel que soit l'ordre des étapes de `/maj`.
+
+**Piste à instruire, non tranchée.** L'infrastructure Claude Code mérite-t-elle son propre dépôt, séparé du contenu doctrinal ? Si oui, les orphelins ci-dessus ont enfin une maison évidente, et la fusion wiki devient un déménagement propre au lieu d'un démembrement. Si non, assumer et documenter que vibe-method est un dépôt à double fonction.
+
+Contrainte à ne pas perdre de vue : `~/dev/wiki` est synchronisé avec le VPS Hermes via GitHub (cf. option 2 de la question ci-dessus) — toute couche déplacée vers le wiki atterrit sur le VPS.
+
+**Déjà réparé le 2026-07-29, sans engager l'architecture** (formulations volontairement neutres, valables quelle que soit la décision) :
+- `maj.md` — étape 8 « Commit final » : recenser les dépôts *réellement touchés* pendant la session (pas de liste figée), les vérifier, et signaler à Medwin toute correction portant sur un fichier hors dépôt. Deux cases ajoutées à la checklist.
+- `setup.sh` — hooks et agents désormais liés par glob et non par liste nommée (`track-agent-usage.sh` et les 4 agents manquaient, donc perdus sur une machine neuve). Les fichiers non versionnés y sont listés en commentaire, en attendant cette session.
+
+**À ne pas faire avant la décision** : rapatrier les orphelins dans vibe-method. Ça reviendrait à densifier la couche 3, c'est-à-dire à choisir implicitement l'architecture qui gêne Medwin.
+
 ### ~~Hooks de session~~ — **fait le 2026-07-27**
 
 Trois rituels documentés dans le `CLAUDE.md` global échouaient de la même façon : écrits, non appliqués, et leur non-respect invisible tant que Medwin ne posait pas la question.

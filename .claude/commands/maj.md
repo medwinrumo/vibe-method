@@ -137,6 +137,23 @@ Lire `~/.claude/observations/log.md`.
 6. Pour chaque observation refusée : marquer
    `**Statut :** REFUSÉ (date) — [raison]`.
 
+## Étape 8 — Commit final
+
+Le commit de l'étape 3 arrive **avant** les étapes 6 et 7. Or celles-ci peuvent
+modifier des skills, des doctrines, des hooks, des réglages ou le carnet
+d'observations. Sans cette étape, ces corrections restent non commitées et sont
+perdues à la fermeture de la session.
+
+1. Recenser les dépôts réellement touchés pendant la session — le projet courant,
+   mais aussi tout autre dépôt modifié (vibe-method, wiki, autre). Ne pas se fier
+   à une liste figée : partir de ce que la session a effectivement modifié.
+2. Pour chacun : `git status`. Si le dépôt n'est pas propre → `/commit` puis `git push`.
+3. Si une correction a porté sur un fichier **hors de tout dépôt** (typiquement
+   dans `~/.claude/`), le signaler explicitement à Medwin en fin de session : la
+   modification est active mais sauvegardée nulle part.
+
+Ne pas clôturer tant qu'un dépôt touché n'est pas propre.
+
 ## Checklist finale
 
 - [ ] `[projet].peda.md` complété
@@ -150,3 +167,5 @@ Lire `~/.claude/observations/log.md`.
 - [ ] Lint wiki passé (si projet vibe-method et sources modifiées)
 - [ ] Cohérence skills / doctrine vérifiée si applicable
 - [ ] Review task-observer effectuée (observations traitées ou reportées)
+- [ ] **Tous les dépôts touchés propres et poussés** (étape 8 — inclut les modifications faites aux étapes 6 et 7)
+- [ ] Modifications hors dépôt signalées à Medwin, s'il y en a

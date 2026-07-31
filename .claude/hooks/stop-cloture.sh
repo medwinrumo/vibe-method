@@ -1,15 +1,17 @@
 #!/bin/bash
 # Rappelle /maj si des repos touches dans la session ont du travail en suspens.
-# Alerte aussi si des agents ont ete invoques cette session sans jamais passer
-# par cavecrew (investigator/builder/reviewer) — surveillance d'usage, une
-# seule fois par session (pas repete a chaque tour).
-# Throttle cloture : au plus un rappel toutes les 20 minutes, pour ne pas polluer chaque tour.
+# Throttle : au plus un rappel toutes les 20 minutes, pour ne pas polluer chaque tour.
+#
+# Couple avec track-repo.sh (meme depot), qui alimente le fichier lu ici.
+#
+# La surveillance cavecrew qui vivait ici a ete sortie le 2026-07-31 vers
+# claude-config/hooks/stop-cavecrew.sh : cavecrew est un plugin personnel, pas
+# un element de la methode. Les deux blocs ne partageaient aucune donnee.
 payload=$(cat)
 sid=$(printf '%s' "$payload" | jq -r '.session_id // "unknown"')
 
 msg=""
 
-# --- Cloture git (existant) ---
 touched="/tmp/claude-repos-$sid"
 if [ -s "$touched" ]; then
   stamp="/tmp/claude-cloture-$sid"
@@ -32,19 +34,6 @@ if [ -s "$touched" ]; then
       touch "$stamp"
       msg="Cloture de session non faite — $pending. Lancer /maj avant de terminer."
     fi
-  fi
-fi
-
-# --- Surveillance usage agents / cavecrew ---
-agentlog="/tmp/claude-agent-usage-$sid"
-agentstamp="/tmp/claude-agent-alert-$sid"
-if [ -s "$agentlog" ] && [ ! -f "$agentstamp" ]; then
-  total=$(wc -l < "$agentlog" | tr -d ' ')
-  cave=$(grep -c "^caveman:cavecrew" "$agentlog")
-  if [ "$total" -gt 0 ] && [ "$cave" -eq 0 ]; then
-    touch "$agentstamp"
-    agent_msg="$total agent(s) invoque(s) cette session, aucun cavecrew (investigator/builder/reviewer) — verifier si une recherche read-only ou une petite edition aurait pu passer par cavecrew (economie de contexte)."
-    msg="${msg:+$msg | }$agent_msg"
   fi
 fi
 

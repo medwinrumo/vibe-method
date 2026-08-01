@@ -60,10 +60,20 @@ echo "Agents liés."
 
 # --- Non couvert par ce script (volontairement, en attente de la session
 # d'architecture sur la frontière contenu / infrastructure) ---
-# Ces fichiers vivent dans ~/.claude/ et ne sont versionnés nulle part :
-#   ~/.claude/skills/task-observer/SKILL.md
-#   ~/.claude/observations/log.md
-#   ~/.claude/commands/firecrawl.md                (fichier réel, absent de vibe-method)
-#   ~/.claude/CLAUDE.md, settings.json, settings.local.json
+#
+# Repris depuis par le dépôt ~/dev/claude-config (privé), qui pose ses propres
+# symlinks via son install.sh — ce script n'a pas à s'en occuper :
+#   ~/.claude/skills/task-observer/      (30/07/2026)
+#   ~/.claude/CLAUDE.md, settings.json   (30/07/2026)
+#   ~/.claude/observations/              (01/08/2026)
+#
+# Toujours versionnés nulle part — une machine neuve ne les récupérera pas :
+#   ~/.claude/commands/firecrawl.md      (fichier réel, absent de vibe-method)
+#   ~/.claude/settings.local.json        (contient des secrets — hors dépôt à dessein)
 #   ~/.claude/projects/*/memory/
-# Une machine neuve ne les récupérera pas. Voir vibe-method.todo.md.
+# Voir vibe-method.todo.md.
+#
+# ATTENTION : claude-config/install.sh vise aussi ~/.claude/hooks/, comme la
+# boucle ci-dessus. Le dernier script lancé gagne, sans avertissement, et
+# session-start.sh existe dans les deux dépôts. Voir observation 22 du carnet
+# task-observer — la propriété de ce répertoire reste à trancher.

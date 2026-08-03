@@ -186,6 +186,31 @@ Avant d'écrire le code, lancer les tests. S'ils passent déjà — le code n'ex
 
 Toujours inclure dans la demande de génération : "Génère également des scénarios qui doivent échouer — inputs incorrects, cas limites, actions non autorisées. Les tests doivent vérifier que l'application rejette correctement ces cas, pas seulement qu'elle les accepte."
 
+**Règle d — Tester le chemin réel, pas un substitut qui lui ressemble**
+
+Un test valide ce qu'il exerce, pas ce qu'il évoque. Le substitut le plus dangereux est celui qui ressemble assez à la cible pour qu'on oublie que c'en est un — il donne *plus* de confiance qu'aucun test, alors qu'il couvre moins qu'on ne croit.
+
+Cas typique : un correctif dont l'enjeu est « **survit à l'événement X** » — recreate de conteneur, redéploiement, reboot, rotation de secret, migration. Le test doit **provoquer X**, jamais le simuler sur une copie.
+
+Question à se poser explicitement : *« quel est l'état d'après-X, et comment je le fabrique sans toucher à la production ? »*
+
+**Le patron qui répond presque toujours : l'environnement jetable, alimenté par les données réelles en lecture seule.**
+
+```bash
+# Conteneur neuf créé depuis l'image réelle, données de production montées en RO.
+# Couche d'écriture vierge = exactement l'état d'après-recreate. Zéro effet de bord.
+docker run --rm -v /chemin/donnees:/opt/data:ro --entrypoint sh <image> -c '...'
+```
+
+Décliner selon le contexte : base de données éphémère, clone en lecture seule, worktree git jetable, machine virtuelle neuve.
+
+Deux précisions issues du terrain :
+
+- **Viser l'artefact que l'événement emploierait réellement** — l'image que `docker compose up` utiliserait (celle construite localement), pas l'image amont dont elle dérive. Se tromper de cible fait tester autre chose, et peut déclencher un téléchargement inutile de plusieurs gigaoctets.
+- **Prouver que le correctif est *invoqué*, pas seulement qu'il *fonctionne*.** Tester un script isolément ne dit rien de son déclenchement. Il faut exercer le mécanisme appelant — la boucle de l'entrypoint, le hook, le cron — dans le même environnement jetable.
+
+Si le test se fait malgré tout sur un substitut, le **nommer comme tel** dans le compte rendu : « logique validée, chemin réel non exercé ». Une sauvegarde jamais restaurée, un correctif jamais rejoué après l'événement qu'il vise, ne sont pas vérifiés — ce sont des hypothèses.
+
 ---
 
 ## Audit et auto-évaluation

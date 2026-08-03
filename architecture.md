@@ -452,6 +452,34 @@ Avant de créer : chercher dans les catalogues. L'écosystème MCP grandit rapid
 
 ---
 
+## Dépendances d'environnement — la question n'est pas « survit-elle ? »
+
+Une dépendance d'environnement, c'est tout ce dont le code a besoin sans l'avoir déclaré : polices, locales, fuseaux horaires, dictionnaires, encodages, certificats, résolveurs DNS, binaires système, environnements virtuels installés à chaud.
+
+**La bonne question n'est pas « est-ce que cette dépendance survit à un redéploiement ? » mais « comment se manifeste son absence ? »**
+
+Deux familles, et elles ne présentent pas du tout le même risque :
+
+| Famille | Comportement en cas d'absence | Risque |
+|---|---|---|
+| **Panne franche** | Erreur levée : `ModuleNotFoundError`, `command not found`, connexion refusée | Borné. Visible, diagnosticable, souvent bloquant donc traité |
+| **Repli silencieux** | Substitution automatique, valeur par défaut, dégradation muette | **Élevé.** Le programme continue, produit un résultat *plausible mais faux*, et aucune alerte n'est émise |
+
+Exemples de la seconde famille : une police manquante remplacée par fontconfig ; une locale absente qui bascule en `C` et change le tri, les séparateurs décimaux et les dates ; un fuseau non installé qui retombe en UTC ; un dictionnaire de césure absent ; une vérification de certificat désactivée par une configuration permissive.
+
+**Cas vécu (2026-08-03, projet Hermes).** Un document contractuel généré par weasyprint dépendait de polices installées à chaud dans une couche non persistante. Après recréation du conteneur, weasyprint **ne plantait pas** : fontconfig substituait une autre police, le PDF se générait sans la moindre erreur, mais ses métriques changeaient — 19 196 octets au lieu de 19 128, empreintes différentes. Une maquette validée et figée serait partie chez un client modifiée, sans aucun signal. Le venv Python manquant au même endroit, lui, levait une erreur franche : c'était le cas facile.
+
+### Règles
+
+1. **Inventorier avant de conclure.** Quand un correctif est motivé par « X sera détruit », lister *tout* ce que X contient. L'élément qui a déclenché l'enquête est rarement le seul, ni le plus dangereux.
+2. **Toute dépendance installée à chaud va dans un emplacement persistant**, jamais dans un répertoire temporaire ni dans une couche d'image. Si ce n'est pas possible, un mécanisme de réinstallation au démarrage doit la rejouer — et ce mécanisme fait partie du livrable, pas des notes.
+3. **Pour chaque dépendance à repli silencieux, définir une commande de contrôle** et la placer dans la documentation d'exploitation : `fc-match <police>`, `locale -a`, `date +%Z`. Elle doit être exécutée après tout changement d'environnement, puisque rien d'autre ne signalera le problème.
+4. **Vérifier par comparaison d'empreintes, pas par inspection visuelle.** Une dégradation silencieuse produit un résultat qui *a l'air* correct. Seule la comparaison de deux sorties, avant et après, la révèle.
+
+**Principe :** le danger d'une dépendance ne se mesure pas à sa probabilité de disparaître, mais au bruit que fait sa disparition. Un composant doté d'un repli silencieux transforme une panne en dégradation invisible — et une dégradation invisible franchit toutes les vérifications qui cherchaient une erreur.
+
+---
+
 ## Règles actées
 
 - **Modulaire + silos = règle par défaut** sur tous les projets, sans exception
@@ -460,3 +488,4 @@ Avant de créer : chercher dans les catalogues. L'écosystème MCP grandit rapid
 - **Contexte minimal** — donner à l'IA : CLAUDE.md + module ciblé + specs de la feature. Pas tout le projet.
 - **Niveau d'abstraction maximal** — toujours choisir l'outil ou le service qui abstrait le plus de complexité technique, tant qu'il couvre le besoin. Vercel plutôt qu'un VPS, Supabase plutôt qu'une base auto-hébergée, un service managé plutôt que Docker. Ne descendre d'un niveau d'abstraction que si le niveau supérieur ne couvre pas le besoin — jamais par défaut, jamais par curiosité.
 - **MCP = spectre, pas binaire** — traiter comme un choix conversationnel vs déterministe. Commencer en MCP, migrer les workflows éprouvés vers CLI/API si perf critiques.
+- **Dépendance d'environnement : trier par bruit, pas par probabilité** — celles qui ont un repli silencieux (polices, locales, fuseaux, encodages) sont plus dangereuses que celles qui plantent. Toute dépendance installée à chaud va dans un emplacement persistant, et chacune à repli silencieux doit avoir sa commande de contrôle documentée.

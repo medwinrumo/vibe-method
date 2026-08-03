@@ -211,6 +211,29 @@ Deux précisions issues du terrain :
 
 Si le test se fait malgré tout sur un substitut, le **nommer comme tel** dans le compte rendu : « logique validée, chemin réel non exercé ». Une sauvegarde jamais restaurée, un correctif jamais rejoué après l'événement qu'il vise, ne sont pas vérifiés — ce sont des hypothèses.
 
+**Règle e — Un mécanisme idempotent par contrat se teste par deux exécutions, pas une**
+
+Sauvegarde, synchronisation, installation, migration : tout ce qui doit pouvoir tourner plusieurs fois sans dégât. **Le premier passage ne prouve rien**, parce que la sémantique des outils de copie dépend de l'état préalable de la destination, pas seulement des arguments.
+
+| Commande | Destination absente | Destination existante |
+|---|---|---|
+| `cp -R src dst` | `dst` = copie de `src` | crée `dst/src` — imbrication |
+| `rsync -a src dst/` | `dst/src` | `dst/src` (identique) |
+| `rsync -a src/ dst/` | contenu de `src` dans `dst` | idem, mais les fichiers en trop **restent** |
+| `rsync -a --delete src/ dst/` | idem | miroir exact — les fichiers en trop sont supprimés |
+
+Le protocole minimal :
+
+1. exécuter une première fois ;
+2. exécuter une **seconde** fois sans rien changer entre les deux ;
+3. comparer la **structure**, pas seulement le code de retour : `find <dst> -type d`, `diff -rq <src> <dst>`.
+
+Un dossier apparu au second passage, un fichier qui a cessé d'être mis à jour, une arborescence plus profonde qu'attendu : c'est le mode de panne, et il est **invisible au premier passage**.
+
+Vécu le 03/08/2026 : un script de sauvegarde en `cp -R` a laissé pendant quatre jours les fichiers du premier niveau figés à la première exécution, pendant que les mises à jour s'accumulaient dans un sous-dossier imbriqué. Le dépôt paraissait sain — commits réguliers, aucune erreur — et une restauration aurait rendu des données périmées. Corrigé en `rsync -a --delete` avec barres obliques finales : la destination devient identique à la source, donc auto-réparatrice.
+
+Corollaire pour une sauvegarde : **la seule preuve est une restauration**. Un `git log` qui avance prouve que le script tourne, pas qu'il sauvegarde ce qu'on croit.
+
 ---
 
 ## Audit et auto-évaluation

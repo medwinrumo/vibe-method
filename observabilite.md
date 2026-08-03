@@ -56,6 +56,17 @@ Si on n'arrive pas à nommer ces questions, on n'est pas prêt à instrumenter �
 
 Avant de considérer la feature terminée : déclencher volontairement le chemin d'erreur en dev/staging et vérifier que le signal attendu apparaît bien. Une instrumentation jamais testée a de bonnes chances d'être silencieusement cassée le jour où elle sert.
 
+**Vérifier les deux états, pas seulement le déclenchement.** Un indicateur binaire — alerte, mode simulation, contrôle de santé, diff de configuration — n'est opérationnel que si l'on a constaté qu'il se déclenche quand il doit **et qu'il se tait quand il n'y a rien**. Un test qui ne couvre que le premier laisse passer le faux positif permanent.
+
+C'est le mode de panne le plus coûteux : il ne casse rien, il érode la confiance jusqu'à ce qu'on cesse de lire. Un signal toujours actif et un signal absent ont la même valeur informative — zéro — mais le premier donne l'illusion d'une surveillance.
+
+Deux cas vécus le 03/08/2026, sur le même script :
+
+- Un mode `--dry` annonçait un changement à chaque passage, y compris sur des fichiers strictement identiques. Cause : macOS ne fournit pas `rsync` mais `openrsync`, qui tronque l'horodatage à la seconde en copiant (`.641664686` à la source, `.000000000` à la destination) — la comparaison suivante conclut donc à une modification, indéfiniment. Le rapport était précisément l'outil censé signaler une dérive.
+- Un `git add -A` dans un script de sauvegarde automatique embarquait aussi les modifications de code, sous le libellé de routine « sauvegarde mémoire ». Un historique où tout porte le même message ne permet plus de retrouver quand un comportement a changé.
+
+Le test correspondant tient en trois temps : provoquer la condition (le signal apparaît), la retirer (le signal disparaît), ne rien faire (silence). Tant que le troisième n'est pas constaté, l'indicateur n'est pas vérifié.
+
 ---
 
 ## Outillage — décision une fois par projet

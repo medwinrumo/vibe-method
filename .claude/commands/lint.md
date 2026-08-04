@@ -18,6 +18,33 @@ Déclarer le mode utilisé en tête de rapport.
 
 ---
 
+## Étape 0 — Vérification du vérificateur
+
+**Quand :** après toute modification de `lint-wiki.py`, et avant de traiter un rapport en masse (plus de 5 signalements sur un même axe). Pas à chaque `/lint quick` de routine.
+
+Un axe de lint a deux façons d'afficher ✅ : « rien à signaler » et « je n'ai rien lu ». Rien dans la sortie ne les distingue. Le seul moyen de trancher est de le faire échouer exprès.
+
+```bash
+cp -R ~/dev/wiki /tmp/wiki-lint-test && cd /tmp/wiki-lint-test
+```
+
+Dans cette copie jetable, provoquer une violation par axe, puis relancer
+`python3 scripts/lint-wiki.py --wiki-path .` et confirmer qu'elle est signalée :
+
+| Axe | Violation à fabriquer | Doit ressortir en |
+|---|---|---|
+| 1 — Graphe | Ajouter `[[page-qui-nexiste-pas-xyz]]` dans deux fiches | Lien cassé / nœud fantôme |
+| 2 — Doublons/stubs | Créer une fiche de 20 mots | Stub |
+| 3 — Terminologie | Mettre `tags: [tag-bidon-xyz]` et `sujet: notion-rgpd` (minuscules) sur une fiche du cluster `Notion-Rgpd` | Tag non canonique **et** casse de `sujet` divergente |
+| 4 — Structure | Retirer tout le frontmatter d'une fiche | Frontmatter incomplet |
+| 5 — Conflits | Passer `updated` d'une fiche d'un cluster à une date > 90 jours des autres | Écart intra-cluster |
+
+Un axe resté vert sur une violation fabriquée est cassé — le réparer avant d'exploiter le moindre rapport. Supprimer `/tmp/wiki-lint-test` ensuite.
+
+**Signal d'alerte indépendant de ce test :** tout chiffre extrême dans un rapport — 0 % ou ~100 % des fiches sur un axe — se traite comme un **défaut d'outil présumé** avant d'être traité comme un défaut de données. Trois axes se sont révélés faux le 03/08/2026, dont un annonçant « frontmatter incomplet » sur 123 fiches sur 125 : le parser YAML n'acceptait pas les listes non indentées, format pourtant utilisé par tout le wiki. Son symétrique silencieux — le contrôle des tags canoniques lisant une liste vide — affichait ✅ depuis sa création.
+
+---
+
 ## Mode quick
 
 ### Étape 1 — Synchro puis script
@@ -98,6 +125,8 @@ Chaque correction → entrée dans `~/dev/wiki/log.md`.
 - Mode complet : lire tous les fichiers avant de signaler — pas de rapport partiel
 - Logger toutes les corrections dans `log.md`
 - Si aucun problème trouvé → le dire clairement
+- Un ✅ n'est une information que si l'axe a déjà été vu échouer (étape 0)
+- Toute correction de `lint-wiki.py` rouvre l'étape 0 sur l'axe corrigé
 
 ---
 

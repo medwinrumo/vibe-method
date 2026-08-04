@@ -1,8 +1,8 @@
 ---
 type: skill
 source: ../../.claude/commands/maj.md
-source_modified: 2026-07-28
-wiki_updated: 2026-07-28
+source_modified: 2026-08-04
+wiki_updated: 2026-08-04
 tags: [session, clôture, git, github-projects, task-observer]
 phase: session
 ---
@@ -19,5 +19,8 @@ Clôture systématique à la fin de chaque session. 7 étapes : documentation lo
 ## Ce qui NE fait PAS /maj
 - Mettre à jour les fichiers .peda, .log, .spec, .doc (c'est /checkpoint ou les skills dédiés)
 - Synchroniser Notion (supprimé)
+
+## Checklist — ajout 2026-08-04
+Si la session a déployé quoi que ce soit : `[projet].deploy.md` créé ou à jour, et la source dans un dépôt git local — pas uniquement sur le serveur. Voir [[skills/deploy]] étape 6.
 
 **En fin de chaque session, sans exception**

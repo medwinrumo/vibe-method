@@ -169,3 +169,4 @@ Ne pas clôturer tant qu'un dépôt touché n'est pas propre.
 - [ ] Review task-observer effectuée (observations traitées ou reportées)
 - [ ] **Tous les dépôts touchés propres et poussés** (étape 8 — inclut les modifications faites aux étapes 6 et 7)
 - [ ] Modifications hors dépôt signalées à Medwin, s'il y en a
+- [ ] Si la session a déployé quoi que ce soit : `[projet].deploy.md` créé ou à jour, et la source vit dans un dépôt git local — pas uniquement sur le serveur (voir `/deploy` étape 6)

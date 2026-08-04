@@ -1,8 +1,8 @@
 ---
 type: skill
 source: ../../.claude/commands/deploy.md
-source_modified: 2026-07-28
-wiki_updated: 2026-07-28
+source_modified: 2026-08-04
+wiki_updated: 2026-08-04
 tags: [infrastructure, déploiement, prod, vercel, observabilite]
 phase: infrastructure
 ---
@@ -25,5 +25,8 @@ Avant toute mise en prod : `scripts/lint-observabilite.py` — vérifie mécaniq
 
 ## Feature flags et rollout progressif — niveau 3 (2026-07-28)
 Cycle de vie du flag (deploy OFF → équipe/beta → 5%→25%→50%→100% → nettoyage sous 2 semaines) + table de seuils avancer/observer/rollback (taux d'erreur, latence p95, erreurs JS, métriques business).
+
+## Traçabilité du déploiement — Étape 6, obligatoire tous niveaux (2026-08-04)
+Règle préalable : **aucun déploiement dont la source n'existe qu'en production** — la source vit dans un dépôt git local, le serveur n'en reçoit qu'une copie. Sortie obligatoire : `[projet].deploy.md` avec URL publique, hébergeur, chemin serveur, config reverse proxy, dépôt source, commande, date + commit. Pour un livrable sans projet formel (page statique one-shot), un dépôt minimal avec `README.md` portant le même tableau. Ajouté après le cas du 03/08/2026 : page client livrée le 21/07, retrouvée deux semaines plus tard uniquement par `find` en SSH.
 
 **Précédent :** [[skills/recette]] (validation complète) | **Doctrine :** [[doctrines/architecture]] | [[doctrines/observabilite]]

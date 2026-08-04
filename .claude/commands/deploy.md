@@ -213,7 +213,44 @@ Si le lint signale une spec incomplète → bloquant, ne pas déployer avant cor
 
 ---
 
+## Étape 6 — Traçabilité du déploiement (obligatoire, tous niveaux)
+
+**Règle préalable, non négociable : aucun déploiement dont la source n'existe qu'en production.** La source vit dans un dépôt git local ; le serveur n'en reçoit qu'une copie. Si le déploiement se fait par `scp`, `rsync` ou édition directe sur le serveur, créer le dépôt local **avant** d'envoyer quoi que ce soit.
+
+Un artefact en production dont la source n'existe qu'en production n'a ni historique, ni sauvegarde, ni adresse mémorisable. Le retrouver coûte une enquête ; le modifier revient à éditer la production.
+
+Vécu le 03/08/2026 : une page client livrée le 21/07 a été retrouvée uniquement par `find` en SSH plus deux semaines après, dans `/var/www/notion-rgpd/`, avec son bloc Caddy dans `/etc/caddy/Caddyfile`. Aucune trace côté Mac — ni dossier projet, ni entrée dans `wiki/log.md`. La modifier a imposé de rapatrier le fichier depuis la production.
+
+**Sortie obligatoire de tout déploiement** — créer ou mettre à jour `[projet].deploy.md` dans le dépôt du projet :
+
+```markdown
+# Déploiement — [projet]
+
+| | |
+|---|---|
+| URL publique | https://… |
+| Hébergeur | Vercel / VPS Hostinger / store |
+| Chemin serveur | /var/www/… (si VPS) |
+| Config reverse proxy | /etc/caddy/Caddyfile, bloc `…` (si VPS) |
+| Dépôt source | ~/dev/… — GitHub : … |
+| Commande de déploiement | `scp …` / auto sur push |
+| Dernier déploiement | YYYY-MM-DD — commit `abc1234` |
+```
+
+Les trois lignes serveur ne s'appliquent pas à un déploiement Vercel (rien à retrouver, tout est dans le dashboard lié au repo) — les laisser à `—`. Elles sont le cœur du problème pour tout déploiement manuel sur VPS.
+
+**Livrable sans projet formel** (page statique isolée, one-shot client) : la règle tient quand même. Créer un dépôt minimal `~/dev/[nom]/` avec la source, un `README.md` portant le tableau ci-dessus, et pousser sur GitHub. C'est le seul cas où le `[projet].deploy.md` et le `README.md` fusionnent.
+
+Puis proposer l'entrée wiki correspondante (règle 4 de `~/dev/wiki/CLAUDE.md` — n'écrire au wiki que ce qui vaudrait pour un autre projet ; l'URL d'un livrable client, elle, reste dans le dépôt du projet).
+
+---
+
 ## Checklist finale
+
+**Traçabilité — avant de considérer le déploiement fait**
+- [ ] La source vit dans un dépôt git local, poussé sur GitHub — pas uniquement sur le serveur
+- [ ] `[projet].deploy.md` créé ou à jour : URL publique, hébergeur, chemin serveur, config reverse proxy, dépôt source, commande, date + commit
+- [ ] Si déploiement manuel (scp/rsync) : la version en production correspond à un commit identifié (`shasum` local vs distant si doute)
 
 **Déploiement web**
 - [ ] Variables d'environnement de production déclarées dans Vercel Dashboard (pas dans `.env` commité)

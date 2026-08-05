@@ -33,7 +33,16 @@ Diff des 14 skills fait via 3 sous-agents en parallèle. 6 gaps réels patchés 
 
 ## Questions ouvertes — ouvertes le 2026-07-27
 
-### Faut-il conserver le wiki `Vibe-Method/` ?
+### ~~Faut-il conserver le wiki `Vibe-Method/` ?~~ — TRANCHÉ le 05/08/2026 : supprimé
+
+**Option 3 retenue, mais pas pour la raison prévue.** La question posait « conserver / fusionner / supprimer » comme trois destins du miroir. Le vrai problème était en amont : le miroir existait pour produire un *résumé* de chaque source, et un résumé décroche. La réorganisation (`migration-structure.md`) a supprimé le couple source/résumé en migrant les sources elles-mêmes dans `~/dev/wiki` — doctrines en phase 4, skills et agents en phase 5. Le miroir n'avait alors plus d'objet.
+
+Vérifié avant suppression : aucun de ses 4 fichiers non dérivés (`_vue-ensemble.md`, `index.md`, `log.md`, `CLAUDE.md`) ne portait de contenu absent d'ailleurs. `_vue-ensemble.md` était une version condensée de `methode-doc.md`, qui est plus complet. Supprimé par `git rm` — récupérable dans l'historique.
+
+Le point de vigilance de Medwin — « ne pas perdre, dilapider, abîmer, mélanger » — est traité par l'inverse de ce qu'il craignait : la méthode n'est plus une copie dans un vault, elle **est** le vault, typée et contrôlée par un lint.
+
+<details><summary>Formulation d'origine (27/07/2026)</summary>
+
 
 `Vibe-Method/` est une **vue dérivée** : elle ne contient rien qui n'existe pas déjà dans `~/dev/vibe-method/`. Sa seule valeur ajoutée est le graphe Obsidian.
 
@@ -43,6 +52,8 @@ Trois options :
 3. **Le supprimer** — si la consultation se fait en pratique par Claude Code plutôt que dans Obsidian, la projection ne gagne pas son coût. Aucun risque pour la source, qui reste canonique.
 
 Point de vigilance soulevé par Medwin : la vibe-method est trop importante pour être « perdue, dilapidée, abîmée, mélangée ». Toute option retenue doit préserver le statut canonique des fichiers sources.
+
+</details>
 
 ### SESSION D'ARCHITECTURE À PROGRAMMER — frontière contenu / infrastructure
 
@@ -58,7 +69,11 @@ C'est structurellement exact. Le dépôt héberge trois natures :
 |---|---|---|
 | Doctrine | `methode.md`, `architecture.md`, `securite.md`, `stack.md`, `tests.md`… (racine) | contenu — candidat au second cerveau |
 | Wiki interne | `Vibe-Method/` (doctrines, skills, agents, flux, index) | fusion actée avec `~/dev/wiki` (mémoire `project_fusion_wiki_vibemethod`, 2026-07-28) |
-| **Infrastructure** | `.claude/commands/` (57 skills), `.claude/agents/` (4), `.claude/hooks/` (4), `setup.sh`, `CLAUDE.global.md` | exécutable — n'ira **jamais** dans un wiki |
+| **Infrastructure** | `.claude/commands/` (57 skills), `.claude/agents/` (4), `.claude/hooks/` (4), `setup.sh`, `CLAUDE.global.md` | ~~exécutable — n'ira **jamais** dans un wiki~~ |
+
+> **Ce « jamais » était faux, et le savoir a coûté un test.** Écrit le 29/07/2026 sur l'hypothèse qu'un exécutable ne peut pas être une fiche. Le test du 05/08 a montré que Claude Code ignore les champs de frontmatter qu'il ne connaît pas : un skill peut donc porter le frontmatter complet du wiki — typé `Procédure`, tagué, indexé, relié — et rester invocable par `/nom`. La phase 5 les a tous migrés. L'hypothèse n'avait jamais été vérifiée ; elle a tenu deux semaines comme un fait.
+>
+> Ce qui reste vrai de l'intuition : un exécutable a des contraintes qu'une fiche de savoir n'a pas. D'où le champ `claude-code:`, qui les distingue sans les séparer.
 
 Le dépôt porte le nom de la couche 1, mais sa fonction opérationnelle est la couche 3 — via les symlinks vers `~/.claude/`. Ce n'est pas une décision, c'est une dérive par commodité. Le jour où la fusion wiki emporte les couches 1 et 2, il reste un dépôt nommé « vibe-method » qui n'est plus qu'un dossier de configuration Claude Code.
 

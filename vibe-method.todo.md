@@ -69,7 +69,7 @@ C'est structurellement exact. Le dépôt héberge trois natures :
 |---|---|---|
 | Doctrine | `methode.md`, `architecture.md`, `securite.md`, `stack.md`, `tests.md`… (racine) | contenu — candidat au second cerveau |
 | Wiki interne | `Vibe-Method/` (doctrines, skills, agents, flux, index) | fusion actée avec `~/dev/wiki` (mémoire `project_fusion_wiki_vibemethod`, 2026-07-28) |
-| **Infrastructure** | `.claude/commands/` (57 skills), `.claude/agents/` (4), `.claude/hooks/` (4), `setup.sh`, `CLAUDE.global.md` | ~~exécutable — n'ira **jamais** dans un wiki~~ |
+| **Infrastructure** | ~~`.claude/commands/` (57 skills), `.claude/agents/` (4), `.claude/hooks/` (4), `setup.sh`, `CLAUDE.global.md`~~ — **plus rien de tout ça n'est ici au 05/08/2026** : skills, agents et hooks sont dans `~/dev/wiki`, `setup.sh` est absorbé par `claude-config/install.sh`, `CLAUDE.global.md` est devenu `claude-config/CLAUDE.md` | ~~exécutable — n'ira **jamais** dans un wiki~~ |
 
 > **Ce « jamais » était faux, et le savoir a coûté un test.** Écrit le 29/07/2026 sur l'hypothèse qu'un exécutable ne peut pas être une fiche. Le test du 05/08 a montré que Claude Code ignore les champs de frontmatter qu'il ne connaît pas : un skill peut donc porter le frontmatter complet du wiki — typé `Procédure`, tagué, indexé, relié — et rester invocable par `/nom`. La phase 5 les a tous migrés. L'hypothèse n'avait jamais été vérifiée ; elle a tenu deux semaines comme un fait.
 >

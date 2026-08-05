@@ -1,8 +1,8 @@
 # Stratégie de réorganisation — skills, doctrines, dépôts
 
-**Version 3 — 2026-08-05**, après le test de compatibilité du frontmatter.
-Phase 0 faite ; les phases 1 à 7 attendent validation.
-Une décision bloque la phase 4 : la collision `log.md` (§3).
+**Version 4 — 2026-08-05.** Phase 0 faite. Les 62 skills ont leur `description`.
+Plus aucune décision bloquante : la collision `log.md` est tranchée.
+Les phases 1 à 7 attendent le feu vert.
 
 ---
 
@@ -48,9 +48,8 @@ Conséquence : `Vibe-Method/` disparaît. Plus de couple source/résumé, plus d
 ~/dev/claude-config/             ← dépôt privé : personnel, non transposable
 ├── CLAUDE.md                    ← instructions globales (+ le personnel de CLAUDE.global.md)
 ├── settings.json  install.sh
-├── commands/                    ← 7 skills hors méthode
+├── commands/                    ← 7 skills hors méthode + task-observer
 ├── hooks/                       ← session-start, stop-cavecrew, track-agent-usage
-├── skills/task-observer/
 └── observations/
 
 ~/.claude/                       ← les 4 dossiers d'extension ne contiennent QUE des liens
@@ -108,9 +107,9 @@ Trois issues, avec leur coût réel :
 | **B — renommer le skill `/log`** | 13 fichiers, dont `CLAUDE.global.md` et la chaîne documentée | Garde le vault plat. Casse une commande utilisée quotidiennement |
 | **C — sous-dossier `skills/`** | 0 renommage | Coûte la platitude du vault et impose les wikiliens en chemin explicite (`[[skills/log]]`) |
 
-**Recommandation : A.** Le journal s'appelle `log.md` par habitude, pas par nécessité ; `journal.md` dirait la même chose. C'est 14 références dans un seul dépôt plus un skill miroir — le plus petit périmètre des trois, et le seul qui préserve à la fois la platitude du vault et les commandes existantes.
+**Tranché le 05/08 : option A, sous la forme `journal-log.md`.** Medwin garde la terminologie `log`, à laquelle il est habitué, et la collision disparaît. Le vault reste plat, les commandes restent intactes, les wikiliens restent en forme simple.
 
-À trancher par Medwin avant la phase 4.
+Périmètre : 14 références dans `wiki/`, dont 1 dans `lint-wiki.py`, plus le skill miroir `wiki` du VPS Hermes.
 
 ### Où va chaque chose — réponse à la question de Medwin
 
@@ -285,3 +284,34 @@ Ordre imposé : phase 0 d'abord, phase 5 en dernier parmi les déplacements.
 
 1. **`test_lint_observabilite.py`** — ses cas E-H étaient *tous fail-open* avant correction : le lint laissait passer sans rien dire. Même mode de panne que l'observation 36. À réexaminer une fois la structure stable.
 2. **Sauvegarde mémoire en retard de deux jours** — `com.medwinrumo.sync-memory` est chargé, annonce un intervalle de 15 min, son fichier de log n'existe pas, et le fichier écrit le 05/08 au matin n'était pas sauvegardé deux heures plus tard. Cause à établir.
+
+---
+
+## 15. Décisions du 05/08, après le test de frontmatter
+
+**Collision `log.md` → `journal-log.md`.** Le journal du wiki est renommé, la terminologie `log` est conservée. 14 références dans `wiki/` plus le skill miroir Hermes.
+
+**`commands/` et `skills/` unifiés en fichiers plats.** La documentation officielle est explicite : « A file at `.claude/commands/deploy.md` and a skill at `.claude/skills/deploy/SKILL.md` both create `/deploy` and work the same way. » La forme dossier ne sert qu'à embarquer des fichiers annexes. `task-observer` n'en a aucun — il devient `claude-config/commands/task-observer.md`.
+
+**Coût :** une ligne dans `claude-config/hooks/session-start.sh`, qui code `~/.claude/skills/task-observer/SKILL.md` en dur (ligne 47). `~/.claude/skills/` devient vide et peut disparaître.
+
+**`description` posée sur les 62 skills** (58 ajoutées le 05/08, 4 préexistantes). Le frontmatter wiki complet viendra au moment du déplacement, en phase 5 — inutile de typer `Procédure` un fichier encore hors du vault.
+
+---
+
+## 16. Chantier à ouvrir plus tard — `description` sur toutes les fiches du wiki
+
+Aucune des 127 fiches du wiki n'a de champ `description`. Mais `index.md` porte une **colonne « Résumé »** pour chacune.
+
+Ce résumé existe donc déjà, et vit au mauvais endroit : séparé de la fiche qu'il décrit. C'est le motif exact que la suppression de `Vibe-Method/` élimine — une description qui vit ailleurs que son objet, et qui décroche sans que rien ne le signale.
+
+**Ce que le déplacement apporterait :**
+- un agent qui cherche lit la description sans ouvrir l'index
+- la colonne « Résumé » de `index.md` devient **générée** depuis les fiches, au lieu d'être maintenue à la main
+- `lint-wiki.py` peut vérifier que chaque fiche a sa description
+
+**Charge réelle :** un travail de migration, pas de rédaction — les résumés sont déjà écrits.
+
+**À faire au même moment :** ajouter le champ à `wiki/CLAUDE.md` avec ses règles de rédaction (que dit une bonne description, quelle longueur, quel angle), et modifier le skill `/wiki` pour qu'il le remplisse à chaque création de fiche.
+
+À ouvrir après la migration de structure — pas pendant.

@@ -68,7 +68,8 @@ grep -rl "dev/wiki\|/opt/data/wiki\|vibe-method" "$DEV/hermes-config/vps/skills/
 titre "9. Mémoires automatiques citant ces chemins"
 grep -rl "vibe-method\|dev/wiki" "$HOME/.claude/projects"/*/memory/*.md 2>/dev/null \
   | sed 's|.*/memory/||' | sed 's/^/  /'
-echo "  (réécrites par la machine — à corriger dans claude-memoire, pas ici)"
+echo "  (réécrites par la machine — corriger dans ~/.claude/projects/*/memory/,"
+echo "   JAMAIS dans claude-memoire : ce dépôt est une sauvegarde, il serait écrasé)"
 
 titre "10. Autres dépôts projet citant la méthode"
 grep -rl "vibe-method" "$DEV" --include="CLAUDE.md" --include="settings.local.json" 2>/dev/null \

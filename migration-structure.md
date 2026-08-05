@@ -628,6 +628,16 @@ Il n'énumère plus un dossier, il interroge le frontmatter. Et il **sauvegarde 
 
 **Nouveau contrôle 11 dans `audit-dependances.sh`** : fiches portant `claude-code:` ↔ liens posés, plus la détection des liens pendants. C'est l'invariant que la phase introduit, et ses deux modes de panne sont silencieux — une fiche qui perd le champ voit sa commande disparaître, une fiche renommée laisse un lien mort. Sortie actuelle : 56/56, 4/4, 0 lien cassé.
 
+### Trois vérifications faites après coup, deux ont trouvé quelque chose
+
+**Les collisions de nom avec `claude-config`.** Le contrôle initial comparait les 56 skills de la méthode aux fiches du wiki et avait trouvé `log.md`. Il ne comparait pas les 8 skills de `claude-config` — or les deux installateurs écrivent dans `~/.claude/commands/`, et un nom partagé donne « le dernier lancé gagne », en silence. Vérifié : aucune collision.
+
+**`/maj` envoyait vers un dépôt qui n'a plus les skills.** C'est le plus grave, il tourne à chaque clôture. Il disait de chercher un skill dans `vibe-method/.claude/commands/`, et ne lançait le lint wiki que « si le répertoire courant est `vibe-method/` ». Or une session ouverte sur n'importe quel projet qui modifie un skill modifie désormais le wiki : la condition portait sur le mauvais fait. Son étape 5 décrivait en plus des contrôles de fraîcheur (`source_modified`, `wiki_updated`) hérités du miroir `Vibe-Method/` supprimé — remplacés par l'exécution du lint réel. `/charte` et `/design` disaient « `~/dev/wiki/ui-vocabulary-doc.md` dans vibe-method », phrase devenue contradictoire.
+
+Ces trois-là ont échappé aux substitutions des phases 4 et 5, qui portaient sur des **noms de fichier**. Une phrase qui dit *où vivent les skills* ne contient aucun nom de fichier — elle est invisible à un `grep` de chemin.
+
+**`workflow-doc.md` a du retard.** `vibe-method/CLAUDE.md` affirmait « la chaîne complète du workflow est dans `wiki/workflow-doc.md` » — écrit dans le même mouvement qui en retirait la table des 56 skills. Vérifié : le guide date du 11/06 et ne couvre ni `deploy` ni `init-projet`, tout en documentant encore `/condense`, sorti de la méthode le 05/08. L'affirmation est corrigée et le retard signalé — c'est désormais le seul endroit où vit l'ordre des skills.
+
 ### Ce qui reste — phases 6 et 7
 
 - **Phase 6** : supprimer `Vibe-Method/`. Le miroir n'a plus d'objet — ses sources n'existent plus.

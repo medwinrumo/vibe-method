@@ -12,7 +12,7 @@ Vibe-Method/*.canvas
 *.pdf
 
 # Outputs locaux — fichiers de session non versionnés
-handoff.md
+handoff-out.md
 \# **Proposition commerciale**.md
 \## CONDITIONS GÉNÉRALES DE VENTE.md
 

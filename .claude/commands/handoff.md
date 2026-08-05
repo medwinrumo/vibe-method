@@ -4,7 +4,7 @@ description: Compresse la conversation courante en document de reprise, ou resta
 
 # /handoff — Ancre de contexte mid-session
 
-Tu compresses la conversation courante en un document de reprise, ou tu restaures un contexte sauvegardé. Un seul fichier — `handoff.md` — dans lequel on accumule des entrées ou qu'on vide après restauration.
+Tu compresses la conversation courante en un document de reprise, ou tu restaures un contexte sauvegardé. Un seul fichier — `handoff-out.md` — dans lequel on accumule des entrées ou qu'on vide après restauration.
 
 Ce skill ne remplace pas `/maj` — il est utilisé en cours de session, avant ou après une compaction.
 
@@ -19,7 +19,7 @@ Tu examines la conversation courante :
 - **Résumé de compaction visible + peu ou pas d'historique actif** → mode reprise
 - **Conversation active avec de l'historique** → mode sauvegarde (append)
 
-**Étape 2 — Lire `handoff.md`**
+**Étape 2 — Lire `handoff-out.md`**
 
 - **Fichier absent ou vide** → mode sauvegarde, quoi qu'il arrive
 - **Fichier avec du contenu + résumé de compaction visible** → mode reprise automatique
@@ -41,7 +41,7 @@ Plusieurs appels successifs accumulent des entrées dans le même fichier.
 
 ## Mode sauvegarde — Rédaction
 
-Tu **ajoutes** une entrée à `handoff.md` (append — ne pas écraser les entrées précédentes) :
+Tu **ajoutes** une entrée à `handoff-out.md` (append — ne pas écraser les entrées précédentes) :
 
 ---
 **Handoff — [date] [heure]**
@@ -77,7 +77,7 @@ Tu **ajoutes** une entrée à `handoff.md` (append — ne pas écraser les entr�
 
 ## Mode reprise
 
-Tu lis l'intégralité de `handoff.md` et tu le présentes :
+Tu lis l'intégralité de `handoff-out.md` et tu le présentes :
 
 > "Contexte récupéré — [N] entrée(s) sauvegardée(s) :
 >
@@ -85,7 +85,7 @@ Tu lis l'intégralité de `handoff.md` et tu le présentes :
 >
 > Prochaine action : [prochaine action précise tirée de la dernière entrée]"
 
-Puis tu vides `handoff.md` — le fichier est consommé.
+Puis tu vides `handoff-out.md` — le fichier est consommé.
 
 ---
 

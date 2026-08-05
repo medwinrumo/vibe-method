@@ -1,7 +1,8 @@
 # Stratégie de réorganisation — skills, doctrines, dépôts
 
-**Version 2 — 2026-08-05**, après retours de Medwin.
-Phase 0 en cours d'exécution ; les phases 1 à 7 attendent validation.
+**Version 3 — 2026-08-05**, après le test de compatibilité du frontmatter.
+Phase 0 faite ; les phases 1 à 7 attendent validation.
+Une décision bloque la phase 4 : la collision `log.md` (§3).
 
 ---
 
@@ -29,19 +30,19 @@ Conséquence : `Vibe-Method/` disparaît. Plus de couple source/résumé, plus d
 
 ## 3. La cible
 
-**Aucun dossier masqué dans le wiki.** Tout est visible dans Obsidian — c'était l'incohérence de la version 1, qui rangeait les skills dans un `.claude/` invisible tout en prétendant les rendre navigables.
+**Tout le markdown est à plat et visible dans Obsidian.** Les versions 1 et 2 rangeaient les skills à l'écart — masqués d'abord, en sous-dossier ensuite — ce qui les sortait du catalogue du second cerveau. Le test du 05/08 lève cette contrainte.
 
 ```
 ~/dev/wiki/                      ← dépôt GitHub, partagé Mac ↔ VPS Hermes
 ├── CLAUDE.md  index.md  log.md  ← infrastructure du vault (déjà exemptés de frontmatter)
 │
 ├── <fiches de savoir>.md        ← vault plat, existant
-├── doc-*.md                     ← 12 doctrines migrées (préfixe validé)
-├── rec-*.md                     ← recherches et extractions (préfixe validé)
+├── *-doc.md                     ← 12 doctrines migrées (suffixe validé)
+├── *-rech.md                    ← recherches et extractions (suffixe validé)
+├── <nom-du-skill>.md            ← 55 skills, fiches `type: Procédure`, à plat
+├── <nom-de-l-agent>.md          ← 4 agents, idem
 │
-├── skills/                      ← VISIBLE. 55 skills de la méthode
-├── agents/                      ← VISIBLE. 4 personas
-├── hooks/                       ← shell — Obsidian ignore les non-.md
+├── hooks/                       ← shell — non-.md, hors vault Obsidian
 └── scripts/                     ← existe déjà (lint-wiki.py), reçoit lint-observabilite.py
 
 ~/dev/claude-config/             ← dépôt privé : personnel, non transposable
@@ -53,13 +54,13 @@ Conséquence : `Vibe-Method/` disparaît. Plus de couple source/résumé, plus d
 └── observations/
 
 ~/.claude/                       ← les 4 dossiers d'extension ne contiennent QUE des liens
-├── commands/ → wiki/skills/*.md  +  claude-config/commands/*.md
-├── agents/   → wiki/agents/*.md
+├── commands/ → wiki/<skill>.md  +  claude-config/commands/*.md
+├── agents/   → wiki/<agent>.md
 ├── hooks/    → les deux dépôts
 └── skills/   → claude-config/skills/
 ```
 
-Claude Code lit `~/.claude/commands/<nom>.md` ; **le chemin de la cible du lien lui est indifférent**. Un skill peut donc vivre dans `wiki/skills/` et rester invocable par `/deploy`.
+Claude Code lit `~/.claude/commands/<nom>.md` ; **le chemin de la cible du lien lui est indifférent**. Un skill peut donc vivre à plat dans le vault, aux côtés des fiches de savoir, et rester invocable par `/deploy`.
 
 ### La règle sur `~/.claude`, énoncée correctement
 
@@ -74,39 +75,66 @@ La version 1 disait « que des liens », ce qui est faux. Vérifié le 05/08 :
 
 Violations actuelles : `firecrawl.md` et `.DS_Store` dans `commands/`.
 
-### Frontmatter : skills et agents exemptés
+### Frontmatter : testé le 05/08 — une fiche wiki peut être un skill
 
-Question posée par Medwin, et elle est décisive. Constat : **4 skills sur 62 ont un frontmatter** (`description`, `allowed-tools`) ; les 58 autres n'en ont aucun.
+La version 2 proposait d'exempter skills et agents de frontmatter. **Medwin a refusé et demandé un test** : sans frontmatter, un skill dans le wiki n'est ni typé, ni tagué, ni catalogué — c'est un dossier posé à côté du second cerveau, donc aucun intérêt à l'y mettre. Il avait raison.
 
-Leur imposer le frontmatter du vault (`type`, `tags`, `created`, `updated`, `sources`) modifierait 58 fichiers exécutables pour un gain de catalogage, avec un risque non testé côté Claude Code.
+**Ce que dit la documentation officielle** (`code.claude.com/docs/en/slash-commands`) : elle liste les champs supportés (`name`, `description`, `when_to_use`, `argument-hint`, `arguments`, `disable-model-invocation`, `user-invocable`, `allowed-tools`, `disallowed-tools`, `model`, `effort`, `context`, `agent`, `background`, `hooks`, `paths`, `shell`) et précise « All fields are optional ». Elle ne dit **rien** du sort des champs inconnus. Elle ne tranche donc pas.
 
-**Décision : `skills/` et `agents/` sont exemptés de frontmatter**, au même titre que `CLAUDE.md`, `index.md` et `log.md` le sont déjà. Un skill est un exécutable qui se trouve être en markdown, pas une fiche de savoir. `scripts/lint-wiki.py` doit exclure ces deux dossiers.
+**Test empirique, deux chemins :**
 
-Les **doctrines**, elles, prennent le frontmatter complet : ce sont bien du savoir.
+| Chemin testé | Résultat |
+|---|---|
+| Fichier **neuf** portant les 7 champs wiki + `description` | Détecté sans redémarrage de session, `description` correctement lue dans la liste des skills, corps chargé à l'invocation |
+| Skill **préexistant** (`/firecrawl`) auquel on ajoute le frontmatter wiki | Corps chargé intégralement, invocation normale |
+
+**Conclusion : les champs inconnus sont ignorés silencieusement. Un skill et un agent peuvent être des fiches wiki complètes** — typés, tagués, catalogués dans `index.md`, reliés par wikiliens, présents dans le graphe.
+
+Le type qui convient existe déjà dans la typologie du wiki : **`Procédure`** (« le comment, les étapes concrètes à suivre »). Un skill n'est pas du savoir, c'est une procédure — la distinction est déjà faite.
+
+`description` devient le seul champ à ajouter aux 58 skills qui n'en ont pas, en plus du frontmatter wiki.
+
+**Effet de bord constaté :** un skill créé ou modifié en cours de session est pris en compte immédiatement, sans redémarrage. Même comportement que `settings.json`.
+
+### La seule collision : `log.md`
+
+Mesuré sur 66 skills et agents contre 127 fiches du wiki : **une seule collision de nom**, entre le skill `/log` et le journal `log.md` du wiki. Aucune autre.
+
+Trois issues, avec leur coût réel :
+
+| Option | Coût mesuré | Conséquence |
+|---|---|---|
+| **A — renommer le journal du wiki** | 14 références dans `wiki/`, dont 1 dans `lint-wiki.py`, plus le skill miroir Hermes du VPS | Garde le vault plat. Touche un fichier d'infrastructure et une convention ancrée (« logger dans `log.md` ») |
+| **B — renommer le skill `/log`** | 13 fichiers, dont `CLAUDE.global.md` et la chaîne documentée | Garde le vault plat. Casse une commande utilisée quotidiennement |
+| **C — sous-dossier `skills/`** | 0 renommage | Coûte la platitude du vault et impose les wikiliens en chemin explicite (`[[skills/log]]`) |
+
+**Recommandation : A.** Le journal s'appelle `log.md` par habitude, pas par nécessité ; `journal.md` dirait la même chose. C'est 14 références dans un seul dépôt plus un skill miroir — le plus petit périmètre des trois, et le seul qui préserve à la fois la platitude du vault et les commandes existantes.
+
+À trancher par Medwin avant la phase 4.
 
 ### Où va chaque chose — réponse à la question de Medwin
 
 | Contenu actuel | Destination | Forme |
 |---|---|---|
-| 12 doctrines | racine du vault, `doc-*.md` | fiche complète, frontmatter |
-| `flux/chaine-complete.md` | racine, `doc-chaine-complete.md` | fiche — c'est du savoir de navigation |
-| 62 skills | `wiki/skills/` | fichier exécutable inchangé, exempté |
-| 4 agents | `wiki/agents/` | idem |
+| 12 doctrines | racine du vault, `*-doc.md` | fiche complète, frontmatter |
+| `flux/chaine-complete.md` | racine, `chaine-complete-doc.md` | fiche — c'est du savoir de navigation |
+| 55 skills de méthode | racine du vault | fiche `type: Procédure` + `description` |
+| 4 agents | racine du vault | fiche `type: Procédure` + `description` |
 | 2 hooks de méthode | `wiki/hooks/` | shell |
 | 2 scripts | `wiki/scripts/` | python, rejoint `lint-wiki.py` |
-| Recherches, extractions, références | racine, `rec-*.md` | fiche `type: Source` |
+| Recherches, extractions, références | racine, `*-rech.md` | fiche `type: Source` |
 | `Vibe-Method/` en entier | **supprimé** | — |
 | `_vue-ensemble.md` `index.md` du miroir | fusionnés dans `index.md` du wiki | — |
 
-**Wikiliens :** `skills/` et `agents/` étant des sous-dossiers, les liens s'écrivent en chemin explicite (`[[skills/deploy]]`), comme le fait déjà le miroir. Nécessaire pour éviter l'ambiguïté — il existe un `log.md` skill et un `log.md` journal du wiki.
+**Wikiliens :** tout étant à plat, les liens restent en forme simple (`[[deploy]]`, `[[securite-doc]]`). Aucun chemin explicite nécessaire — c'est le bénéfice direct de la résolution de la collision `log.md`.
 
-**Amendement à acter dans `wiki/CLAUDE.md` :** le vault cesse d'être strictement plat. Quatre sous-dossiers d'exécutables s'ajoutent aux fichiers de savoir, qui restent plats entre eux.
+**Amendement à acter dans `wiki/CLAUDE.md` :** le vault reste plat pour tout le markdown. Seuls `hooks/` et `scripts/`, qui ne contiennent aucun `.md`, sont des sous-dossiers — Obsidian les ignore de toute façon. La typologie s'enrichit d'un usage : `Procédure` couvre désormais aussi les skills et les agents, qui sont exécutables en plus d'être lisibles.
 
 ---
 
 ## 4. Répartition des skills
 
-### Restent dans la méthode → `wiki/skills/` (55)
+### Restent dans la méthode → racine de `wiki/` (55)
 
 `contexte` `brief` `charte` `prd` `prd-update` `prd-validate` `gherkin` `angles-morts`
 `design` `archi` `regles` `adr` `stack` `roadmap` `specs` `to-issues` `readyTo-code`
@@ -137,10 +165,10 @@ Les **doctrines**, elles, prennent le frontmatter complet : ce sont bien du savo
 |---|---|
 | Préférences de communication | `claude-config/CLAUDE.md` |
 | Gestion des modèles et agents | `claude-config/CLAUDE.md` |
-| Exigence de rigueur professionnelle | **Doctrine** → `doc-rigueur.md` dans le wiki |
+| Exigence de rigueur professionnelle | **Doctrine** → `rigueur-doc.md` dans le wiki |
 | Règles de sécurité non négociables | Déjà dans `securite.md` → remplacer par un renvoi |
 | Écosystème de projets (Minou, makeRag) | `claude-config/CLAUDE.md` |
-| Commandes de session, artefacts par projet, clôture | Méthode → `doc-methode.md` |
+| Commandes de session, artefacts par projet, clôture | Méthode → `methode-doc.md` |
 
 **Attention au doublon** : `claude-config/CLAUDE.md` existe déjà avec une section « Observation des sessions ». La fusion doit produire un seul fichier cohérent, pas deux blocs empilés.
 
@@ -151,18 +179,18 @@ Les **doctrines**, elles, prennent le frontmatter complet : ce sont bien du savo
 ### Supprimés le 05/08 (Corbeille, récupérables)
 `## CONDITIONS GÉNÉRALES DE VENTE.md` · `devisType.pdf` · `traite-vibe-coding-eclaire.epub`
 
-### Deviennent des fiches `rec-*`
+### Deviennent des fiches `*-rech`
 
 | Actuel | Devient |
 |---|---|
-| `cybersecurite-recherche.md` | `rec-cybersecurite.md` |
-| `rgpd-research-2026-05-21.md` + `Checklist-RGPD-en-10-points.md` + `Checklist Vercel vs RGPD.md` | `rec-rgpd-fournisseurs.md` (fusion des trois) |
-| `apports-traite-vibe-coding.md` + `resume-traite-vibe-coding.md` + `bilan-integration-traite.md` | `rec-traite-vibe-coding.md` (fusion des trois) |
-| `apple-hig-react-native.md` | `rec-apple-hig-react-native.md` |
-| `appstore.md` | `rec-apple-appstore.md` |
-| `claude-design.md` | `rec-claude-design.md` |
-| `guide-definition-produit.md` | `rec-guide-definition-produit.md` |
-| `audit-doctrine-strategie.md` | `rec-audit-doctrine-strategie.md` |
+| `cybersecurite-recherche.md` | `cybersecurite-rech.md` |
+| `rgpd-research-2026-05-21.md` + `Checklist-RGPD-en-10-points.md` + `Checklist Vercel vs RGPD.md` | `rgpd-fournisseurs-rech.md` (fusion des trois) |
+| `apports-traite-vibe-coding.md` + `resume-traite-vibe-coding.md` + `bilan-integration-traite.md` | `traite-vibe-coding-rech.md` (fusion des trois) |
+| `apple-hig-react-native.md` | `apple-hig-react-native-rech.md` |
+| `appstore.md` | `apple-appstore-rech.md` |
+| `claude-design.md` | `claude-design-rech.md` |
+| `guide-definition-produit.md` | `guide-definition-produit-rech.md` |
+| `audit-doctrine-strategie.md` | `audit-doctrine-strategie-rech.md` |
 
 **Correction v2 sur les checklists RGPD.** Medwin demandait de vérifier avant suppression. Vérification faite : elles ne font **pas** doublon avec `rgpd.md` section 12, qui est une checklist de pré-production. Ces deux fichiers analysent des fournisseurs (Supabase, Vercel, souveraineté, alternatives européennes). Ce sont des recherches → fusion, pas suppression.
 
@@ -231,11 +259,11 @@ for d in ~/dev/*/; do [ -d "$d/.git" ] && echo "gh  $(basename $d)" || echo "   
 | # | Phase | Contenu | Risque | État |
 |---|---|---|---|---|
 | 0 | **Filet de sécurité** | Versionner `firecrawl.md` ; supprimer `~/dev/handoff.md`, les 2 `claude-config-backup-*`, le `.DS_Store` de `commands/` | Nul | **en cours** |
-| 1 | **Nettoyage racine** | Fusions et renommages `rec-*`, suppression de `bmad-comparaison.md` | Faible | à valider |
+| 1 | **Nettoyage racine** | Fusions et renommages `*-rech`, suppression de `bmad-comparaison.md` | Faible | à valider |
 | 2 | **Scission `CLAUDE.global.md`** | Séparer doctrine et personnel, fusionner sans doublon, 11 références | Moyen | à valider |
 | 3 | **Répartition des skills** | 7 skills → `claude-config/commands/`, liens refaits | Moyen | à valider |
-| 4 | **Doctrines → wiki** | 12 fiches `doc-*`, fusion des deux `rgpd.md` | Moyen | à valider |
-| 5 | **Exécutable → wiki** | `skills/` `agents/` `hooks/` `scripts/`, chemins en dur | **Élevé** — touche Hermes | à valider |
+| 4 | **Doctrines → wiki** | 12 fiches `*-doc`, fusion des deux `rgpd.md` | Moyen | à valider |
+| 5 | **Exécutable → wiki** | 55 skills + 4 agents convertis en fiches `Procédure` à plat ; `hooks/` et `scripts/` en sous-dossiers ; chemins en dur | **Élevé** — touche Hermes | à valider |
 | 6 | **Suppression de `Vibe-Method/`** | Le miroir n'a plus d'objet | Faible | à valider |
 | 7 | **Installateur unique** | Fusion `setup.sh` + `install.sh` | Faible | à valider |
 
@@ -245,8 +273,8 @@ Ordre imposé : phase 0 d'abord, phase 5 en dernier parmi les déplacements.
 
 ## 12. Décisions prises le 05/08
 
-- Préfixe doctrines : **`doc-`**
-- Préfixe recherches : **`rec-`**
+- Suffixe doctrines : **`-doc`** (ex. `securite-doc.md`)
+- Suffixe recherches : **`-rech`** (ex. `rgpd-fournisseurs-rech.md`)
 - `cgv` et `devis` : **restent dans la méthode**
 - Hermes recevra les skills Claude Code : **bruit acceptable**, pas de dépôt séparé
 - Plugins : **rien à faire**, gérés par Claude Code

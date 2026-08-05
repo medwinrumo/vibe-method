@@ -279,3 +279,61 @@ CLAUDE.global.md, section "Exigence de rigueur professionnelle" : nouvelle règl
 - Roadmap officiellement close, confirmé à Medwin : amélioration réelle de vibe-method, pas juste comparatif
 - `handoff.md` vidé (contenu périmé) sur demande de Medwin
 - gh auth a perdu ses scopes en cours de session, `gh auth refresh` (device code validé par Medwin) — repris normalement
+
+---
+
+## 2026-08-05 — Réorganisation, phases 3 à 7 : la méthode entre dans le second cerveau
+
+Phases 0 à 2 menées plus tôt dans la journée par une session distincte (journal aux §18-19 de `migration-structure.md`). Cette session a mené tout le reste.
+
+### Phase 3 — Répartition des skills
+
+- 6 skills sortis vers `claude-config/commands/` : `lint` `wiki` `caveman` `pdf` `slides` `condense`. `firecrawl` y était depuis la phase 0. 56 restent dans la méthode
+- `task-observer` aplati : `skills/task-observer/SKILL.md` → `commands/task-observer.md`. `~/.claude/skills/` supprimé. `session-start.sh` repointé et relancé pour vérification
+- `install.sh` boucle sur `commands/*.md` au lieu de nommer les fichiers
+- Effet de fond : `setup.sh` ne peut plus écraser ces 8 skills, sa boucle ne balaie plus leur dossier — mode de panne du 29/07 fermé par construction
+- Commits `b10eaf6` (vibe-method), `1fabdfd` (claude-config), `da82464` (wiki)
+
+### Phase 4 — 12 doctrines vers le wiki
+
+- `produit` `methode` `design` `architecture` `securite` `rgpd` `tests` `stack` `observabilite` `accessibilite` `refacto` `ui-vocabulary` → `wiki/<nom>-doc.md`. 10 `Procédure`, 2 `Concept`
+- **Décision §12 annulée** : les deux `rgpd.md` ne sont pas fusionnées. `rgpd.md` (`Concept`) dit le règlement, `rgpd-doc.md` (`Procédure`) dit quoi coder. Le `CLAUDE.md` du vault l'interdisait déjà. `sujet: Rgpd` conservé pour rester dans le cluster de 13 fiches
+- Piège rattrapé par le lint : la substitution a produit `` `[[securite-doc]]` `` — le lien dans les backticks d'origine, donc du code. 12 fiches auraient été orphelines en paraissant reliées. 39 liens libérés
+- 263 références corrigées. Deux substitutions partielles rattrapées à la relecture (`archi.md:411` mélangeait ancien et nouveau chemin dans la même phrase)
+- Lint : 140 → 152 fiches, 221 → 243 signalements, 11 axes verts maintenus
+
+### Phase 5 — 56 skills et 4 agents vers le wiki
+
+- **Prérequis d'abord** : `log.md` → `journal-log.md` (collision avec le skill `/log`), `INFRA_FILES` de `lint-wiki.py` dans le même geste, 49 références corrigées. Vérifié avant toute arrivée de skill
+- **Décisions de Medwin** : champ `claude-code: commande|agent` comme discriminant de l'installateur ; `sujet` et `cluster` rendus obligatoires (7 champs requis, 5 fiches complétées sur 152)
+- Obligation posée dans `lint-wiki.py`, seul fichier partagé avec Hermes — la prose existe en deux copies, le lint en une seule
+- Frontmatter **fusionné** dans le bloc existant, jamais préfixé : un second `---` aurait fait passer `allowed-tools` en corps de texte, sans erreur visible
+- 8 clusters par phase du workflow plutôt qu'un cluster de 68 membres
+- `diagnostic-serveur.md` : frontmatter invalide en YAML strict depuis sa création, corrigé par le quotage
+- 86 mentions `/skill` des doctrines converties en `[[nom|/nom]]`, 60 sections « Fiches liées »
+- Nœuds fantômes 33 → 2 : les 31 de `workflow-doc.md` se sont fermés seuls
+- `setup.sh` réécrit — interroge le frontmatter, sauvegarde avant de remplacer
+- Contrôle 11 ajouté à `audit-dependances.sh` : fiches `claude-code:` ↔ liens posés
+- **Correction d'après-coup** : `/maj`, `/charte` et `/design` pointaient encore vers vibe-method. `/maj` est le plus grave, il tourne à chaque clôture
+
+### Phase 6 — Suppression du miroir
+
+- `Vibe-Method/` supprimé — 83 fichiers, 404 Ko, par `git rm` donc récupérable
+- Les 4 fichiers non dérivés ouverts un par un avant suppression : aucun contenu absent d'ailleurs
+- Règle du « corollaire du miroir » de `claude-config/CLAUDE.md` : exemple périmé remplacé
+- Deux questions du todo closes, dont « l'infrastructure n'ira jamais dans un wiki » — réfutée par le test de frontmatter
+
+### Phase 7 — Installateur unique
+
+- `vibe-method/setup.sh` supprimé, absorbé par `claude-config/install.sh`. Deux sources : wiki et claude-config
+- Les 3 hooks de la méthode rejoignent `wiki/hooks/` — prévu au §3, oublié en phase 5
+- Idempotence vérifiée : second passage 0 posé, 78 inchangés, 0 sauvegarde. Hooks testés en entrée réelle
+- Le défaut refermé était écrit dans `setup.sh` lui-même depuis une semaine
+
+### Transverse
+
+- **Propagation VPS tranchée** : `hermes-config` est un dépôt de sauvegarde, pousser n'atteint pas le VPS. Le sens inverse est `restaure-skills.sh vps`. **Non lancé** — écrit par SSH en production, décision de Medwin. Risque armé : le VPS journalise encore dans `log.md`, renommé
+- 5 observations au carnet (41 à 45)
+- Section « RESTE À FAIRE » créée en tête de `vibe-method.todo.md` — 8 rubriques, chaque ligne vérifiée sur pièces
+- Défaut du lint découvert : l'extraction du titre H1 n'exclut pas les blocs de code
+- État final : wiki 212 fiches, 11 axes verts, 0 lien cassé. 64 commandes, 4 agents, 5 hooks liés, 0 cassé

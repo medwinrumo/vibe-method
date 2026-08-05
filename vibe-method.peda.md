@@ -971,3 +971,79 @@ Medwin a demandé confirmation explicite : "on n'a pas juste fait une comparaiso
 - MCP `chrome-devtools` installé mais jamais testé en usage réel (chargement au démarrage — probable mais pas vérifié, comme pour le hook et les 4 agents avant eux).
 - `browser-testing-with-devtools` (skill Osmani complet, pas juste la persona perf) — jamais intégré, maintenant que le MCP existe ça redevient pertinent si Medwin veut creuser.
 - RAMrezo reste la priorité déclarée, deadline 2026-09-04, à démarrer depuis `/brief`.
+
+---
+
+## 2026-08-05
+
+### Session — Réorganisation, phases 3 à 7 : la méthode entre dans le second cerveau
+
+**Point de départ**
+
+Reprise du chantier décrit dans `migration-structure.md`. Les phases 0, 1, 1bis et 2 avaient été menées plus tôt dans la journée par une session distincte — journal aux §18 et §19 du document, pas dans ce fichier. Cette session a mené les phases **3 à 7**, soit tout ce qui restait.
+
+Le problème d'origine tenait en une phrase : le miroir Obsidian `Vibe-Method/` produisait un résumé par fichier source, et ces résumés décrochaient — 30 pages périmées constatées le matin même. L'idée retenue n'était pas d'automatiser la synchronisation mais de **supprimer le couple source/résumé** : migrer les sources elles-mêmes dans le wiki, où elles deviennent des fiches à part entière.
+
+**Ce qui a été fait**
+
+| Phase | Contenu |
+|---|---|
+| 3 | 7 skills hors méthode vers `claude-config` ; `task-observer` aplati en fichier plat |
+| 4 | 12 doctrines en fiches `*-doc.md` |
+| 5 | 56 skills et 4 agents en fiches `Procédure` ; `log.md` → `journal-log.md` ; `setup.sh` réécrit |
+| 6 | Suppression du miroir `Vibe-Method/` |
+| 7 | Installateur unique — `setup.sh` absorbé par `claude-config/install.sh` |
+
+Le vault passe de 127 à 212 fiches. `vibe-method` ne contient plus la méthode.
+
+**Le test qui a rendu tout le reste possible**
+
+La version initiale du plan proposait d'exempter les skills de frontmatter. **Medwin a refusé et demandé un test** : sans frontmatter, un skill posé dans le wiki n'est ni typé, ni tagué, ni catalogué — c'est un dossier à côté du second cerveau, sans intérêt à l'y mettre. Il avait raison.
+
+La documentation officielle liste les champs supportés et dit « All fields are optional », mais ne dit **rien** du sort des champs inconnus. Elle ne tranchait donc pas. Test empirique sur deux chemins — un fichier neuf portant les 7 champs du wiki, et un skill préexistant auquel on les ajoute : **les champs inconnus sont ignorés silencieusement**. Un skill peut donc être une fiche complète et rester invocable par `/nom`.
+
+C'est ce test qui a réfuté une affirmation qui traînait depuis le 29/07 dans le todo : « l'infrastructure n'ira **jamais** dans un wiki ». Elle reposait sur une hypothèse jamais vérifiée, et avait tenu deux semaines comme un fait.
+
+**Trois décisions de Medwin en cours de route**
+
+1. **Le discriminant de l'installateur.** Une fois les skills dans le vault, `setup.sh` ne pouvait plus boucler sur un dossier — repointé naïvement sur `wiki/*.md`, il aurait fait de chacune des 212 fiches une commande slash. Trois options présentées : un champ dédié, une valeur de `cluster`, ou des sous-dossiers. Medwin a tranché pour le **champ dédié** — `claude-code: commande|agent`.
+2. **`sujet` et `cluster` deviennent obligatoires**, au-delà du périmètre de la phase. Sept champs requis. Coût mesuré avant de proposer : 5 fiches incomplètes sur 152.
+3. **Les deux `rgpd.md` ne sont pas fusionnées**, contrairement à ce que le plan actait. J'avais écrit cette décision sans ouvrir les fichiers — ils portent le même nom mais pas le même objet : `rgpd.md` dit ce qu'énonce le règlement (`Concept`), `rgpd-doc.md` dit quoi coder (`Procédure`). Le `CLAUDE.md` du vault l'interdisait déjà de son côté : « ne pas fusionner des fiches de types différents ».
+
+**Ce que j'ai appris sur les substitutions en masse**
+
+Deux pièges du même genre, à deux phases d'écart, tous deux invisibles à la relecture.
+
+*Phase 4.* Les doctrines se citaient en code inline — `` `securite.md` ``. La substitution automatique a produit `` `[[securite-doc]]` `` : le lien **dans** les backticks d'origine. Du code, pas un lien. 41 remplacements, zéro erreur, diff propre — et les 12 fiches auraient été orphelines avec un graphe vide, tout en paraissant correctement reliées. Seul le lint l'a vu. Repéré parce que j'avais traité une fiche seule à la main d'abord : elle marchait, le lot non, et la contradiction a rendu le défaut visible.
+
+*Phase 5.* Les skills portaient **déjà** un frontmatter. Le motif de la phase 4 — préfixer un bloc `---` — aurait fait du bloc ajouté le frontmatter et du bloc d'origine du corps de texte. `allowed-tools` cesse de s'appliquer, le skill continue de se charger, d'apparaître et de tourner : **sans ses restrictions d'outils**. C'est un problème de sécurité, pas de mise en forme. Évité en posant la question avant d'écrire, pas par un contrôle — rien dans la chaîne ne l'aurait signalé.
+
+Le principe commun, consigné en observation 43 : *« la substitution a réussi » et « la substitution a produit ce qu'on voulait » sont deux affirmations différentes, et un compteur de remplacements ne renseigne que la première.*
+
+**L'ordre imposé par une collision de noms**
+
+`wiki/log.md` — le journal du vault — et le skill `/log` portent le même nom. Un `ln -sf`, un `cp` ou un `mv` aurait détruit le journal sans un mot. Renommé `journal-log.md` **avant** toute arrivée de skill, avec `INFRA_FILES` de `lint-wiki.py` dans le même geste : ce jeu exempte les fichiers d'infrastructure de trois axes à la fois, et un nom périmé là les aurait tous rallumés. 49 références corrigées hors du vault.
+
+**La règle qui se propage, et celle qui ne se propage pas**
+
+Medwin a demandé comment ça se passe côté Hermes, et si nous partageons le même skill. Vérifié fichiers ouverts : **non**. `/wiki` côté Claude Code fait 33 lignes et **renvoie** vers `wiki/CLAUDE.md` (« source de vérité unique »). `research/wiki` côté Hermes fait 541 lignes et **copie** les 14 règles, en déclarant que sa copie fait autorité — choix délibéré d'autonomie du VPS.
+
+Conséquence pratique retenue, et appliquée aussitôt : **une règle écrite en prose se duplique, une règle mise dans le lint se partage.** `lint-wiki.py` est le seul fichier réellement commun aux deux runtimes. L'obligation de `sujet` et `cluster` a donc été posée là, pas seulement dans la doctrine.
+
+**Ce qui a résisté, et pourquoi**
+
+Trois références ont échappé aux substitutions des phases 4 et 5, découvertes seulement à la vérification d'après-coup. Toutes portaient sur *où vivent les skills* — `/maj` disait de les chercher dans `vibe-method/.claude/commands/` et de ne linter le wiki que « si le répertoire courant est `vibe-method/` ». C'est le plus grave des trois : `/maj` tourne à chaque clôture.
+
+**La leçon est mécanique** : les substitutions portaient sur des **noms de fichier**. Une phrase qui décrit un emplacement n'en contient aucun — elle est invisible à un `grep` de chemin. Un déplacement de fichiers ne se termine pas quand les chemins sont corrigés, mais quand les phrases qui *décrivent* l'organisation le sont aussi.
+
+**Difficultés**
+
+- Un frontmatter invalide depuis sa création découvert au passage : `diagnostic-serveur.md` portait une description non quotée contenant ` : `. YAML strict la refuse ; Claude Code et `lint-wiki.py` la toléraient tous les deux. Un parseur indulgent en amont cache la dette au lieu de l'annuler.
+- Un défaut du lint révélé par l'arrivée des skills : l'extraction du titre H1 n'exclut pas les blocs de code, et attrape un commentaire shell. `extract_wikilinks` prend déjà cette précaution — pas l'extraction du titre.
+- La propagation vers le VPS, portée sans réponse dans trois journaux de phase, enfin tranchée en ouvrant les scripts : `hermes-config` est un dépôt de **sauvegarde**, pousser n'atteint pas le VPS.
+
+**Cinq observations au carnet** : 41 (un contrôle donnait la consigne inverse de sa doctrine), 42 (un silence de `--help` lu comme une preuve d'inexistence), 43 (substitution réussie mais inerte), 44 (frontmatter juxtaposé), 45 (un commentaire qui documente un danger le laisse intact — `setup.sh` décrivait exactement le défaut qu'il portait, une semaine durant).
+
+**Ce que ça coûte, et qu'il faut savoir**
+
+Le wiki est devenu le **point de défaillance unique** de la méthode. Avant, un wiki cassé cassait le second cerveau ; maintenant il casse aussi les 56 skills et les 4 agents. Le chemin de reconstruction existe et il est testé — `git clone` des deux dépôts puis `install.sh` — mais le couplage a changé.

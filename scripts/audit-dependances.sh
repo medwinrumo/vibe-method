@@ -109,9 +109,9 @@ fiches_agt=$(compter_champ agent)
 liens_cmd=$(find "$HOME/.claude/commands" -maxdepth 1 -type l -lname "*/wiki/*" 2>/dev/null | wc -l | tr -d ' ')
 liens_agt=$(find "$HOME/.claude/agents"   -maxdepth 1 -type l -lname "*/wiki/*" 2>/dev/null | wc -l | tr -d ' ')
 printf "  commandes : %s fiches / %s liens" "$fiches_cmd" "$liens_cmd"
-[ "$fiches_cmd" = "$liens_cmd" ] && echo "  OK" || echo "  ÉCART — relancer setup.sh"
+[ "$fiches_cmd" = "$liens_cmd" ] && echo "  OK" || echo "  ÉCART — relancer claude-config/install.sh"
 printf "  agents    : %s fiches / %s liens" "$fiches_agt" "$liens_agt"
-[ "$fiches_agt" = "$liens_agt" ] && echo "  OK" || echo "  ÉCART — relancer setup.sh"
+[ "$fiches_agt" = "$liens_agt" ] && echo "  OK" || echo "  ÉCART — relancer claude-config/install.sh"
 casses=$(find -L "$HOME/.claude/commands" "$HOME/.claude/agents" "$HOME/.claude/hooks" \
   -maxdepth 1 -type l 2>/dev/null | wc -l | tr -d ' ')
 [ "$casses" = "0" ] && echo "  liens cassés : 0  OK" || {

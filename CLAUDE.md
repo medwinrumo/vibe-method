@@ -13,7 +13,6 @@ vibe-method/
 │   ├── hooks/          → stop-cloture.sh, track-repo.sh (+ 1 archivé)
 │   └── settings.local.json
 ├── scripts/            → audit-dependances.sh
-├── setup.sh            → recrée les liens de ~/.claude vers le wiki
 ├── migration-structure.md
 └── vibe-method.{todo,log,peda}.md
 ```
@@ -47,9 +46,14 @@ n'est qu'un lien. Toute modification suit les règles du vault
 (`wiki/CLAUDE.md`) : sept champs de frontmatter obligatoires, `description`
 identique à celle de `index.md`, opération journalisée dans `journal-log.md`.
 
-`bash setup.sh` recrée les liens sur une machine neuve. Il n'écrase plus rien
-sans sauvegarde — un fichier réel est déplacé sous `.remplace-<horodatage>`
-avant d'être remplacé.
+`bash ~/dev/claude-config/install.sh` recrée les liens sur une machine neuve.
+C'est l'installateur **unique** depuis le 05/08/2026 (phase 7) : il lit les
+deux dépôts, wiki et claude-config. `setup.sh` a disparu — il visait le même
+`~/.claude/hooks/` qu'`install.sh` sans le savoir, et « le dernier lancé
+gagne » était un comportement documenté, pas voulu.
+
+Il n'écrase rien sans sauvegarde : un fichier réel part sous
+`.remplace-<horodatage>` avant d'être remplacé.
 
 ## Règles de travail
 

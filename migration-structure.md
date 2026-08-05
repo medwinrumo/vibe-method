@@ -1,7 +1,7 @@
 # Stratégie de réorganisation — skills, doctrines, dépôts
 
-**Version 10 — 2026-08-05.**
-Phases 0 à 6 **faites**. Reste la phase 7 — l'installateur unique.
+**Version 11 — 2026-08-05. Chantier terminé.**
+Les phases 0 à 7 sont faites. Ce document devient un journal.
 Aucune décision bloquante. Ce document est le point de reprise : une session
 neuve peut continuer à partir de lui seul, sans l'historique de conversation.
 
@@ -15,7 +15,7 @@ Tout est commité et poussé. Ce document suffit à continuer — l'historique d
 
 1. `cd ~/dev/vibe-method && git pull` puis lire ce fichier en entier
 2. `bash scripts/audit-dependances.sh` — état de référence avant toute modification
-3. Prochaine phase : **7** (§11), la dernière. Les phases 0 à 6 sont faites, leur journal est aux §18 à §23
+3. Il n'y a plus de phase à mener. Le journal complet est aux §18 à §24 — à lire pour comprendre pourquoi les choses sont là où elles sont
 4. À la fin de la phase : relancer l'audit, comparer, puis commiter et pousser les dépôts touchés
 
 **Ce qu'il faut savoir avant de toucher à quoi que ce soit :**
@@ -294,7 +294,7 @@ for d in ~/dev/*/; do [ -d "$d/.git" ] && echo "gh  $(basename $d)" || echo "   
 | 4 | **Doctrines → wiki** | 12 fiches `*-doc` ; les deux `rgpd.md` **non** fusionnées, voir §21 | Moyen | ✅ **faite** |
 | 5 | **Exécutable → wiki** | 56 skills + 4 agents en fiches `Procédure` ; `log.md` → `journal-log.md` ; `setup.sh` réécrit | **Élevé** — touche Hermes | ✅ **faite** |
 | 6 | **Suppression de `Vibe-Method/`** | Le miroir n'a plus d'objet | Faible | ✅ **faite** |
-| 7 | **Installateur unique** | Fusion `setup.sh` + `install.sh` | Faible | à valider |
+| 7 | **Installateur unique** | `setup.sh` absorbé par `claude-config/install.sh` ; les 3 hooks rejoignent le wiki | Faible | ✅ **faite** |
 
 Ordre imposé : phase 0 d'abord, phase 5 en dernier parmi les déplacements.
 
@@ -686,3 +686,39 @@ Toutes les autres mentions de `Vibe-Method/` sont des journaux ou ce document.
 Fusionner `setup.sh` et `claude-config/install.sh` en un installateur unique. Les deux visent `~/.claude/hooks/` et sauvegardent désormais avant de remplacer, donc le danger est éteint — reste la duplication.
 
 Deux points hors phases : `test-claude-design/` (résidu à trancher) et la propagation de `hermes-config` vers le `/opt/data/skills/` du VPS, dont le mécanisme n'est toujours pas établi.
+
+---
+
+## 24. Phase 7 — l'installateur unique ✅ (05/08/2026)
+
+`vibe-method/setup.sh` est supprimé. `claude-config/install.sh` est le point d'entrée unique : il lit **deux dépôts** et recrée tout `~/.claude`.
+
+**Le défaut que la fusion referme** était documenté dans `setup.sh` lui-même : « `claude-config/install.sh` vise aussi `~/.claude/hooks/`, comme la boucle ci-dessus. Le dernier script lancé gagne, sans avertissement. » Deux scripts qui écrivent au même endroit sans se connaître, et un commentaire qui prévient au lieu d'empêcher.
+
+| Source | Ce qu'il en tire | Comment il le reconnaît |
+|---|---|---|
+| `~/dev/wiki` | 56 skills, 4 agents | champ `claude-code:` du frontmatter |
+| `~/dev/wiki/hooks/` | 2 hooks de la méthode | glob, moins la liste des archivés |
+| `~/dev/claude-config` | `CLAUDE.md`, réglages, 8 skills, 3 hooks, `observations/` | glob et liste courte |
+
+**Les 3 hooks de la méthode ont rejoint le wiki**, ce que le §3 prévoyait et que la phase 5 avait oublié. `stop-cloture.sh` rappelle `/maj`, `track-repo.sh` l'alimente : un hook vit avec ce qu'il sert, et `/maj` est dans le vault depuis la phase 5. `hooks/` ne contient aucun `.md`, Obsidian l'ignore, le vault reste plat.
+
+`.claude/` de vibe-method n'a plus que `settings.local.json`.
+
+**Vérifications :** `--dry` puis exécution puis relance. Second passage : **0 posé, 78 inchangés, 0 sauvegarde** — idempotent. 78 = 56 skills + 4 agents + 2 hooks de méthode + 8 skills hors méthode + 3 hooks personnels + 5 entrées de configuration. Les deux hooks déplacés ont été testés en entrée réelle (code de sortie 0), et le contrôle de liens cassés a été observé dans ses deux états : il a signalé les 2 liens rompus par le déplacement avant l'exécution, puis 0 après.
+
+Le script se termine sur deux contrôles qu'il portait chacun séparément avant : aucun fichier réel dans les dossiers d'extension, aucun lien cassé.
+
+---
+
+## 25. La question de la propagation vers Hermes — tranchée
+
+Portée sans réponse dans les journaux des phases 4, 5 et 6. Résolue en ouvrant les scripts de `hermes-config`.
+
+**`hermes-config` est un dépôt de sauvegarde, pas de déploiement.** `sauvegarde.sh` va **instances → dépôt** : il capture l'état réel des deux Hermes avant un commit. Pousser sur GitHub n'atteint donc **pas** le VPS.
+
+Le sens inverse existe et est explicite : `restaure-skills.sh vps` copie **dépôt → instance**, par `scp` vers `root@31.97.199.170`, cible `/docker/hermes-agent-8b0z/data/skills`. Par copie et non par lien, avec sauvegarde préalable de tout skill existant — 138 skills sur 190 sont versionnés, un lien de dossier écraserait les 52 autres.
+
+**Conséquence, et c'est un risque ouvert :** les modifications faites pendant ce chantier — `research/wiki` passé en v1.7.0, les 49 renommages `log.md` → `journal-log.md` dans 9 skills — sont dans le dépôt et **pas sur le VPS**. Hermes tourne encore sur la version qui journalise dans `/opt/data/wiki/log.md`. Ce fichier n'existe plus : il le **recréerait**, et le journal du vault se retrouverait scindé en deux.
+
+La commande est connue, l'exécution appartient à Medwin — elle écrit sur une machine de production par SSH.

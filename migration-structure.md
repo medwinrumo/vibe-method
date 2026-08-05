@@ -315,3 +315,36 @@ Ce résumé existe donc déjà, et vit au mauvais endroit : séparé de la fiche
 **À faire au même moment :** ajouter le champ à `wiki/CLAUDE.md` avec ses règles de rédaction (que dit une bonne description, quelle longueur, quel angle), et modifier le skill `/wiki` pour qu'il le remplisse à chaque création de fiche.
 
 À ouvrir après la migration de structure — pas pendant.
+
+---
+
+## 17. Audit de dépendances — ce qui manquait au périmètre (05/08)
+
+Medwin a demandé confirmation que toutes les dépendances étaient anticipées. Audit fait plutôt que réponse rassurante. **Le périmètre couvrait environ deux tiers du réel.** Cinq catégories manquaient.
+
+### Ce qui avait été compté
+Références textuelles à `dev/vibe-method`, `CLAUDE.global`, `lint-observabilite`, `Vibe-Method/` — mesurées mais sous-estimées, car la recherche portait sur `vibe-method/` seul et non sur tout `~/dev`.
+
+### Ce qui manquait
+
+**1. Le dépôt `hermes-config` — ~140 skills VPS miroir versionnés localement.** Sept d'entre eux citent le wiki ou la méthode : `research/wiki`, `research/wiki-lint`, `research/batch-crawl-operations`, `devops/debug-cron-jobs`, `productivity/cgv-generation`, `productivity/devis-generation`, `notion-content-extraction`. Bonne nouvelle : ils sont **modifiables depuis le Mac**, pas seulement en SSH. Le miroir Hermes n'est donc pas un angle mort inaccessible.
+
+**2. `lint-wiki.py` code `log.md` en dur** — `INFRA_FILES = {"CLAUDE.md", "index.md", "log.md"}`, ligne 31, utilisé à 5 endroits (248, 301, 322, 435). Le renommage en `journal-log.md` casse le script silencieusement : les exemptions ne s'appliqueraient plus, le journal serait traité comme une fiche de savoir et signalé partout.
+
+**3. D'autres dépôts projet citent la méthode** — `RAMrezo/CLAUDE.md`, `RAM-conference/.claude/settings.local.json`, `plug-in-seo`, `HERMES`.
+
+**4. Les mémoires automatiques** — une dizaine de fichiers de `claude-memoire` citent ces chemins. Elles sont **réécrites par la machine** : les corriger dans `~/.claude/projects/*/memory/`, jamais dans le dépôt de sauvegarde, sous peine d'être écrasées au prochain passage.
+
+**5. La configuration Obsidian** (`wiki/.obsidian/`) — `workspace.json` mémorise les fichiers ouverts. Sans gravité, mais un renommage y laisse une entrée morte.
+
+### Ce qui protège, et qu'il faut préserver
+
+`settings.json` déclare les hooks via `~/.claude/hooks/*`, c'est-à-dire **la couche de liens, pas les chemins réels**. Déplacer un hook d'un dépôt à l'autre ne touche donc pas `settings.json` — seul le lien change. Cette indirection est une protection réelle : ne jamais y écrire un chemin de dépôt en dur.
+
+### La garantie mécanique
+
+Un inventaire écrit vieillit. `scripts/audit-dependances.sh` reproduit les dix contrôles ci-dessus en une commande.
+
+**Règle : lancer l'audit avant chaque phase (état de référence) et après (vérification).** Une phase n'est terminée que quand la sortie « après » ne contient plus que des occurrences volontaires — entrées de carnet, journaux, mention d'un incident passé.
+
+C'est l'application du principe déjà retenu pour `/lint` et pour l'observation 38 : une règle qui dépend de la vigilance devient un contrôle qui n'en dépend pas.

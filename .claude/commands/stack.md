@@ -1,3 +1,7 @@
+---
+description: Spike technique avant développement — investigation de la stack, free tiers, gotchas, vérification documentaire
+---
+
 # /stack — Investigation de la stack technique
 
 Tu conduis le spike technique avant le démarrage du développement.

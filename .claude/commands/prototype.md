@@ -1,3 +1,7 @@
+---
+description: Code jetable pour trancher une décision qu'on ne peut pas prendre sans la voir tourner
+---
+
 # /prototype — Code jetable pour valider une décision
 
 Un prototype répond à une question précise, puis s'efface. La question détermine la forme.

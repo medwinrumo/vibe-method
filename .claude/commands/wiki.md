@@ -1,3 +1,7 @@
+---
+description: Enrichit ~/dev/wiki depuis n'importe quel dossier de travail, en appliquant ses règles et son workflow git
+---
+
 # /wiki — Enrichir le Wiki depuis n'importe quel dossier
 
 Garantit que les règles de `~/dev/wiki/CLAUDE.md` sont appliquées, même quand la session ne travaille pas dans le dossier `~/dev/wiki/`.

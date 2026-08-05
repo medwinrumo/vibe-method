@@ -1,3 +1,7 @@
+---
+description: Condense tous les artefacts du projet en un contexte de démarrage de session de code, sous 1 000 tokens
+---
+
 # /prp — Project Ready Prompt
 
 Tu génères `[projet].prp.md` : un document unique, condensé, optimisé pour être donné à l'IA comme contexte de démarrage d'une session de code.

@@ -1,3 +1,7 @@
+---
+description: Réduit un document long à l'essentiel exploitable, sans perdre les décisions ni les contraintes
+---
+
 # /condense — Condenser un document
 
 Réduis n'importe quel document long (compte-rendu, email, doc externe, retour client) à l'essentiel exploitable — sans perdre les décisions, les contraintes et les chiffres.

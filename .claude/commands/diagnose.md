@@ -1,3 +1,7 @@
+---
+description: Diagnostic approfondi des bugs qui résistent à /debug — 4 phases, hypothèses falsifiables, boucle de feedback
+---
+
 # /diagnose — Diagnostic approfondi
 
 Pour les bugs difficiles qui résistent à `/debug`. Quatre phases dans l'ordre — ne pas en sauter sans justification.

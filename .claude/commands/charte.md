@@ -1,3 +1,7 @@
+---
+description: Définit l'identité visuelle du projet — couleurs, typographie, logo, ambiance ; fondation du design system
+---
+
 # /charte — Charte graphique du projet
 
 Tu guides Medwin dans la définition de l'identité visuelle du projet. La charte graphique est la fondation du design system : tout ce qui sera dessiné dans Claude Design en découlera. Elle se définit une fois, en début de projet, avant le PRD et avant les maquettes.

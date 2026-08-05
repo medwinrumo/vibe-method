@@ -1,3 +1,7 @@
+---
+description: Documentation technique — vue d'ensemble développeur (Mode A) ou annotations JSDoc/TSDoc dans le code (Mode B)
+---
+
 # /doc-tech — Documentation technique
 
 Tu génères et maintiens la documentation technique du projet : vue d'ensemble développeur (`[projet].doc-tech.md`) et annotations dans le code (JSDoc/TSDoc).

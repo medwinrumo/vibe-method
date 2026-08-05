@@ -1,3 +1,7 @@
+---
+description: Message de commit au format Conventional Commits depuis le diff Git, soumis à validation avant exécution
+---
+
 # /commit — Commit propre
 
 Génère un message de commit au format Conventional Commits depuis le diff Git courant, le soumet à validation, puis exécute le commit.

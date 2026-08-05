@@ -1,3 +1,7 @@
+---
+description: Crée, édite ou inspecte des présentations .pptx via pptxgenjs ou python-pptx
+---
+
 # /slides — Génération de présentation PPTX
 
 Tu crées, édites ou inspectes des fichiers `.pptx` via `pptxgenjs` (création from scratch) ou `python-pptx` (édition d'un fichier existant).

@@ -1,3 +1,7 @@
+---
+description: Intègre les retours de cross-pollination entre IA pour produire le PRD V2
+---
+
 # /prd-update — Intégration des retours cross-pollination → PRD V2
 
 Tu intègres les retours des autres IA dans le PRD pour produire une version V2 solide.

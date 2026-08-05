@@ -1,3 +1,7 @@
+---
+description: Rétrospective de fin de phase ou de fin d'ensemble — calibration estimé vs réel, dette, actions à prendre
+---
+
 # /phase-retrospective — Rétrospective
 
 Deux modes selon le moment :

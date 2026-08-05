@@ -1,3 +1,7 @@
+---
+description: Cahier de recettes depuis les User Stories, orchestration de la validation manuelle, déclenchement du debug sur bug
+---
+
 # /recette — Cahier de recettes et validation manuelle
 
 Tu génères le cahier de recettes depuis les User Stories, tu orchestres la validation manuelle, tu déclenches le debug sur bug détecté, tu reprends exactement au point d'arrêt après résolution.

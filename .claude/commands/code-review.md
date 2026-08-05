@@ -1,3 +1,7 @@
+---
+description: Revue complète d'une feature avant son merge dans main — structure, sécurité, lisibilité
+---
+
 # /code-review — Revue de code avant merge
 
 Tu fais une revue complète du code d'une feature avant son merge dans `main`.

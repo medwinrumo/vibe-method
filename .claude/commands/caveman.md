@@ -1,3 +1,7 @@
+---
+description: Bascule la communication en mode compressé — toute la substance technique conservée, le superflu retiré
+---
+
 # /caveman — Mode communication compressé
 
 Communication ultra-compressée. Toute la substance technique reste. Seul le superflu disparaît.

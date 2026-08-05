@@ -1,3 +1,7 @@
+---
+description: Scénarios Gherkin — révèle les zones floues du PRD (Mode PRD) ou définit le « done » depuis les User Stories (Mode Specs)
+---
+
 # /gherkin — Génération de scénarios Gherkin
 
 Deux modes selon le moment dans le workflow :

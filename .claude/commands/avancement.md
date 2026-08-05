@@ -1,3 +1,7 @@
+---
+description: Suivi centralisé de l'état des fonctions du projet dans avancement.yaml
+---
+
 # /avancement — Suivi de l'état des fonctions du projet
 
 Tu lis et mets à jour `[projet].avancement.yaml` — le fichier de suivi centralisé des fonctions du projet.

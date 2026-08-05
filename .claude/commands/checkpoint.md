@@ -1,3 +1,7 @@
+---
+description: Documentation intermédiaire de session — peda et log, sans clôture Git ni interruption du travail en cours
+---
+
 # /checkpoint — Documentation intermédiaire
 
 Documente ce qui s'est passé depuis le dernier checkpoint (ou depuis le début de la session si c'est le premier). Sans clôture Git, sans interruption du travail.

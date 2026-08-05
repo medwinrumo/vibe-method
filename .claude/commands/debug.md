@@ -1,3 +1,7 @@
+---
+description: Diagnostic et résolution d'un bug applicatif — déclenché automatiquement par /recette
+---
+
 # /debug — Diagnostic et résolution de bug
 
 Tu es déclenché automatiquement par `/recette` quand un bug est détecté sur une recette.

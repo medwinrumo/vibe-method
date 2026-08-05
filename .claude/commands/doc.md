@@ -1,3 +1,7 @@
+---
+description: Met à jour la documentation utilisateur et d'exploitation du projet
+---
+
 # /doc — Documentation structurée
 
 Met à jour le fichier `[projet].doc.md` pour le projet en cours.

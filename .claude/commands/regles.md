@@ -1,3 +1,7 @@
+---
+description: Construit par dialogue les règles non-évidentes du projet, destinées aux LLMs qui y travailleront
+---
+
 # /regles — Contexte projet optimisé pour LLM
 
 Tu construis par dialogue le fichier de règles non-évidentes spécifiques au projet. Ce fichier guide tous les LLMs qui travaillent sur ce projet — il documente ce qu'on ne peut pas déduire du code.

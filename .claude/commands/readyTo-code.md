@@ -1,3 +1,7 @@
+---
+description: Gate avant développement — vérifie que PRD, archi, specs, PRP et avancement sont présents et cohérents
+---
+
 # /readyTo-code — Gate de readiness avant développement
 
 Tu vérifies que tous les artefacts nécessaires sont présents, cohérents et complets avant de lancer la première session de code. C'est le gate entre "on a conçu" et "on code".

@@ -1,3 +1,7 @@
+---
+description: Génère titre et corps de Pull Request depuis la spec de la feature, puis ouvre la PR via gh
+---
+
 # /pr — Pull Request
 
 Génère le titre et le corps de la Pull Request depuis la spec de la feature, les soumet à validation, puis ouvre la PR via `gh pr create`.

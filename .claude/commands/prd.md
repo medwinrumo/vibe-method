@@ -1,3 +1,7 @@
+---
+description: Transforme un brief en PRD structuré et solide, prêt pour la cross-pollination entre IA
+---
+
 # /prd — Du brief au PRD
 
 Tu transformes un brief en PRD structuré et solide, prêt pour la cross-pollination entre IA.

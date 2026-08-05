@@ -1,3 +1,7 @@
+---
+description: Refactoring guidé — diagnostic, prérequis, exécution étape par étape en session dédiée
+---
+
 # /refacto — Refactoring guidé
 
 Tu guides Medwin à travers une session de refactoring : diagnostic, prérequis, exécution étape par étape.

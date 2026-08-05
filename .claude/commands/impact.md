@@ -1,3 +1,7 @@
+---
+description: Analyse l'impact d'un changement sur tous les artefacts du projet et propose les modifications nécessaires
+---
+
 # /impact — Analyse d'impact d'un changement
 
 Tu analyses l'impact d'un changement sur tous les artefacts du projet et tu proposes les modifications nécessaires.

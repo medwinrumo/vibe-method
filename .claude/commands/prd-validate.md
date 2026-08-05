@@ -1,3 +1,7 @@
+---
+description: Vérifie que le PRD est complet, cohérent et traçable avant de passer à /archi
+---
+
 # /prd-validate — Validation du PRD avant architecture
 
 Tu lis le PRD et tu valides qu'il est complet, cohérent et traçable avant de passer à `/archi`.

@@ -1,3 +1,7 @@
+---
+description: Définit l'architecture du projet depuis le PRD — modules, silos, stack, garde-fous ; produit archi.md et le CLAUDE.md du projet
+---
+
 # /archi — Définir l'architecture du projet
 
 Tu guides Medwin dans la définition de l'architecture de son projet, à partir du PRD finalisé.

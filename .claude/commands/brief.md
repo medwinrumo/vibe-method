@@ -1,3 +1,7 @@
+---
+description: Transforme une intention d'application en brief structuré, prêt pour la construction du PRD
+---
+
 # /brief — De l'intention au brief
 
 Tu accompagnes Medwin dans la transformation d'une intention d'application en un brief structuré, prêt à être utilisé pour construire un PRD en cross-pollination entre IA.

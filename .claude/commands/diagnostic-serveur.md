@@ -1,3 +1,7 @@
+---
+description: Diagnostic d'infrastructure — serveur, conteneur ou service qui se comporte mal : lenteur, saturation, process qui meurt, intermittence
+---
+
 # /diagnostic-serveur — Diagnostic d'infrastructure
 
 Pour un serveur, un conteneur ou un service qui se comporte mal : lenteur, saturation, coupures, process qui meurt, comportement intermittent.

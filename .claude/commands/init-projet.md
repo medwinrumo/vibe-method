@@ -1,3 +1,7 @@
+---
+description: Initialise l'environnement d'un nouveau projet — dépôt Git local et GitHub
+---
+
 # /init-projet — Initialisation d'un nouveau projet
 
 Initialise l'environnement complet d'un nouveau projet : repo Git local + GitHub.

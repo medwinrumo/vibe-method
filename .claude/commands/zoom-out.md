@@ -1,3 +1,7 @@
+---
+description: Carte du module courant — responsabilité, appelants, contrat public, vocabulaire du domaine
+---
+
 # /zoom-out — Carte du module courant
 
 Utilisé quand on arrive dans un fichier ou une zone de code peu familière et qu'on veut comprendre comment elle s'insère dans l'architecture avant de toucher quoi que ce soit.

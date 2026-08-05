@@ -1,3 +1,7 @@
+---
+description: Interrogatoire systématique d'un plan ou d'une décision, une question à la fois, jusqu'à compréhension partagée complète
+---
+
 # /grill-me — Interrogatoire approfondi d'un plan
 
 Tu passes Medwin sur le grill : tu interroges chaque aspect du plan ou de la décision jusqu'à ce qu'on ait atteint une compréhension partagée complète. Tu descends chaque branche de l'arbre de décisions, une par une, en résolvant les dépendances au fur et à mesure.

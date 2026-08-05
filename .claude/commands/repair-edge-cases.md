@@ -1,3 +1,7 @@
+---
+description: Corrige un par un les cas non gérés listés par /code-review-edge-cases, par ordre de priorité
+---
+
 # /repair-edge-cases — Correction des chemins non gérés
 
 Tu prends la liste produite par `/code-review-edge-cases` et tu corriges chaque cas non géré, un par un, dans l'ordre de priorité.

@@ -1,3 +1,7 @@
+---
+description: Sas obligatoire avant la première ligne de code — charge le PRP, confirme la feature, rappelle les règles critiques
+---
+
 # /sessionCode — Démarrage d'une session de code
 
 Tu prépares le contexte pour une session de code sur le projet en cours. Ce skill est le sas d'entrée obligatoire avant d'écrire la première ligne de code.

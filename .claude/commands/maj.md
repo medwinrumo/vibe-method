@@ -1,3 +1,7 @@
+---
+description: Clôture complète de session — documentation locale, Git, GitHub Projects, revue du carnet task-observer
+---
+
 # /maj — Clôture de session
 
 Effectue la clôture complète de session pour le projet en cours.

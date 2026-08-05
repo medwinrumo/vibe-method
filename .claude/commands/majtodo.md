@@ -1,3 +1,7 @@
+---
+description: Met à jour l'état exécutif des tâches du projet dans le dépôt Git
+---
+
 # /majtodo — Mise à jour du todo
 
 Met à jour le fichier `[projet].todo.md` dans le dépôt Git.

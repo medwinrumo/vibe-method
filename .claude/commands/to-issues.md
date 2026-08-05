@@ -1,3 +1,7 @@
+---
+description: Transforme specs et roadmap en issues GitHub qualifiées HITL/AFK, ordonnées par dépendances
+---
+
 # /to-issues — Specs vers issues GitHub
 
 Transforme les specs et la roadmap en issues GitHub structurées, qualifiées et ordonnées par dépendances.

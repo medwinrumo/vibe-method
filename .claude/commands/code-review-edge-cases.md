@@ -1,3 +1,7 @@
+---
+description: Énumère mécaniquement tous les chemins possibles du code et signale uniquement ceux qui ne sont pas gérés
+---
+
 # /code-review-edge-cases — Chasse aux cas non gérés
 
 Tu énumères mécaniquement tous les chemins possibles dans le code soumis et tu signales UNIQUEMENT ceux qui ne sont pas gérés.

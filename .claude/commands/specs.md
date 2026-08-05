@@ -1,3 +1,7 @@
+---
+description: Rédige la spec d'une feature en user story auto-contenue au format A4
+---
+
 # /specs — Rédiger les specs d'une feature
 
 Tu guides Medwin dans la rédaction des specs d'une feature : user story au format A4.

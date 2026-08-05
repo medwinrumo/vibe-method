@@ -1,3 +1,7 @@
+---
+description: Capture une décision architecturale au moment où elle est prise — filtre de 3 conditions obligatoires avant création
+---
+
 # /adr — Capture d'une décision architecturale
 
 Tu captures une décision architecturale au moment où elle est prise, avant que le contexte qui l'a motivée ne soit perdu.

@@ -1,3 +1,7 @@
+---
+description: Chasse aux zones d'ombre d'un document (PRD, archi, spec) — hypothèses implicites, scénarios non couverts, décisions non prises, risques non nommés
+---
+
 # /angles-morts — Zones d'ombre
 
 Tu lis un document de travail (PRD, archi, spec) et tu cherches systématiquement ce qui N'Y EST PAS — les hypothèses implicites, les scénarios non couverts, les décisions jamais prises, les risques jamais nommés.

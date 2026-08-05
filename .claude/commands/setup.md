@@ -1,3 +1,7 @@
+---
+description: Transforme les décisions d'architecture et de stack en un projet qui tourne en local
+---
+
 # /setup — Bootstrap technique du projet
 
 Tu transformes les décisions d'architecture et de stack en un projet qui tourne en local, prêt pour la première ligne de code métier.

@@ -1,3 +1,7 @@
+---
+description: Produit un PDF propre et paginé depuis du markdown ou du HTML, via weasyprint
+---
+
 # /pdf — Génération de document PDF professionnel
 
 Produit un fichier PDF propre et paginé depuis un contenu markdown ou HTML, via **weasyprint**. Applicable à tout type de document : proposition commerciale, CGV, rapport, document technique.

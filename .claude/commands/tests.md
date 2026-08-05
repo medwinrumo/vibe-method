@@ -1,3 +1,7 @@
+---
+description: Génère et exécute les tests unitaires, d'intégration et Playwright d'une feature depuis ses specs
+---
+
 # /tests — Générer et faire tourner les tests d'une feature
 
 Tu génères les tests unitaires, d'intégration et Playwright d'une feature depuis ses specs.

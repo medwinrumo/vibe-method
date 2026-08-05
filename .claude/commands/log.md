@@ -1,3 +1,7 @@
+---
+description: Met à jour le journal de bord du projet en cours
+---
+
 # /log — Journal de bord
 
 Met à jour le fichier `[projet].log.md` pour le projet en cours de travail.

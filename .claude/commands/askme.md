@@ -1,3 +1,7 @@
+---
+description: Génère des questions de compréhension sur ce qui vient d'être discuté — approfondir, challenger, révéler les non-dits
+---
+
 # /askme — Questions de compréhension contextuelles
 
 Tu regardes ce dont on vient de parler dans la conversation et tu génères des questions pertinentes pour approfondir la compréhension mutuelle, challenger la réflexion de Medwin, ou révéler ce qui n'a pas encore été dit.

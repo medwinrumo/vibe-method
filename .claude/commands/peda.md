@@ -1,3 +1,7 @@
+---
+description: Met à jour le journal pédagogique et le glossaire des termes métier du projet
+---
+
 # /peda — Journal pédagogique et glossaire
 
 Met à jour deux fichiers locaux pour le projet en cours : `[projet].peda.md` (journal pédagogique) et `[projet].gloss.md` (glossaire).

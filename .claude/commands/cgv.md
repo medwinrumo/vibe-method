@@ -1,3 +1,7 @@
+---
+description: Génère les Conditions Générales et Particulières (M1/M2/M3) depuis le brief et le modèle de prestation
+---
+
 # /cgv — Génération des Conditions Générales de Vente
 
 **Miroir côté Hermes** : `cgv-generation` (`/opt/data/skills/productivity/cgv-generation/SKILL.md`, VPS) reproduit cette même logique pour que Hermes puisse générer un CGV sans passer par Claude Code. Même source (`~/dev/wiki/cgv-*.md`), deux fichiers de procédure séparés — pas de synchro automatique. Toute évolution de la logique ci-dessous doit être répercutée dans le skill Hermes.

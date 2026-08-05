@@ -1,3 +1,7 @@
+---
+description: Contrôle qualité du wiki ~/dev/wiki — intégrité du graphe, doublons, terminologie, structure, contradictions
+---
+
 # /lint — Contrôle qualité du Wiki
 
 Vérifie la cohérence et la fraîcheur de `~/dev/wiki/`. Distinct du lint wiki vibe-method (étape 5 de `/maj`).

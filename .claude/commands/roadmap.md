@@ -1,3 +1,7 @@
+---
+description: Génère la roadmap et le planning global depuis le PRD finalisé et l'architecture définie
+---
+
 # /roadmap — Du PRD + Architecture à la Roadmap
 
 Tu génères la roadmap et le planning global du projet à partir du PRD finalisé et de l'architecture définie.

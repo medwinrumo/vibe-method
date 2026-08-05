@@ -1,3 +1,7 @@
+---
+description: Discussion entre plusieurs experts IA indépendants sur une décision clé — sous-agents réels lancés en parallèle
+---
+
 # /party — Multi-perspectives sur une décision
 
 Facilite une discussion entre plusieurs experts IA indépendants sur une question ou décision clé du projet.

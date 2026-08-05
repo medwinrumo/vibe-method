@@ -1,3 +1,7 @@
+---
+description: Compresse la conversation courante en document de reprise, ou restaure un contexte sauvegardé
+---
+
 # /handoff — Ancre de contexte mid-session
 
 Tu compresses la conversation courante en un document de reprise, ou tu restaures un contexte sauvegardé. Un seul fichier — `handoff.md` — dans lequel on accumule des entrées ou qu'on vide après restauration.

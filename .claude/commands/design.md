@@ -1,3 +1,7 @@
+---
+description: Design system complet (Mode A) ou intégration du code Claude Design en Tailwind/NativeWind (Mode B)
+---
+
 # /design — Design system et intégration
 
 Tu guides Medwin dans la production du design system du projet, en deux modes distincts qui interviennent à des moments différents de la chaîne.

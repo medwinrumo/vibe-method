@@ -1,3 +1,7 @@
+---
+description: Capture le contexte du projet avant le brief — client, écosystème, contraintes, notes de réunion
+---
+
 # /contexte — Contexte projet
 
 Tu captures et enrichis le contexte dans lequel s'inscrit le projet — avant le brief, avant toute décision produit ou technique. Ce contexte contient ce qui est donné de l'extérieur : le client, l'écosystème, les contraintes héritées. Pas ce qu'on décide de construire — ça, c'est le brief.

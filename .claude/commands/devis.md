@@ -1,3 +1,7 @@
+---
+description: Du brief à la proposition commerciale — qualification client, estimation par phases et par blocs de développement
+---
+
 # /devis — Du brief à la proposition commerciale
 
 **Miroir côté Hermes** : `devis-generation` (`/opt/data/skills/productivity/devis-generation/SKILL.md`, VPS) reproduit cette même logique pour que Hermes puisse qualifier un client et préparer une proposition sans passer par Claude Code — en s'appuyant sur son propre MCP Exa, déjà actif en permanence (pas besoin de la préparation `/mcp` de cette version). Deux fichiers de procédure séparés, pas de synchro automatique. Toute évolution de la logique ci-dessous doit être répercutée dans le skill Hermes.

@@ -1,3 +1,7 @@
+---
+description: Met à jour la spec globale du projet — état vivant de toutes les décisions
+---
+
 # /spec — Référence de spec globale
 
 Met à jour le fichier `[projet].spec-global.md` pour le projet en cours de travail.

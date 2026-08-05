@@ -338,7 +338,7 @@ Pour chaque outil investigué :
    ---
    ```
 5. Mettre à jour `~/dev/wiki/index.md` si nouveau fichier créé
-6. Logger dans `~/dev/wiki/log.md` :
+6. Logger dans `~/dev/wiki/journal-log.md` :
    `## [date] update | [outil].md | /stack — [projet]`
 
 **Ne pas dupliquer** ce qui est déjà dans le Wiki — enrichir uniquement.

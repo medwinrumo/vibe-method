@@ -81,7 +81,7 @@ C'est **le seul endroit où vit l'ordre des skills** depuis que la table a quitt
 
 - [ ] `vibe-method/test-claude-design/` — dossier de test de mai 2026. Examiné en phase 4 : aucun pointeur mort, mais plus aucun objet.
 - [ ] `vibe-method/handoff-out.md` — sortie de `/handoff`, à la racine.
-- [ ] `vibe-method/.DS_Store` — versionné ? à vérifier et à ignorer.
+- [x] ~~`vibe-method/.DS_Store`~~ — vérifié le 05/08 : déjà couvert par `.gitignore` ligne 22, non versionné. Rien à faire.
 - [ ] **Que devient `vibe-method` ?** Le dépôt ne contient plus que `CLAUDE.md`, `scripts/audit-dependances.sh`, les trois journaux et `migration-structure.md`. C'est un dépôt d'archive du chantier. À garder tel quel, ou à absorber.
 
 ### H. Le point structurel à connaître

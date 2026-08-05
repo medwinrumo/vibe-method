@@ -521,7 +521,7 @@ C'est l'argument de fond pour avoir traité `accessibilite` seule d'abord : le m
 
 Volontaire. Les skills n'entrent dans le vault qu'en phase 5 ; tout `[[deploy]]` posé maintenant serait un nœud fantôme pendant tout l'intervalle. **La phase 5 hérite de ce travail** : convertir les mentions `/skill` des 12 fiches en wikiliens une fois les skills arrivés. `workflow-doc.md` porte déjà 32 de ces nœuds fantômes depuis la phase 1 — ils se fermeront au même moment.
 
-### Références corrigées — 255 au total
+### Références corrigées — 263 au total
 
 | Cible | Forme donnée | Nombre |
 |---|---|---|
@@ -535,6 +535,8 @@ Volontaire. Les skills n'entrent dans le vault qu'en phase 5 ; tout `[[deploy]]`
 Les 4 fiches `-rech` sortent au passage de « sans wikiliens sortants » (12 → 8) : leurs 190 mentions en code inline étaient invisibles au graphe.
 
 **Deux substitutions partielles rattrapées à la relecture**, dues à un préfixe de chemin que le motif excluait : `archi.md:411` disait « lis `~/dev/wiki/securite-doc.md` dans le repo vibe-method (`~/dev/vibe-method/securite.md`) » — moitié convertie, moitié périmée, dans la même phrase. Et `devis.md:688`.
+
+`test-claude-design/` examiné : que des artefacts `[projet].design.md` et une recommandation de mai 2026 déjà appliquée. Aucun pointeur mort — rien à corriger, le dossier reste un résidu à trancher.
 
 **Faux positifs écartés :** `bmad-method/` et `teamTask/` sont des dépôts tiers portant leurs propres `architecture.md` et `tests.md`. Côté Hermes, `firecrawl-architecture.md`, `web-dashboard-pty-architecture.md` et `api-design.md` n'ont aucun rapport. Et `[projet].stack.md`, `[projet].design.md`, `[projet].tests.md` sont des artefacts de projet, protégés par le motif de substitution — vérifié après coup.
 

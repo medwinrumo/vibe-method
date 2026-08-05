@@ -130,8 +130,9 @@ Lire `~/.claude/observations/log.md`.
 
 1. Si aucune observation au statut OUVERT → passer à la checklist finale.
 2. Pour chaque observation OUVERTE, identifier le skill concerné (fichier
-   `~/.claude/commands/[skill].md`, ou skill dans `~/.claude/skills/`) et
-   le lire.
+   `~/.claude/commands/[skill].md`, lien vers `vibe-method/.claude/commands/`
+   pour les skills de méthode ou vers `claude-config/commands/` pour les
+   autres) et le lire.
 3. Regrouper par skill : présenter à Medwin (numéro, titre, une phrase de
    constat, suggestion concrète). Nouveaux skills candidats à part.
 4. Attendre validation de Medwin avant de modifier quoi que ce soit — ne

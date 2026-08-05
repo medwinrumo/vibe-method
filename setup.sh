@@ -65,12 +65,16 @@ echo "Agents liés."
 #
 # Repris depuis par le dépôt ~/dev/claude-config (privé), qui pose ses propres
 # symlinks via son install.sh — ce script n'a pas à s'en occuper :
-#   ~/.claude/skills/task-observer/      (30/07/2026)
-#   ~/.claude/CLAUDE.md, settings.json   (30/07/2026)
-#   ~/.claude/observations/              (01/08/2026)
+#   ~/.claude/commands/*.md hors méthode  (05/08/2026 — lint, wiki, caveman,
+#                                          pdf, slides, condense, firecrawl,
+#                                          task-observer)
+#   ~/.claude/CLAUDE.md, settings.json    (30/07/2026)
+#   ~/.claude/observations/               (01/08/2026)
+#
+# Ces skills-là ne sont plus dans vibe-method : la boucle ci-dessus ne les
+# atteint pas, et ne peut donc plus écraser leur lien.
 #
 # Toujours versionnés nulle part — une machine neuve ne les récupérera pas :
-#   ~/.claude/commands/firecrawl.md      (fichier réel, absent de vibe-method)
 #   ~/.claude/settings.local.json        (contient des secrets — hors dépôt à dessein)
 #   ~/.claude/projects/*/memory/
 # Voir vibe-method.todo.md.

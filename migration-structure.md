@@ -1,7 +1,7 @@
 # Stratégie de réorganisation — skills, doctrines, dépôts
 
-**Version 6 — 2026-08-05.**
-Phases 0, 1, 1bis et 2 **faites**. Phases 3 à 7 en attente.
+**Version 7 — 2026-08-05.**
+Phases 0, 1, 1bis, 2 et 3 **faites**. Phases 4 à 7 en attente.
 Aucune décision bloquante. Ce document est le point de reprise : une session
 neuve peut continuer à partir de lui seul, sans l'historique de conversation.
 
@@ -15,7 +15,7 @@ Tout est commité et poussé. Ce document suffit à continuer — l'historique d
 
 1. `cd ~/dev/vibe-method && git pull` puis lire ce fichier en entier
 2. `bash scripts/audit-dependances.sh` — état de référence avant toute modification
-3. Prochaine phase : **3** (§11). Les phases 0, 1, 1bis et 2 sont faites, leur journal est aux §18 et §19
+3. Prochaine phase : **4** (§11). Les phases 0, 1, 1bis, 2 et 3 sont faites, leur journal est aux §18, §19 et §20
 4. À la fin de la phase : relancer l'audit, comparer, puis commiter et pousser les dépôts touchés
 
 **Ce qu'il faut savoir avant de toucher à quoi que ce soit :**
@@ -290,7 +290,7 @@ for d in ~/dev/*/; do [ -d "$d/.git" ] && echo "gh  $(basename $d)" || echo "   
 | 0 | **Filet de sécurité** | `firecrawl.md` versionné dans `claude-config/commands/` et remplacé par un lien ; `~/dev/handoff.md`, les 2 `claude-config-backup-*` et le `.DS_Store` supprimés | Nul | ✅ **faite** |
 | 1 | **Nettoyage racine** | Fusions et renommages `*-rech`, suppression de `bmad-comparaison.md` | Faible | à valider |
 | 2 | **Déplacement de `CLAUDE.global.md`** | Fichier déplacé entier vers `claude-config/CLAUDE.md` (portée utilisateur), lien `~/dev/CLAUDE.md` supprimé, 6 références corrigées | Moyen | ✅ **faite** |
-| 3 | **Répartition des skills** | 7 skills → `claude-config/commands/`, liens refaits | Moyen | à valider |
+| 3 | **Répartition des skills** | 7 skills → `claude-config/commands/`, liens refaits ; `task-observer` aplati | Moyen | ✅ **faite** |
 | 4 | **Doctrines → wiki** | 12 fiches `*-doc`, fusion des deux `rgpd.md` | Moyen | à valider |
 | 5 | **Exécutable → wiki** | 55 skills + 4 agents convertis en fiches `Procédure` à plat ; `hooks/` et `scripts/` en sous-dossiers ; chemins en dur | **Élevé** — touche Hermes | à valider |
 | 6 | **Suppression de `Vibe-Method/`** | Le miroir n'a plus d'objet | Faible | à valider |
@@ -461,3 +461,33 @@ Plus deux corrections que l'audit n'aurait pas signalées comme urgentes :
 **Compteur `CLAUDE.global` : 16 → 12.** Les 12 restantes sont volontaires : journaux, carnet d'observations, notes de migration (« a migré depuis… »), et ce document.
 
 **Point d'attention, non bloquant.** Le fichier fait 234 lignes ; la documentation officielle recommande moins de 200 par `CLAUDE.md` (« longer files consume more context and reduce adherence »). Le mécanisme prévu pour alléger sans rien désactiver est `~/.claude/rules/` — des fichiers thématiques de portée utilisateur, chargés à chaque session comme un `CLAUDE.md`. À envisager plus tard, pas maintenant.
+
+---
+
+## 20. Phase 3 — répartition des skills ✅ (05/08/2026)
+
+**Six skills déplacés** de `vibe-method/.claude/commands/` vers `claude-config/commands/` : `lint`, `wiki`, `caveman`, `pdf`, `slides`, `condense`. `firecrawl` y était depuis la phase 0. Les six liens de `~/.claude/commands/` repointés vers le nouveau dépôt.
+
+Reste dans `vibe-method/.claude/commands/` : **56 fichiers**.
+
+**`task-observer` aplati**, en application du §15. `claude-config/skills/task-observer/SKILL.md` devient `claude-config/commands/task-observer.md` ; `claude-config/skills/` et `~/.claude/skills/` sont supprimés. La forme dossier ne servait à rien — elle n'existe que pour embarquer des fichiers annexes, et il n'en avait aucun.
+
+**`hooks/session-start.sh`** lit désormais `~/.claude/commands/task-observer.md`. Le hook a été relancé après modification et vérifié : il injecte bien le contenu du skill, pas l'avertissement de repli. C'est le seul point de la phase qui pouvait casser silencieusement — le hook a un `except OSError` qui laisse démarrer la session en dégradé.
+
+**`install.sh` boucle sur `commands/*.md`** au lieu de nommer les fichiers. Une liste nommée prend du retard en silence dès qu'un skill est ajouté — le motif est déjà documenté dans `setup.sh` pour les hooks. `--dry` confirme les 8 liens en place, aucune sauvegarde déclenchée.
+
+**Références corrigées :**
+
+| Fichier | Ce qui était faux |
+|---|---|
+| `wiki/CLAUDE.md` | citait `vibe-method/.claude/commands/lint.md` comme adresse de `/lint` |
+| `vibe-method/CLAUDE.md` | `/lint` `/wiki` `/condense` dans la table des skills et la liste des transversaux |
+| `claude-config/CLAUDE.md` | situait `task-observer` dans `skills/`, chargé à chaque session |
+| `claude-config/README.md` | tableau du dépôt, section `commands/`, règle sur les 4 dossiers d'extension |
+| `vibe-method/setup.sh` | inventaire de ce que couvre `claude-config` |
+| `vibe-method/.claude/commands/maj.md` | cherchait les skills dans `~/.claude/skills/` |
+| `vibe-method/vibe-method.todo.md` | listait `task-observer` et `firecrawl` comme non versionnés — les deux le sont |
+
+**Audit avant/après — les cinq écarts sont tous voulus :** `dev/wiki` 57 → 56 fichiers (`wiki/CLAUDE.md` ne cite plus la méthode), `~/.claude/commands` 63 → 64 liens (`task-observer` rejoint les commandes), `~/.claude/skills` 1 → 0 lien (dossier supprimé), un décalage de ligne dans `session-start.sh`, et `wiki/CLAUDE.md` sort du contrôle 10.
+
+**Ce que la phase referme, au-delà du rangement.** `setup.sh` ne peut plus écraser ces huit skills : sa boucle glob ne balaie que `vibe-method/.claude/commands/`, où ils ne sont plus. Le seul dépôt qui les touche est `claude-config`, dont `install.sh` sauvegarde avant de remplacer. C'est le mode de panne du 29/07/2026 sur `grill-me.md`, fermé par construction et non par vigilance.

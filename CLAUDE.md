@@ -18,7 +18,7 @@ vibe-method/
 └── vibe-method.{todo,log,peda}.md
 ```
 
-**Le contenu de la méthode a migré dans `~/dev/wiki/` les 5 et 6 août 2026.**
+**Le contenu de la méthode a migré dans `~/dev/wiki/` le 5 août 2026.**
 Doctrines en phase 4, skills et agents en phase 5. Ce dépôt ne contient plus
 que l'outillage de la migration elle-même et les journaux du chantier.
 
@@ -54,7 +54,11 @@ avant d'être remplacé.
 ## Règles de travail
 
 - **Rien n'entre dans une doctrine sans discussion et validation de Medwin.**
-- La chaîne complète du workflow, skill par skill, est dans `wiki/workflow-doc.md`.
+- La chaîne complète du workflow est dans `wiki/workflow-doc.md`. **Elle a du retard** :
+  le guide date du 11/06/2026 et ne couvre ni `deploy` ni `init-projet`, tout en
+  documentant encore `/condense`, sorti de la méthode le 05/08. À reprendre — c'est
+  le seul endroit où vit désormais l'ordre des skills, la table qui était ici ayant
+  été retirée.
 
 ---
 

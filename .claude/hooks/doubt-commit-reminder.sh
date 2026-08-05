@@ -7,6 +7,17 @@
 # l'agent directement dans sa réponse chat avant tout commit non trivial.
 # Rappel doubt-driven-development avant un git commit — jamais bloquant.
 # Comparaison addyosmani/agent-skills vs vibe-method, validé 2026-07-28.
+#
+# RETEST 2026-08-05, Claude Code 2.1.222 — toujours cassé, mais diagnostic affiné.
+# Sonde jetable branchee sur PreToolUse/Bash, ecrivant une trace disque a chaque
+# appel pour distinguer "hook non charge" de "sortie invisible" :
+#   - le hook S'EXECUTE bien (trace horodatee a chaque appel) ;
+#   - sa sortie stderr n'est pas affichee ;
+#   - son systemMessage/exit 0 n'est pas affiche non plus ;
+#   - et exit 1 NE BLOQUE PAS l'outil : la commande s'execute quand meme.
+# Le code de retour est donc ignore, pas seulement la sortie. Constate au passage :
+# une modification de settings.json est prise en compte a chaud, sans redemarrage.
+# Condition de reactivation inchangee — reposer la question a un build ulterieur.
 input=$(cat)
 command=$(printf '%s' "$input" | jq -r '.tool_input.command // empty')
 

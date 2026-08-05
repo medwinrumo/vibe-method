@@ -16,11 +16,18 @@
 
 set -uo pipefail
 DEV="$HOME/dev"
+# `Vibe-Method/` et `CLAUDE.global` désignent des objets SUPPRIMÉS (miroir Obsidian,
+# phase 6 ; fichier d'instructions globales, phase 2). Leur compteur ne reviendra
+# jamais à zéro : ce qui reste, ce sont les journaux et les notes de migration qui
+# racontent leur disparition. Les garder ici sert à repérer une résurgence — un
+# skill ou une doctrine qui se remettrait à pointer vers eux. Lire ces deux lignes
+# comme « stable », pas comme « à vider ».
 MOTIFS=("${1:-dev/vibe-method}" "dev/wiki" "CLAUDE.global" "lint-observabilite" "Vibe-Method/")
 
 titre() { printf '\n\033[1m=== %s ===\033[0m\n' "$1"; }
 
 titre "1. Références textuelles, par motif"
+echo "  (Vibe-Method/ et CLAUDE.global : objets supprimés — un reste de journaux est normal)"
 for m in "${MOTIFS[@]}"; do
   n=$(grep -rl "$m" "$DEV" --include="*.md" --include="*.sh" --include="*.py" --include="*.json" 2>/dev/null \
       | grep -v "/\.git/" | wc -l | tr -d ' ')

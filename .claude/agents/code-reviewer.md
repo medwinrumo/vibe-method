@@ -5,7 +5,7 @@ description: >
   architecture, sécurité, performance). Contexte frais, isolé — pas de
   connaissance de la conversation en cours. Invoquer directement pour une
   revue ponctuelle d'un fichier/diff/PR, ou comme reviewer adversarial de
-  l'étape DOUBT du geste "Le juge impartial" (methode.md). Ne jamais
+  l'étape DOUBT du geste "Le juge impartial" (~/dev/wiki/methode-doc.md). Ne jamais
   invoquer depuis une autre persona — l'orchestration reste au niveau
   utilisateur/skill, jamais persona → persona.
 tools: [Read, Grep, Bash]

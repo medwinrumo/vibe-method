@@ -1,7 +1,7 @@
 # Stratégie de réorganisation — skills, doctrines, dépôts
 
-**Version 7 — 2026-08-05.**
-Phases 0, 1, 1bis, 2 et 3 **faites**. Phases 4 à 7 en attente.
+**Version 8 — 2026-08-05.**
+Phases 0, 1, 1bis, 2, 3 et 4 **faites**. Phases 5 à 7 en attente.
 Aucune décision bloquante. Ce document est le point de reprise : une session
 neuve peut continuer à partir de lui seul, sans l'historique de conversation.
 
@@ -15,7 +15,7 @@ Tout est commité et poussé. Ce document suffit à continuer — l'historique d
 
 1. `cd ~/dev/vibe-method && git pull` puis lire ce fichier en entier
 2. `bash scripts/audit-dependances.sh` — état de référence avant toute modification
-3. Prochaine phase : **4** (§11). Les phases 0, 1, 1bis, 2 et 3 sont faites, leur journal est aux §18, §19 et §20
+3. Prochaine phase : **5** (§11). Les phases 0, 1, 1bis, 2, 3 et 4 sont faites, leur journal est aux §18, §19, §20 et §21
 4. À la fin de la phase : relancer l'audit, comparer, puis commiter et pousser les dépôts touchés
 
 **Ce qu'il faut savoir avant de toucher à quoi que ce soit :**
@@ -291,7 +291,7 @@ for d in ~/dev/*/; do [ -d "$d/.git" ] && echo "gh  $(basename $d)" || echo "   
 | 1 | **Nettoyage racine** | Fusions et renommages `*-rech`, suppression de `bmad-comparaison.md` | Faible | à valider |
 | 2 | **Déplacement de `CLAUDE.global.md`** | Fichier déplacé entier vers `claude-config/CLAUDE.md` (portée utilisateur), lien `~/dev/CLAUDE.md` supprimé, 6 références corrigées | Moyen | ✅ **faite** |
 | 3 | **Répartition des skills** | 7 skills → `claude-config/commands/`, liens refaits ; `task-observer` aplati | Moyen | ✅ **faite** |
-| 4 | **Doctrines → wiki** | 12 fiches `*-doc`, fusion des deux `rgpd.md` | Moyen | à valider |
+| 4 | **Doctrines → wiki** | 12 fiches `*-doc` ; les deux `rgpd.md` **non** fusionnées, voir §21 | Moyen | ✅ **faite** |
 | 5 | **Exécutable → wiki** | 55 skills + 4 agents convertis en fiches `Procédure` à plat ; `hooks/` et `scripts/` en sous-dossiers ; chemins en dur | **Élevé** — touche Hermes | à valider |
 | 6 | **Suppression de `Vibe-Method/`** | Le miroir n'a plus d'objet | Faible | à valider |
 | 7 | **Installateur unique** | Fusion `setup.sh` + `install.sh` | Faible | à valider |
@@ -307,7 +307,7 @@ Ordre imposé : phase 0 d'abord, phase 5 en dernier parmi les déplacements.
 - `cgv` et `devis` : **restent dans la méthode**
 - Hermes recevra les skills Claude Code : **bruit acceptable**, pas de dépôt séparé
 - Plugins : **rien à faire**, gérés par Claude Code
-- Les deux `rgpd.md` (wiki et vibe-method) : **à fusionner** en phase 4
+- ~~Les deux `rgpd.md` : à fusionner en phase 4~~ — **décision annulée le 05/08**, voir §21
 - Suffixe `-gh` : **écarté**, voir §10
 
 ## 13. À reprendre plus tard, hors structure
@@ -491,3 +491,76 @@ Reste dans `vibe-method/.claude/commands/` : **56 fichiers**.
 **Audit avant/après — les cinq écarts sont tous voulus :** `dev/wiki` 57 → 56 fichiers (`wiki/CLAUDE.md` ne cite plus la méthode), `~/.claude/commands` 63 → 64 liens (`task-observer` rejoint les commandes), `~/.claude/skills` 1 → 0 lien (dossier supprimé), un décalage de ligne dans `session-start.sh`, et `wiki/CLAUDE.md` sort du contrôle 10.
 
 **Ce que la phase referme, au-delà du rangement.** `setup.sh` ne peut plus écraser ces huit skills : sa boucle glob ne balaie que `vibe-method/.claude/commands/`, où ils ne sont plus. Le seul dépôt qui les touche est `claude-config`, dont `install.sh` sauvegarde avant de remplacer. C'est le mode de panne du 29/07/2026 sur `grill-me.md`, fermé par construction et non par vigilance.
+
+---
+
+## 21. Phase 4 — les doctrines deviennent des fiches du vault ✅ (05/08/2026)
+
+Les 12 doctrines quittent `vibe-method/` pour `wiki/<nom>-doc.md`, frontmatter complet et ligne d'index concordante. La racine de vibe-method ne contient plus que `CLAUDE.md`, `setup.sh`, `scripts/`, les trois journaux, ce document et deux résidus (`Vibe-Method/` à supprimer en phase 6, `test-claude-design/`).
+
+**Types attribués :** 10 `Procédure`, 2 `Concept` — `architecture-doc` pose des patterns, `ui-vocabulary-doc` définit un lexique. Le second est net ; `architecture` est mixte, ses titres sont pour moitié des principes et pour moitié du « comment ». Choix assumé, une édition de frontmatter suffirait à le revoir.
+
+### La décision du §12 sur RGPD a été annulée
+
+Le §12 actait « les deux `rgpd.md` : à fusionner ». **Faux, corrigé avant exécution.** Les fichiers ont été ouverts, ce qui n'avait pas été fait quand la décision a été écrite — elle reposait sur la seule identité des noms :
+
+- `wiki/rgpd.md` (9,6 Ko, `type: Concept`) — ce que **dit** le règlement. Champ d'application, acteurs, statistiques CNIL, DPO. Sources : cours AFCDP, manuel Mattatia. Ancre d'un cluster de 13 fiches.
+- `rgpd-doc.md` (27 Ko, `type: Procédure`) — ce qu'il faut **coder**. Minimisation, DPA des fournisseurs, transferts hors UE, hooks avec les skills, checklist pré-production.
+
+Le `CLAUDE.md` du wiki tranchait déjà, indépendamment de nous : « **Ne pas fusionner des fiches de types différents — l'atomicité par type est intentionnelle.** » Deux fiches donc, avec renvois croisés sur les quatre sections en recouvrement (bases légales, registre, droits, DPO).
+
+**Le champ qui pouvait casser ça en silence :** `sujet` est le ligament du cluster, pas `cluster`. Vérifié sur les 7 fiches du cluster RGPD — toutes portent `sujet: Rgpd`, avec des `cluster:` variés. `rgpd-doc.md` reçoit donc `sujet: Rgpd` et `cluster: [Vibe-Method, Réglementation]`. Un `sujet: Vibe-Method` aurait paru correct et sorti la doctrine du cluster sans qu'aucune erreur n'apparaisse nulle part.
+
+### Ce que le lint a rattrapé, et qu'aucune relecture n'aurait vu
+
+Les doctrines citaient leurs consœurs en code inline — `` `securite.md` ``. La substitution automatique a donc produit `` `[[securite-doc]]` `` : du code, pas un lien. Obsidian ne l'aurait pas rendu, le graphe serait resté vide, et **les 12 fiches auraient été orphelines et sans lien sortant** — visuellement identiques à des fiches correctement liées. Le lint l'a signalé aussitôt : 10 fiches « ne référence aucune autre page ». 39 liens libérés de leurs backticks.
+
+C'est l'argument de fond pour avoir traité `accessibilite` seule d'abord : le motif défaillant s'est révélé à la deuxième passe, pas à la première — celle-ci avait été écrite à la main, hors backticks.
+
+### Les mentions de skills restent en code inline
+
+Volontaire. Les skills n'entrent dans le vault qu'en phase 5 ; tout `[[deploy]]` posé maintenant serait un nœud fantôme pendant tout l'intervalle. **La phase 5 hérite de ce travail** : convertir les mentions `/skill` des 12 fiches en wikiliens une fois les skills arrivés. `workflow-doc.md` porte déjà 32 de ces nœuds fantômes depuis la phase 1 — ils se fermeront au même moment.
+
+### Références corrigées — 255 au total
+
+| Cible | Forme donnée | Nombre |
+|---|---|---|
+| 4 fiches `-rech` du wiki | wikiliens `[[X-doc]]` | 190 |
+| 16 skills, 2 agents, 1 hook, `lint-observabilite.py` | chemin réel `~/dev/wiki/X-doc.md` | 65 |
+| `claude-config/CLAUDE.md` | tableau des doctrines réécrit | portée utilisateur |
+| `vibe-method/CLAUDE.md` | arborescence du dépôt réécrite | — |
+| 5 entrées du carnet task-observer | pointeurs « skill concerné » | 5 |
+| `hermes-config` — `research/wiki`, `medwin-wiki` | chemin réel | 3 |
+
+Les 4 fiches `-rech` sortent au passage de « sans wikiliens sortants » (12 → 8) : leurs 190 mentions en code inline étaient invisibles au graphe.
+
+**Deux substitutions partielles rattrapées à la relecture**, dues à un préfixe de chemin que le motif excluait : `archi.md:411` disait « lis `~/dev/wiki/securite-doc.md` dans le repo vibe-method (`~/dev/vibe-method/securite.md`) » — moitié convertie, moitié périmée, dans la même phrase. Et `devis.md:688`.
+
+**Faux positifs écartés :** `bmad-method/` et `teamTask/` sont des dépôts tiers portant leurs propres `architecture.md` et `tests.md`. Côté Hermes, `firecrawl-architecture.md`, `web-dashboard-pty-architecture.md` et `api-design.md` n'ont aucun rapport. Et `[projet].stack.md`, `[projet].design.md`, `[projet].tests.md` sont des artefacts de projet, protégés par le motif de substitution — vérifié après coup.
+
+### Une mémoire automatique devenue fausse
+
+`reference_vibe_method_contrats.md` actait le 20/07 : « `rgpd.md` reste dans vibe-method, pas migré », au motif que le déplacer casserait `/archi` et `/deploy`. Les deux skills ont été repointés dans le même mouvement. Mémoire corrigée **dans `~/.claude/projects/*/memory/`**, jamais dans `claude-memoire`.
+
+Elle nommait aussi une « limite connue : Hermes n'a pas accès à `rgpd.md` ». **La migration la lève** — le wiki est le dépôt partagé Mac ↔ VPS. Bénéfice non anticipé : les 12 doctrines sont désormais lisibles par Hermes.
+
+### Vérification
+
+Le lint du wiki est l'acceptation de cette phase, pas seulement l'audit de dépendances — c'est la première phase qui ajoute des fiches au vault.
+
+| | Avant | Après |
+|---|---|---|
+| Pages | 140 | 152 |
+| Signalements | 221 | 243 |
+| Liens cassés | 0 | 0 |
+| Concordance fiche ↔ index | ✅ | ✅ |
+| Frontmatter complet | ✅ | ✅ |
+| Conflits de contenu | 0 | 0 |
+
+Les 11 axes verts le restent. Le delta de 22 tient en trois postes : **+25 liens non réciproques** (136 → 161) — le graphe est plus dense, plus de 230 liens neufs, la plupart à sens unique — **+1 quasi-doublon** `refacto-doc` ↔ `tests-doc` à 68 %, qui reflète le recouvrement TDD réel entre deux doctrines distinctes, et **−4 pages sans liens sortants**.
+
+**Note sur le §18.** Il affirme « lint entièrement vert » en fin de phase 1. L'état mesuré aujourd'hui avant toute modification était de 221 signalements, dont `workflow-doc.md` et `rgpd-fournisseurs-rech.md` orphelins — deux fiches créées en phase 1. Ces signalements sont des `⚠️`, pas des erreurs, et les axes `✅` étaient bien tous verts. « Entièrement vert » désignait donc les axes, pas le compteur. Formulation à ne pas reprendre telle quelle : elle laisse croire à un compteur à zéro.
+
+### Ce qui reste — phases 5 à 7
+
+Inchangé au §11. La phase 5 est la plus lourde et la seule à toucher Hermes : 56 skills et 4 agents convertis en fiches `Procédure`, `hooks/` et `scripts/` en sous-dossiers. Elle referme aussi les 32 nœuds fantômes de `workflow-doc.md` et les mentions de skills laissées en code inline par cette phase.

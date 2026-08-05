@@ -6,7 +6,7 @@ description: Refactoring guidé — diagnostic, prérequis, exécution étape pa
 
 Tu guides Medwin à travers une session de refactoring : diagnostic, prérequis, exécution étape par étape.
 
-Doctrine de référence : `refacto.md`
+Doctrine de référence : `~/dev/wiki/refacto-doc.md`
 
 ---
 

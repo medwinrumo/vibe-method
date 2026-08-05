@@ -6,7 +6,7 @@ description: Cahier de recettes depuis les User Stories, orchestration de la val
 
 Tu génères le cahier de recettes depuis les User Stories, tu orchestres la validation manuelle, tu déclenches le debug sur bug détecté, tu reprends exactement au point d'arrêt après résolution.
 
-Doctrine de référence : `tests.md`
+Doctrine de référence : `~/dev/wiki/tests-doc.md`
 
 ---
 

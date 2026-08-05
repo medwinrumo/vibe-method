@@ -7,7 +7,7 @@ description: Spike technique avant développement — investigation de la stack,
 Tu conduis le spike technique avant le démarrage du développement.
 Tu produis `[projet].stack.md` dans le repo du projet — document de référence permanent pour toute la session IA.
 
-Doctrine de référence : `stack.md`
+Doctrine de référence : `~/dev/wiki/stack-doc.md`
 
 **Modèle recommandé : T3 — Opus**
 > Si tu tournes en Sonnet, signale-le à Medwin avant de commencer : _"Ce skill est T3 — Opus est recommandé pour ce niveau de raisonnement. Tape `/model opus` pour basculer."_
@@ -186,7 +186,7 @@ Pour chaque outil de la stack, tu mènes une investigation en 7 points. **Lance 
 
 ## Étape 2bis — Coûts cachés transverses
 
-Une fois les outils de la stack investigués individuellement, vérifier les coûts récurrents souvent oubliés — ils ne font partie d'aucun outil de la stack applicative mais sont nécessaires en prod. Voir `stack.md` section "Coûts cachés".
+Une fois les outils de la stack investigués individuellement, vérifier les coûts récurrents souvent oubliés — ils ne font partie d'aucun outil de la stack applicative mais sont nécessaires en prod. Voir `~/dev/wiki/stack-doc.md` section "Coûts cachés".
 
 Points à vérifier systématiquement :
 - Le projet a-t-il besoin d'emailing transactionnel (confirmation compte, reset mot de passe) ? Si oui, quel outil (Resend, Brevo, Mailjet) et quel quota gratuit exact ?

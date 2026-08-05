@@ -106,17 +106,17 @@ Si aucune source n'a changé → ignorer cette étape silencieusement.
 
 ## Étape 6 — Cohérence skills / doctrine (si projet vibe-method ou si un skill a été modifié)
 
-Si la session a modifié un skill ou un fichier de doctrine (`produit.md`, `methode.md`, `architecture.md`, `securite.md`) :
+Si la session a modifié un skill ou un fichier de doctrine (`~/dev/wiki/produit-doc.md`, `~/dev/wiki/methode-doc.md`, `~/dev/wiki/architecture-doc.md`, `~/dev/wiki/securite-doc.md`) :
 
 | Doctrine modifiée | Skill(s) à vérifier |
 |---|---|
-| `produit.md` | `/brief` `/prd` `/prd-update` `/specs` |
-| `architecture.md` | `/archi` `/specs` |
-| `securite.md` | `/securite` |
-| `methode.md` | `/roadmap` `/tests` `/recette` |
-| `stack.md` | `/stack` `/specs` |
-| `observabilite.md` | `/specs` `/deploy` |
-| `accessibilite.md` | `/specs` `/design` `/code-review` |
+| `~/dev/wiki/produit-doc.md` | `/brief` `/prd` `/prd-update` `/specs` |
+| `~/dev/wiki/architecture-doc.md` | `/archi` `/specs` |
+| `~/dev/wiki/securite-doc.md` | `/securite` |
+| `~/dev/wiki/methode-doc.md` | `/roadmap` `/tests` `/recette` |
+| `~/dev/wiki/stack-doc.md` | `/stack` `/specs` |
+| `~/dev/wiki/observabilite-doc.md` | `/specs` `/deploy` |
+| `~/dev/wiki/accessibilite-doc.md` | `/specs` `/design` `/code-review` |
 
 Pour chaque paire concernée :
 1. Lire la doctrine modifiée

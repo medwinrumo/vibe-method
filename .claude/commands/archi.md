@@ -183,7 +183,7 @@ Deux codebases = deux repos ou un monorepo. À décider selon la taille du proje
 **Implications en cascade de ce choix :**
 - → `/stack` devra vérifier les limites, gotchas et versions de la stack mobile (WebSearch obligatoire)
 - → La roadmap devra intégrer les délais de review stores : Apple 1-7j, Google Play quelques heures à 3j
-- → Les règles de sécurité mobile (§2.11 `securite.md`) s'appliquent à toutes les features
+- → Les règles de sécurité mobile (§2.11 `~/dev/wiki/securite-doc.md`) s'appliquent à toutes les features
 
 ### Cas 3 — PWA
 
@@ -243,7 +243,7 @@ Tu identifies les systèmes externes avec lesquels le projet doit interagir.
 Pour chacun, tu poses la question :
 > "Ce système sera utilisé de manière **conversationnelle** (on explore, on ne sait pas d'avance) ou **déterministe** (workflow connu, appelé régulièrement) ?"
 
-Basé sur la réponse et sur `architecture.md` — Dépendances externes, tu proposes :
+Basé sur la réponse et sur `~/dev/wiki/architecture-doc.md` — Dépendances externes, tu proposes :
 
 | Système | Type | Méthode |
 |---|---|---|
@@ -257,7 +257,7 @@ Tu proposes aussi le mode d'**activation** (global / par-projet / on-demand) en 
 
 Medwin valide.
 
-**Règle :** référer à `architecture.md` section "Dépendances externes — MCP" pour expliquer les choix.
+**Règle :** référer à `~/dev/wiki/architecture-doc.md` section "Dépendances externes — MCP" pour expliquer les choix.
 
 **[A/P/C]** Tu présentes le menu avant de passer aux règles silo.
 
@@ -339,7 +339,7 @@ Toujours importer depuis la racine du module (`@/features/auth`), jamais depuis 
 
 ## Étape 4c — Stratégie backup & conformité RGPD
 
-Tu poses les questions de décision backup. Les règles complètes sont dans `architecture.md` section "Backup & conformité RGPD".
+Tu poses les questions de décision backup. Les règles complètes sont dans `~/dev/wiki/architecture-doc.md` section "Backup & conformité RGPD".
 
 **Question 1 — Criticité des données :**
 > "Quelles données l'app va-t-elle stocker ? Y a-t-il des données personnelles (nom, email, téléphone) ? Des données financières ou médicales ?"
@@ -367,13 +367,13 @@ Si logique saisonnière → adapter (ex : conserver N saisons complètes).
 Ces chiffres changent — ne pas s'appuyer sur des valeurs dans la doctrine ou dans la mémoire d'entraînement.
 
 **Implications en cascade de ce choix de backend :**
-- → `/stack` devra documenter les limites de connexions simultanées et le comportement à saturation (§2bis.1 `securite.md`)
+- → `/stack` devra documenter les limites de connexions simultanées et le comportement à saturation (§2bis.1 `~/dev/wiki/securite-doc.md`)
 - → Si Convex : absence de région EU certifiée — signaler le risque RGPD dans `[projet].archi.md`
-- → Les patterns RLS spécifiques au backend choisi (§2.7 `securite.md`) seront intégrés dans le CLAUDE.md du projet
+- → Les patterns RLS spécifiques au backend choisi (§2.7 `~/dev/wiki/securite-doc.md`) seront intégrés dans le CLAUDE.md du projet
 
 **Question 3 — RGPD** *(niveaux 2 et 3 uniquement)* :
 
-La doctrine complète est dans `rgpd.md`. À cette étape, tu traites les décisions structurantes qui impactent l'architecture — pas la politique de confidentialité ou la bannière cookies (ça c'est au `/deploy`).
+La doctrine complète est dans `~/dev/wiki/rgpd-doc.md`. À cette étape, tu traites les décisions structurantes qui impactent l'architecture — pas la politique de confidentialité ou la bannière cookies (ça c'est au `/deploy`).
 
 > "Les utilisateurs sont-ils dans l'UE ?"
 
@@ -383,15 +383,15 @@ Si données personnelles EU :
 
 > "Pour chaque donnée que l'app collecte, quelle est la justification fonctionnelle ?"
 
-Appliquer le principe de minimisation (cf. `rgpd.md` section 2) : chaque champ doit avoir une fonctionnalité précise qui le justifie. Documenter les données retenues et leur base légale.
+Appliquer le principe de minimisation (cf. `~/dev/wiki/rgpd-doc.md` section 2) : chaque champ doit avoir une fonctionnalité précise qui le justifie. Documenter les données retenues et leur base légale.
 
 > "Quel modèle de responsabilité RGPD s'applique à ce projet ?"
 - **B2C (app en direct avec les utilisateurs finaux)** → tu es responsable de traitement
 - **SaaS B2B (app vendue à des organisations)** → tu es sous-traitant, le client est responsable de traitement → DPA à inclure dans les CGU
 
-Initialiser le **registre des traitements** (cf. `rgpd.md` section 3) : lister dès maintenant les traitements identifiés, leur base légale, leur durée de conservation.
+Initialiser le **registre des traitements** (cf. `~/dev/wiki/rgpd-doc.md` section 3) : lister dès maintenant les traitements identifiés, leur base légale, leur durée de conservation.
 
-Identifier les **droits utilisateurs à implémenter** (cf. `rgpd.md` section 4) : effacement, export, rectification — noter les modules impactés et les fonctions à prévoir dans le schéma BDD.
+Identifier les **droits utilisateurs à implémenter** (cf. `~/dev/wiki/rgpd-doc.md` section 4) : effacement, export, rectification — noter les modules impactés et les fonctions à prévoir dans le schéma BDD.
 
 **Question 4 — Monitoring :**
 > "L'app a-t-elle une URL d'API accessible ? On configurera UptimeRobot dessus après déploiement."
@@ -408,15 +408,15 @@ Tu documentes toutes ces décisions pour les intégrer dans `[projet].archi.md` 
 
 **Préparation — section Sécurité :**
 
-Avant de générer le document, lis `securite.md` dans le repo vibe-method (`~/dev/vibe-method/securite.md`).
+Avant de générer le document, lis la doctrine de sécurité : `~/dev/wiki/securite-doc.md`.
 
 Depuis ce fichier, génère les deux parties de la section `## Sécurité` :
 
 1. **Règles universelles** — sections 1 (Phase 1) et 2 (Phase 2) : condense toutes les règles applicables à tout projet vibe-method en bullet points actionnables. Une ligne par règle, formulée comme une contrainte (interdit / obligatoire). Sans exemples de code.
 
-2. **Blocs conditionnels** — selon les décisions prises en Étape 3c (rôles, multi-tenant, webhooks, SSRF, mobile, niveau de risque...), sélectionne les sections pertinentes dans `securite.md` et condense chaque bloc en une ligne.
+2. **Blocs conditionnels** — selon les décisions prises en Étape 3c (rôles, multi-tenant, webhooks, SSRF, mobile, niveau de risque...), sélectionne les sections pertinentes dans `~/dev/wiki/securite-doc.md` et condense chaque bloc en une ligne.
 
-Cette lecture garantit que la section Sécurité reflète toujours l'état actuel de `securite.md`, quelle que soit la date du skill.
+Cette lecture garantit que la section Sécurité reflète toujours l'état actuel de `~/dev/wiki/securite-doc.md`, quelle que soit la date du skill.
 
 Tu génères le document d'architecture :
 
@@ -472,7 +472,7 @@ Pour chaque module :
 | [GitHub] | Déterministe | CLI `gh` | Global |
 | [Notion] | Conversationnel + déterministe | MCP | Global |
 
-Voir `architecture.md` section "Dépendances externes — MCP" pour la doctrine.
+Voir `~/dev/wiki/architecture-doc.md` section "Dépendances externes — MCP" pour la doctrine.
 
 ## Backup & RGPD
 - Criticité : Niveau [1 / 2 / 3]
@@ -488,7 +488,7 @@ Voir `architecture.md` section "Dépendances externes — MCP" pour la doctrine.
 **[Bas / Moyen / Élevé]** — défini dans `[projet].brief.md`
 
 ### Règles universelles
-[Lues depuis securite.md sections 1 et 2 — condensées en bullet points actionnables, sans exemples de code]
+[Lues depuis ~/dev/wiki/securite-doc.md sections 1 et 2 — condensées en bullet points actionnables, sans exemples de code]
 
 ### Règles projet
 - Secrets : [NOM_SECRET_1] ([rôle]), [NOM_SECRET_2] ([rôle]) — back-end uniquement
@@ -496,7 +496,7 @@ Voir `architecture.md` section "Dépendances externes — MCP" pour la doctrine.
 - Validation côté serveur sur : [endpoint ou formulaire 1], [endpoint ou formulaire 2]
 - Routes protégées : [route] (connexion + [rôle ou condition d'appartenance])
 
-[Blocs conditionnels — depuis securite.md, selon les décisions de l'Étape 3c :]
+[Blocs conditionnels — depuis ~/dev/wiki/securite-doc.md, selon les décisions de l'Étape 3c :]
 [Si rôles → §1.5 : app_metadata obligatoire, anti-auto-promotion côté serveur]
 [Si multi-tenant → §1.5 : organization_id sur chaque table, RLS filtre par organisation obligatoire]
 [Si paiements → section paiements : token Stripe uniquement, jamais de données de carte, jamais logger]

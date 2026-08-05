@@ -5,7 +5,7 @@ description: >
   hors flux TDD. Contexte frais, isolé, lecture seule — n'écrit pas de
   fichiers de test (ça reste le rôle de `/tests` dans le flux TDD normal).
   Invoquer directement pour "est-ce que ce module est bien testé", "quels
-  cas manquent", ou comme reviewer adversarial de l'étape DOUBT (methode.md)
+  cas manquent", ou comme reviewer adversarial de l'étape DOUBT (~/dev/wiki/methode-doc.md)
   quand la décision non triviale porte sur un comportement à vérifier.
   Ne jamais invoquer depuis une autre persona.
 tools: [Read, Grep, Bash]

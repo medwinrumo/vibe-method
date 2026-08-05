@@ -115,7 +115,7 @@ Avant de recommander un levier de configuration, vérifier que **sa condition de
 
 ### 3.1 — Le test doit provoquer l'événement, pas le simuler
 
-Si l'enjeu est « survit à X » (recreate, reboot, redéploiement, rotation), fabriquer l'état d'après-X. Le patron, détaillé dans `tests.md` règle d :
+Si l'enjeu est « survit à X » (recreate, reboot, redéploiement, rotation), fabriquer l'état d'après-X. Le patron, détaillé dans `~/dev/wiki/tests-doc.md` règle d :
 
 ```bash
 docker run --rm -v /chemin/donnees:/opt/data:ro --entrypoint sh <image-construite> -c '...'
@@ -133,7 +133,7 @@ Vécu : un correctif déployé et testé unitairement, dont rien ne prouvait qu'
 
 Quand un correctif est motivé par « X sera détruit », lister **tout** ce que X contient. L'élément qui a déclenché l'enquête est rarement le seul.
 
-Vécu : en déplaçant un environnement Python hors d'une zone volatile, découverte de polices au même endroit — dépendance plus dangereuse, parce que son absence ne lève **aucune erreur** (voir `architecture.md`, « Dépendances d'environnement »).
+Vécu : en déplaçant un environnement Python hors d'une zone volatile, découverte de polices au même endroit — dépendance plus dangereuse, parce que son absence ne lève **aucune erreur** (voir `~/dev/wiki/architecture-doc.md`, « Dépendances d'environnement »).
 
 ---
 

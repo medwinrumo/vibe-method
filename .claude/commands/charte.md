@@ -205,5 +205,5 @@ _Note : `/design` Mode B enrichira cette section avec les classes Tailwind et la
 `/design` Mode A — la charte est posée, construire le design system complet pour Claude Design.
 
 > **[RÉVISION 2026-05-15]**
-> Avant de lancer `/design` Mode A, rappeler à Medwin l'existence de `ui-vocabulary.md` dans vibe-method :
-> "Pour nommer précisément les zones, composants et états que tu veux dans tes écrans, consulte `ui-vocabulary.md` — c'est le lexique de référence avec des ASCII arts illustratifs."
+> Avant de lancer `/design` Mode A, rappeler à Medwin l'existence de `~/dev/wiki/ui-vocabulary-doc.md` dans vibe-method :
+> "Pour nommer précisément les zones, composants et états que tu veux dans tes écrans, consulte `~/dev/wiki/ui-vocabulary-doc.md` — c'est le lexique de référence avec des ASCII arts illustratifs."

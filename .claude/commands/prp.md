@@ -169,7 +169,7 @@ _Généré le [date] — feature courante : [nom de la feature]_
 ## Tests — patterns
 - [pattern 1]
 - [pattern 2]
-[si tests.md absent : omettre cette section]
+[si ~/dev/wiki/tests-doc.md absent : omettre cette section]
 
 ## Commandes de dev
 - [commande 1] — [rôle]

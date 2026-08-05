@@ -9,20 +9,33 @@ Il n'est pas une app — c'est un ensemble de documents et de skills.
 
 ```
 vibe-method/
-├── produit.md          → Brief → PRD → Backlog → User Story → Specs
-├── methode.md          → Phases de travail, roadmap, planning, tests
-├── design.md           → Workflow Stitch → Figma → export CSS → intégration Tailwind/shadcn
-├── architecture.md     → Patterns d'architecture (modulaire + silos)
-├── securite.md         → Règles de sécurité à appliquer
-├── rgpd.md             → Doctrine RGPD complète (bases légales, droits, registre, consentement, checklist)
-├── tests.md            → Doctrine de test (niveaux, Gherkin, Playwright, anti-auto-validation)
-├── stack.md            → Doctrine de reconnaissance technique (spike, investigation stack, free tier, gotchas, vérification documentaire par feature)
-├── observabilite.md    → Doctrine d'instrumentation (logs, métriques, alerting) — quoi logger et quand
-├── accessibilite.md    → Doctrine WCAG 2.1 AA — 5 catégories, chaînée via /specs, /design, /code-review
-├── ui-vocabulary.md    → Lexique de référence UI/UX — zones, composants, états, patterns (avec ASCII art)
-└── .claude/
-    └── commands/       → Skills Claude Code (voir liste ci-dessous)
+├── .claude/
+│   ├── commands/       → 56 skills de la méthode
+│   ├── agents/         → 4 personas de revue
+│   └── hooks/          → hooks de clôture et de suivi
+├── scripts/            → lint-observabilite.py
+└── migration-structure.md, vibe-method.{todo,log,peda}.md
 ```
+
+**Les doctrines ont quitté ce dépôt le 05/08/2026** (phase 4 de la
+réorganisation). Elles vivent dans `~/dev/wiki/` sous la forme `<nom>-doc.md`
+— fiches typées, taguées, indexées et reliées au reste du second cerveau,
+au lieu de fichiers posés à côté d'un dépôt de skills.
+
+| Fiche du wiki | Rôle |
+|---|---|
+| `produit-doc.md` | Brief → PRD → Backlog → User Story → Specs |
+| `methode-doc.md` | Phases de travail, roadmap, planning, tests |
+| `design-doc.md` | Charte → design system → Claude Design → intégration Tailwind/NativeWind |
+| `architecture-doc.md` | Patterns d'architecture, conception d'API, deprecation, mise en production |
+| `securite-doc.md` | Règles de sécurité à appliquer |
+| `rgpd-doc.md` | Doctrine RGPD appliquée à un projet — distincte de `rgpd.md`, le règlement lui-même |
+| `tests-doc.md` | Doctrine de test (niveaux, Gherkin, Playwright, anti-auto-validation) |
+| `stack-doc.md` | Doctrine de reconnaissance technique (spike, free tier, gotchas) |
+| `observabilite-doc.md` | Doctrine d'instrumentation — quoi logger et quand |
+| `accessibilite-doc.md` | Doctrine WCAG 2.1 AA — chaînée via `/specs`, `/design`, `/code-review` |
+| `refacto-doc.md` | Le refactoring comme discipline à part |
+| `ui-vocabulary-doc.md` | Lexique de référence UI/UX (avec ASCII art) |
 
 ---
 

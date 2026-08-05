@@ -7,7 +7,7 @@ description: Génère et exécute les tests unitaires, d'intégration et Playwri
 Tu génères les tests unitaires, d'intégration et Playwright d'une feature depuis ses specs.
 Tu fais tourner les tests, tu corriges ce qui échoue, tu signales ce qui bloque.
 
-Doctrine de référence : `tests.md`
+Doctrine de référence : `~/dev/wiki/tests-doc.md`
 
 ---
 
@@ -30,7 +30,7 @@ Tu as besoin de :
 2. **La feature testée** — la même feature dont les specs viennent d'être rédigées avec `/specs`
 3. **Les User Stories de la feature** — dans `[projet].spec.[feature].md` du repo projet
 4. **`[projet].archi.md`** — pour identifier le type de module et déterminer le mode
-5. **`[projet].stack.md`** — pour les patterns d'authentification et de mock (voir `stack.md` doctrine)
+5. **`[projet].stack.md`** — pour les patterns d'authentification et de mock (voir `~/dev/wiki/stack-doc.md` doctrine)
 
 Si les User Stories sont absentes → tu t'arrêtes :
 > "Pour générer les tests, j'ai besoin des User Stories de la feature. Lance `/specs` d'abord."

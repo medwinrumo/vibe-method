@@ -685,4 +685,4 @@ Après validation client : `/prd`.
 
 ## Contexte RGPD
 
-La section « Engagements RGPD » ci-dessus reflète les clauses désormais présentes dans les gabarits CGV/CP. Pour le détail des connaissances RGPD (statut sous-traitant vs prestataire technique, DPA, DPF), voir `vibe-method/rgpd.md`.
+La section « Engagements RGPD » ci-dessus reflète les clauses désormais présentes dans les gabarits CGV/CP. Pour le détail des connaissances RGPD (statut sous-traitant vs prestataire technique, DPA, DPF), voir `~/dev/wiki/rgpd-doc.md`.

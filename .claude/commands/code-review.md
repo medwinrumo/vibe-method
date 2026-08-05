@@ -51,7 +51,7 @@ Tu lis chaque fichier modifié et tu vérifies :
 - [ ] Les cas limites définis dans la spec sont gérés dans le code
 - [ ] Les cas d'échec définis dans la spec retournent les bonnes erreurs
 
-**Accessibilité** (si le fichier touche une interface utilisateur — voir `accessibilite.md`)
+**Accessibilité** (si le fichier touche une interface utilisateur — voir `~/dev/wiki/accessibilite-doc.md`)
 - [ ] Éléments interactifs atteignables et utilisables au clavier
 - [ ] Labels/textes alternatifs présents sur champs et images
 - [ ] La couleur n'est jamais le seul vecteur d'information
@@ -60,7 +60,7 @@ Tu lis chaque fichier modifié et tu vérifies :
 
 ## Étape 2 — Revue sécurité
 
-Tu appliques les règles de `securite.md` :
+Tu appliques les règles de `~/dev/wiki/securite-doc.md` :
 
 **Secrets et clés**
 - [ ] Aucune valeur hardcodée (clés API, tokens, URLs d'environnement, credentials)

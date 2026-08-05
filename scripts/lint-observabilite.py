@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-lint-observabilite.py — Pre-Launch Gate observabilité (doctrine observabilite.md).
+lint-observabilite.py — Pre-Launch Gate observabilité (doctrine ~/dev/wiki/observabilite-doc.md).
 
 Vérifie que chaque fichier `[projet].spec.*.md` a un champ "Observabilité"
 explicite (Requise / Non requise) et, si Requise, une section

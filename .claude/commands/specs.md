@@ -124,7 +124,7 @@ Avant de finaliser, tu vérifies trois points :
 **Signal de découpage :** si la story génère plus de 5 règles de gestion distinctes, tu t'arrêtes :
 > "Cette feature est peut-être trop large. Je recommande de la découper en [liste de sous-features proposées]. Tu veux le faire avant de continuer ?"
 
-Un second signal existe plus tard : si `/recette` génère plus de 15 scénarios Gherkin pour cette story, le découpage sera re-signalé à ce moment-là. Les deux critères sont complémentaires — voir `produit.md`.
+Un second signal existe plus tard : si `/recette` génère plus de 15 scénarios Gherkin pour cette story, le découpage sera re-signalé à ce moment-là. Les deux critères sont complémentaires — voir `~/dev/wiki/produit-doc.md`.
 
 ---
 
@@ -187,7 +187,7 @@ Tu vérifies si cette feature est **prod-critique** : elle tourne en prod avec d
 
 **Si oui :**
 
-> "Cette feature tourne en prod avec de vrais utilisateurs. Avant de finaliser la spec, 2 à 4 questions qu'on se poserait en découvrant un problème dessus — voir `observabilite.md` :
+> "Cette feature tourne en prod avec de vrais utilisateurs. Avant de finaliser la spec, 2 à 4 questions qu'on se poserait en découvrant un problème dessus — voir `~/dev/wiki/observabilite-doc.md` :
 > 1. [question métier 1]
 > 2. [question métier 2]"
 
@@ -204,7 +204,7 @@ Continuer sans bloquer.
 
 Si la feature a une interface utilisateur (pas un endpoint API pur, pas un traitement en tâche de fond) :
 
-> "Cette feature a une interface. Points d'attention WCAG 2.1 AA — voir `accessibilite.md` :
+> "Cette feature a une interface. Points d'attention WCAG 2.1 AA — voir `~/dev/wiki/accessibilite-doc.md` :
 > - Navigation clavier complète (aucun élément interactif inatteignable au Tab) ?
 > - Contraste suffisant, la couleur n'est jamais le seul indicateur ?
 > - Labels et messages d'erreur explicites sur les champs de formulaire ?"

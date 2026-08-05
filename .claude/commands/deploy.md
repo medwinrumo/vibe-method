@@ -77,7 +77,7 @@ La soumission sur les stores est un processus distinct du déploiement web. **Pr
 3. Ouvrir **App Store Connect** → créer la fiche app
 4. Remplir les métadonnées : nom, description (170 caractères max), mots-clés, catégorie, classification par âge
 5. Préparer les **screenshots** selon les tailles requises (iPhone 6.7", iPad Pro si applicable)
-6. Remplir les **Privacy Nutrition Labels** (obligatoire depuis iOS 14) : déclarer chaque donnée collectée, sa finalité, si elle est liée à l'identité — s'appuyer sur le registre des traitements (`rgpd.md` section 3)
+6. Remplir les **Privacy Nutrition Labels** (obligatoire depuis iOS 14) : déclarer chaque donnée collectée, sa finalité, si elle est liée à l'identité — s'appuyer sur le registre des traitements (`~/dev/wiki/rgpd-doc.md` section 3)
 7. Vérifier les points critiques des **App Store Review Guidelines** documentés dans `[projet].stack.md`
 8. Soumettre pour review : `eas submit --platform ios` ou via App Store Connect
 9. Délai de review : **1 à 7 jours**. Si refus → motif reçu par email. Corriger et resoumettre.
@@ -207,7 +207,7 @@ Avant toute mise en prod, exécuter :
 python3 ~/dev/vibe-method/scripts/lint-observabilite.py [chemin-projet]
 ```
 
-Le script vérifie que chaque `[projet].spec.*.md` marqué **Observabilité : Requise** contient bien une section "Signaux à instrumenter" non vide. C'est la vérification mécanique de la doctrine `observabilite.md` — pas une relecture manuelle.
+Le script vérifie que chaque `[projet].spec.*.md` marqué **Observabilité : Requise** contient bien une section "Signaux à instrumenter" non vide. C'est la vérification mécanique de la doctrine `~/dev/wiki/observabilite-doc.md` — pas une relecture manuelle.
 
 Si le lint signale une spec incomplète → bloquant, ne pas déployer avant correction (même logique que `/securite audit`).
 
@@ -283,7 +283,7 @@ Puis proposer l'entrée wiki correspondante (règle 4 de `~/dev/wiki/CLAUDE.md` 
 - [ ] Buffer de 2 semaines prévu dans le planning avant la date de lancement
 
 **RGPD (niveaux 2 et 3)**
-Vérifier la checklist complète de `rgpd.md` section 12 avant ouverture aux utilisateurs :
+Vérifier la checklist complète de `~/dev/wiki/rgpd-doc.md` section 12 avant ouverture aux utilisateurs :
 - [ ] Politique de confidentialité publiée et accessible (lien dans le footer)
 - [ ] Bannière de consentement cookies en place si applicable
 - [ ] Fonctions effacement, export, rectification implémentées et testées

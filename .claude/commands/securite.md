@@ -3,7 +3,7 @@ description: /securite — Analyse sécurité du PRD ou vérification sécurité
 allowed-tools: WebSearch, Read, Glob, Grep
 ---
 
-Skill en trois modes distincts. Doctrine de référence : `securite.md`.
+Skill en trois modes distincts. Doctrine de référence : `~/dev/wiki/securite-doc.md`.
 
 **Modèle recommandé : T3 — Opus**
 > Si tu tournes en Sonnet, signale-le à Medwin avant de commencer : _"Ce skill est T3 — Opus est recommandé pour ce niveau de raisonnement. Tape `/model opus` pour basculer."_
@@ -88,7 +88,7 @@ Produire une liste courte et priorisée des points de sécurité à intégrer da
 
 ```markdown
 ## Sécurité projet
-_→ Détails : `securite.md` · `[projet].archi.md §Sécurité`_
+_→ Détails : `~/dev/wiki/securite-doc.md` · `[projet].archi.md §Sécurité`_
 
 Niveau : [Bas / Moyen / Élevé]
 Bloquants : [point 1] · [point 2]
@@ -101,7 +101,7 @@ Importants : [point 3] · [point 4]
 
 **Quand :** automatiquement après chaque feature développée, avant le merge dans `main`. S'insère entre `/tests` (Playwright) et la validation manuelle de Medwin.
 
-**Rôle :** vérifier que la feature respecte les règles de `securite.md`. Bloquant si un point échoue — pas de merge tant que ce n'est pas résolu.
+**Rôle :** vérifier que la feature respecte les règles de `~/dev/wiki/securite-doc.md`. Bloquant si un point échoue — pas de merge tant que ce n'est pas résolu.
 
 ### Étape 1 — Lecture du contexte
 
@@ -173,7 +173,7 @@ Si OK → merge autorisé.
 
 ## Mode `audit` — `/securite audit`
 
-**Quand :** avant chaque mise en production. Obligatoire pour les projets de niveau de risque moyen et élevé (§1.14 de `securite.md`). Recommandé pour tous les projets.
+**Quand :** avant chaque mise en production. Obligatoire pour les projets de niveau de risque moyen et élevé (§1.14 de `~/dev/wiki/securite-doc.md`). Recommandé pour tous les projets.
 
 **Rôle :** audit croisé double LLM du code complet, suivi d'une validation par scan automatique.
 
@@ -234,7 +234,7 @@ Produire la liste finale des corrections à effectuer avant déploiement.
 
 ### Étape 4 — Scan automatique
 
-Déclencher les outils de scan (§3.2 de `securite.md`) :
+Déclencher les outils de scan (§3.2 de `~/dev/wiki/securite-doc.md`) :
 
 ```bash
 # Semgrep — analyse statique

@@ -19,7 +19,7 @@ Tu en extrais :
 - **Stack détectée** : React Native + Expo / React + Vite / les deux
 - **Back-end** : Convex (Stack A) / Supabase (Stack B)
 - **Modules** : liste et structure de dossiers définie dans l'archi
-- **Dépendances** : packages listés dans stack.md
+- **Dépendances** : packages listés dans ~/dev/wiki/stack-doc.md
 - **Variables d'environnement** : services utilisés qui nécessitent des clés
 
 Si `[projet].archi.md` est absent → stop :

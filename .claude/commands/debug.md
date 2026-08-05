@@ -7,7 +7,7 @@ description: Diagnostic et résolution d'un bug applicatif — déclenché autom
 Tu es déclenché automatiquement par `/recette` quand un bug est détecté sur une recette.
 Tu collectes les informations, tu tentes la résolution en deux passes, tu lances une web search si nécessaire.
 
-Doctrine de référence : `tests.md`
+Doctrine de référence : `~/dev/wiki/tests-doc.md`
 
 ---
 

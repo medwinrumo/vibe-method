@@ -40,8 +40,8 @@ Tu as besoin de :
 4. **`[projet].archi.md`** si disponible — pour connaître le périmètre de distribution (web / native / PWA)
 
 > **[RÉVISION 2026-05-15]**
-> Avant de produire `[projet].design.md`, rappeler à Medwin l'existence de `ui-vocabulary.md` :
-> "Avant de commencer, je te recommande de consulter `ui-vocabulary.md` dans vibe-method — il contient le vocabulaire de référence (zones d'un écran, composants, états, patterns). Si tu ne connais pas le nom d'un élément que tu veux, c'est là que tu le trouveras."
+> Avant de produire `[projet].design.md`, rappeler à Medwin l'existence de `~/dev/wiki/ui-vocabulary-doc.md` :
+> "Avant de commencer, je te recommande de consulter `~/dev/wiki/ui-vocabulary-doc.md` dans vibe-method — il contient le vocabulaire de référence (zones d'un écran, composants, états, patterns). Si tu ne connais pas le nom d'un élément que tu veux, c'est là que tu le trouveras."
 
 Si la charte est absente → tu t'arrêtes :
 > "La charte graphique n'est pas définie. Lance `/charte` d'abord."
@@ -206,7 +206,7 @@ La phase se termine quand archi et design sont cohérents — pas avant.
 >
 > Avant de valider `[projet].design.md`, passer chaque écran en revue avec Medwin en mode dialogue guidé : proposer des options nommées avec ASCII art pour chaque point d'ambiguïté, forcer la décision explicite. Ne jamais laisser un point ouvert à l'interprétation.
 >
-> Référence : `ui-vocabulary.md` — à utiliser pour nommer les éléments et proposer les options.
+> Référence : `~/dev/wiki/ui-vocabulary-doc.md` — à utiliser pour nommer les éléments et proposer les options.
 
 ---
 
@@ -380,7 +380,7 @@ Tu produis un tableau récapitulatif avant de continuer :
 
 Tu présentes ce tableau à Medwin et attends sa validation avant de passer à l'étape suivante.
 
-Une fois validé, tu mets à jour la section **Navigation & Routing** de `[projet].archi.md` avec ce tableau. C'est là qu'il sera disponible pendant les sessions de code — archi.md est dans le PRP, design.md ne l'est pas.
+Une fois validé, tu mets à jour la section **Navigation & Routing** de `[projet].archi.md` avec ce tableau. C'est là qu'il sera disponible pendant les sessions de code — archi.md est dans le PRP, ~/dev/wiki/design-doc.md ne l'est pas.
 
 ---
 

@@ -48,7 +48,19 @@ C'est **le seul endroit où vit l'ordre des skills** depuis que la table a quitt
 - [ ] Le guide date du 11/06/2026. Il ne couvre ni `deploy` ni `init-projet`, et documente encore `/condense`, sorti de la méthode le 05/08 (phase 3).
 - [ ] Il est lui-même orphelin — aucune fiche ne le cite.
 
-### D. Observations du carnet — 8 ouvertes
+### D. ~~Observations du carnet — 8 ouvertes~~ — TRAITÉES le 05/08/2026
+
+Revue `task-observer` de `/maj`, étape 7. **0 observation ouverte** sur 45.
+
+- **37** → procédure de lecture d'un artifact partagé ajoutée à `/firecrawl`
+- **39** → sans objet : son étape 5 de `/maj` visait les contrôles de fraîcheur du miroir supprimé. Le principe survit dans `rules/verification.md` §2
+- **40, 45** → `claude-config/rules/conduite-de-chantier.md`
+- **41, 42, 43, 44** → `claude-config/rules/verification.md`
+- **43, 44** → aussi une section « Écriture en masse » dans `/wiki` **et** dans le miroir Hermes (v1.8.0)
+
+**`~/.claude/rules/` est ouvert** — mécanisme vérifié sur la documentation officielle avant usage : règles de portée utilisateur chargées à chaque session avec la même priorité que `CLAUDE.md`. Versionnées dans `claude-config/rules/`, liées par `install.sh`.
+
+<details><summary>Formulation d'origine</summary>
 
 `~/.claude/observations/log.md`. Traitement prévu à l'étape 7 de `/maj`.
 
@@ -63,6 +75,8 @@ C'est **le seul endroit où vit l'ordre des skills** depuis que la table a quitt
 
 **Six des huit sont des règles de raisonnement, pas des modifications de skill.** Leur destination est `claude-config/CLAUDE.md`, section « Exigence de rigueur » — qui fait déjà 234 lignes, au-dessus des 200 recommandées par la documentation officielle. Voir le point F.
 
+</details>
+
 ### E. Hermes / VPS — action en attente, avec un risque armé
 
 - [ ] **Propager les corrections vers le VPS** : `cd ~/dev/hermes-config && ./restaure-skills.sh vps --dry` puis sans `--dry`.
@@ -72,7 +86,12 @@ C'est **le seul endroit où vit l'ordre des skills** depuis que la table a quitt
 
 ### F. Dettes techniques
 
-- [ ] **`claude-config/CLAUDE.md` fait 234 lignes**, au-dessus des 200 recommandées (« longer files consume more context and reduce adherence »). Le mécanisme prévu est `~/.claude/rules/` — fichiers thématiques de portée utilisateur, chargés comme un `CLAUDE.md`. Les observations 41 à 45 sont l'argument pour l'ouvrir : elles y ajouteraient encore.
+- [x] ~~**`claude-config/CLAUDE.md` fait 234 lignes**~~ — `~/.claude/rules/` ouvert le 05/08/2026 avec deux fichiers thématiques. **`CLAUDE.md` n'a pas été allégé pour autant** : seules les règles neuves y sont allées. Reste à décider si une partie de « Exigence de rigueur » doit migrer.
+  <details><summary>Formulation d'origine</summary>
+
+- **`claude-config/CLAUDE.md` fait 234 lignes**, au-dessus des 200 recommandées (« longer files consume more context and reduce adherence »). Le mécanisme prévu est `~/.claude/rules/` — fichiers thématiques de portée utilisateur, chargés comme un `CLAUDE.md`. Les observations 41 à 45 sont l'argument pour l'ouvrir : elles y ajouteraient encore.
+
+  </details>
 - [ ] **`test_lint_observabilite.py`** — ses cas E-H étaient *tous fail-open* avant correction : le lint laissait passer sans rien dire. Même mode de panne que l'observation 36. À réexaminer maintenant que la structure est stable. *(Reporté du §13 de `migration-structure.md`.)*
 - [ ] **Sauvegarde mémoire en retard de deux jours** — `com.medwinrumo.sync-memory` est chargé, annonce un intervalle de 15 min, son fichier de log n'existe pas, et un fichier écrit le 05/08 au matin n'était pas sauvegardé deux heures plus tard. Cause à établir. *(Reporté du §13.)*
 - [ ] **Skills vs MCP** — comprendre la différence, décider quand utiliser l'un ou l'autre. *(Priorité basse, reporté de l'ancien `CLAUDE.md`.)*

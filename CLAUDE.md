@@ -109,7 +109,7 @@ Rôle : chargé par `/prp` à chaque session → Claude peut signaler en cours d
 
 - Source unique : `vibe-method/.claude/commands/` pour tous les skills
 - `~/.claude/commands/` = symlinks vers vibe-method
-- `CLAUDE.global.md` versionné dans vibe-method (symlink depuis `~/dev/CLAUDE.md`)
+- Instructions globales : `claude-config/CLAUDE.md` (lié depuis `~/.claude/CLAUDE.md`, portée utilisateur). Y ont migré le 05/08/2026 depuis `CLAUDE.global.md`, qui vivait ici
 - `setup.sh` dans vibe-method — recrée tous les symlinks sur nouvelle machine
 
 ---

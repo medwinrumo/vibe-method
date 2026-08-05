@@ -1,7 +1,7 @@
 # Stratégie de réorganisation — skills, doctrines, dépôts
 
-**Version 5 — 2026-08-05, fin de journée.**
-Phases 0, 1 et 1bis **faites**. Phases 2 à 7 en attente.
+**Version 6 — 2026-08-05.**
+Phases 0, 1, 1bis et 2 **faites**. Phases 3 à 7 en attente.
 Aucune décision bloquante. Ce document est le point de reprise : une session
 neuve peut continuer à partir de lui seul, sans l'historique de conversation.
 
@@ -161,14 +161,22 @@ Périmètre : 14 références dans `wiki/`, dont 1 dans `lint-wiki.py`, plus le 
 
 ## 5. `CLAUDE.global.md` — la scission
 
+**Corrigé le 05/08 — la version précédente de ce tableau était fausse.** Elle envoyait « Exigence de rigueur » vers une fiche wiki `rigueur-doc.md` et « Commandes de session » vers `methode-doc.md`, et remplaçait les règles de sécurité par un renvoi. C'était une dérive de ma part par rapport à la consigne de Medwin, qui était : *« scinder ce qui relève de la doctrine et le laisser dans le CLAUDE.md de vibe-method, sortir tout le reste vers claude-config »*.
+
+Deux raisons de ne pas découper vers le wiki :
+
+1. **Une fiche wiki n'est pas chargée.** Elle se consulte à la demande. Y envoyer une règle permanente la désactive silencieusement — le fichier dit lui-même de ses règles de sécurité : « elles ne nécessitent pas qu'on invoque `/securite` pour être actives ».
+2. **Vérifié le 05/08 : les commandes de session s'appliquent partout.** `HYGEIA`, `RAMrezo`, `HERMES` et `minou` portent tous des artefacts de la méthode. Les laisser dans `vibe-method/CLAUDE.md` les rendrait inactives sur ces projets, puisque ce fichier n'est chargé que dans le dépôt vibe-method.
+
+**Décision : le fichier part entier dans `claude-config/CLAUDE.md`.** Aucun découpage, aucune fiche créée, aucune règle perdue.
+
 | Section | Destination |
 |---|---|
-| Préférences de communication | `claude-config/CLAUDE.md` |
-| Gestion des modèles et agents | `claude-config/CLAUDE.md` |
-| Exigence de rigueur professionnelle | **Doctrine** → `rigueur-doc.md` dans le wiki |
-| Règles de sécurité non négociables | Déjà dans `securite.md` → remplacer par un renvoi |
-| Écosystème de projets (Minou, makeRag) | `claude-config/CLAUDE.md` |
-| Commandes de session, artefacts par projet, clôture | Méthode → `methode-doc.md` |
+| **Toutes** — préférences, modèles, rigueur, sécurité, écosystème, commandes de session, artefacts, clôture | `claude-config/CLAUDE.md`, donc `~/.claude/CLAUDE.md` |
+
+**Ce que le déplacement gagne :** `~/.claude/CLAUDE.md` est de portée **utilisateur** — chargé dans toutes les sessions, y compris hors de `~/dev`. Aujourd'hui `~/dev/CLAUDE.md` n'est chargé que parce que `~/dev` est un dossier parent du projet courant. La couverture s'élargit, elle ne se réduit pas.
+
+**Ce qui disparaît :** le lien `~/dev/CLAUDE.md` et le fichier `vibe-method/CLAUDE.global.md`.
 
 **Attention au doublon** : `claude-config/CLAUDE.md` existe déjà avec une section « Observation des sessions ». La fusion doit produire un seul fichier cohérent, pas deux blocs empilés.
 
@@ -260,7 +268,7 @@ for d in ~/dev/*/; do [ -d "$d/.git" ] && echo "gh  $(basename $d)" || echo "   
 |---|---|---|---|---|
 | 0 | **Filet de sécurité** | `firecrawl.md` versionné dans `claude-config/commands/` et remplacé par un lien ; `~/dev/handoff.md`, les 2 `claude-config-backup-*` et le `.DS_Store` supprimés | Nul | ✅ **faite** |
 | 1 | **Nettoyage racine** | Fusions et renommages `*-rech`, suppression de `bmad-comparaison.md` | Faible | à valider |
-| 2 | **Scission `CLAUDE.global.md`** | Séparer doctrine et personnel, fusionner sans doublon, 11 références | Moyen | à valider |
+| 2 | **Déplacement de `CLAUDE.global.md`** | Fichier déplacé entier vers `claude-config/CLAUDE.md` (portée utilisateur), lien `~/dev/CLAUDE.md` supprimé, 6 références corrigées | Moyen | ✅ **faite** |
 | 3 | **Répartition des skills** | 7 skills → `claude-config/commands/`, liens refaits | Moyen | à valider |
 | 4 | **Doctrines → wiki** | 12 fiches `*-doc`, fusion des deux `rgpd.md` | Moyen | à valider |
 | 5 | **Exécutable → wiki** | 55 skills + 4 agents convertis en fiches `Procédure` à plat ; `hooks/` et `scripts/` en sous-dossiers ; chemins en dur | **Élevé** — touche Hermes | à valider |
@@ -408,3 +416,27 @@ Fusionnée avec la partie « recherches » de la phase 4 : renommer en `-rech` d
 ### Ce qui reste — phases 2 à 7
 
 Inchangé par rapport au §11. La phase 2 (scission de `CLAUDE.global.md`) est la prochaine, et la première à toucher un fichier chargé dans toutes les sessions : lancer `scripts/audit-dependances.sh` avant et après, les 16 références à `CLAUDE.global` sont le périmètre à vider.
+
+---
+
+## 19. Phase 2 — déplacement de `CLAUDE.global.md` ✅ (05/08/2026)
+
+**Déplacement entier, aucun découpage.** Le §5 avait prévu une scission vers des fiches wiki : erreur corrigée avant exécution, voir §5.
+
+**Ce qui a été fait :**
+- `vibe-method/CLAUDE.global.md` (200 l.) fusionné dans `claude-config/CLAUDE.md` (25 l.) → 234 lignes, 12 sections
+- La section « Observation des sessions » de claude-config insérée entre « Gestion des modèles » et « Exigence de rigueur » — un seul fichier cohérent, pas deux blocs empilés
+- En-tête réécrit : le fichier ne dit plus « chargé dans tous les projets sous `~/dev/` » mais « portée utilisateur, chargé au démarrage de toutes les sessions »
+- Lien `~/dev/CLAUDE.md` et fichier `CLAUDE.global.md` supprimés
+
+**Ce que le déplacement gagne :** le contenu passe d'un chargement par héritage d'arborescence (`~/dev` parent du projet) à un chargement de portée utilisateur. Il s'applique désormais partout, y compris hors de `~/dev`.
+
+**6 références corrigées :** `setup.sh` (la ligne qui créait le lien n'a plus d'objet), `claude-config/install.sh`, `vibe-method/CLAUDE.md`, `.claude/commands/archi.md` (citait `CLAUDE.global.md` comme adresse des règles universelles), `.claude/settings.local.json`, `Vibe-Method/CLAUDE.md`.
+
+Plus deux corrections que l'audit n'aurait pas signalées comme urgentes :
+- La règle « corollaire du miroir » de `claude-config/CLAUDE.md` citait « `CLAUDE.global.md` et son symlink » comme exemple de paire miroir — la paire n'existe plus, exemple retiré
+- Une mémoire automatique (`project_checkpoint_skills.md`) décrivait l'ancienne organisation. Corrigée **dans `~/.claude/projects/*/memory/`**, pas dans `claude-memoire` : le dépôt est une sauvegarde, une correction faite là serait écrasée au prochain passage de l'agent de synchronisation.
+
+**Compteur `CLAUDE.global` : 16 → 12.** Les 12 restantes sont volontaires : journaux, carnet d'observations, notes de migration (« a migré depuis… »), et ce document.
+
+**Point d'attention, non bloquant.** Le fichier fait 234 lignes ; la documentation officielle recommande moins de 200 par `CLAUDE.md` (« longer files consume more context and reduce adherence »). Le mécanisme prévu pour alléger sans rien désactiver est `~/.claude/rules/` — des fichiers thématiques de portée utilisateur, chargés à chaque session comme un `CLAUDE.md`. À envisager plus tard, pas maintenant.

@@ -20,7 +20,7 @@ Un wiki LLM : collection de pages markdown structurées, maintenues par Claude, 
 | Doctrines | `~/dev/vibe-method/methode.md`, `architecture.md`, `securite.md`, `tests.md`, `design.md`, `stack.md`, `refacto.md`, `produit.md`, `observabilite.md`, `accessibilite.md` |
 | Skills | `~/dev/vibe-method/.claude/commands/*.md` (un fichier par skill) |
 | Agents | `~/dev/vibe-method/.claude/agents/*.md` (un fichier par persona — contexte isolé, invocable ad hoc ou comme reviewer adversarial dans le geste "Le juge impartial") |
-| Méthode | `~/dev/vibe-method/CLAUDE.md`, `CLAUDE.global.md` |
+| Méthode | `~/dev/vibe-method/CLAUDE.md` — les instructions globales ont migré vers `claude-config/CLAUDE.md` le 05/08/2026 |
 
 ---
 

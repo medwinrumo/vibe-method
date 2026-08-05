@@ -23,7 +23,9 @@ for f in $VIBE/*.md; do
 done
 
 # Symlink CLAUDE.md global
-ln -sf ~/dev/vibe-method/CLAUDE.global.md ~/dev/CLAUDE.md
+# CLAUDE.global.md a migré vers claude-config/CLAUDE.md le 05/08/2026 (portée
+# utilisateur, chargé partout). Le lien ~/dev/CLAUDE.md n'a plus d'objet — c'est
+# ./install.sh de claude-config qui pose ~/.claude/CLAUDE.md.
 echo "CLAUDE.md global → symlink créé"
 
 echo "Setup terminé — $(ls $TARGET | wc -l | tr -d ' ') skills liés."

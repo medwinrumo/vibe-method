@@ -565,7 +565,7 @@ Si un élément devrait changer de statut (privé → public, feature → shared
 
 ### Bloc 2 — Sécurité
 
-Extrait court et opérationnel depuis la section Sécurité de `[projet].archi.md`. Règles projet-spécifiques uniquement — pas les universelles (déjà dans `CLAUDE.global.md`). 5 lignes maximum.
+Extrait court et opérationnel depuis la section Sécurité de `[projet].archi.md`. Règles projet-spécifiques uniquement — pas les universelles (déjà dans `~/.claude/CLAUDE.md`). 5 lignes maximum.
 
 ```markdown
 ## Sécurité — règles de ce projet

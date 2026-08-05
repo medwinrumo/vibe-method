@@ -1,8 +1,8 @@
 ---
 type: flux
 source: ../CLAUDE.md
-source_modified: 2026-05-18
-wiki_updated: 2026-05-26
+source_modified: 2026-07-28
+wiki_updated: 2026-08-05
 tags: [workflow, chaîne, navigation]
 ---
 
@@ -114,6 +114,7 @@ La chaîne de gauche à droite. Chaque skill produit un artefact consommé par l
 | [[skills/zoom-out]] | Désorientation dans un fichier — carte du module courant |
 | [[skills/prototype]] | Décision impossible à trancher sans la voir tourner |
 | [[skills/askme]] | Questions contextuelles rapides — AskUserQuestion raccourci |
+| [[skills/diagnostic-serveur]] | Serveur/conteneur qui se comporte mal — pendant infra de /diagnose |
 
 ---
 

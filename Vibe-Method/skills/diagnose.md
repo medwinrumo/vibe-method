@@ -1,14 +1,14 @@
 ---
 type: skill
 source: ../../.claude/commands/diagnose.md
-source_modified: 2026-05-18
-wiki_updated: 2026-05-26
+source_modified: 2026-06-11
+wiki_updated: 2026-08-05
 tags: [phase-7, debug, diagnostic-approfondi]
 phase: 7
 ---
 
 ## Rôle
-**`/diagnose`** — Diagnostic approfondi pour bugs difficiles : boucle de feedback + hypothèses falsifiables. Escalade de `/debug`.
+**`/diagnose`** — Diagnostic approfondi pour bugs difficiles : boucle de feedback + hypothèses falsifiables. Escalade de `/debug`. **T3 — Opus.**
 
 ## Inputs
 - Rapport de bug complet

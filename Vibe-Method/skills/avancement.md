@@ -1,14 +1,14 @@
 ---
 type: skill
 source: ../../.claude/commands/avancement.md
-source_modified: 2026-05-14
-wiki_updated: 2026-05-26
+source_modified: 2026-06-11
+wiki_updated: 2026-08-05
 tags: [suivi, tracker, yaml, sprint]
 phase: transversal
 ---
 
 ## Rôle
-**`/avancement`** — Suivi de l'état des features du projet (YAML centralisé).
+**`/avancement`** — Suivi de l'état des features du projet (YAML centralisé). **T1 — Haiku (optionnel).**
 
 ## Inputs
 - `[projet].Rmap.md`

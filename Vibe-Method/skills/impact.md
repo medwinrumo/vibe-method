@@ -1,14 +1,14 @@
 ---
 type: skill
 source: ../../.claude/commands/impact.md
-source_modified: 2026-05-14
-wiki_updated: 2026-05-26
+source_modified: 2026-06-11
+wiki_updated: 2026-08-05
 tags: [transversal, impact, changement, artefacts]
 phase: transversal
 ---
 
 ## Rôle
-**`/impact`** — Analyse d'impact d'un changement sur tous les artefacts du projet.
+**`/impact`** — Analyse d'impact d'un changement sur tous les artefacts du projet. **T3 — Opus.**
 
 ## Inputs
 - Description du changement envisagé

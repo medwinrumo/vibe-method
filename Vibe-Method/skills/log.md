@@ -1,14 +1,14 @@
 ---
 type: skill
 source: ../../.claude/commands/log.md
-source_modified: 2026-05-18
-wiki_updated: 2026-05-26
+source_modified: 2026-06-11
+wiki_updated: 2026-08-05
 tags: [session, documentation, log]
 phase: session
 ---
 
 ## Rôle
-**`/log`** — Met à jour `[projet].log.md` (journal de bord de session).
+**`/log`** — Met à jour `[projet].log.md` (journal de bord de session). **T1 — Haiku (optionnel).**
 
 ## Output
 Nouvelle section dans `[projet].log.md`

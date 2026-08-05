@@ -1,8 +1,8 @@
 ---
 type: doctrine
 source: ../../design.md
-source_modified: 2026-05-15
-wiki_updated: 2026-05-26
+source_modified: 2026-07-28
+wiki_updated: 2026-08-05
 tags: [design, ui, claude-design, tailwind, nativewind]
 ---
 
@@ -28,7 +28,9 @@ Figma est optionnel — pour retouches manuelles si nécessaire, pas dans la cha
 Couleurs, typographie, logo, ambiance générale → `[projet].charte.md`.
 Point de départ du design system — tout découle de la charte.
 
-Consulter `ui-vocabulary.md` avant tout Mode A pour nommer précisément les zones et composants.
+Consulter [[doctrines/ui-vocabulary]] avant tout Mode A pour nommer précisément les zones et composants.
+
+**Vérifier dès cette étape** (voir [[doctrines/accessibilite]]) : contraste des couleurs choisies (4.5:1 pour le texte normal) et état de focus visible défini pour chaque composant interactif. Bien plus facile à corriger dans le design system que sur une interface déjà codée.
 
 ---
 

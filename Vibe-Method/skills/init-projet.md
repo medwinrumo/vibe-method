@@ -1,8 +1,8 @@
 ---
 type: skill
 source: ../../.claude/commands/init-projet.md
-source_modified: 2026-05-26
-wiki_updated: 2026-05-26
+source_modified: 2026-06-24
+wiki_updated: 2026-08-05
 tags: [infrastructure, git, bootstrap, obsidian, wiki]
 phase: infrastructure
 ---

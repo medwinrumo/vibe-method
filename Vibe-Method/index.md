@@ -1,8 +1,8 @@
 ---
 type: infrastructure
 source: ../CLAUDE.md
-source_modified: 2026-05-18
-wiki_updated: 2026-07-28
+source_modified: 2026-07-28
+wiki_updated: 2026-08-05
 tags:
   - index
   - catalogue
@@ -42,6 +42,8 @@ Catalogue de toutes les pages. Mis à jour à chaque ingest ou nouvelle page wik
 | [[doctrines/accessibilite]] | WCAG 2.1 AA vérifié dès /design, pas en polish de fin de projet |
 | [[doctrines/refacto]] | Discipline séparée — session dédiée, étapes atomiques |
 | [[doctrines/produit]] | Brief → PRD → Story A4 → Gherkin |
+| [[doctrines/rgpd]] | Finalité, minimisation, durée limitée — 12 sections + ancrage par skill |
+| [[doctrines/ui-vocabulary]] | Lexique UI/UX — zones, composants, états, échelle de state, esthétique IA à éviter |
 
 ---
 
@@ -122,6 +124,7 @@ Catalogue de toutes les pages. Mis à jour à chaque ingest ou nouvelle page wik
 | [[skills/recette]] | Cahier de recettes + validation manuelle | `[projet].recette.md` |
 | [[skills/debug]] | Diagnostic et résolution de bug | — |
 | [[skills/diagnose]] | Diagnostic approfondi (escalade de /debug) | — |
+| [[skills/diagnostic-serveur]] | Diagnostic d'infrastructure — serveur, conteneur, persistance | — |
 | [[skills/commit]] | Commit Conventional Commits depuis diff Git — T1 Haiku opt. | Commit Git |
 | [[skills/pr]] | Pull Request depuis la spec — `gh pr create` — T1 Haiku opt. | PR GitHub |
 | [[skills/phase-retrospective]] | Rétrospective fin de phase | `[projet]-retrospective.md` |

@@ -1,14 +1,14 @@
 ---
 type: skill
 source: ../../.claude/commands/gherkin.md
-source_modified: 2026-05-19
-wiki_updated: 2026-05-26
+source_modified: 2026-06-11
+wiki_updated: 2026-08-05
 tags: [phase-1, phase-5, tests, gherkin, specs]
 phase: 1 + 5
 ---
 
 ## Rôle
-**`/gherkin`** — Deux modes : révéler les zones floues du PRD (Mode PRD) ou générer les scénarios complets depuis les specs (Mode Specs).
+**`/gherkin`** — Deux modes : révéler les zones floues du PRD (Mode PRD) ou générer les scénarios complets depuis les specs (Mode Specs). **T3 — Opus.**
 
 ## Inputs
 - Mode PRD : `[projet].prd.md`

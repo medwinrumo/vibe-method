@@ -108,3 +108,18 @@ Rattrapage post-roadmap P1-P5 (comparaison agent-skills, voir `vibe-method.todo.
 - `agents/web-performance-auditor.md` : statut MCP chrome-devtools mis à jour (installé, à vérifier en session)
 - `index.md` : ligne `doctrines/accessibilite` ajoutée
 - `CLAUDE.md` : `accessibilite.md` ajouté à la table Sources
+
+## [2026-08-05] création + resynchronisation complète | 3 pages neuves + 30 pages remises à jour | Code
+
+**Trois trous de couverture comblés :**
+- `doctrines/rgpd.md` — 12 sections + le tableau d'ancrage par skill (la structure la plus utile : le RGPD n'est pas une étape, c'est une série de points de contrôle répartis dans la chaîne)
+- `doctrines/ui-vocabulary.md` — lexique UI/UX, échelle de state management, les 8 défauts d'esthétique IA
+- `skills/diagnostic-serveur.md` — pendant infrastructure de `/diagnose`, ajouté aussi aux transversaux de `flux/chaine-complete.md`
+
+**30 pages resynchronisées.** Triage préalable par volume de diff réel plutôt que par la seule date :
+- 11 pages ne décrochaient que du bloc « Modèle recommandé T1/T2/T3 » ajouté le 11/06 — traitement mécanique
+- 5 pages ne décrochaient que d'un renommage 2Brain → Wiki dans la source, sans occurrence dans le wiki — date seule
+- 1 page (`skills/sessionCode`) avait un contenu déjà à jour et une date fausse : elle avait été écrite après la modification de source
+- Mises à jour de fond : `doctrines/tests` (règle d — tester le chemin réel, environnement jetable), `doctrines/architecture` (dépendances d'environnement, panne franche vs repli silencieux), `doctrines/observabilite` (vérifier les deux états d'un indicateur binaire), `skills/adr` (les 3 conditions du filtre + upsert CLAUDE.md), `skills/cgv` (sources migrées vers `~/dev/wiki` + miroir Hermes), `skills/slides` (règles de ratio d'image), `doctrines/design` (contraste et focus dès la charte)
+
+Vérification finale : 82 pages à source déclarée, **0 périmée**.

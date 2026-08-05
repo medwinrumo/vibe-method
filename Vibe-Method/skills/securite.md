@@ -1,14 +1,14 @@
 ---
 type: skill
 source: ../../.claude/commands/securite.md
-source_modified: 2026-05-19
-wiki_updated: 2026-05-26
+source_modified: 2026-06-11
+wiki_updated: 2026-08-05
 tags: [phase-7, sécurité, audit, transversal]
 phase: 7 + transversal
 ---
 
 ## Rôle
-**`/securite`** — Deux modes : analyse sécurité du PRD (avant /archi) / vérification sécurité d'une feature (après code).
+**`/securite`** — Deux modes : analyse sécurité du PRD (avant /archi) / vérification sécurité d'une feature (après code). **T3 — Opus.**
 
 ## Inputs
 - Mode analyse : `[projet].prd.md`

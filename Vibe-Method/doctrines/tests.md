@@ -1,9 +1,9 @@
 ---
 type: doctrine
 source: ../../tests.md
-source_modified: 2026-07-28
-wiki_updated: 2026-07-28
-tags: [tests, tdd, vitest, playwright, gherkin, mocks]
+source_modified: 2026-08-03
+wiki_updated: 2026-08-05
+tags: [tests, tdd, vitest, playwright, gherkin, mocks, environnement-jetable]
 ---
 
 # Doctrine — Tests
@@ -67,6 +67,23 @@ code → /tests (unitaire + intégration) → /tests (non-régression Playwright
 **Règle b** : Lancer les tests AVANT le code. S'ils passent sans code → test mal écrit.
 
 **Règle c** : Demander explicitement des tests négatifs (inputs incorrects, cas limites, actions non autorisées).
+
+**Règle d — Tester le chemin réel, pas un substitut qui lui ressemble** (2026-08-03) : un test valide ce qu'il **exerce**, pas ce qu'il évoque. Le substitut le plus dangereux est celui qui ressemble assez à la cible pour qu'on oublie que c'en est un — il donne *plus* de confiance qu'aucun test, en couvrant moins qu'on ne croit.
+
+Cas typique : un correctif dont l'enjeu est « survit à l'événement X » — recreate de conteneur, redéploiement, reboot, rotation de secret, migration. Le test doit **provoquer X**, jamais le simuler sur une copie.
+
+Le patron qui répond presque toujours : **l'environnement jetable alimenté par les données réelles en lecture seule**.
+
+```bash
+# Conteneur neuf depuis l'image réelle, données de production montées en RO.
+# Couche d'écriture vierge = exactement l'état d'après-recreate. Zéro effet de bord.
+docker run --rm -v /chemin/donnees:/opt/data:ro --entrypoint sh <image> -c '...'
+```
+
+Décliner selon le contexte : base éphémère, clone en lecture seule, worktree git jetable, VM neuve. Deux précisions de terrain :
+
+- **Viser l'artefact que l'événement emploierait réellement** — l'image que `docker compose up` utiliserait, pas celle dont elle dérive.
+- **Prouver que le correctif est *invoqué*, pas seulement qu'il *fonctionne*** : tester un script isolément ne dit rien de son déclenchement. Exercer le mécanisme appelant (entrypoint, hook, cron) dans le même environnement jetable.
 
 ---
 

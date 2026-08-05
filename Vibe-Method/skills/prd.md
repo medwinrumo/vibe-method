@@ -1,14 +1,14 @@
 ---
 type: skill
 source: ../../.claude/commands/prd.md
-source_modified: 2026-05-19
-wiki_updated: 2026-05-26
+source_modified: 2026-06-11
+wiki_updated: 2026-08-05
 tags: [phase-1, produit, prd]
 phase: 1
 ---
 
 ## Rôle
-**`/prd`** — Du brief au PRD V1 en dialogue (cross-pollination entre IA).
+**`/prd`** — Du brief au PRD V1 en dialogue (cross-pollination entre IA). **T3 — Opus.**
 
 ## Inputs
 - `[projet].brief.md`

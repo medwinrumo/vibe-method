@@ -1,8 +1,8 @@
 ---
 type: skill
 source: ../../.claude/commands/backup.md
-source_modified: 2026-05-09
-wiki_updated: 2026-05-26
+source_modified: 2026-07-27
+wiki_updated: 2026-08-05
 tags: [infrastructure, backup, rgpd, sécurité]
 phase: infrastructure
 ---

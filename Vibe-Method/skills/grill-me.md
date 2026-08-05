@@ -1,14 +1,14 @@
 ---
 type: skill
 source: ../../.claude/commands/grill-me.md
-source_modified: 2026-05-18
-wiki_updated: 2026-05-26
+source_modified: 2026-06-11
+wiki_updated: 2026-08-05
 tags: [transversal, interrogatoire, plan, décision]
 phase: transversal
 ---
 
 ## Rôle
-**`/grill-me`** — Interrogatoire approfondi d'un plan ou d'un design : une question à la fois, recommandation incluse, chaque branche résolue.
+**`/grill-me`** — Interrogatoire approfondi d'un plan ou d'un design : une question à la fois, recommandation incluse, chaque branche résolue. **T3 — Opus.**
 
 ## Inputs
 - Plan, design ou décision à stress-tester

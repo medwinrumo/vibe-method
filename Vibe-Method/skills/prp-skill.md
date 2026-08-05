@@ -1,8 +1,8 @@
 ---
 type: concept
 source: ../CLAUDE.md
-source_modified: 2026-05-18
-wiki_updated: 2026-05-26
+source_modified: 2026-07-28
+wiki_updated: 2026-08-05
 tags: [concept, prp, contexte-session]
 ---
 

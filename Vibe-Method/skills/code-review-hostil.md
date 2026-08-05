@@ -1,14 +1,14 @@
 ---
 type: skill
 source: ../../.claude/commands/code-review-hostil.md
-source_modified: 2026-05-14
-wiki_updated: 2026-05-26
+source_modified: 2026-06-11
+wiki_updated: 2026-08-05
 tags: [phase-7, code-review, hostile, cynique]
 phase: 7
 ---
 
 ## Rôle
-**`/code-review-hostil`** — Revue cynique : 10 angles systématiques, minimum 10 problèmes, assume que le code est cassé.
+**`/code-review-hostil`** — Revue cynique : 10 angles systématiques, minimum 10 problèmes, assume que le code est cassé. **T3 — Opus.**
 
 ## Inputs
 - Code de la feature

@@ -1,14 +1,14 @@
 ---
 type: skill
 source: ../../.claude/commands/party.md
-source_modified: 2026-05-08
-wiki_updated: 2026-05-26
+source_modified: 2026-06-11
+wiki_updated: 2026-08-05
 tags: [transversal, décision, multi-perspectives, sous-agents]
 phase: transversal
 ---
 
 ## Rôle
-**`/party`** — Multi-perspectives sur une décision : sous-agents parallèles avec angles distincts.
+**`/party`** — Multi-perspectives sur une décision : sous-agents parallèles avec angles distincts. **T3 — Opus.**
 
 ## Inputs
 - La décision à trancher

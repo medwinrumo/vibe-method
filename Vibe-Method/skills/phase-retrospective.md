@@ -1,14 +1,14 @@
 ---
 type: skill
 source: ../../.claude/commands/phase-retrospective.md
-source_modified: 2026-05-26
-wiki_updated: 2026-05-26
+source_modified: 2026-06-24
+wiki_updated: 2026-08-05
 tags: [phase-7, rétrospective, fin-de-phase]
 phase: 7
 ---
 
 ## Rôle
-**`/phase-retrospective`** — Rétrospective de fin de phase ou de fin d'ensemble.
+**`/phase-retrospective`** — Rétrospective de fin de phase ou de fin d'ensemble. **T3 — Opus.**
 
 ## Inputs
 - `[projet].log.md`

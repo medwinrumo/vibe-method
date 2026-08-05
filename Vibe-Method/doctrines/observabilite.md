@@ -1,8 +1,8 @@
 ---
 type: doctrine
 source: ../../observabilite.md
-source_modified: 2026-07-28
-wiki_updated: 2026-07-28
+source_modified: 2026-08-03
+wiki_updated: 2026-08-05
 tags: [observabilite, logs, metriques, alerting, prod-critique]
 ---
 
@@ -33,6 +33,12 @@ Obligatoire pour toute feature qui tourne en prod avec de vrais utilisateurs. Pa
 ## Étape 3 — Vérifier que la télémétrie marche
 
 Déclencher volontairement le chemin d'erreur en dev/staging avant de considérer la feature terminée.
+
+**Vérifier les deux états, pas seulement le déclenchement** (2026-08-03). Un indicateur binaire — alerte, mode simulation, contrôle de santé, diff de configuration — n'est opérationnel que si l'on a constaté qu'il se déclenche quand il doit **et qu'il se tait quand il n'y a rien**. Un test qui ne couvre que le premier laisse passer le faux positif permanent.
+
+C'est le mode de panne le plus coûteux : il ne casse rien, il érode la confiance jusqu'à ce qu'on cesse de lire. Un signal toujours actif et un signal absent ont la même valeur informative — zéro — mais le premier donne l'illusion d'une surveillance.
+
+Deux cas vécus le 03/08/2026 sur le même script : un mode `--dry` annonçant un changement à chaque passage sur des fichiers identiques (macOS fournit `openrsync`, qui tronque l'horodatage à la seconde en copiant — la comparaison suivante conclut indéfiniment à une modification) ; et un `git add -A` dans un script de sauvegarde qui embarquait les modifications de code sous un libellé de routine, rendant l'historique inexploitable pour dater un changement de comportement.
 
 ---
 

@@ -1,9 +1,9 @@
 ---
 type: doctrine
 source: ../../architecture.md
-source_modified: 2026-07-28
-wiki_updated: 2026-07-28
-tags: [architecture, modules, silos, stack, backup, api-design, deprecation]
+source_modified: 2026-08-03
+wiki_updated: 2026-08-05
+tags: [architecture, modules, silos, stack, backup, api-design, deprecation, dépendances-environnement]
 ---
 
 # Doctrine — Architecture
@@ -84,6 +84,25 @@ Process : contrat avant implémentation → sémantique d'erreur cohérente → 
 Comparaison `addyosmani/agent-skills` (2026-07-28). Complète le Brownfield de [[doctrines/methode]]. **Le code est un passif** — sa valeur vient de la fonctionnalité rendue, pas du code lui-même. 5 questions avant de déprécier : valeur restante ? utilisateurs actifs ? remplaçant existant ? coût de migration ? coût de maintien ?
 
 Advisory (optionnel) vs Compulsory (sécurité/deadline, outillage de migration obligatoire). Patterns : Strangler, Adapter, Feature Flag, Expand/Contract. Jamais de renommage/suppression en place — toujours *expand* puis *contract*.
+
+---
+
+## Dépendances d'environnement — la question n'est pas « survit-elle ? » (2026-08-03)
+
+Tout ce dont le code a besoin sans l'avoir déclaré : polices, locales, fuseaux, dictionnaires, encodages, certificats, résolveurs DNS, binaires système, venv installés à chaud.
+
+**La bonne question n'est pas « est-ce que ça survit à un redéploiement ? » mais « comment se manifeste son absence ? »**
+
+| Famille | En cas d'absence | Risque |
+|---|---|---|
+| **Panne franche** | Erreur levée : `ModuleNotFoundError`, `command not found` | Borné — visible, donc traité |
+| **Repli silencieux** | Substitution automatique, dégradation muette | **Élevé** — résultat *plausible mais faux*, aucune alerte |
+
+Cas vécu (03/08/2026, Hermes) : un PDF contractuel généré par weasyprint dépendait de polices installées dans une couche non persistante. Après recreate, **aucune erreur** — fontconfig substituait une autre police, le PDF se générait, mais ses métriques changeaient (19 196 octets au lieu de 19 128). Une maquette validée serait partie chez un client modifiée, sans signal. Le venv Python manquant au même endroit levait une erreur franche : c'était le cas facile.
+
+Trois règles : **inventorier avant de conclure** (quand un correctif est motivé par « X sera détruit », lister *tout* ce que X contient) ; **toute dépendance installée à chaud va dans un emplacement persistant**, sinon un mécanisme de réinstallation fait partie du livrable ; **pour chaque dépendance à repli silencieux, définir une commande de contrôle** (`fc-match`, `locale -a`, `date +%Z`) placée dans la documentation d'exploitation.
+
+Voir [[skills/diagnostic-serveur]], qui opérationnalise ces règles.
 
 ---
 

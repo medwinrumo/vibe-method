@@ -1,8 +1,9 @@
 # Stratégie de réorganisation — skills, doctrines, dépôts
 
-**Version 4 — 2026-08-05.** Phase 0 faite. Les 62 skills ont leur `description`.
-Plus aucune décision bloquante : la collision `log.md` est tranchée.
-Les phases 1 à 7 attendent le feu vert.
+**Version 5 — 2026-08-05, fin de journée.**
+Phases 0, 1 et 1bis **faites**. Phases 2 à 7 en attente.
+Aucune décision bloquante. Ce document est le point de reprise : une session
+neuve peut continuer à partir de lui seul, sans l'historique de conversation.
 
 ---
 
@@ -257,7 +258,7 @@ for d in ~/dev/*/; do [ -d "$d/.git" ] && echo "gh  $(basename $d)" || echo "   
 
 | # | Phase | Contenu | Risque | État |
 |---|---|---|---|---|
-| 0 | **Filet de sécurité** | Versionner `firecrawl.md` ; supprimer `~/dev/handoff.md`, les 2 `claude-config-backup-*`, le `.DS_Store` de `commands/` | Nul | **en cours** |
+| 0 | **Filet de sécurité** | `firecrawl.md` versionné dans `claude-config/commands/` et remplacé par un lien ; `~/dev/handoff.md`, les 2 `claude-config-backup-*` et le `.DS_Store` supprimés | Nul | ✅ **faite** |
 | 1 | **Nettoyage racine** | Fusions et renommages `*-rech`, suppression de `bmad-comparaison.md` | Faible | à valider |
 | 2 | **Scission `CLAUDE.global.md`** | Séparer doctrine et personnel, fusionner sans doublon, 11 références | Moyen | à valider |
 | 3 | **Répartition des skills** | 7 skills → `claude-config/commands/`, liens refaits | Moyen | à valider |
@@ -348,3 +349,62 @@ Un inventaire écrit vieillit. `scripts/audit-dependances.sh` reproduit les dix 
 **Règle : lancer l'audit avant chaque phase (état de référence) et après (vérification).** Une phase n'est terminée que quand la sortie « après » ne contient plus que des occurrences volontaires — entrées de carnet, journaux, mention d'un incident passé.
 
 C'est l'application du principe déjà retenu pour `/lint` et pour l'observation 38 : une règle qui dépend de la vigilance devient un contrôle qui n'en dépend pas.
+
+---
+
+## 18. Journal d'exécution — 2026-08-05
+
+Ce que les phases ont réellement produit, pour qu'une session neuve reprenne sans l'historique de conversation.
+
+### Phase 0 — Filet de sécurité ✅
+
+- `firecrawl.md` — seul skill non versionné de la machine — copié dans `claude-config/commands/`, remplacé par un lien. Il était exposé au `ln -sf` de `setup.sh`, motif exact de l'incident du 29/07 sur `grill-me.md`
+- Supprimés : `~/dev/handoff.md` (0 octet), `claude-config-backup-20260730` et `-31` (contenu vérifié comme couvert ailleurs), `.DS_Store` de `commands/`
+- Contrôle en place : `find ~/.claude/{commands,agents,hooks,skills} -maxdepth 1 -type f` doit ne rien renvoyer
+
+### Phase 1bis — `description` sur toutes les fiches ✅
+
+Insérée **avant** les déplacements, pour que les ~70 fiches à venir arrivent conformes plutôt que d'imposer une seconde passe sur 194 fiches.
+
+- 113 descriptions copiées depuis l'index, 11 réécrites (leur résumé était un titre recopié), 7 rédigées pour des fiches d'Hermes absentes de l'index
+- Colonne `Résumé` → `Description` dans 6 tableaux
+- `wiki/CLAUDE.md` : champ obligatoire + règles de rédaction + contre-exemples
+- `/wiki` et le miroir Hermes `research/wiki/SKILL.md` mis à jour
+- `lint-wiki.py` : `description` en champ obligatoire, **et nouvel axe de concordance fiche ↔ index**, étendu ensuite à `sujet` et `tags`
+
+Cet axe a trouvé 12 divergences préexistantes, dont 3 créées le jour même en écrivant des entrées d'index divergentes des fiches. Principe retenu : **la fiche fait foi pour ses propres champs, l'index en est la vue.**
+
+### Phase 1 — Nettoyage de la racine ✅
+
+Fusionnée avec la partie « recherches » de la phase 4 : renommer en `-rech` dans vibe-method pour déplacer ensuite était un état intermédiaire sans intérêt. Une seule référence vivante à corriger (`specs.md` ligne 245).
+
+**Fusions verbatim** (titres décalés d'un niveau, aucune reformulation) :
+- `traite-vibe-coding-rech.md` ← 3 fichiers · `rgpd-fournisseurs-rech.md` ← 3 fichiers
+
+**Déplacements** : `cybersecurite-rech`, `apple-hig-react-native-rech`, `apple-appstore-rech`, `claude-design-rech`, `guide-definition-produit-rech`, `audit-doctrine-strategie-rech`
+
+**`workflow-doc.md`** — le guide complet du workflow (427 l., sans aucun formatage markdown) converti mécaniquement et complété des 3 tableaux de `chaine-complete.md`, lequel est supprimé avec son dossier `flux/`. Le guide est plus abouti : partage TOI/CLAUDE, exemple, fichier produit et phrase de sortie pour chaque skill.
+
+**Suppressions justifiées :**
+- `bmad-comparaison.md` — conclusions intégrées aux doctrines
+- 5 transcriptions Radio Vibe Code
+- `prp-doctrine-enrichissement.md` — plan de mai 2026. **Ses 20 règles ont été vérifiées une par une comme présentes dans les doctrines et les skills.** La 20e (« RLS désactivé par défaut ») avait d'abord semblé absente : défaut du motif de recherche, elle est bien dans `securite.md` lignes 139 et 153, formulée dans l'ordre inverse
+
+### Décisions actées le 05/08 (au-delà de celles du §12)
+
+- **`handoff.md` → `handoff-out.md`** pour la sortie du skill. Le skill `.claude/commands/handoff.md` et son produit portaient le même nom, ce qui donnait l'impression qu'un skill était ignoré par git. Skill et `.gitignore` mis à jour
+- **Cluster `Vibe-Method`** créé, toujours accompagné de **`Dev`** — un cluster est multiple, et la méthode relève aussi du développement
+- **La fiche fait foi** pour `description`, `sujet` et `tags` ; l'index est réaligné sur elle, jamais l'inverse
+
+### État des dépôts en fin de journée
+
+| Dépôt | Dernier commit |
+|---|---|
+| `wiki` | `e41266b` — 140 fiches, lint entièrement vert |
+| `vibe-method` | `ef9df87` — racine réduite à 19 fichiers |
+| `claude-config` | `8762bc6` |
+| `hermes-config` | `7a833f5` |
+
+### Ce qui reste — phases 2 à 7
+
+Inchangé par rapport au §11. La phase 2 (scission de `CLAUDE.global.md`) est la prochaine, et la première à toucher un fichier chargé dans toutes les sessions : lancer `scripts/audit-dependances.sh` avant et après, les 16 références à `CLAUDE.global` sont le périmètre à vider.

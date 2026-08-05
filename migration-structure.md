@@ -1,7 +1,7 @@
 # Stratégie de réorganisation — skills, doctrines, dépôts
 
-**Version 8 — 2026-08-05.**
-Phases 0, 1, 1bis, 2, 3 et 4 **faites**. Phases 5 à 7 en attente.
+**Version 9 — 2026-08-05.**
+Phases 0, 1, 1bis, 2, 3, 4 et 5 **faites**. Phases 6 et 7 en attente.
 Aucune décision bloquante. Ce document est le point de reprise : une session
 neuve peut continuer à partir de lui seul, sans l'historique de conversation.
 
@@ -15,7 +15,7 @@ Tout est commité et poussé. Ce document suffit à continuer — l'historique d
 
 1. `cd ~/dev/vibe-method && git pull` puis lire ce fichier en entier
 2. `bash scripts/audit-dependances.sh` — état de référence avant toute modification
-3. Prochaine phase : **5** (§11). Les phases 0, 1, 1bis, 2, 3 et 4 sont faites, leur journal est aux §18, §19, §20 et §21
+3. Prochaine phase : **6** (§11). Les phases 0, 1, 1bis, 2, 3, 4 et 5 sont faites, leur journal est aux §18, §19, §20, §21 et §22
 4. À la fin de la phase : relancer l'audit, comparer, puis commiter et pousser les dépôts touchés
 
 **Ce qu'il faut savoir avant de toucher à quoi que ce soit :**
@@ -292,7 +292,7 @@ for d in ~/dev/*/; do [ -d "$d/.git" ] && echo "gh  $(basename $d)" || echo "   
 | 2 | **Déplacement de `CLAUDE.global.md`** | Fichier déplacé entier vers `claude-config/CLAUDE.md` (portée utilisateur), lien `~/dev/CLAUDE.md` supprimé, 6 références corrigées | Moyen | ✅ **faite** |
 | 3 | **Répartition des skills** | 7 skills → `claude-config/commands/`, liens refaits ; `task-observer` aplati | Moyen | ✅ **faite** |
 | 4 | **Doctrines → wiki** | 12 fiches `*-doc` ; les deux `rgpd.md` **non** fusionnées, voir §21 | Moyen | ✅ **faite** |
-| 5 | **Exécutable → wiki** | 55 skills + 4 agents convertis en fiches `Procédure` à plat ; `hooks/` et `scripts/` en sous-dossiers ; chemins en dur | **Élevé** — touche Hermes | à valider |
+| 5 | **Exécutable → wiki** | 56 skills + 4 agents en fiches `Procédure` ; `log.md` → `journal-log.md` ; `setup.sh` réécrit | **Élevé** — touche Hermes | ✅ **faite** |
 | 6 | **Suppression de `Vibe-Method/`** | Le miroir n'a plus d'objet | Faible | à valider |
 | 7 | **Installateur unique** | Fusion `setup.sh` + `install.sh` | Faible | à valider |
 
@@ -566,3 +566,71 @@ Les 11 axes verts le restent. Le delta de 22 tient en trois postes : **+25 liens
 ### Ce qui reste — phases 5 à 7
 
 Inchangé au §11. La phase 5 est la plus lourde et la seule à toucher Hermes : 56 skills et 4 agents convertis en fiches `Procédure`, `hooks/` et `scripts/` en sous-dossiers. Elle referme aussi les 32 nœuds fantômes de `workflow-doc.md` et les mentions de skills laissées en code inline par cette phase.
+
+---
+
+## 22. Phase 5 — les exécutables entrent dans le vault ✅ (05/08/2026)
+
+56 skills et 4 agents quittent `vibe-method/.claude/` pour `~/dev/wiki/`, à plat, en fiches `type: Procédure`. Le vault passe de 152 à 212 fiches. `vibe-method/.claude/commands/` et `agents/` sont supprimés.
+
+### Trois décisions prises avec Medwin avant le lot
+
+**1. Le discriminant de l'installateur.** `setup.sh` bouclait sur `.claude/commands/*.md`. Repointé naïvement sur `wiki/*.md`, il aurait fait de chacune des 212 fiches une commande slash. Trois options étaient sur la table : un champ dédié, une valeur de `cluster`, ou des sous-dossiers `wiki/skills/`. **Medwin a tranché pour le champ dédié** — `claude-code: commande` ou `claude-code: agent`, absent sur une fiche de savoir.
+
+Le champ est lu dans le **premier bloc `---` uniquement**. C'est nécessaire : `wiki/CLAUDE.md` documente ce champ en toutes lettres, et une recherche naïve le prendrait pour un exécutable.
+
+**2. `sujet` et `cluster` deviennent obligatoires.** Décision de Medwin, au-delà du périmètre de la phase. Sept champs requis. Coût mesuré : 5 fiches incomplètes sur 152.
+
+L'obligation a été posée dans `lint-wiki.py`, pas seulement dans la prose. **Ce script est le seul fichier réellement partagé entre Claude Code et Hermes** — il vit dans le dépôt du wiki et arrive par `git pull`. La prose, elle, existe en deux copies : `wiki/CLAUDE.md` et le skill `research/wiki` du VPS, qui intègre volontairement les 14 règles pour rester autonome et dit lui-même que « cette copie fait autorité ». Principe retenu : *une règle qu'on veut voir appliquée des deux côtés se met dans le lint ; la prose ne fait que la documenter.*
+
+À noter : la checklist du skill Hermes exigeait **déjà** `sujet` et `cluster`. C'est le lint et le côté Mac qui étaient plus laxistes. La décision aligne les deux.
+
+**3. Huit clusters plutôt qu'un.** Un `sujet: Vibe-Method` sur 68 fiches aurait produit un cluster où la règle 11 impose à chaque membre de lister les 67 autres. Groupement par phase du workflow : `Skill-Conception` (10), `Skill-Architecture` (6), `Skill-Specification` (5), `Skill-Code` (7), `Skill-Revue` (10), `Skill-Documentation` (10), `Skill-Transversal` (8), `Agent-Revue` (4).
+
+### L'ordre imposé : renommer le journal avant tout
+
+`wiki/log.md` — le journal du vault — et le skill `/log` portent le même nom. **Un `ln -sf`, un `cp` ou un `mv` aurait détruit le journal sans un mot.** Renommé `journal-log.md` **avant** toute arrivée de skill, avec `INFRA_FILES` de `lint-wiki.py` mis à jour dans le même geste : ce jeu exempte les fichiers d'infrastructure de frontmatter, d'index et du contrôle d'orphelines, et un nom périmé là les aurait fait remonter sur trois axes à la fois. Vérifié après renommage et avant tout déplacement : `journal-log.md` n'apparaît sur aucun axe.
+
+49 références corrigées hors du vault — 9 skills Hermes, `/lint`, `/regles`, `/stack`, `/debug`, `claude-config/CLAUDE.md`. `~/.hermes/observations/log.md` et les `experiment_log.md` n'ont pas bougé : ce sont d'autres fichiers.
+
+**Effet de bord, et c'est une amélioration :** `[[log.md]]` cité par `workflow-doc.md` apparaît désormais comme nœud fantôme. Il visait le skill `/log`, pas le journal — l'exemption `INFRA_FILES` le masquait par coïncidence de nom. Il s'est fermé quand les skills sont arrivés.
+
+### Le piège de fusion, différent de celui de la phase 4
+
+Les skills portaient **déjà** un frontmatter : `description`, `allowed-tools`, `model`, `tools`, `name`. Le motif de la phase 4 — préfixer un bloc `---` — aurait fait du bloc ajouté le frontmatter et du bloc d'origine du **corps de texte**. `allowed-tools` aurait cessé de s'appliquer, sans erreur, le skill continuant de se charger, d'apparaître dans la liste et de tourner : avec ses restrictions d'outils envolées. Même famille que l'observation 43 — sortie valide, sémantique morte.
+
+Les champs ont donc été insérés **dans** le bloc existant, avec un contrôle après écriture qu'aucune clé d'origine n'ait disparu.
+
+**Un frontmatter invalide découvert au passage :** `diagnostic-serveur.md` portait une description non quotée contenant ` : `. YAML strict la refuse, Claude Code la tolérait, `lint-wiki.py` aussi (parseur maison). Le quotage systématique l'a corrigée. C'est l'argument concret de la règle « guillemets obligatoires » du vault : elle protège d'un fichier que seuls les parseurs stricts rejettent, donc d'une panne qui n'arrive que plus tard et ailleurs.
+
+**Une divergence rattrapée par le lint :** la fusion remplace les guillemets internes de la description par des apostrophes, mais renvoyait la description d'origine pour la ligne d'index. Trois agents en contenaient. L'axe de concordance les a signalés immédiatement.
+
+### Le graphe
+
+| | Avant | Après |
+|---|---|---|
+| Pages | 152 | 212 |
+| Signalements | 243 | 337 |
+| Nœuds fantômes | 33 | **2** |
+| Orphelines | 17 | **17** |
+| Liens cassés | 0 | 0 |
+| Concordance fiche ↔ index | ✅ | ✅ |
+
+**Les 31 nœuds fantômes de `workflow-doc.md` se sont fermés seuls.** Ils visaient les skills depuis la phase 1 — le suffixe `-doc` des doctrines les en avait tenus séparés, comme prévu. Aucune édition n'a été nécessaire.
+
+**Orphelines inchangées à 17** : aucune des 60 fiches neuves n'est isolée. C'est l'effet des 60 sections « Fiches liées » et des 86 mentions `/skill` converties en `[[nom|/nom]]` dans les doctrines — première occurrence par doctrine seulement, les 159 auraient fait de `methode-doc` une ferme à liens sans rien ajouter au graphe.
+
+Le delta de 94 est presque entièrement des liens non réciproques (161 → 278), conséquence mécanique de plus de 500 liens neufs.
+
+### `setup.sh` réécrit
+
+Il n'énumère plus un dossier, il interroge le frontmatter. Et il **sauvegarde avant de remplacer** — un fichier réel part sous `.remplace-<horodatage>`, comportement repris de `claude-config/install.sh`. La version précédente utilisait `ln -sf`, qui a coûté `grill-me.md` le 29/07/2026. Le mode de panne est fermé des deux côtés ; la fusion des deux installateurs en un point d'entrée unique reste la phase 7.
+
+**Nouveau contrôle 11 dans `audit-dependances.sh`** : fiches portant `claude-code:` ↔ liens posés, plus la détection des liens pendants. C'est l'invariant que la phase introduit, et ses deux modes de panne sont silencieux — une fiche qui perd le champ voit sa commande disparaître, une fiche renommée laisse un lien mort. Sortie actuelle : 56/56, 4/4, 0 lien cassé.
+
+### Ce qui reste — phases 6 et 7
+
+- **Phase 6** : supprimer `Vibe-Method/`. Le miroir n'a plus d'objet — ses sources n'existent plus.
+- **Phase 7** : fusionner `setup.sh` et `claude-config/install.sh` en un installateur unique.
+
+Deux points hors phases : `test-claude-design/` (résidu à trancher) et la propagation de `hermes-config` vers le `/opt/data/skills/` du VPS, dont le mécanisme n'est pas établi.

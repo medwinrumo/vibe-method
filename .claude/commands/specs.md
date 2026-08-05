@@ -242,7 +242,7 @@ _[date]_
 - **Dépendances** : [features ou modules qui doivent exister avant]
 - **Imports autorisés** : [depuis le contrat d'interface défini dans /archi, ou "standard"]
 - **Contrainte de sécurité** : [règle applicable depuis la section Sécurité de [projet].archi.md, ou "aucune spécifique"]
-- **Contrainte de plateforme** : [App Store / Android / web / aucune — avec référence à appstore.md si applicable]
+- **Contrainte de plateforme** : [App Store / Android / web / aucune — avec référence à `apple-appstore-rech` dans le wiki si applicable]
 - **Mode d'exécution** : [Standard / Agent]
 - **Observabilité** : [Requise / Non requise (prototype ou hors prod)]
 

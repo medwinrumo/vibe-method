@@ -1,7 +1,7 @@
 # Stratégie de réorganisation — skills, doctrines, dépôts
 
-**Version 9 — 2026-08-05.**
-Phases 0, 1, 1bis, 2, 3, 4 et 5 **faites**. Phases 6 et 7 en attente.
+**Version 10 — 2026-08-05.**
+Phases 0 à 6 **faites**. Reste la phase 7 — l'installateur unique.
 Aucune décision bloquante. Ce document est le point de reprise : une session
 neuve peut continuer à partir de lui seul, sans l'historique de conversation.
 
@@ -15,7 +15,7 @@ Tout est commité et poussé. Ce document suffit à continuer — l'historique d
 
 1. `cd ~/dev/vibe-method && git pull` puis lire ce fichier en entier
 2. `bash scripts/audit-dependances.sh` — état de référence avant toute modification
-3. Prochaine phase : **6** (§11). Les phases 0, 1, 1bis, 2, 3, 4 et 5 sont faites, leur journal est aux §18, §19, §20, §21 et §22
+3. Prochaine phase : **7** (§11), la dernière. Les phases 0 à 6 sont faites, leur journal est aux §18 à §23
 4. À la fin de la phase : relancer l'audit, comparer, puis commiter et pousser les dépôts touchés
 
 **Ce qu'il faut savoir avant de toucher à quoi que ce soit :**
@@ -293,7 +293,7 @@ for d in ~/dev/*/; do [ -d "$d/.git" ] && echo "gh  $(basename $d)" || echo "   
 | 3 | **Répartition des skills** | 7 skills → `claude-config/commands/`, liens refaits ; `task-observer` aplati | Moyen | ✅ **faite** |
 | 4 | **Doctrines → wiki** | 12 fiches `*-doc` ; les deux `rgpd.md` **non** fusionnées, voir §21 | Moyen | ✅ **faite** |
 | 5 | **Exécutable → wiki** | 56 skills + 4 agents en fiches `Procédure` ; `log.md` → `journal-log.md` ; `setup.sh` réécrit | **Élevé** — touche Hermes | ✅ **faite** |
-| 6 | **Suppression de `Vibe-Method/`** | Le miroir n'a plus d'objet | Faible | à valider |
+| 6 | **Suppression de `Vibe-Method/`** | Le miroir n'a plus d'objet | Faible | ✅ **faite** |
 | 7 | **Installateur unique** | Fusion `setup.sh` + `install.sh` | Faible | à valider |
 
 Ordre imposé : phase 0 d'abord, phase 5 en dernier parmi les déplacements.
@@ -644,3 +644,45 @@ Ces trois-là ont échappé aux substitutions des phases 4 et 5, qui portaient s
 - **Phase 7** : fusionner `setup.sh` et `claude-config/install.sh` en un installateur unique.
 
 Deux points hors phases : `test-claude-design/` (résidu à trancher) et la propagation de `hermes-config` vers le `/opt/data/skills/` du VPS, dont le mécanisme n'est pas établi.
+
+---
+
+## 23. Phase 6 — suppression du miroir ✅ (05/08/2026)
+
+83 fichiers, 404 Ko. `Vibe-Method/` produisait un résumé par fichier source ; les sources vivent désormais dans le vault, il n'avait plus d'objet.
+
+**Ce qui a été vérifié avant de supprimer.** 79 de ses fichiers étaient des résumés dérivés — 56 skills, 12 doctrines, 4 agents, plus les flux. Restaient 4 fichiers qui n'étaient dérivés de rien d'évident, ouverts un par un :
+
+| Fichier | Verdict |
+|---|---|
+| `_vue-ensemble.md` | Version condensée de `methode-doc.md`. Posture (chef d'orchestre, touriste, ingénieur fantôme), 7 phases en 3 temps, greenfield/brownfield : tout présent dans `methode-doc`, en plus développé. La chaîne de skills est dans `workflow-doc`. Les « 5 garde-fous » ne sont que 5 renvois vers des skills |
+| `skills/prp-skill.md` | Page de concept sur le PRP. Son « test de suffisance » en 4 questions est dans `prp.md` sous le nom « test de simulation » |
+| `index.md` | Catalogue du miroir, remplacé par celui du vault |
+| `log.md` | Journal des synchronisations du miroir lui-même. Sans objet une fois le miroir parti |
+
+Supprimé par `git rm`, donc récupérable dans l'historique. Le dossier `.obsidian/` n'était pas versionné : son unique favori était une recherche par tag, et le vrai vault Obsidian est `wiki/.obsidian`.
+
+**Une seule référence vivante restait**, et elle était dans une règle : le « corollaire du miroir » de `claude-config/CLAUDE.md` citait `Vibe-Method/` comme exemple de paire miroir. Remplacé par un exemple qui existe encore — les règles du vault, écrites dans `wiki/CLAUDE.md` **et** recopiées dans le skill `research/wiki` du VPS, lequel déclare que sa copie fait autorité. Même geste qu'en phase 2, où l'exemple était `CLAUDE.global.md`. Une règle illustrée par un exemple périmé garde l'air juste et perd sa prise.
+
+Toutes les autres mentions de `Vibe-Method/` sont des journaux ou ce document.
+
+### Deux questions du todo closes au passage
+
+**« Faut-il conserver le wiki `Vibe-Method/` ? »** — ouverte le 27/07. Elle posait trois destins : conserver, fusionner, supprimer. Elle a été tranchée **par une reformulation du problème**, pas par un choix entre les trois : le miroir existait pour produire des résumés, et un résumé décroche. Migrer les sources supprime le besoin au lieu de le gérer. C'est le §2 de ce document.
+
+**« L'infrastructure n'ira jamais dans un wiki »** — écrit le 29/07 dans un tableau du todo. Faux. L'affirmation reposait sur l'hypothèse qu'un exécutable ne peut pas être une fiche ; le test du 05/08 a montré que Claude Code ignore les champs de frontmatter inconnus. L'hypothèse n'avait jamais été vérifiée et a tenu deux semaines comme un fait, dans un tableau — même lieu et même mode que l'observation 40. Ce qui reste vrai de l'intuition : un exécutable a des contraintes qu'une fiche n'a pas. D'où le champ `claude-code:`, qui les distingue sans les séparer.
+
+### État des dépôts
+
+| Dépôt | Contenu |
+|---|---|
+| `wiki` | 212 fiches — 56 skills, 4 agents, 12 doctrines, le reste en savoir. `scripts/` : lint-wiki, lint-observabilite et son test |
+| `vibe-method` | `CLAUDE.md`, `setup.sh`, `scripts/audit-dependances.sh`, 3 hooks, les journaux, ce document, `test-claude-design/` |
+| `claude-config` | `CLAUDE.md` (portée utilisateur), 8 skills hors méthode, hooks, carnet d'observations, `install.sh` |
+| `hermes-config` | miroirs VPS, dont `research/wiki` v1.7.0 |
+
+### Reste la phase 7
+
+Fusionner `setup.sh` et `claude-config/install.sh` en un installateur unique. Les deux visent `~/.claude/hooks/` et sauvegardent désormais avant de remplacer, donc le danger est éteint — reste la duplication.
+
+Deux points hors phases : `test-claude-design/` (résidu à trancher) et la propagation de `hermes-config` vers le `/opt/data/skills/` du VPS, dont le mécanisme n'est toujours pas établi.

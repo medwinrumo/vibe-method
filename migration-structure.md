@@ -7,6 +7,27 @@ neuve peut continuer à partir de lui seul, sans l'historique de conversation.
 
 ---
 
+## 0. Reprendre ce chantier dans une session neuve
+
+Tout est commité et poussé. Ce document suffit à continuer — l'historique de conversation n'est pas nécessaire.
+
+**Pour reprendre :**
+
+1. `cd ~/dev/vibe-method && git pull` puis lire ce fichier en entier
+2. `bash scripts/audit-dependances.sh` — état de référence avant toute modification
+3. Prochaine phase : **3** (§11). Les phases 0, 1, 1bis et 2 sont faites, leur journal est aux §18 et §19
+4. À la fin de la phase : relancer l'audit, comparer, puis commiter et pousser les dépôts touchés
+
+**Ce qu'il faut savoir avant de toucher à quoi que ce soit :**
+
+- **Comment Claude Code charge les instructions** — il remonte l'arborescence depuis le dossier de travail et concatène tous les `CLAUDE.md` rencontrés, de la racine vers le bas, plus `~/.claude/CLAUDE.md` (portée utilisateur). Un fichier n'est donc « chargé » que s'il est à l'un de ces emplacements. Une fiche wiki ne l'est pas : elle se consulte à la demande. C'est ce qui a invalidé le plan initial du §5.
+- **Les skills ne dépendent pas du dossier courant.** Ils vivent dans `~/.claude/commands/` et sont disponibles partout. Seuls leur nom et leur `description` sont chargés au démarrage ; le corps se charge à l'invocation.
+- **Rien n'applique la méthode automatiquement.** La documentation officielle est explicite : « Claude treats them as context, not enforced configuration. » Un artefact de projet n'existe que parce que son skill a été invoqué. Vérifié le 05/08 : aucun des quatre projets actifs n'a les 11 artefacts prévus.
+- **La règle du grep** (§9) : un déplacement n'est fini que quand `grep -rn "<ancien-chemin>"` ne renvoie plus que des occurrences volontaires.
+- **Les mémoires automatiques se corrigent dans `~/.claude/projects/*/memory/`**, jamais dans `claude-memoire` — ce dépôt est une sauvegarde, une correction faite là serait écrasée.
+
+---
+
 ## 1. Le problème
 
 Trois questions posées séparément, une seule réponse cohérente :

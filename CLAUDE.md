@@ -80,9 +80,11 @@ Choix défini au moment du `/archi`.
 
 ## Ce qui reste à construire
 
-### Priorité basse
-- [ ] Skills vs MCP — comprendre la différence, décider quand utiliser l'un ou l'autre
-- [ ] Corriger `/maj` — supprimer références obsolètes
+**Tout est dans `vibe-method.todo.md`, section « RESTE À FAIRE ».** Établie le
+05/08/2026 à la fin du chantier de réorganisation : travail éditorial sur les
+212 fiches du vault, défauts du lint lui-même, 8 observations ouvertes,
+propagation vers le VPS Hermes, dettes techniques et résidus à trancher.
+Chaque ligne y est vérifiée sur pièces.
 
 ---
 

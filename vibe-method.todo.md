@@ -4,6 +4,94 @@
 
 ---
 
+## RESTE À FAIRE — après la migration du 05/08/2026
+
+Établi à la fin du chantier de réorganisation (`migration-structure.md`, phases 0 à 7).
+Chaque ligne est vérifiée sur pièces, pas listée de mémoire. Relire cette section
+avant d'ouvrir un nouveau chantier.
+
+**Rappel de lecture du lint** : `python3 ~/dev/wiki/scripts/lint-wiki.py --wiki-path ~/dev/wiki`
+sort **18 axes**, dont 11 verts. Les 336 signalements vivent dans les 7 autres, et
+**277 d'entre eux sont des « liens non réciproques »** — une propriété du graphe, pas
+une dette. Le compteur global ne veut rien dire ; la liste réellement actionnable
+tient en une quarantaine d'entrées, ci-dessous.
+
+---
+
+### A. Défauts du lint lui-même — à traiter en premier
+
+Ils faussent la lecture de tout le reste.
+
+- [ ] **L'extraction du titre H1 n'exclut pas les blocs de code.** `backup.md`, `deploy.md` et `securite.md` sont signalés en « discordance titre ↔ nom » avec 0 % de similarité, parce que le script attrape un commentaire shell (`# Semgrep — analyse statique`) au lieu du vrai H1. 3 des 5 signalements de cet axe sont donc faux. `extract_wikilinks` retire déjà les blocs de code — la même précaution manque à l'extraction du titre. **Défaut révélé par l'arrivée des skills** : eux seuls contiennent des blocs shell commençant par `#`.
+- [ ] **Décider du sort de l'axe « liens non réciproques ».** 277 signalements, et le nombre ne fera que monter à chaque lien ajouté. Un lien à sens unique n'est pas un défaut dans le cas général — la réciprocité n'est exigée que par la règle 11, à l'intérieur d'un cluster. Trois issues : restreindre l'axe aux membres d'un même `sujet`, le passer en information non comptée, ou l'assumer tel quel en le documentant. **Tant qu'il compte pour 82 % du total, le résumé du lint est illisible.**
+- [ ] **Vérifier les quasi-doublons créés par l'arrivée des skills.** `code-review` ↔ `code-review-hostil` (75 %), `doc` ↔ `doc-tech` (70 %), `prd` ↔ `produit-doc` (76 %), `notion-help-security-admin` ↔ `security-auditor` (73 %) : ce sont des paires légitimes, pas des doublons. L'axe compare des titres et des structures ; sur des procédures qui suivent le même gabarit, il se déclenche par construction.
+
+### B. Travail éditorial sur le vault — 212 fiches
+
+**Les skills n'ont jamais été jugés éditorialement.** Avant le 05/08 ils n'étaient ni typés, ni tagués, ni indexés, ni reliés — aucun contrôle ne les regardait. Ils sont désormais soumis au même lint que le savoir, et il a déjà trouvé.
+
+- [ ] **6 skills sous 300 mots** — à étoffer ou à assumer comme volontairement brefs :
+  `zoom-out` (201), `log` (228), `askme` (229), `checkpoint` (271), `spec` (289), `majtodo` (296).
+  `zoom-out` est signalé comme stub par le lint. Un skill mince n'est pas forcément un défaut — mais aucun de ces six n'a jamais été relu sous cet angle.
+- [ ] **17 fiches orphelines** — personne ne les cite, donc personne ne les trouvera par navigation :
+  8 fiches `-rech` (`cybersecurite`, `traite-vibe-coding`, `apple-hig-react-native`, `apple-appstore`, `claude-design`, `guide-definition-produit`, `audit-doctrine-strategie`, `rgpd-fournisseurs`), `workflow-doc`, puis `docker`, `oauth`, `wikilinks`, `seo-google-search`, `terminal-modificateurs-clavier`, `agent-tools-veille`, `politique-confidentialite`, `firma-dev-signature-electronique`.
+  Les `-rech` sont terminales par nature (on les lit, on ne rebondit pas dessus) — la question est de savoir **qui devrait les citer**, pas ce qu'elles devraient citer.
+- [ ] **7 fiches sans aucun lien sortant** — culs-de-sac du graphe : `agent-tools-veille`, `apple-appstore-rech`, `apple-hig-react-native-rech`, `claude-design-rech`, `guide-definition-produit-rech`, `llm-wiki`, `politique-confidentialite`.
+- [ ] **8 stubs sous 200 mots** : `docker` (138), `oauth` (150), `python-venv-temp` (134), `llm` (103), `wikilinks` (189), `fal-ai-api` (188), `notion-ai-faqs` (192), `zoom-out` (191).
+- [ ] **`notion-dpa-texte-integral` ↔ `notion-msa-texte-integral` à 95 % de similarité** — le seul quasi-doublon qui mérite une vérification réelle. Deux textes contractuels intégraux : soit ils diffèrent vraiment, soit l'un est une copie mal nommée.
+- [ ] **2 nœuds fantômes assumés** : `[[devis-pdf-workflow]]` (cité par `iloveapi-signature-electronique`) et `[[ia-locale]]` (cité par `llm`). Dette de connaissance déclarée — à combler ou à retirer.
+
+### C. `workflow-doc.md` a du retard
+
+C'est **le seul endroit où vit l'ordre des skills** depuis que la table a quitté `CLAUDE.md`.
+
+- [ ] Le guide date du 11/06/2026. Il ne couvre ni `deploy` ni `init-projet`, et documente encore `/condense`, sorti de la méthode le 05/08 (phase 3).
+- [ ] Il est lui-même orphelin — aucune fiche ne le cite.
+
+### D. Observations du carnet — 8 ouvertes
+
+`~/.claude/observations/log.md`. Traitement prévu à l'étape 7 de `/maj`.
+
+- [ ] **37** — Artifact Claude illisible par WebFetch, contournement en 2 appels
+- [ ] **39** — Trier par volume de changement réel avant une remise à jour de masse
+- [ ] **40** — Un plan validé en bloc peut contenir une consigne inversée
+- [ ] **41** — Un contrôle automatique donnait la consigne inverse de sa doctrine
+- [ ] **42** — Un silence de `--help` lu comme une preuve d'inexistence
+- [ ] **43** — Substitution en masse réussie mais inerte *(demande aussi une étape dans `/wiki`)*
+- [ ] **44** — Frontmatter juxtaposé au lieu d'être fusionné *(porte une conséquence de sécurité : perte silencieuse d'`allowed-tools`)*
+- [ ] **45** — Un commentaire qui documente un danger le laisse intact
+
+**Six des huit sont des règles de raisonnement, pas des modifications de skill.** Leur destination est `claude-config/CLAUDE.md`, section « Exigence de rigueur » — qui fait déjà 234 lignes, au-dessus des 200 recommandées par la documentation officielle. Voir le point F.
+
+### E. Hermes / VPS — action en attente, avec un risque armé
+
+- [ ] **Propager les corrections vers le VPS** : `cd ~/dev/hermes-config && ./restaure-skills.sh vps --dry` puis sans `--dry`.
+  **Urgent tant que ce n'est pas fait.** Le VPS tourne sur `research/wiki` v1.6.0, qui journalise dans `/opt/data/wiki/log.md` — fichier renommé `journal-log.md` en phase 5. À sa prochaine opération wiki, Hermes **recrée** l'ancien, et le journal du vault se scinde en deux sans qu'aucun signal n'apparaisse.
+  `hermes-config` est un dépôt de **sauvegarde** : pousser sur GitHub n'atteint pas le VPS. Le sens dépôt → instance est `restaure-skills.sh`, par `scp`.
+- [ ] **La divergence de prose est structurelle, pas accidentelle.** Le skill `research/wiki` intègre volontairement les 14 règles et déclare que sa copie fait autorité côté Hermes. Chaque changement de règle demande donc une édition manuelle de ce fichier. Seul `lint-wiki.py` se propage tout seul. À garder en tête : *ce qu'on veut voir appliqué des deux côtés se met dans le lint.*
+
+### F. Dettes techniques
+
+- [ ] **`claude-config/CLAUDE.md` fait 234 lignes**, au-dessus des 200 recommandées (« longer files consume more context and reduce adherence »). Le mécanisme prévu est `~/.claude/rules/` — fichiers thématiques de portée utilisateur, chargés comme un `CLAUDE.md`. Les observations 41 à 45 sont l'argument pour l'ouvrir : elles y ajouteraient encore.
+- [ ] **`test_lint_observabilite.py`** — ses cas E-H étaient *tous fail-open* avant correction : le lint laissait passer sans rien dire. Même mode de panne que l'observation 36. À réexaminer maintenant que la structure est stable. *(Reporté du §13 de `migration-structure.md`.)*
+- [ ] **Sauvegarde mémoire en retard de deux jours** — `com.medwinrumo.sync-memory` est chargé, annonce un intervalle de 15 min, son fichier de log n'existe pas, et un fichier écrit le 05/08 au matin n'était pas sauvegardé deux heures plus tard. Cause à établir. *(Reporté du §13.)*
+- [ ] **Skills vs MCP** — comprendre la différence, décider quand utiliser l'un ou l'autre. *(Priorité basse, reporté de l'ancien `CLAUDE.md`.)*
+
+### G. Résidus à trancher — décision de Medwin
+
+- [ ] `vibe-method/test-claude-design/` — dossier de test de mai 2026. Examiné en phase 4 : aucun pointeur mort, mais plus aucun objet.
+- [ ] `vibe-method/handoff-out.md` — sortie de `/handoff`, à la racine.
+- [ ] `vibe-method/.DS_Store` — versionné ? à vérifier et à ignorer.
+- [ ] **Que devient `vibe-method` ?** Le dépôt ne contient plus que `CLAUDE.md`, `scripts/audit-dependances.sh`, les trois journaux et `migration-structure.md`. C'est un dépôt d'archive du chantier. À garder tel quel, ou à absorber.
+
+### H. Le point structurel à connaître
+
+**Le wiki est devenu le point de défaillance unique de la méthode.** Avant, un wiki cassé cassait le second cerveau ; maintenant il casse aussi les 56 skills et les 4 agents. Le chemin de reconstruction existe et il est testé — `git clone` des deux dépôts, puis `claude-config/install.sh` — mais le couplage a changé, et c'est le prix de ce que la migration a gagné.
+
+Contrôle mécanique en place : `bash ~/dev/vibe-method/scripts/audit-dependances.sh`, contrôle 11 — fiches `claude-code:` ↔ liens posés, plus les liens pendants.
+
+---
+
 ## Roadmap — comparaison agent-skills vs vibe-method (reste à faire)
 
 Ouverte le 2026-07-28. **Fait et vérifié en conditions réelles** : 3 gaps majeurs (observabilité, doubt-driven-development, source-driven-development) intégrés à `observabilite.md`/`methode.md`/`stack.md` + 4 personas (`code-reviewer`, `security-auditor`, `test-engineer`, `web-performance-auditor`) créées, testées, un bug réel trouvé et corrigé au passage (`lint-observabilite.py`). Voir `vibe-method.peda.md` du 2026-07-28 pour le détail. Reste, par priorité — miroir des cartes GitHub Projects Tâches 30-34 :

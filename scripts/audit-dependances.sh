@@ -78,3 +78,36 @@ grep -rl "vibe-method" "$DEV" --include="CLAUDE.md" --include="settings.local.js
 
 echo
 echo "Fin de l'audit. Comparer cette sortie avant et après chaque phase."
+
+titre "11. Exécutables du wiki ↔ liens posés (invariant de la phase 5)"
+# Depuis le 05/08/2026 les skills et agents sont des fiches du wiki, reconnues
+# au champ `claude-code:` de leur frontmatter. Deux façons de casser ça en
+# silence : une fiche perd le champ (la commande disparaît), ou une fiche est
+# renommée (le lien pend). Aucune ne produit d'erreur visible en session.
+compter_champ() {
+  local val="$1" n=0
+  for f in "$DEV"/wiki/*.md; do
+    [ -e "$f" ] || continue
+    awk -v cible="$val" '
+      NR==1 && $0!="---" { exit }
+      NR==1 { d=1; next }
+      d && $0=="---" { exit }
+      d && /^claude-code:[ \t]*/ { sub(/^claude-code:[ \t]*/,""); gsub(/[ \t\r]+$/,"");
+                                   if ($0==cible) { print "1" } exit }
+    ' "$f"
+  done | wc -l | tr -d ' '
+}
+fiches_cmd=$(compter_champ commande)
+fiches_agt=$(compter_champ agent)
+liens_cmd=$(find "$HOME/.claude/commands" -maxdepth 1 -type l -lname "*/wiki/*" 2>/dev/null | wc -l | tr -d ' ')
+liens_agt=$(find "$HOME/.claude/agents"   -maxdepth 1 -type l -lname "*/wiki/*" 2>/dev/null | wc -l | tr -d ' ')
+printf "  commandes : %s fiches / %s liens" "$fiches_cmd" "$liens_cmd"
+[ "$fiches_cmd" = "$liens_cmd" ] && echo "  OK" || echo "  ÉCART — relancer setup.sh"
+printf "  agents    : %s fiches / %s liens" "$fiches_agt" "$liens_agt"
+[ "$fiches_agt" = "$liens_agt" ] && echo "  OK" || echo "  ÉCART — relancer setup.sh"
+casses=$(find -L "$HOME/.claude/commands" "$HOME/.claude/agents" "$HOME/.claude/hooks" \
+  -maxdepth 1 -type l 2>/dev/null | wc -l | tr -d ' ')
+[ "$casses" = "0" ] && echo "  liens cassés : 0  OK" || {
+  echo "  liens cassés : $casses  ANOMALIE"
+  find -L "$HOME/.claude/commands" "$HOME/.claude/agents" "$HOME/.claude/hooks" \
+    -maxdepth 1 -type l 2>/dev/null | sed 's/^/    /'; }

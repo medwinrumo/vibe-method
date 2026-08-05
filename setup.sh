@@ -1,85 +1,117 @@
 #!/bin/bash
-# setup.sh — Recrée les symlinks ~/.claude/commands/ → vibe-method/.claude/commands/
+# setup.sh — Recrée les liens de ~/.claude vers les exécutables du wiki.
 # À lancer après un git clone sur une nouvelle machine.
 #
-# ⚠️ CE SCRIPT ÉCRASE. `ln -sf` remplace sans prévenir un fichier réel présent
-# dans ~/.claude/commands/ portant le même nom qu'un fichier de vibe-method.
-# Vécu le 2026-07-29 : grill-me.md existait en fichier réel (non versionné) et
-# a été remplacé par le symlink, sans backup possible.
-# Avant de le lancer sur une machine déjà configurée :
-#   find ~/.claude/commands ~/.claude/hooks ~/.claude/agents -maxdepth 1 -type f
-# Tout ce qui remonte est un fichier réel — le sauvegarder d'abord s'il n'existe
-# pas déjà à l'identique dans vibe-method.
+# Depuis le 05/08/2026 (phase 5 de la réorganisation), les skills et les agents
+# ne vivent plus dans vibe-method/.claude/ mais dans ~/dev/wiki/, à plat, en
+# fiches du second cerveau. Ce script ne balaie donc plus un dossier : il
+# interroge le frontmatter.
+#
+# Le discriminant est le champ `claude-code:` — `commande` pour un skill,
+# `agent` pour une persona, absent pour une fiche de savoir ordinaire. Il est
+# lu dans le PREMIER bloc `---` du fichier, et nulle part ailleurs : le
+# `CLAUDE.md` du vault documente ce champ en toutes lettres, et une recherche
+# naïve le prendrait pour un exécutable.
+#
+# Ce script ne détruit rien. Un fichier réel portant le nom d'un lien est
+# sauvegardé sous `.remplace-<horodatage>` avant d'être remplacé — comportement
+# repris de claude-config/install.sh. La version précédente utilisait `ln -sf`,
+# qui écrase sans prévenir : le 29/07/2026, `grill-me.md` a été perdu ainsi.
+#
+# Usage :  ./setup.sh          installe
+#          ./setup.sh --dry    montre ce qui serait fait, ne touche à rien
+set -u
 
-VIBE=~/dev/vibe-method/.claude/commands
-TARGET=~/.claude/commands
+WIKI="$HOME/dev/wiki"
+DRY=0
+[ "${1:-}" = "--dry" ] && DRY=1
 
-mkdir -p $TARGET
+[ -d "$WIKI" ] || { echo "ABSENT : $WIKI — cloner github.com/medwinrumo/wiki d'abord"; exit 1; }
 
-for f in $VIBE/*.md; do
-  filename=$(basename $f)
-  ln -sf $f $TARGET/$filename
-  echo "$filename → symlink créé"
+horodatage=$(date +%Y%m%d-%H%M%S)
+
+# Lit la valeur de `claude-code:` dans le premier bloc de frontmatter.
+# Renvoie une chaîne vide si le fichier n'a pas de frontmatter, ou si le champ
+# n'y figure pas.
+type_executable() {
+  awk '
+    NR==1 && $0!="---" { exit }
+    NR==1 { dans=1; next }
+    dans && $0=="---" { exit }
+    dans && /^claude-code:[ \t]*/ {
+      sub(/^claude-code:[ \t]*/, ""); gsub(/[ \t\r]+$/, ""); print; exit
+    }
+  ' "$1"
+}
+
+poses=0 sauvegardes=0 inchanges=0
+
+for f in "$WIKI"/*.md; do
+  [ -e "$f" ] || continue
+  kind=$(type_executable "$f")
+  case "$kind" in
+    commande) dossier="$HOME/.claude/commands" ;;
+    agent)    dossier="$HOME/.claude/agents" ;;
+    *)        continue ;;
+  esac
+
+  mkdir -p "$dossier"
+  nom=$(basename "$f")
+  d="$dossier/$nom"
+
+  if [ -L "$d" ] && [ "$(readlink "$d")" = "$f" ]; then
+    inchanges=$((inchanges + 1)); continue
+  fi
+
+  # Fichier RÉEL à cet emplacement : le sauvegarder avant de le remplacer.
+  if [ -e "$d" ] && [ ! -L "$d" ]; then
+    printf 'FICHIER RÉEL     %s\n  -> sauvegardé  %s\n' "$nom" "$d.remplace-$horodatage"
+    if [ "$DRY" = 0 ]; then
+      mv "$d" "$d.remplace-$horodatage" || { echo "  ÉCHEC de la sauvegarde — on ne touche à rien"; continue; }
+    fi
+    sauvegardes=$((sauvegardes + 1))
+  fi
+
+  printf 'lien  %-10s %s\n' "$kind" "$nom"
+  if [ "$DRY" = 0 ]; then rm -f "$d"; ln -s "$f" "$d"; fi
+  poses=$((poses + 1))
 done
 
-# Symlink CLAUDE.md global
-# CLAUDE.global.md a migré vers claude-config/CLAUDE.md le 05/08/2026 (portée
-# utilisateur, chargé partout). Le lien ~/dev/CLAUDE.md n'a plus d'objet — c'est
-# ./install.sh de claude-config qui pose ~/.claude/CLAUDE.md.
-echo "CLAUDE.md global → symlink créé"
+printf '\n%s liens posés, %s inchangés, %s sauvegardes\n' "$poses" "$inchanges" "$sauvegardes"
 
-echo "Setup terminé — $(ls $TARGET | wc -l | tr -d ' ') skills liés."
-
-# --- Hooks de session (ajout 2026-07-27) ---
-# Boucle sur le glob et non sur une liste en dur : une liste nommée prend du
-# retard en silence (track-agent-usage.sh, ajouté le 2026-07-28, manquait ici).
-# Revers du glob : il ramasse aussi les scripts archivés — d'où l'exclusion
-# explicite ci-dessous, à tenir à jour quand un hook est retiré de settings.json.
+# --- Hooks ---
+# Boucle sur le glob et non sur une liste nommée : une liste prend du retard en
+# silence (track-agent-usage.sh, ajouté le 28/07/2026, y manquait).
+# Revers du glob : il ramasse les scripts archivés — d'où l'exclusion ci-dessous,
+# à tenir à jour quand un hook est retiré de settings.json.
 HOOKS_ARCHIVES="doubt-commit-reminder.sh"   # testé et abandonné (observation 9)
 
-mkdir -p ~/.claude/hooks
-for f in ~/dev/vibe-method/.claude/hooks/*.sh; do
+mkdir -p "$HOME/.claude/hooks"
+for f in "$HOME"/dev/vibe-method/.claude/hooks/*.sh; do
   [ -e "$f" ] || continue
   nom=$(basename "$f")
-  case " $HOOKS_ARCHIVES " in
-    *" $nom "*) echo "$nom → ignoré (archivé)" ; continue ;;
-  esac
-  ln -sf "$f" ~/.claude/hooks/"$nom"
-  echo "$nom → symlink créé"
+  case " $HOOKS_ARCHIVES " in *" $nom "*) echo "$nom → ignoré (archivé)"; continue ;; esac
+  d="$HOME/.claude/hooks/$nom"
+  if [ -e "$d" ] && [ ! -L "$d" ]; then
+    mv "$d" "$d.remplace-$horodatage"
+    echo "$nom → fichier réel sauvegardé"
+  fi
+  [ "$DRY" = 0 ] && { rm -f "$d"; ln -s "$f" "$d"; }
+  echo "$nom → lien"
 done
-echo "Hooks de session liés."
 
-# --- Agents / personas (ajout 2026-07-29) ---
-# Étaient symlinkés à la main depuis le 2026-07-28, donc perdus sur une
-# machine neuve. Même logique de glob que les hooks.
-mkdir -p ~/.claude/agents
-for f in ~/dev/vibe-method/.claude/agents/*.md; do
-  [ -e "$f" ] || continue
-  ln -sf "$f" ~/.claude/agents/$(basename "$f")
-  echo "$(basename "$f") → symlink créé"
-done
-echo "Agents liés."
-
-# --- Non couvert par ce script (volontairement, en attente de la session
-# d'architecture sur la frontière contenu / infrastructure) ---
+# --- Non couvert par ce script, volontairement ---
 #
-# Repris depuis par le dépôt ~/dev/claude-config (privé), qui pose ses propres
-# symlinks via son install.sh — ce script n'a pas à s'en occuper :
-#   ~/.claude/commands/*.md hors méthode  (05/08/2026 — lint, wiki, caveman,
-#                                          pdf, slides, condense, firecrawl,
-#                                          task-observer)
-#   ~/.claude/CLAUDE.md, settings.json    (30/07/2026)
-#   ~/.claude/observations/               (01/08/2026)
+# Le dépôt ~/dev/claude-config (privé) pose ses propres liens via son
+# install.sh — CLAUDE.md, settings.json, observations/, ses hooks, et les
+# 8 skills hors méthode (lint, wiki, caveman, pdf, slides, condense,
+# firecrawl, task-observer).
 #
-# Ces skills-là ne sont plus dans vibe-method : la boucle ci-dessus ne les
-# atteint pas, et ne peut donc plus écraser leur lien.
-#
-# Toujours versionnés nulle part — une machine neuve ne les récupérera pas :
-#   ~/.claude/settings.local.json        (contient des secrets — hors dépôt à dessein)
-#   ~/.claude/projects/*/memory/
-# Voir vibe-method.todo.md.
+# Versionnés nulle part, une machine neuve ne les récupérera pas :
+#   ~/.claude/settings.local.json   (contient des secrets — hors dépôt à dessein)
+#   ~/.claude/projects/*/memory/    (sauvegardés par ~/dev/claude-memoire)
 #
 # ATTENTION : claude-config/install.sh vise aussi ~/.claude/hooks/, comme la
-# boucle ci-dessus. Le dernier script lancé gagne, sans avertissement, et
-# session-start.sh existe dans les deux dépôts. Voir observation 22 du carnet
-# task-observer — la propriété de ce répertoire reste à trancher.
+# boucle ci-dessus. Les deux sauvegardent désormais avant de remplacer, donc
+# le dernier lancé ne détruit plus rien. La fusion des deux installateurs en
+# un seul point d'entrée est la phase 7 de migration-structure.md.

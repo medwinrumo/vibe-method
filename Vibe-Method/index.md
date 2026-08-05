@@ -12,7 +12,6 @@ tags:
 # Index — Wiki vibe-method
 
 Catalogue de toutes les pages. Mis à jour à chaque ingest ou nouvelle page wiki.
-→ [[_vue-ensemble]] pour la synthèse globale | → [[flux/chaine-complete]] pour la navigation par étape
 
 ---
 
@@ -22,7 +21,6 @@ Catalogue de toutes les pages. Mis à jour à chaque ingest ou nouvelle page wik
 |---|---|
 | [[CLAUDE.md]] | Schéma du wiki — règles, opérations, conventions |
 | [[_vue-ensemble]] | Synthèse globale de la méthode vibe-method |
-| [[flux/chaine-complete]] | Chaîne complète des skills avec inputs/outputs/liens |
 | [[index]] | Ce fichier — catalogue de toutes les pages |
 | [[log]] | Journal chronologique des opérations wiki |
 

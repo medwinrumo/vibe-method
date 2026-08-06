@@ -11,10 +11,10 @@ Chaque ligne est vérifiée sur pièces, pas listée de mémoire. Relire cette s
 avant d'ouvrir un nouveau chantier.
 
 **Rappel de lecture du lint** : `python3 ~/dev/wiki/scripts/lint-wiki.py --wiki-path ~/dev/wiki`
-sort **18 axes**, dont 11 verts. Les 336 signalements vivent dans les 7 autres, et
-**277 d'entre eux sont des « liens non réciproques »** — une propriété du graphe, pas
-une dette. Le compteur global ne veut rien dire ; la liste réellement actionnable
-tient en une quarantaine d'entrées, ci-dessous.
+sort **18 axes**. Depuis les fix du 06/08/2026 (rubrique A), 11 sont verts et les 7
+autres totalisent **182 signalements** (2 nœuds fantômes, 17 orphelines, 69 liens non
+réciproques intra-cluster, 77 quasi-doublons, 8 stubs, 2 discordances titre, 7 pages
+sans lien sortant). La liste réellement actionnable tient en rubrique B, ci-dessous.
 
 ---
 
@@ -22,8 +22,8 @@ tient en une quarantaine d'entrées, ci-dessous.
 
 Ils faussent la lecture de tout le reste.
 
-- [ ] **L'extraction du titre H1 n'exclut pas les blocs de code.** `backup.md`, `deploy.md` et `securite.md` sont signalés en « discordance titre ↔ nom » avec 0 % de similarité, parce que le script attrape un commentaire shell (`# Semgrep — analyse statique`) au lieu du vrai H1. 3 des 5 signalements de cet axe sont donc faux. `extract_wikilinks` retire déjà les blocs de code — la même précaution manque à l'extraction du titre. **Défaut révélé par l'arrivée des skills** : eux seuls contiennent des blocs shell commençant par `#`.
-- [ ] **Décider du sort de l'axe « liens non réciproques ».** 277 signalements, et le nombre ne fera que monter à chaque lien ajouté. Un lien à sens unique n'est pas un défaut dans le cas général — la réciprocité n'est exigée que par la règle 11, à l'intérieur d'un cluster. Trois issues : restreindre l'axe aux membres d'un même `sujet`, le passer en information non comptée, ou l'assumer tel quel en le documentant. **Tant qu'il compte pour 82 % du total, le résumé du lint est illisible.**
+- [x] ~~**L'extraction du titre H1 n'exclut pas les blocs de code.**~~ — corrigé le 06/08/2026 : `extract_title` retire les blocs fencés avant de chercher le H1, même précaution que `extract_wikilinks`. `backup.md`, `deploy.md`, `securite-doc.md` n'ont en réalité aucun H1 (skills : frontmatter `description` seul) — `title=None` désormais, exclus correctement du check. Axe passé de 5 à 2 signalements, les 2 restants réels (`audit-doctrine-strategie-rech.md`, `guide-definition-produit-rech.md`). Commit `9cabfad` (auto-sync wiki).
+- [x] ~~**Décider du sort de l'axe « liens non réciproques ».**~~ — tranché le 06/08/2026 : restreint aux paires du même cluster (`sujet` canonique identique), cohérent avec la règle 11 qui n'exige la réciprocité qu'à l'intérieur d'un cluster. 277 → 69 signalements, tous réels (vérifié : `audit-doctrine-strategie-rech.md` ↔ `securite-doc.md`, même `sujet: Vibe-Method`). Commit `9cabfad` (auto-sync wiki).
 - [ ] **Vérifier les quasi-doublons créés par l'arrivée des skills.** `code-review` ↔ `code-review-hostil` (75 %), `doc` ↔ `doc-tech` (70 %), `prd` ↔ `produit-doc` (76 %), `notion-help-security-admin` ↔ `security-auditor` (73 %) : ce sont des paires légitimes, pas des doublons. L'axe compare des titres et des structures ; sur des procédures qui suivent le même gabarit, il se déclenche par construction.
 
 ### B. Travail éditorial sur le vault — 212 fiches

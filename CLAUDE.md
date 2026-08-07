@@ -3,6 +3,12 @@
 Ce repo contient la méthode de développement vibe coding de Medwin.
 Il n'est pas une app — c'est un ensemble de documents et de skills.
 
+**Statut : dépôt d'archive.** Décidé le 07/08/2026 — le contenu actif de la
+méthode a migré dans `~/dev/wiki/` (voir ci-dessous). Ce qui reste ici est le
+journal historique du chantier de réorganisation : `migration-structure.md`,
+les 3 journaux de session, et l'outillage minimal (`scripts/audit-dependances.sh`).
+Rien ne s'y construit plus — consulter, pas y ajouter de contenu doctrinal.
+
 ---
 
 ## Ce qu'il reste ici
@@ -10,12 +16,15 @@ Il n'est pas une app — c'est un ensemble de documents et de skills.
 ```
 vibe-method/
 ├── .claude/
-│   ├── hooks/          → stop-cloture.sh, track-repo.sh (+ 1 archivé)
 │   └── settings.local.json
 ├── scripts/            → audit-dependances.sh
 ├── migration-structure.md
 └── vibe-method.{todo,log,peda}.md
 ```
+
+Arbre vérifié le 07/08/2026 — `.claude/hooks/` n'existe plus (les hooks vivent
+désormais dans `~/.claude/hooks/`, liés par `install.sh`). L'ancienne mention
+listait des fichiers qui n'étaient déjà plus là.
 
 **Le contenu de la méthode a migré dans `~/dev/wiki/` le 5 août 2026.**
 Doctrines en phase 4, skills et agents en phase 5. Ce dépôt ne contient plus
@@ -58,11 +67,10 @@ Il n'écrase rien sans sauvegarde : un fichier réel part sous
 ## Règles de travail
 
 - **Rien n'entre dans une doctrine sans discussion et validation de Medwin.**
-- La chaîne complète du workflow est dans `wiki/workflow-doc.md`. **Elle a du retard** :
-  le guide date du 11/06/2026 et ne couvre ni `deploy` ni `init-projet`, tout en
-  documentant encore `/condense`, sorti de la méthode le 05/08. À reprendre — c'est
-  le seul endroit où vit désormais l'ordre des skills, la table qui était ici ayant
-  été retirée.
+- La chaîne complète du workflow est dans `wiki/workflow-doc.md` — c'est le seul
+  endroit où vit désormais l'ordre des skills, la table qui était ici ayant été
+  retirée. Remis à jour le 06/08/2026 : les 5 skills manquants (`init-projet`,
+  `to-issues`, `diagnose`, `backup`, `deploy`) ajoutés, `/condense` retiré.
 
 ---
 

@@ -125,6 +125,18 @@ Contrôle mécanique en place : `bash ~/dev/vibe-method/scripts/audit-dependance
 
 ---
 
+## RESTE À FAIRE — depuis le 07/08/2026
+
+**Rubriques A-H toutes closes** (voir ci-dessus, chacune marquée traitée avec sa date).
+Cartes GitHub Projects correspondantes passées Done le 07/08. Ce qui reste ouvert :
+
+- [ ] **Garde-fou mécanique pour `journal-log.md`** — observation 46 du carnet task-observer. Un commit Hermes a écrasé 921 lignes par 4 le 03/08, invisible 5 jours (fichier exempté du lint). Suggestion : hook/check pre-commit qui refuse un diff faisant chuter fortement le nombre de lignes. Pas encore conçu. Carte GH Projects créée.
+- [ ] **Tâche 27 — Test Claude Design deux passes** — reporté depuis mai, jamais fait.
+- [ ] **Test grandeur nature /brief → /devis → /cgv** sur un vrai projet.
+- [ ] **Alléger `claude-config/CLAUDE.md` vers `~/.claude/rules/`** — 247 lignes, au-dessus des 200 recommandées. Pas touché cette session (hors scope rubrique F, qui portait sur d'autres dettes).
+
+---
+
 ## Roadmap — comparaison agent-skills vs vibe-method (reste à faire)
 
 Ouverte le 2026-07-28. **Fait et vérifié en conditions réelles** : 3 gaps majeurs (observabilité, doubt-driven-development, source-driven-development) intégrés à `observabilite.md`/`methode.md`/`stack.md` + 4 personas (`code-reviewer`, `security-auditor`, `test-engineer`, `web-performance-auditor`) créées, testées, un bug réel trouvé et corrigé au passage (`lint-observabilite.py`). Voir `vibe-method.peda.md` du 2026-07-28 pour le détail. Reste, par priorité — miroir des cartes GitHub Projects Tâches 30-34 :

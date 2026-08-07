@@ -88,11 +88,11 @@ Choix défini au moment du `/archi`.
 
 ## Ce qui reste à construire
 
-**Tout est dans `vibe-method.todo.md`, section « RESTE À FAIRE ».** Établie le
-05/08/2026 à la fin du chantier de réorganisation : travail éditorial sur les
-212 fiches du vault, défauts du lint lui-même, 8 observations ouvertes,
-propagation vers le VPS Hermes, dettes techniques et résidus à trancher.
-Chaque ligne y est vérifiée sur pièces.
+**Les 8 rubriques (A-H) de `vibe-method.todo.md` établies le 05/08/2026 sont
+closes** — traitées le 06-07/08/2026, chaque ligne vérifiée sur pièces avant
+d'être cochée. Détail dans `vibe-method.todo.md` et `vibe-method.log.md`.
+Rien d'ouvert de ce côté pour l'instant ; prochain travail à définir par
+Medwin.
 
 ---
 

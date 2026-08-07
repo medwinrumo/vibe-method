@@ -337,3 +337,48 @@ Phases 0 à 2 menées plus tôt dans la journée par une session distincte (jour
 - Section « RESTE À FAIRE » créée en tête de `vibe-method.todo.md` — 8 rubriques, chaque ligne vérifiée sur pièces
 - Défaut du lint découvert : l'extraction du titre H1 n'exclut pas les blocs de code
 - État final : wiki 212 fiches, 11 axes verts, 0 lien cassé. 64 commandes, 4 agents, 5 hooks liés, 0 cassé
+
+---
+
+## 2026-08-06/07 — Clôture rubriques A-H du todo post-migration + restauration journal-log.md
+
+### Rubrique A — Défauts du lint
+- `extract_title` retirait pas les blocs fencés avant de chercher le H1 : 5 → 2 signalements
+- Axe « liens non réciproques » restreint au cluster (`sujet` canonique) : 277 → 69
+
+### Rubrique B — 212 fiches
+- Nœuds fantômes comblés : `devis-pdf-workflow.md` (créé, pipeline Firma.dev réel), `ia-locale.md` (créé, chapeaute cluster existant)
+- `iloveapi-signature-electronique.md` corrigée — périmée depuis le 03/08 (décision Firma.dev jamais reportée)
+- 10 orphelines sur 17 réglées par lien depuis la doctrine qui les a nourries
+- 6 skills courts (`zoom-out` `log` `askme` `checkpoint` `spec` `majtodo`) : section « Prochaine étape » ajoutée, trou objectif (38 fiches l'ont, ces 6 en étaient dépourvues)
+- Stubs 8 → 5 ; `wikilinks.md` : vrai défaut de mise en forme (fragments orphelins), pas de longueur
+- `notion-dpa-texte-integral` ↔ `notion-msa-texte-integral` (95%) : faux positif vérifié — deux contrats distincts, similarité vient du seul titre H1
+
+### Rubrique C — workflow-doc.md
+- Diff systématique 57 skills réels vs documentés : 5 manquants (`init-projet` `to-issues` `diagnose` `backup` `deploy`), tous ajoutés. `/condense` retiré (sorti le 05/08)
+- Guide passé de 7 à 8 parties (Partie 0 Initialisation, Partie 8 Mise en production)
+
+### Rubrique E — VPS Hermes
+- État du todo périmé : VPS déjà propagé (par qui, non déterminé), pas en v1.6.0 comme annoncé
+- Régression de version trouvée et corrigée : `research/wiki` 1.7.0 → 1.9.0 (contenu déjà v1.8.0+fix, en-tête mentait)
+- Divergence de comportement réelle sur règle 3 (suppression) : `wiki/CLAUDE.md` disait « sans hésiter », le skill Hermes exigeait déjà validation explicite — aligné sur la version Hermes
+
+### Rubrique F — Dettes techniques
+- `test_lint_observabilite.py` : 8/8 cas passent, pas de régression
+- Sauvegarde mémoire : pas de panne, erreur de lecture du todo (mauvais fichier de log ciblé)
+- Doctrine Skill vs MCP ajoutée à `architecture-doc.md`
+
+### Rubrique G — Résidus (décision Medwin)
+- `test-claude-design/` et `handoff-out.md` supprimés
+- Statut d'archive du dépôt `vibe-method` documenté dans `CLAUDE.md`, 2 infos périmées corrigées au passage (workflow-doc retard faux, arbre `.claude/hooks/` inexistant)
+
+### Incident hors plan — journal-log.md tronqué et désordonné
+- Medwin repère `journal-log.md` à 373 lignes commençant au 03/08 — anomalie
+- Cause : commit Hermes `6598e2f` (03/08 14h51) a écrasé 921 lignes par les 4 lignes de sa seule nouvelle entrée. Passé inaperçu 5 jours — fichier exempté du lint (`INFRA_FILES`)
+- Restauré depuis `a39e0d4` : 924 insertions, 0 suppression vérifié contre HEAD
+- Medwin repère ensuite un désordre chronologique (jul→jun→mai→jul→août) — deux restaurations distinctes concaténées sans fusion (la mienne + une restauration partielle antérieure d'Hermes)
+- Retrié par script : 134 entrées, checksum multiset identique avant/après, séquence finale strictement monotone du 26/05 au 07/08
+- Bug trouvé en triant : 14 en-têtes sans crochets (format `## date` au lieu de `## [date]`) échappaient au premier regex — dont 6 écrites par moi-même dans cette session
+- 2 observations loggées (46, 47)
+
+Commits : `dcbb5aa` `acc9ded` (vibe-method), `98ea544` (hermes-config), `c49f9e4` `1dfaf22` + auto-sync (wiki)

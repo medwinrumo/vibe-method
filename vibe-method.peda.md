@@ -1047,3 +1047,44 @@ Trois références ont échappé aux substitutions des phases 4 et 5, découvert
 **Ce que ça coûte, et qu'il faut savoir**
 
 Le wiki est devenu le **point de défaillance unique** de la méthode. Avant, un wiki cassé cassait le second cerveau ; maintenant il casse aussi les 56 skills et les 4 agents. Le chemin de reconstruction existe et il est testé — `git clone` des deux dépôts puis `install.sh` — mais le couplage a changé.
+
+---
+
+## 2026-08-06/07
+
+### Session — Clôture rubriques A-H du todo post-migration + restauration journal-log.md
+
+**Point de départ**
+
+`vibe-method.todo.md` listait 8 rubriques (A à H) établies le 05/08 à la fin du chantier de réorganisation — chacune vérifiée sur pièces, pas de mémoire. Session dédiée à les traiter une par une, dans l'ordre.
+
+**Ce qui a été fait, rubrique par rubrique**
+
+A à G sont détaillées dans `vibe-method.log.md`. Le fil pédagogique tient dans deux mécanismes répétés et un incident hors plan.
+
+**Le motif qui revient : vérifier avant de conclure, même quand le premier check semble suffisant.**
+
+Trois fois dans cette session, une première vérification a semblé concluante et s'est révélée incomplète :
+
+1. **Rubrique E — VPS Hermes.** Le todo annonçait le VPS en v1.6.0, journal `log.md`, propagation urgente à faire. Avant de lancer `restaure-skills.sh`, vérification directe par SSH : le VPS était **déjà** à jour (contenu v1.8.0+fix, propagé par quelqu'un/quelque chose avant cette session — jamais deviné, jamais affirmé). Seul défaut réel : une régression de numéro de version dans l'en-tête (1.7.0 au lieu de refléter le contenu). Sans ce check, j'aurais relancé une propagation déjà faite en croyant réparer une urgence qui n'existait plus.
+
+2. **Rubrique F — sauvegarde mémoire.** Le todo disait « en retard de deux jours, fichier de log inexistant ». Vérification : le fichier de log *ciblé par le todo* (`sync-memory.launchd.log`) était bien vide — mais c'est le mauvais fichier, stdout jamais utilisé. Le vrai journal (`sync-memory.log`) montrait 0 échec sur tout l'historique, dernière sync à l'instant. Le todo avait raison sur le symptôme et faux sur la cause.
+
+3. **Journal-log.md — le cas le plus instructif de la session.** Medwin a signalé une anomalie (fichier trop court, commence au 03/08). Ma première vérification — `git log --follow` — a semblé rassurante : elle prouve la continuité du **nom** de fichier depuis mai. Ce n'est pas la même chose que la continuité du **contenu**. Medwin a insisté, j'ai creusé plus loin dans l'historique commit par commit, et trouvé l'écrasement réel : un commit Hermes avait remplacé 921 lignes par 4. La leçon, déjà écrite dans les règles globales de Medwin (« ce qui vaut preuve ») mais vécue ici en pratique : une preuve de continuité de nom n'est pas une preuve de continuité de contenu, et il faut vérifier ce qu'on affirme, pas ce qui ressemble à une vérification.
+
+**Le deuxième motif : une correction mécanique peut cacher son propre bug.**
+
+En triant `journal-log.md` par script pour corriger l'ordre chronologique (Medwin avait aussi repéré ce deuxième problème, distinct du premier), le premier passage du script a silencieusement raté 14 entrées sur 134 — celles dont l'en-tête ne suivait pas exactement le format documenté (`## [date]` vs `## date`, sans crochets). Ces entrées se sont retrouvées collées au corps de l'entrée précédente, sans erreur, sans avertissement. Le bug n'a été visible que grâce à une assertion de cohérence ajoutée *après* le premier essai (comparaison du nombre d'entrées, checksum du contenu trié en ensemble). Sans ces vérifications explicites, le script aurait semblé fonctionner — et aurait produit un tri partiellement faux, avec des dates mélangées à l'intérieur d'entrées composites.
+
+Ironie relevée dans l'observation loggée : 6 des 14 en-têtes fautifs étaient les miens, écrits plus tôt dans cette même session, alors que le format exact était visible en tête du fichier à chaque écriture.
+
+**Ce que j'ai appris sur les fichiers partagés entre agents**
+
+`journal-log.md` est écrit à la fois par moi (Claude Code) et par Hermes (VPS), en continu, sans coordination explicite au moment de l'écriture. L'incident d'écrasement (Hermes a remplacé au lieu d'ajouter) et le désordre chronologique (deux restaurations concaténées sans fusion) viennent tous deux du même point aveugle : rien ne vérifie mécaniquement, au moment d'écrire dans ce fichier, que l'écriture est bien un append et respecte le format attendu. Le fichier est explicitement exempté du lint (`INFRA_FILES`) pour ne pas polluer le contrôle de fond du wiki — mais ça veut dire qu'aucun outil ne protège ce fichier précis contre cette classe d'erreur. Observation 46 propose un garde-fou mécanique (refuser un diff qui fait chuter le nombre de lignes) plutôt que de compter sur la prose ou la vigilance.
+
+**Difficultés**
+
+- Deux fois dans la session, un `AskUserQuestion` a été rejeté parce que Medwin voulait clarifier avant de répondre — bon réflexe de sa part, ça a évité de trancher sur une formulation mal calibrée (« divergence de prose » alors que c'était une vraie divergence de comportement ; « on a perdu le contenu » qui méritait d'être vérifié avant d'être rassuré).
+- Un git rm à deux chemins a échoué entièrement à cause d'un seul chemin invalide (`handoff-out.md`, gitignoré donc pas trackable) — leçon simple : `git rm` sur plusieurs chemins n'est pas atomique-partiel, un chemin invalide annule tout.
+
+**Deux observations au carnet** : 46 (fichier append-only écrasé, invisible car exempté du lint) et 47 (format d'en-tête non respecté, y compris par moi-même, cause directe d'un bug de tri).

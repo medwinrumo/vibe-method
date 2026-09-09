@@ -382,3 +382,27 @@ Phases 0 à 2 menées plus tôt dans la journée par une session distincte (jour
 - 2 observations loggées (46, 47)
 
 Commits : `dcbb5aa` `acc9ded` (vibe-method), `98ea544` (hermes-config), `c49f9e4` `1dfaf22` + auto-sync (wiki)
+
+---
+
+## 2026-09-07/09 — Analyse Spec Kit, emprunts 3 et 4 faits, 1 en cours, 2 reporté
+
+### Analyse
+- `github/spec-kit` cloné (1.0.4, commit du 04/09) et lu en source primaire : 10 commandes, 5 templates, `spec-driven.md`, concepts, intégration Claude Code
+- Rapport : `rapports/spec-kit-analyse.md` — ne pas adopter l'outil, importer quatre mécanismes
+- Constat : contradiction interne Spec Kit — TDD « NON-NEGOTIABLE » dans l'essai, « Tests are OPTIONAL » dans les templates
+
+### Décisions de Medwin
+- Lancer les points 1 (couverture croisée) et 3 (décisions écrites dans le tour) ; le 4 absorbé dans le 3 ; le 2 (écart code ↔ spec) reporté, terrain RAMrezo
+- Numéroter les règles de gestion dans `/specs` : oui
+
+### Wiki (commit `84ad89a`)
+- `specs.md` : identifiants `RG-nn` / `CL-nn` / `CE-nn` par feature, jamais réattribués, cités par Gherkin, issues, recette, angles morts
+- `angles-morts.md` : étape 3, garde « la question interroge l'énoncé, pas le comportement » ; étape 4, mécanisme en trois gestes (tracer / appliquer / enregistrer)
+- `workflow-doc.md` : « Fichier produit : aucun » corrigé pour `/angles-morts`
+- Index régénéré, `journal-log.md` tenu, lint avant/après identique (1538), rien sur les trois fiches
+
+### vibe-method (commit `6b7c628`)
+- `vibe-method.engagements.md` créé (E-1 à E-4) à la demande du hook `stop-engagements.sh`
+- `vibe-method.todo.md` : rubrique « Emprunts à Spec Kit — décidés le 08/09/2026 »
+- Pas de push à ce commit ; push au `/maj`

@@ -1088,3 +1088,37 @@ Ironie relevée dans l'observation loggée : 6 des 14 en-têtes fautifs étaient
 - Un git rm à deux chemins a échoué entièrement à cause d'un seul chemin invalide (`handoff-out.md`, gitignoré donc pas trackable) — leçon simple : `git rm` sur plusieurs chemins n'est pas atomique-partiel, un chemin invalide annule tout.
 
 **Deux observations au carnet** : 46 (fichier append-only écrasé, invisible car exempté du lint) et 47 (format d'en-tête non respecté, y compris par moi-même, cause directe d'un bug de tri).
+
+## 2026-09-07/09
+
+### Session — Analyse de Spec Kit (GitHub) et premiers emprunts à la méthode
+
+**Point de départ**
+
+Medwin a posé un lien — `github/spec-kit` — avec une question ouverte : « ça pourrait être utile dans le cadre de la vibe-method, je te laisse analyser l'objet et ensuite tu me donnes ton avis ». Pas de demande d'action, une demande d'évaluation.
+
+**Comment l'analyse a été menée, et pourquoi comme ça**
+
+Le dépôt a été cloné dans le scratchpad et lu en source primaire : les dix commandes (`templates/commands/*.md`), les cinq templates d'artefacts, l'essai fondateur `spec-driven.md`, les concepts de la doc, l'intégration Claude Code, un script. Pas de lecture de résumés tiers. C'est la règle « aucun verdict sans source primaire », et elle a payé deux fois : (1) l'essai fondateur décrit encore neuf articles constitutionnels et un TDD « NON-NEGOTIABLE » que les templates ne portent plus (`tasks-template.md` : « Tests are OPTIONAL ») — une contradiction interne qu'un résumé n'aurait pas montrée ; (2) un commentaire dans le code de l'intégration Claude explique pourquoi le `context: fork` a été retiré (un rapport de 300 à 500 lignes réinjecté dans la conversation faisait geler les sessions) — une leçon directement réutilisable pour le contrôle de couverture qu'on va construire.
+
+Le wiki a été consulté d'abord : une seule ligne connaissait Spec Kit (« artillerie lourde », dans le traité vibe coding). Le rapport a été écrit sur disque (`rapports/spec-kit-analyse.md`) et la conversation n'en a porté que le verdict et les quatre points — régime court, détail ailleurs.
+
+**Ce qui a été conclu**
+
+Spec Kit commence à la feature ; tout l'amont de la vibe-method (contexte, brief, devis, PRD, archi, design, stack, règles) n'y existe pas. Son outillage (CLI Python, `.specify/`, extensions, presets, bundles) ne sert à rien en solo. Mais quatre mécanismes manquent à la méthode : un contrôle de couverture croisée règle ↔ scénario ↔ tâche (`analyze`), une passe d'écart code ↔ spec après implémentation (`converge`), l'écriture des décisions d'angles morts dans l'artefact au moment où elles sont prises (`clarify`), et la distinction « tester l'énoncé, pas le comportement » (`checklist`).
+
+**Ce que Medwin a tranché, et l'enchaînement**
+
+« Si on lance 1 et 3, que deviennent 4 et 2 ? » — le 4 tient en une ligne dans le même fichier que le 3, il s'y fond ; le 2 est un chantier distinct qui ne se teste que sur du code réel, il est reporté avec son terrain (RAMrezo). Puis : « oui, numérote les règles, et lance le 3 ».
+
+Les deux chantiers ont été faits dans le tour. Dans `specs.md`, chaque règle de gestion, cas limite et cas d'échec porte désormais un identifiant stable par feature (`RG-nn`, `CL-nn`, `CE-nn`), jamais réattribué — c'est la clé sans laquelle le contrôle de couverture n'aurait rien à relier. Dans `angles-morts.md`, l'étape 4 ne dit plus « mettre à jour le document source avec les décisions prises » mais décrit trois gestes à chaque décision : tracer sous `## Clarifications / ### Session`, corriger la section concernée en remplaçant le texte devenu faux, enregistrer tout de suite. `workflow-doc.md` disait « Fichier produit : aucun » pour `/angles-morts` — corrigé.
+
+**Ce qu'il faut retenir de la mécanique de la session**
+
+1. **Le registre des engagements est né ici.** Le hook `stop-engagements.sh` a relu mes messages et exigé une contrepartie sur disque pour chaque promesse (« je commence par le 3 », « puis le 1 », « numéroter, oui ou non ? »). Le projet n'avait pas de registre ; il a été créé (`vibe-method.engagements.md`, E-1 à E-4) sur le modèle de RAMrezo et claude-config. Le registre ne double pas le todo : le todo porte l'état des chantiers, le registre porte les promesses avec leur destination.
+2. **Le lint avant/après est le seul contrôle qui compte sur une édition de skill.** Total identique (1538), aucun signalement sur les trois fiches — c'est ce qui autorise à dire « rien de cassé », pas la relecture.
+3. **Deux dépôts, un même tour.** Les modifications du wiki et celles de vibe-method ont été commitées avec des messages croisés (`84ad89a` ↔ `6b7c628`), sur ordre explicite de Medwin. Sans ça, une session parallèle aurait vu une moitié de l'opération.
+
+**Ce qui reste ouvert**
+
+Le contrôle de couverture (point 1) attend que `/gherkin` Mode Specs et `/to-issues` citent les identifiants, puis une étape 8 dans `/readyTo-code`. La passe d'écart code ↔ spec (point 2) attend une feature codée sur RAMrezo. Le mécanisme d'écriture des décisions n'a pas encore tourné sur un vrai `/angles-morts`.

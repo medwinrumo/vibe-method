@@ -138,7 +138,9 @@ Cartes GitHub Projects correspondantes passées Done le 07/08. Ce qui reste ouve
 ### Emprunts à Spec Kit — décidés le 08/09/2026
 
 Analyse dans `rapports/spec-kit-analyse.md` (07/09/2026). Verdict : ne pas adopter
-l'outil, importer quatre mécanismes. Deux lancés, un reporté, un absorbé.
+l'outil, importer quatre mécanismes. Deux lancés, un reporté, un absorbé. Cartes
+GitHub Projects créées le 09/09/2026 pour les deux points encore ouverts (point 1,
+point 2) ; le point 3 n'a pas eu de carte, fait dans la session qui l'a décidé.
 
 - [ ] **Contrôle de couverture croisée** (point 1, calqué sur `/speckit.analyze`) — chaque règle de gestion, cas limite, cas d'échec et NFR applicable a-t-il un scénario Gherkin et une issue ; chaque tâche remonte-t-elle à une règle ; même vocabulaire d'un artefact à l'autre. Lecture seule, rapport sur disque + résumé court en session. Cible : étape 8 de `readyTo-code.md` (wiki). ~~Préalable à trancher : numéroter les règles de gestion~~ — **tranché oui par Medwin et fait le 08/09/2026** dans `specs.md` (`RG-nn` / `CL-nn` / `CE-nn`, jamais réattribués). Reste dans ce chantier : faire citer ces identifiants par `gherkin.md` Mode Specs et `to-issues.md`, puis écrire l'étape 8.
 - [x] ~~**Écriture des décisions dans le tour** (point 3)~~ — **fait le 08/09/2026** dans `angles-morts.md` étape 4 : trois gestes (tracer sous `## Clarifications / ### Session`, appliquer en remplaçant le texte devenu faux, enregistrer à chaque décision) ; le point 4 absorbé en étape 3 (garde « la question interroge l'énoncé, pas le comportement »). `workflow-doc.md` corrigé (« Fichier produit : aucun » → le document source). Journal du wiki du 08/09. Lint : aucun signalement nouveau sur les trois fiches. Pas encore exercé sur un projet réel — première passe `/angles-morts` RAMrezo à venir dira si la forme de la ligne de trace tient.

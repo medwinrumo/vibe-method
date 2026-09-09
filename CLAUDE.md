@@ -18,13 +18,16 @@ vibe-method/
 ├── .claude/
 │   └── settings.local.json
 ├── scripts/            → audit-dependances.sh
+├── rapports/           → analyses de méthode (ordre de la chaîne 14/08, Spec Kit 07/09)
 ├── migration-structure.md
+├── vibe-method.engagements.md   → registre des promesses faites en conversation (créé le 08/09/2026)
 └── vibe-method.{todo,log,peda}.md
 ```
 
-Arbre vérifié le 07/08/2026 — `.claude/hooks/` n'existe plus (les hooks vivent
-désormais dans `~/.claude/hooks/`, liés par `install.sh`). L'ancienne mention
-listait des fichiers qui n'étaient déjà plus là.
+Arbre vérifié le 09/09/2026. `rapports/` accueille les analyses qui portent sur la
+méthode elle-même, pas sur un projet : ce ne sont pas des doctrines, elles ne
+migrent pas au wiki. `.claude/hooks/` n'existe plus depuis le 07/08 (les hooks
+vivent dans `~/.claude/hooks/`, liés par `install.sh`).
 
 **Le contenu de la méthode a migré dans `~/dev/wiki/` le 5 août 2026.**
 Doctrines en phase 4, skills et agents en phase 5. Ce dépôt ne contient plus
@@ -91,8 +94,12 @@ Choix défini au moment du `/archi`.
 **Les 8 rubriques (A-H) de `vibe-method.todo.md` établies le 05/08/2026 sont
 closes** — traitées le 06-07/08/2026, chaque ligne vérifiée sur pièces avant
 d'être cochée. Détail dans `vibe-method.todo.md` et `vibe-method.log.md`.
-Rien d'ouvert de ce côté pour l'instant ; prochain travail à définir par
-Medwin.
+**Chantier ouvert depuis le 08/09/2026 — emprunts à Spec Kit** (analyse dans
+`rapports/spec-kit-analyse.md`, état dans `vibe-method.todo.md`, promesses dans
+`vibe-method.engagements.md`) : contrôle de couverture croisée règle ↔ Gherkin ↔
+issue à écrire dans `/readyTo-code` (préalable fait : règles numérotées dans
+`/specs`) ; passe d'écart code ↔ spec reportée jusqu'à une feature codée sur
+RAMrezo.
 
 ---
 

@@ -1173,3 +1173,70 @@ Rien n'est lancé. Medwin a nommé l'ensemble « projet TASTE » et l'a reporté
 **Où retrouver le détail**
 
 `~/dev/wiki/taste-bench-rech.md` — synthèse, limites, six pistes, tableau vidéo / papier.
+
+### Session — Papier EvoOntology, puis mesure des contradictions d'ordre dans la méthode
+
+**Point de départ**
+
+Medwin a demandé de « crawler » une page arXiv. La session a ensuite glissé vers une question plus large, la sienne : ce papier peut-il aider la vibe-method, où il se perd parfois, et où l'agent lui-même ne sait pas toujours quelle est l'étape suivante ?
+
+**Première erreur : j'ai sauté la porte du skill**
+
+Le skill `/firecrawl` impose trois gestes avant d'aspirer : demander la portée (une page ou plusieurs), afficher un récapitulatif, attendre un « go ». J'ai jugé que « cette page » était une évidence et j'ai aspiré la seule fiche de résumé. Medwin : pour lui, « crawler » veut dire aspirer l'ensemble, avec un plan proposé, validé, et un coût estimé.
+
+Deux leçons distinctes :
+1. **Une porte de validation écrite dans un skill n'est pas une question évidente qu'on peut sauter.** Le « test des deux réponses » sert à trier les questions que je me pose moi-même, pas les étapes que Medwin a posées dans sa méthode.
+2. **Le skill n'estimait pas le coût.** Ce n'était pas dans son récapitulatif. La mesure tient en une commande — compter les mots de la page avant de l'aspirer — et donne une fourchette en tokens. Observation 215 au carnet.
+
+**Ce que dit le papier, en clair**
+
+Un agent qui travaille sur des données (base, tableaux, fichiers) ne connaît d'avance ni leur structure ni leur sens. Les auteurs lui donnent une *ontologie* — une carte du sens des données — non pas collée dans son prompt, mais servie par un outil qu'il interroge à la demande. Cette carte est construite par un agent, puis corrigée tour après tour ; une correction n'est gardée que si elle bat la version précédente sur un score mesuré.
+
+Trois résultats à retenir :
+1. Coller la description dans le prompt fait baisser cinq modèles sur six ; la même description servie par un outil les fait tous monter.
+2. Sans la porte de validation, le gain s'effondre de 11 points : accepter toutes les corrections laisse entrer des régressions.
+3. Chaque modèle fabrique une carte différente, qui se transporte mal vers un autre modèle.
+
+**Pourquoi l'outil ne convient pas à la méthode, et ce qu'on en garde**
+
+Le plugin résout un problème d'accès à des données volumineuses. La méthode, c'est une soixantaine de fiches de texte : son problème est la contradiction, pas l'accès. Une carte construite automatiquement à partir de textes contradictoires enregistrerait la contradiction sans la trancher.
+
+Deux idées se transposent : **servir par outil** (pouvoir demander « après telle étape, quoi ? ») et **contrôler toute correction** (ne pas laisser le texte libre de contredire le graphe).
+
+**La découverte : l'ordre est écrit à trois endroits**
+
+1. **Le graphe** — chaque skill déclare son prédécesseur dans son en-tête (champ `apres`). Le lint en déduit une chaîne de 50 étapes et la déclare cohérente.
+2. **Le texte du skill** — sa section « Prochaine étape ». C'est ce qu'un agent lit quand il exécute le skill.
+3. **`workflow-doc.md`** — une ligne « Fin : prochaine étape » par skill.
+
+Le lint ne regarde que le premier. Il disait donc « cohérent » pendant que le texte de `/regles` envoyait vers `/stack`, que le graphe place trois étapes plus tôt. **Un contrôle ne prouve que ce qu'il mesure** : « le graphe est cohérent » ne dit rien de ce que lisent les agents.
+
+**Comment la mesure a été faite, et ses deux ratés**
+
+Un script relève dans le texte les affirmations d'ordre et les classe contre le graphe. Il a fallu le corriger par la lecture, deux fois :
+
+- La première passe cherchait la formule « Prochaine étape » et le nom d'un skill **sur la même ligne**. Or presque tous les skills ont un titre `## Prochaine étape` et le contenu à la ligne suivante. Elle ne voyait donc presque rien. C'est en listant toutes les occurrences de la formule que le trou est apparu : 45 sections, dont le script n'avait lu aucune.
+- Sur 20 « inversions » signalées, 10 étaient des erreurs de lecture du script : il comprenait « avant `/x` » à l'envers. Lues une par une, ces phrases concordaient avec le graphe.
+
+D'où la règle appliquée : **un script trouve des candidats, il ne rend pas de verdict.** Chaque ligne signalée a été lue avant d'entrer au rapport, et les faux positifs y sont listés avec leur motif.
+
+**Ce qui a été trouvé**
+
+Dix contradictions franches, huit endroits où le texte saute des étapes, trois limites du graphe lui-même (il ne sait dire ni « si bug », ni « à chaque feature »). Quatre des dix forment un seul bloc : le texte porte un ancien ordre du tronçon architecture → roadmap. Hypothèse, non vérifiée dans l'historique : le graphe a été réordonné vers le 20/08/2026 et les textes n'ont pas suivi.
+
+Pour deux contradictions (`/charte`, `/gherkin` Mode PRD), rien ne dit qui a raison. Le graphe n'est pas la vérité par défaut : c'est seulement la source la plus récente et la mieux contrôlée.
+
+**Ce qui a été décidé**
+
+Rien n'est corrigé. Consigne de Medwin : aucun skill ne se modifie sans son accord, et on avance petit à petit. La première décision — quel ordre pour le tronçon architecture → roadmap — est posée et attend sa réponse.
+
+**Ce qu'il faut retenir de la mécanique de la session**
+
+1. **Avant de dire qu'un outil extérieur aiderait, regarder ce qui existe.** Le graphe, le lint et trois cartes étaient déjà là ; ce qui manquait était plus étroit que « une carte de la méthode ».
+2. **Une information écrite à trois endroits par trois gestes diverge.** Le remède n'est pas de relire plus souvent, c'est de n'en écrire qu'un et de générer les autres — le bloc généré de `workflow-doc.md` le fait déjà pour la chaîne, pas pour les « Prochaine étape ».
+3. **Des rapports antérieurs éclairent un constat neuf.** Le rapport du 14/08 notait déjà que le renvoi de `/regles` vers `/stack` était à corriger. Le lire a transformé « contradiction inexpliquée » en « correction décidée, jamais portée ».
+
+**Où retrouver le détail**
+
+`rapports/contradictions-ordre-chaine-2026-10-06.md` — tableaux A, B, C, faux positifs écartés, limites de la mesure. `~/dev/wiki/evoontology-rech.md` — synthèse du papier.
+

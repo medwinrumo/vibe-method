@@ -17,8 +17,8 @@ Rien ne s'y construit plus — consulter, pas y ajouter de contenu doctrinal.
 vibe-method/
 ├── .claude/
 │   └── settings.local.json
-├── scripts/            → audit-dependances.sh
-├── rapports/           → analyses de méthode (ordre de la chaîne 14/08, Spec Kit 07/09)
+├── scripts/            → audit-dependances.sh, mesure-ordre-prose.py (06/10/2026)
+├── rapports/           → analyses de méthode (ordre de la chaîne 14/08, Spec Kit 07/09, contradictions d'ordre 06/10)
 ├── migration-structure.md
 ├── vibe-method.engagements.md   → registre des promesses faites en conversation (créé le 08/09/2026)
 └── vibe-method.{todo,log,peda}.md
@@ -37,7 +37,7 @@ que l'outillage de la migration elle-même et les journaux du chantier.
 
 | Quoi | Où | Comment on le reconnaît |
 |---|---|---|
-| 56 skills | `~/dev/wiki/<nom>.md` | `claude-code: commande` dans le frontmatter |
+| 59 skills (comptés le 06/10/2026) | `~/dev/wiki/<nom>.md` | `claude-code: commande` dans le frontmatter |
 | 4 agents | `~/dev/wiki/<nom>.md` | `claude-code: agent` |
 | 12 doctrines | `~/dev/wiki/<nom>-doc.md` | suffixe `-doc` |
 | 8 skills hors méthode | `~/dev/claude-config/commands/` | `lint` `wiki` `caveman` `pdf` `slides` `condense` `firecrawl` `task-observer` |
@@ -104,6 +104,14 @@ RAMrezo.
 Taste-Bench (jugement d'un agent aux embranchements). Source et pistes dans
 `~/dev/wiki/taste-bench-rech.md` ; rien n'est arbitré ni lancé ; première étape
 envisagée dans `vibe-method.todo.md`. Reprise à l'initiative de Medwin.
+**Chantier ouvert le 06/10/2026 — ordre de la chaîne.** L'ordre des skills est écrit à trois
+endroits qui ne concordent pas : le champ `apres` de chaque skill (le graphe, seul contrôlé par
+le lint), la section « Prochaine étape » de chaque skill, et `wiki/workflow-doc.md`. Dix
+contradictions franches mesurées, détail dans `rapports/contradictions-ordre-chaine-2026-10-06.md`.
+**Aucun skill ne se corrige sans l'accord de Medwin** ; la première décision attend sa réponse
+(`vibe-method.todo.md`, rubrique « Ordre de la chaîne », bloc Reprise). Tant que ce chantier
+est ouvert, la phrase plus haut — `workflow-doc.md` « seul endroit où vit l'ordre des skills » —
+est à lire avec cette réserve.
 
 ---
 

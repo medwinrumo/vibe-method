@@ -431,3 +431,36 @@ Commits : `dcbb5aa` `acc9ded` (vibe-method), `98ea544` (hermes-config), `c49f9e4
 - `vibe-method.engagements.md` : E-5 (report)
 - `CLAUDE.md` : mention du projet dans « Ce qui reste à construire »
 - Mémoire `project_taste.md` écrite ; observations 210 (`/firecrawl`) et 211 (motif d'écart) au carnet
+
+---
+
+## 2026-10-06 — Papier EvoOntology lu, contradictions d'ordre de la chaîne mesurées
+
+### Lecture et wiki (commit `bc88ae5`)
+- Fiche de résumé arXiv 2609.15779 aspirée d'abord seule, sans le récapitulatif ni le « go » du skill `/firecrawl` — repris sur remarque de Medwin : plan, coût estimé, validation
+- Texte complet aspiré par Firecrawl (1 crédit), corps et quatre annexes lus en entier ; README du dépôt `ruc-datalab/EvoOntology` lu par l'API GitHub
+- `evoontology-rech.md` créée dans le wiki ; lien retour dans `mcp.md` et `memoire-agentic.md` ; index régénéré, `journal-log.md` tenu, lint sans erreur bloquante
+
+### Question de Medwin — EvoOntology pour la vibe-method ?
+- Réponse : non pour le plugin (données volumineuses, jeu de questions noté exigé, place de marché tierce), oui pour deux idées — servir par outil, contrôler toute correction
+- Constat sur l'existant : graphe `apres` et lint cohérents, mais aucun outil ne répond à « quelle est l'étape suivante ? », et le texte des skills n'est pas contrôlé
+
+### Mesure — lecture seule, aucun skill modifié
+- État lu : wiki au commit `bc88ae5`, arbre propre
+- Script `scripts/mesure-ordre-prose.py` : 59 skills et 12 doctrines, 150 affirmations d'ordre relevées — 45 concordantes, 75 raccourcis, 20 inversions candidates, 10 hors chaîne
+- Lues une par une : les 20 inversions candidates (10 erreurs de lecture du script, 7 retours légitimes, 1 commentaire, 2 réelles), les 22 annonces d'étape suivante, les 45 sections « Prochaine étape »
+- Résultat : 10 contradictions franches, 8 endroits où le texte saute des étapes, 3 limites du graphe
+- Non relues : 53 flèches classées « raccourci »
+
+### vibe-method
+- `rapports/contradictions-ordre-chaine-2026-10-06.md` écrit
+- `scripts/mesure-ordre-prose.py` ajouté
+- `vibe-method.todo.md` : rubrique « Ordre de la chaîne », deux tâches ouvertes, bloc Reprise ; deux cartes GitHub Projects créées
+- `vibe-method.engagements.md` : E-6 (décision 1 en attente de Medwin)
+- `CLAUDE.md` : arbre des fichiers, compte des skills (59), chantier ouvert
+- Carnet : observations 215 (`/firecrawl`) et 216 (étape suivante)
+
+### Décision de Medwin
+- Mesure autorisée ; aucun skill ne se modifie sans son accord ; travail petit à petit sur le bon ordre
+- Décision 1 (ordre du tronçon architecture → roadmap) posée, sans réponse à la clôture
+

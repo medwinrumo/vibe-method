@@ -159,6 +159,42 @@ son initiative. Carte GitHub Projects créée le 06/10/2026.
 
 ---
 
+### Ordre de la chaîne — contradictions texte ↔ graphe, mesurées le 06/10/2026
+
+Point de départ, Medwin le 06/10/2026 : « parfois je me perds dans la vibe-method […]
+toi-même parfois tu ne sais pas quelle est l'étape suivante, ou le skill à exécuter, car il y a
+depuis la construction des instructions parfois contradictoires. » Consigne : chercher les
+contradictions, **ne modifier aucun skill sans son accord**, travailler petit à petit sur le
+bon ordre.
+
+Trois endroits disent l'ordre et ne concordent pas : le graphe (champ `apres` des skills, seul
+contrôlé par le lint), le texte de chaque skill (section « Prochaine étape », ce qu'un agent lit
+en l'exécutant), et les lignes « Fin : prochaine étape » de `workflow-doc.md`. Mesure en lecture
+seule : dix contradictions franches, huit endroits où le texte saute des étapes, trois limites du
+graphe lui-même. Tout est dans `rapports/contradictions-ordre-chaine-2026-10-06.md`, avec fichier et ligne.
+
+**Reprise.** Ouvrir `rapports/contradictions-ordre-chaine-2026-10-06.md`, section « A — Dix contradictions franches ». La première décision est
+posée et **attend la réponse de Medwin** (il a clos la session avant d'y répondre) : pour le
+tronçon architecture → roadmap, le bon ordre est-il celui du graphe —
+`/archi` → `/angles-morts` → `/stack` → `/setup` → `/design` Mode B → `/regles` → `/backup`
+(dispositif) → `/roadmap` — ou celui du texte — `/archi` → `/angles-morts` → `/regles` →
+`/stack` → `/roadmap` ? Si c'est le graphe : quatre sections « Prochaine étape » à aligner
+(`regles.md:176`, `stack.md:487`, `archi.md:771` avec `angles-morts.md:489`, `design.md:543`) et
+quatre lignes de `workflow-doc.md` (180, 189, 197, 205). Les six autres contradictions viennent
+ensuite, une par une. Avant chaque correction, relire les lignes citées : les numéros datent du
+commit `bc88ae5` du wiki.
+
+- [ ] **Ordre de la chaîne — trancher les dix contradictions texte ↔ graphe, une décision à la fois** — décision 1 posée le 06/10/2026, sans réponse. Contrôle après chaque correction : `cd ~/dev/wiki && python3 ~/dev/vibe-method/scripts/mesure-ordre-prose.py /tmp/ordre.tsv` — au 06/10 : 150 affirmations, 45 concordantes, 75 raccourcis, 20 inversions candidates, 10 hors chaîne. Les huit « étapes sautées » (tableau B du rapport) se traitent après les dix franches.
+- [ ] **Ordre de la chaîne — rendre le graphe interrogeable et faire contrôler le texte** — **non validé par Medwin**, proposé le 06/10/2026 (observation 216 du carnet). Deux pièces : un script qui répond à « je suis à telle étape, quelle est la suivante ? » en lisant le champ `apres`, sur le modèle de `wiki-jevtrouve.py` ; et une extension du lint qui compare chaque « Prochaine étape » écrite dans un skill au graphe, ou la remplace par un bloc généré. À ne faire qu'après le point précédent — sinon l'outil dira une chose et le skill une autre. Dans le même geste : `scripts/carte-chaine-ordonnee.py` du wiki exige 58 skills par une assertion alors que sa logique en lit 59 (non lancé) ; les trois cartes Canvas datent du 15 au 26/08/2026.
+
+Origine de la session : lecture du papier EvoOntology (fiche `~/dev/wiki/evoontology-rech.md`).
+Son plugin n'est pas adapté à la méthode — il vise des données volumineuses, exige un jeu de
+questions noté, vient d'une place de marché tierce. Deux de ses idées sont reprises ci-dessus :
+servir une connaissance par un outil interrogé à la demande, et n'accepter une correction que
+contrôlée.
+
+---
+
 ## Roadmap — comparaison agent-skills vs vibe-method (reste à faire)
 
 Ouverte le 2026-07-28. **Fait et vérifié en conditions réelles** : 3 gaps majeurs (observabilité, doubt-driven-development, source-driven-development) intégrés à `observabilite.md`/`methode.md`/`stack.md` + 4 personas (`code-reviewer`, `security-auditor`, `test-engineer`, `web-performance-auditor`) créées, testées, un bug réel trouvé et corrigé au passage (`lint-observabilite.py`). Voir `vibe-method.peda.md` du 2026-07-28 pour le détail. Reste, par priorité — miroir des cartes GitHub Projects Tâches 30-34 :

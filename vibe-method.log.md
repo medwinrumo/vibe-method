@@ -406,3 +406,28 @@ Commits : `dcbb5aa` `acc9ded` (vibe-method), `98ea544` (hermes-config), `c49f9e4
 - `vibe-method.engagements.md` créé (E-1 à E-4) à la demande du hook `stop-engagements.sh`
 - `vibe-method.todo.md` : rubrique « Emprunts à Spec Kit — décidés le 08/09/2026 »
 - Pas de push à ce commit ; push au `/maj`
+
+---
+
+## 2026-10-06 — Papier Taste-Bench lu, fiche wiki écrite, projet TASTE nommé et reporté
+
+### Lecture
+- Papier arXiv 2609.25804v2 (*The Tasteful Agent*, prépublication du 23/09/2026) récupéré par `curl` et lu en entier, annexes comprises — aucun outil Firecrawl chargé dans la session
+- Wiki consulté d'abord : rien sur le sujet (Jev désignait `memoire-agentic`, confiance 0,36)
+- Jeu de données (Hugging Face, CC-BY-4.0) et code (GitHub, MIT) vérifiés par appel aux API, non téléchargés
+
+### Wiki (commits `04144c7`, `373f7b1`, `780c7ad`, `000f622`)
+- `taste-bench-rech.md` créée : synthèse, chiffres par modèle, limites, cinq pistes d'emprunt et deux écartées
+- Correction sur objection de Medwin : la piste « petit modèle conseiller entraîné en local » sortie des écartées, reclassée piste 6 — le motif d'écart était faux
+- Tableau « la vidéo confrontée au papier » ajouté : huit affirmations d'une vidéo YouTube (transcription fournie par Medwin) en regard de ce que le papier mesure
+- Lien retour depuis `memoire-agentic.md`, index régénéré, `journal-log.md` tenu, lint sans erreur à chaque commit
+
+### Décision de Medwin
+- L'ensemble s'appelle « projet TASTE » ; test reporté sans date, reprise à son initiative
+- Aucune piste arbitrée, aucun skill ni doctrine modifié
+
+### vibe-method
+- `vibe-method.todo.md` : rubrique « Projet TASTE », une tâche ouverte (compter les détours sur dix sessions, non validée) ; carte GitHub Projects créée
+- `vibe-method.engagements.md` : E-5 (report)
+- `CLAUDE.md` : mention du projet dans « Ce qui reste à construire »
+- Mémoire `project_taste.md` écrite ; observations 210 (`/firecrawl`) et 211 (motif d'écart) au carnet

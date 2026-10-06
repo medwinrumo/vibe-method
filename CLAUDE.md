@@ -100,6 +100,10 @@ d'être cochée. Détail dans `vibe-method.todo.md` et `vibe-method.log.md`.
 issue à écrire dans `/readyTo-code` (préalable fait : règles numérotées dans
 `/specs`) ; passe d'écart code ↔ spec reportée jusqu'à une feature codée sur
 RAMrezo.
+**Projet TASTE — nommé et reporté le 06/10/2026, sans date** : exploitation du papier
+Taste-Bench (jugement d'un agent aux embranchements). Source et pistes dans
+`~/dev/wiki/taste-bench-rech.md` ; rien n'est arbitré ni lancé ; première étape
+envisagée dans `vibe-method.todo.md`. Reprise à l'initiative de Medwin.
 
 ---
 

@@ -1122,3 +1122,54 @@ Les deux chantiers ont été faits dans le tour. Dans `specs.md`, chaque règle 
 **Ce qui reste ouvert**
 
 Le contrôle de couverture (point 1) attend que `/gherkin` Mode Specs et `/to-issues` citent les identifiants, puis une étape 8 dans `/readyTo-code`. La passe d'écart code ↔ spec (point 2) attend une feature codée sur RAMrezo. Le mécanisme d'écriture des décisions n'a pas encore tourné sur un vrai `/angles-morts`.
+
+## 2026-10-06
+
+### Session — Lecture du papier Taste-Bench et naissance du projet TASTE
+
+**Point de départ**
+
+Medwin a posé un lien arXiv avec deux demandes : lire le papier, dire comment « nous » pouvons l'exploiter. Il avait vu de son côté une vidéo YouTube sur le même papier — ce que je ne savais pas au premier tour.
+
+**Ce que dit le papier, en clair**
+
+Sur une tâche longue, un agent prend des décisions dont le coût n'apparaît que beaucoup plus tard. Les auteurs appellent « goût » la capacité à choisir la bonne direction à un embranchement, avant d'en voir l'issue. Leur idée : la fin d'un parcours enregistré prouve après coup ce que valait une décision du début. On fige le parcours à l'embranchement, on cache la suite, on demande à un modèle de choisir. Trois résultats à retenir :
+
+1. Aucun modèle n'est bon : 59,7 % pour le meilleur, quand le hasard donne 25 %.
+2. Plus la preuve est loin dans le futur, plus les modèles se trompent — de 62 % quand elle est sous leurs yeux à 21 % quand elle demande du travail.
+3. Faire réfléchir le modèle plus longtemps ne change rien. Ce qui manque n'est pas de la réflexion, c'est une information qui n'existe pas encore.
+
+**Comment la lecture a été menée**
+
+Le wiki d'abord, comme le veut la règle : rien. Puis la page entière, annexes comprises, par `curl` et conversion en texte — pas par un outil de résumé. Les annexes contenaient ce qu'il y avait de plus réutilisable : la grille qui sert à extraire un « détour » d'un parcours, et la forme des notes servies à l'agent. Un résumé les aurait laissées de côté.
+
+**L'erreur de la session, et ce qu'elle apprend**
+
+J'ai classé « entraîner un modèle » parmi les pistes écartées, au motif que nous travaillons avec Claude par API. Medwin a contesté : la vidéo qu'il avait vue concluait l'inverse. Relecture faite, mon motif était faux. Le papier n'entraîne pas le modèle qui fait le travail : il entraîne un conseiller à côté, qui parle à l'exécutant par du texte. L'exécutant peut donc être Claude.
+
+J'avais bien expliqué pourquoi j'écartais — la règle était respectée dans sa lettre. Mais l'explication visait une version de la piste que personne ne proposait. **Un motif d'écart se teste contre la meilleure formulation de ce qu'il écarte.** (Observation 211.)
+
+**La vidéo confrontée au papier**
+
+Medwin a fourni la transcription. Elle restitue fidèlement les mesures. Elle va plus loin que le papier sur l'usage, et c'est là qu'il faut distinguer ce qui est mesuré de ce qui est extrapolé :
+
+- Le gain de 14 % à 33 % est obtenu avec un exécutant qui est le même petit modèle que le conseiller — pas un gros modèle conseillé par un petit.
+- Le conseiller ne repère pas les embranchements : il choisit entre deux options qu'on lui fournit, tirées d'exécutions passées de la même tâche.
+- « 500 conversations suffisent » : les 502 cas sont ce qui reste de 4 657 candidats, tirés de 3 809 exécutions notées.
+- La méthode a besoin d'un résultat objectif enregistré (des tests qui passent ou échouent). Sans correcteur objectif, il n'y a pas de bonne réponse à apprendre.
+
+Ni Medwin ni moi n'avions entièrement raison au départ : la piste n'était pas sans objet, et elle n'est pas démontrée non plus. C'est la confrontation des deux sources, ligne par ligne, qui a donné une position tenable.
+
+**Ce qui a été décidé**
+
+Rien n'est lancé. Medwin a nommé l'ensemble « projet TASTE » et l'a reporté sans date. La première étape envisagée — compter combien de détours exploitables contiennent dix sessions passées — n'est pas validée ; elle sert à savoir s'il y a assez de matière pour que la suite ait un sens. Le verrou identifié n'est pas l'entraînement, c'est la matière première.
+
+**Ce qu'il faut retenir de la mécanique de la session**
+
+1. **Lire les annexes.** Les deux parties réutilisables du papier n'étaient pas dans le texte principal.
+2. **Une source secondaire qui restitue bien les chiffres peut extrapoler sur l'usage.** Les deux se vérifient séparément.
+3. **Un nom de projet se range là où toutes les sessions le trouveront.** La mémoire de Claude n'est chargée que dans le dossier `vibe-method` ; le nom « projet TASTE » a donc aussi été inscrit dans la fiche du wiki.
+
+**Où retrouver le détail**
+
+`~/dev/wiki/taste-bench-rech.md` — synthèse, limites, six pistes, tableau vidéo / papier.

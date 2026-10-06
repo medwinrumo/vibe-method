@@ -146,6 +146,17 @@ point 2) ; le point 3 n'a pas eu de carte, fait dans la session qui l'a décidé
 - [x] ~~**Écriture des décisions dans le tour** (point 3)~~ — **fait le 08/09/2026** dans `angles-morts.md` étape 4 : trois gestes (tracer sous `## Clarifications / ### Session`, appliquer en remplaçant le texte devenu faux, enregistrer à chaque décision) ; le point 4 absorbé en étape 3 (garde « la question interroge l'énoncé, pas le comportement »). `workflow-doc.md` corrigé (« Fichier produit : aucun » → le document source). Journal du wiki du 08/09. Lint : aucun signalement nouveau sur les trois fiches. Pas encore exercé sur un projet réel — première passe `/angles-morts` RAMrezo à venir dira si la forme de la ligne de trace tient.
 - [ ] **Passe d'écart code ↔ spec** (point 2, calqué sur `/speckit.converge`) — **reporté**, chantier distinct : lit la spec et le code, classe manquant / partiel / contredit / non demandé, propose des tâches, ne touche ni code ni spec. Cible : mode de `code-review.md`, avant `/recette`. Ne se teste que sur du code réel — terrain : RAMrezo. À reprendre quand RAMrezo aura une feature codée.
 
+### Projet TASTE — nommé et reporté le 06/10/2026, sans date
+
+Exploitation du papier arXiv 2609.25804v2 (*The Tasteful Agent*, Taste-Bench) : mesurer
+et améliorer la façon dont un agent choisit sa direction à un embranchement, avant d'en
+voir l'issue. Source, limites et six pistes dans `~/dev/wiki/taste-bench-rech.md`.
+**Aucune piste n'est arbitrée, rien n'est lancé.** Medwin, le 06/10/2026 : « ce sera un
+test intéressant à faire mais pas maintenant […] on reprendra ça plus tard ». Reprise à
+son initiative. Carte GitHub Projects créée le 06/10/2026.
+
+- [ ] **Projet TASTE — compter les détours exploitables sur 10 sessions passées** — première étape envisagée, **non validée par Medwin**. Un détour : l'agent s'engage dans une direction, bute sur un échec observé (code de sortie non nul, erreur), se reprend et réussit. Grille d'extraction : annexe A.3 du papier, restituée dans la fiche wiki. Étape commune à deux pistes — servir ces détours en notes de pièges (pistes 3 et 4), et entraîner un petit modèle conseiller (piste 6). Matière disponible le 06/10/2026 : 51 transcripts de session Claude Code sur le Mac, dont 37 de plus de 1 Mo. Coût : une lecture complète de chaque transcript par un modèle. Ce que la mesure tranche : s'il y a assez de matière pour que la suite ait un sens.
+
 ---
 
 ## Roadmap — comparaison agent-skills vs vibe-method (reste à faire)
